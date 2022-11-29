@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ServiciosController extends Controller
@@ -23,9 +24,12 @@ class ServiciosController extends Controller
         ]);
 
         if($request->hasFile("filepond")){
+            $user = User::find($request->user_id);
             $file = $request->file('filepond');
-            $filename = time() . "_" . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $filename, 'public');
+            $filename = $user->id . $user->name . "." . $file->guessExtension();
+            $filePath = $file->storeAs('uploads/usuarios', $filename, 'public');
+            $user->user_image = $filePath;
+            $user->save();
             return $filePath;
         }
 

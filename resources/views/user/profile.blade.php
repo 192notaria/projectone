@@ -28,10 +28,8 @@
 <script>
     FilePond.create(
         document.querySelector('.filepond'),{
-            storeAsFile: true,
-            allowMultiple: false,
             instantUpload: false,
-            allowProcess: false,
+            // allowProcess: false,
             labelIdle: `<span class="no-image-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> <p class="drag-para">Drag & Drop your picture or <span class="filepond--label-action" tabindex="0">Browse</span></p>`,
             imagePreviewHeight: 170,
             imageCropAspectRatio: '1:1',
@@ -54,10 +52,15 @@
     );
 
     FilePond.setOptions({
-    server:{
-        url: '/changeFilePicture',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        server:{
+            url: '/administracion/servicios/uploadFile/{{auth()->user()->id}}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            process:{
+                onload: (response) => {
+                    console.log(response)
+                }, // saving response in global array
             }
         }
     });

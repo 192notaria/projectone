@@ -25,10 +25,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/user/profile', function () {
     return view('user.profile');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('user_profile');
 
 require __DIR__.'/auth.php';
-Route::post('/administracion/servicios/uploadFile', [ServiciosController::class, "uploadFiles"])->name("upload-files");
+Route::post('/administracion/servicios/uploadFile/{user_id}', [ServiciosController::class, "uploadFiles"])->name("upload-files");
 
 Route::group(['middleware' => ['auth']], function(){
     // ADMINISTRACION

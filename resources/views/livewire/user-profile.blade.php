@@ -46,7 +46,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        <label for="fullName">Full Name</label>
+                                                                        <label for="fullName">Nombre</label>
                                                                         <input type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->name}}">
                                                                     </div>
                                                                 </div>
@@ -101,7 +101,6 @@
                                                                 </div>
                                                                 <div class="col-md-12 mt-1">
                                                                     <div class="form-group text-end">
-                                                                        <button onclick="loadData()" type="button" class="btn btn-secondary" id="editbutton">Edit</button>
                                                                         <button type="button" wire:click='editProfile' class="btn btn-secondary">Save</button>
                                                                     </div>
                                                                 </div>

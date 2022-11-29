@@ -37,12 +37,11 @@
 
             @livewire('notifications-component')
 
-
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar-container">
                         <div class="avatar avatar-sm avatar-indicators avatar-online">
-                            <img alt="avatar" src="{{ auth()->user_image ?? asset("v3/src/assets/img/g-8.png") }}" class="rounded-circle">
+                            <img  src="/{{ auth()->user()->user_image ?? asset("/v3/src/assets/img/g-8.png") }}" class="rounded-circle">
                         </div>
                     </div>
                 </a>
