@@ -28,7 +28,7 @@ class ServiciosController extends Controller
             $file = $request->file('filepond');
             $filename = $user->id . $user->name . "." . $file->guessExtension();
             $filePath = $file->storeAs('uploads/usuarios', $filename, 'public');
-            $user->user_image = $filePath;
+            $user->user_image = "storage/" . $filePath;
             $user->save();
             return $filePath;
         }
