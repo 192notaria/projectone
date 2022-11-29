@@ -74,6 +74,10 @@ class UserProfile extends Component
         $user->fecha_nacimiento =  $validatedData['fecha_nacimiento'];
         $user->telefono =  $validatedData['telefono'];
         $user->save();
+
+        notifyAdmins("Datos actualizados",
+        auth()->user()->name . " " . auth()->user()->apaterno . " ha actualizado sus datos generales",
+         "private", "Datos actualizados", auth()->user()->id);
     }
 
 

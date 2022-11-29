@@ -36,8 +36,8 @@
                                                 <div class="row">
                                                     <div class="col-xl-2 col-lg-12 col-md-4">
                                                         <div class="profile-image  mt-4 pe-md-4">
-                                                            <div class="img-uploader-content">
-                                                                <input id="filepondid" type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
+                                                            <div class="img-uploader-content" wire:ignore>
+                                                                <input id="filepondid" type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif">
                                                             </div>
                                                         </div>
                                                     </div>

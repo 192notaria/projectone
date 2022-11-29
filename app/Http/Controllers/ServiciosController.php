@@ -32,7 +32,7 @@ class ServiciosController extends Controller
             $user->save();
             notifyAdmins("Foto de perfil actualizada",
             auth()->user()->name . " " . auth()->user()->apaterno . " ha actualizado su foto de perfil",
-            "private", "Foto de perfil actualizada, porfavor actualiza la pagina...", auth()->user()->id);
+            "private", "Foto de perfil actualizada, porfavor actualiza la pagina para ver los cambios en tu foto...", auth()->user()->id);
 
             return $filePath;
         }
