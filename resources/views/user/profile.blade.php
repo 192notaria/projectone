@@ -42,7 +42,7 @@
             styleButtonProcessItemPosition: 'right bottom',
             files: [
                 {
-                    source: '{{url(auth()->user()->user_image)}}',
+                    source: '/storage/{{url(auth()->user()->user_image)}}',
                     options: {
                         type: 'image/png',
                     },
