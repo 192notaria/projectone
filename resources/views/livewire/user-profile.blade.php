@@ -47,28 +47,28 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="fullName">Nombre</label>
-                                                                        <input type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->name}}">
+                                                                        <input wire:model='nombre' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->name}}">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="profession">Apellido Paterno</label>
-                                                                        <input type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->apaterno}}">
+                                                                        <input wire:model='apaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->apaterno}}">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="profession">Apellido Materno</label>
-                                                                        <input type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->amaterno}}">
+                                                                        <input wire:model='amaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->amaterno}}">
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="country">Genero</label>
-                                                                        <select class="form-select mb-3" id="country" value="{{auth()->user()->genero}}">
+                                                                        <select wire:model='genero' class="form-select mb-3" id="country" value="{{auth()->user()->genero}}">
                                                                             <option disabled>Seleccionar...</option>
                                                                             <option value="MASCULINO">MASCULINO</option>
                                                                             <option value="FEMENINO">FEMENINO</option>
@@ -76,10 +76,10 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="country">Ocupacion</label>
-                                                                        <select class="form-select mb-3" id="country" value="{{auth()->user()->ocupacion}}">
+                                                                        <select wire:model='ocupacion' class="form-select mb-3" id="country" value="{{auth()->user()->ocupacion}}">
                                                                             <option disabled>Seleccionar...</option>
                                                                             @foreach ($ocupaciones as $ocupacion)
                                                                                 <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
@@ -87,10 +87,17 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label for="country">Fecha de nacimiento</label>
+                                                                        <input wire:model='fecha_nacimiento' type="date" class="form-control">
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="phone">Telefono</label>
-                                                                        <input type="number" class="form-control mb-3" id="phone" placeholder="Write your phone number here" value="{{auth()->user()->telefono}}">
+                                                                        <input wire:model='telefono' type="number" class="form-control mb-3" id="phone" placeholder="Write your phone number here" value="{{auth()->user()->telefono}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -99,9 +106,21 @@
                                                                         <input type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="{{auth()->user()->email}}" disabled>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Contraseña</label>
+                                                                        <input wire:model='contraseña' type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="{{auth()->user()->email}}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Confirmacion de contraseña</label>
+                                                                        <input wire:model='confirmacion_contraseña' type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="{{auth()->user()->email}}" disabled>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-12 mt-1">
                                                                     <div class="form-group text-end">
-                                                                        <button type="button" wire:click='editProfile' class="btn btn-secondary">Save</button>
+                                                                        <button type="button" wire:click='saveData' class="btn btn-secondary">Save</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
