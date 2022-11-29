@@ -43,7 +43,7 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar-container">
                         <div class="avatar avatar-sm avatar-indicators avatar-online">
-                            <img  src="/{{ auth()->user()->user_image ?? asset("/v3/src/assets/img/g-8.png") }}" class="rounded-circle">
+                            <img  src="{{ auth()->user()->user_image ?? asset("/v3/src/assets/img/g-8.png") }}" class="rounded-circle">
                         </div>
                     </div>
                 </a>
