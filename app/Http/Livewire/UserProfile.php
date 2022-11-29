@@ -17,6 +17,26 @@ class UserProfile extends Component
         ]);
     }
 
+    public $nombre;
+    public $apaterno;
+    public $amaterno;
+    public $genero;
+    public $ocupacion;
+    public $fecha_nacimiento;
+    public $telefono;
+    public $contraseña;
+    public $confirmacion_contraseña;
+
+    public function mount(){
+        $this->nombre = auth()->user()->name;
+        $this->apaterno = auth()->user()->apaterno;
+        $this->amaterno = auth()->user()->amaterno;
+        $this->genero = auth()->user()->genero;
+        $this->ocupacion = auth()->user()->ocupacion;
+        $this->fecha_nacimiento = auth()->user()->fecha_nacimiento;
+        $this->telefono = auth()->user()->telefono;
+    }
+
     protected function rules(){
         return [
             'nombre' => 'required|min:3',
@@ -26,7 +46,7 @@ class UserProfile extends Component
             'ocupacion' => 'required',
             'fecha_nacimiento' => 'required',
             'telefono' => 'required|min:10',
-            'contraseña' => 'min:8',
+            'contraseña' => $this->contraseña != "" ? 'min:8' : "",
             'confirmacion_contraseña' => 'same:password'
         ];
     }
@@ -35,20 +55,25 @@ class UserProfile extends Component
         $this->validateOnly($propertyName);
     }
 
-    public $nombre, $apaterno, $amaterno, $genero, $ocupacion, $fecha_nacimiento, $telefono, $contraseña, $confirmacion_contraseña;
-
     public function saveData(){
         $validatedData = $this->validate();
         if(empty($validatedData['password'])){
             $validatedData = Arr::except($validatedData, array('contraseña'));
         }
 
-        $validatedData['name'] = mb_strtoupper($validatedData['name']);
+        $validatedData['nombre'] = mb_strtoupper($validatedData['nombre']);
         $validatedData['apaterno'] = mb_strtoupper($validatedData['apaterno']);
         $validatedData['amaterno'] = mb_strtoupper($validatedData['amaterno']);
 
         $user = User::find(auth()->user()->id);
-        $user->update($validatedData);
+        $user->name =  $validatedData['nombre'];
+        $user->apaterno =  $validatedData['apaterno'];
+        $user->amaterno =  $validatedData['amaterno'];
+        $user->genero =  $validatedData['genero'];
+        $user->ocupacion =  $validatedData['ocupacion'];
+        $user->fecha_nacimiento =  $validatedData['fecha_nacimiento'];
+        $user->telefono =  $validatedData['telefono'];
+        $user->save();
     }
 
 

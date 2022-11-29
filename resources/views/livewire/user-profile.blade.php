@@ -37,7 +37,7 @@
                                                     <div class="col-xl-2 col-lg-12 col-md-4">
                                                         <div class="profile-image  mt-4 pe-md-4">
                                                             <div class="img-uploader-content">
-                                                                <input id="filepondid" wire:model='user_img' type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
+                                                                <input id="filepondid" type="file" class="filepond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -47,44 +47,59 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="fullName">Nombre</label>
-                                                                        <input wire:model='nombre' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->name}}">
+                                                                        <input wire:model='nombre' type="text" class="form-control mb-3" id="fullName" placeholder="Nombre">
+                                                                        @error('nombre')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="profession">Apellido Paterno</label>
-                                                                        <input wire:model='apaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->apaterno}}">
+                                                                        <input wire:model='apaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name">
+                                                                        @error('apaterno')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="profession">Apellido Materno</label>
-                                                                        <input wire:model='amaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name" value="{{auth()->user()->amaterno}}">
+                                                                        <input wire:model='amaterno' type="text" class="form-control mb-3" id="fullName" placeholder="Full Name">
+                                                                        @error('amaterno')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="country">Genero</label>
-                                                                        <select wire:model='genero' class="form-select mb-3" id="country" value="{{auth()->user()->genero}}">
+                                                                        <select wire:model='genero' class="form-select mb-3" id="country">
                                                                             <option disabled>Seleccionar...</option>
                                                                             <option value="MASCULINO">MASCULINO</option>
                                                                             <option value="FEMENINO">FEMENINO</option>
                                                                         </select>
+                                                                        @error('genero')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="country">Ocupacion</label>
-                                                                        <select wire:model='ocupacion' class="form-select mb-3" id="country" value="{{auth()->user()->ocupacion}}">
-                                                                            <option disabled>Seleccionar...</option>
+                                                                        <select wire:model='ocupacion' class="form-select mb-3" id="country">
+                                                                            <option value="" selected disabled>Seleccionar...</option>
                                                                             @foreach ($ocupaciones as $ocupacion)
                                                                                 <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
                                                                             @endforeach
                                                                         </select>
+                                                                        @error('ocupacion')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
 
@@ -92,12 +107,18 @@
                                                                     <div class="form-group">
                                                                         <label for="country">Fecha de nacimiento</label>
                                                                         <input wire:model='fecha_nacimiento' type="date" class="form-control">
+                                                                        @error('fecha_nacimiento')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="phone">Telefono</label>
-                                                                        <input wire:model='telefono' type="number" class="form-control mb-3" id="phone" placeholder="Write your phone number here" value="{{auth()->user()->telefono}}">
+                                                                        <input wire:model='telefono' type="number" class="form-control mb-3" id="phone" placeholder="Telefono">
+                                                                        @error('telefono')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -109,13 +130,19 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="email">Contraseña</label>
-                                                                        <input wire:model='contraseña' type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="{{auth()->user()->email}}" disabled>
+                                                                        <input wire:model='contraseña' type="text" class="form-control mb-3" id="email" placeholder="Contraseña">
+                                                                        @error('contraseña')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="email">Confirmacion de contraseña</label>
-                                                                        <input wire:model='confirmacion_contraseña' type="text" class="form-control mb-3" id="email" placeholder="Write your email here" value="{{auth()->user()->email}}" disabled>
+                                                                        <input wire:model='confirmacion_contraseña' type="text" class="form-control mb-3" id="email" placeholder="Confirmacion de contraseña">
+                                                                        @error('confirmacion_contraseña')
+                                                                            <span class="text-danger">{{$message}}</span>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 mt-1">
