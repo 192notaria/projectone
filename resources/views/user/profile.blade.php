@@ -10,12 +10,18 @@
     <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('v3/src/assets/css/dark/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('v3/src/assets/css/light/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('content')
     @livewire('user-profile')
 @endsection
 
 @section('scripts-content')
+<script src="{{url('v3/src/assets/js/users/account-settings.js')}}"></script>
+
     <script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
     <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
     <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>

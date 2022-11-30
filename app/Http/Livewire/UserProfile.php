@@ -6,7 +6,7 @@ use App\Models\Ocupaciones;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserProfile extends Component
 {
@@ -24,8 +24,8 @@ class UserProfile extends Component
     public $ocupacion;
     public $fecha_nacimiento;
     public $telefono;
-    public $contraseña;
-    public $confirmacion_contraseña;
+    public $contrasena;
+    public $confirmacion_contrasena;
 
     public function mount(){
         $this->nombre = auth()->user()->name;
@@ -46,8 +46,8 @@ class UserProfile extends Component
             'ocupacion' => 'required',
             'fecha_nacimiento' => 'required',
             'telefono' => 'required|min:10',
-            'contraseña' => $this->contraseña != "" ? 'min:8' : "",
-            'confirmacion_contraseña' => 'same:password'
+            'contrasena' => $this->contrasena != "" ? 'min:8' : "",
+            'confirmacion_contrasena' => 'same:contrasena'
         ];
     }
 
@@ -57,9 +57,6 @@ class UserProfile extends Component
 
     public function saveData(){
         $validatedData = $this->validate();
-        if(empty($validatedData['password'])){
-            $validatedData = Arr::except($validatedData, array('contraseña'));
-        }
 
         $validatedData['nombre'] = mb_strtoupper($validatedData['nombre']);
         $validatedData['apaterno'] = mb_strtoupper($validatedData['apaterno']);
@@ -73,11 +70,15 @@ class UserProfile extends Component
         $user->ocupacion =  $validatedData['ocupacion'];
         $user->fecha_nacimiento =  $validatedData['fecha_nacimiento'];
         $user->telefono =  $validatedData['telefono'];
+        if($this->contrasena != ""){
+            $user->password = Hash::make($this->contrasena);
+        }
+
         $user->save();
 
         notifyAdmins("Datos actualizados",
-        auth()->user()->name . " " . auth()->user()->apaterno . " ha actualizado sus datos generales",
-         "private", "Datos actualizados", auth()->user()->id);
+            auth()->user()->name . " " . auth()->user()->apaterno . " ha actualizado sus datos generales",
+            "private", "Datos actualizados", auth()->user()->id);
     }
 
 

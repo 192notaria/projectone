@@ -130,8 +130,8 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="email">Contraseña</label>
-                                                                        <input wire:model='contraseña' type="text" class="form-control mb-3" id="email" placeholder="Contraseña">
-                                                                        @error('contraseña')
+                                                                        <input wire:model='contrasena' type="password" class="form-control mb-3" id="email" placeholder="Contraseña">
+                                                                        @error('contrasena')
                                                                             <span class="text-danger">{{$message}}</span>
                                                                         @enderror
                                                                     </div>
@@ -139,15 +139,15 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for="email">Confirmacion de contraseña</label>
-                                                                        <input wire:model='confirmacion_contraseña' type="text" class="form-control mb-3" id="email" placeholder="Confirmacion de contraseña">
-                                                                        @error('confirmacion_contraseña')
+                                                                        <input wire:model='confirmacion_contrasena' type="password" class="form-control mb-3" id="email" placeholder="Confirmacion de contraseña">
+                                                                        @error('confirmacion_contrasena')
                                                                             <span class="text-danger">{{$message}}</span>
                                                                         @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 mt-1">
                                                                     <div class="form-group text-end">
-                                                                        <button type="button" wire:click='saveData' class="btn btn-secondary">Save</button>
+                                                                        <button type="button" wire:click='saveData' class="btn btn-primary">Guardar</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

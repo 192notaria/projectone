@@ -17,17 +17,18 @@ class Admin extends Seeder
     public function run()
     {
         $user = User::create([
+            "id" => 1,
             "name" => "admin",
             "apaterno" => "admin",
             "amaterno" => "admin",
             "genero" => "ADMIN",
             "telefono" => "1234567890",
             "fecha_nacimiento" => date('Y-m-d H:i:s', time()),
-            "ocupacion" => "1",
+            "ocupacion" => 44,
             "user_image" => "v3/src/assets/img/g-8.png",
             "email" => "admin@admin.com",
             "email_verified_at" => null,
-            "password" => Hash::make("admin_pk2f74n_2022"),
+            "password" => Hash::make("root"),
             "remember_token" => null,
             "created_at" => date('Y-m-d H:i:s', time()),
             "updated_at" => date('Y-m-d H:i:s', time()),
