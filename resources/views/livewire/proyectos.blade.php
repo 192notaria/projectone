@@ -117,7 +117,7 @@
                     <tbody>
                         @if (count($proyectos) > 0)
                             @foreach ($proyectos as $proyecto)
-                                @if (Auth::user()->hasRole('ABOGADO DE APOYO'))
+                                @if (Auth::user()->hasRole('ABOGADO DE APOYO') || Auth::user()->hasRole('RECEPCIONISTA'))
                                     @foreach ($proyecto->apoyo as $apoyo)
                                         @if ($apoyo->abogado_apoyo_id == auth()->user()->id)
                                             @include('livewire.resource.tr_proyectos')
