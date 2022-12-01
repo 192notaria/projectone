@@ -6,7 +6,7 @@
                 <img alt="avatar" src="{{$proyecto->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div>
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
+                {{$proyecto->id}}<h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
                 <p>
                     <span class="fw-bold">Servicio:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
