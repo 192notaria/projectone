@@ -135,6 +135,7 @@
                                     @include('livewire.resource.tr_proyectos')
                                 @endforeach
                             @endif
+
                         @else
                             <td colspan="6" class="text-center">
                                 Sin registros...
