@@ -123,16 +123,18 @@
                                             @include('livewire.resource.tr_proyectos')
                                         @endif
                                     @endforeach
-                                @elseif (Auth::user()->hasRole('RECEPCIONISTA'))
-                                    @foreach ($proyecto->apoyo as $apoyo)
-                                        @include('livewire.resource.tr_proyectos')
-                                    @endforeach
                                 @else
                                     @if ($proyecto->usuario_id == auth()->user()->id || Auth::user()->hasRole('ADMINISTRADOR'))
                                         @include('livewire.resource.tr_proyectos')
                                     @endif
                                 @endif
                             @endforeach
+
+                            @if (Auth::user()->hasRole('RECEPCIONISTA'))
+                                @foreach ($proyectos as $proyecto)
+                                    @include('livewire.resource.tr_proyectos')
+                                @endforeach
+                            @endif
                         @else
                             <td colspan="6" class="text-center">
                                 Sin registros...
