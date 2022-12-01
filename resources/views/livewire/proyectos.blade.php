@@ -148,6 +148,10 @@
         <p>{{$subprocesoActual}}</p>
         {{-- <p>{{$subprocesoActual->tiposub}}</p> --}}
         @if (isset($subprocesoActual->tiposub->id))
+            @if ($subprocesoActual->tiposub->id == 1)
+                @include("livewire.modals.testigos")
+            @endif
+
             @if ($subprocesoActual->tiposub->id == 4)
                 @include("livewire.modals.generalescondocumentos")
             @endif

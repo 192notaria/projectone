@@ -35,7 +35,7 @@
                         <td>
                             <div class="media">
                                 <div class="avatar me-2">
-                                    <img alt="avatar" src="{{ auth()->user()->user_image != "default_image" ? asset( auth()->user()->user_image ) : asset("v3/src/assets/img/g-8.png") }}" class="rounded-circle" />
+                                    <img alt="avatar" src="{{$usuario->user_image}}" class="rounded-circle" />
                                 </div>
                                 <div class="media-body align-self-center">
                                     <h6 class="mb-0">{{$usuario->name}} {{$usuario->apaterno}} {{$usuario->amaterno}}</h6>

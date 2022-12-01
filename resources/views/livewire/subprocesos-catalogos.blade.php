@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <div style="display:flex; align-items:right;">
-            <button type="button" wire:click='openModal' class="btn btn-outline-success">
+            <button type="button" wire:click='openModal("")' class="btn btn-outline-success">
                 <i class="fa-solid fa-user-plus"></i>
             </button>
             <select wire:model='cantidadSubprocesos' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
@@ -129,7 +129,7 @@
                                     <td class="text-center">
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                <button wire:click='openModal({{$subproceso->id}})' type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
                                                 <button data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                             </div>
                                         </div>

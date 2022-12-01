@@ -11,5 +11,6 @@ class CatalogosTipo extends Model
     public $table = "catalogos_tipos";
     protected $fillable = [
         "nombre",
+        "tipo_id",
     ];
 }

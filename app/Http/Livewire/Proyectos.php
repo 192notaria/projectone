@@ -108,8 +108,14 @@ class Proyectos extends Component
                 })->get(),
             "abogados_apoyo" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
                 ->whereHas("roles", function($data){
-                    $data->where('name', "ABOGADO DE APOYO");
-                })->get()
+                    $data
+                        ->where('name', "ABOGADO DE APOYO")
+                        ->orWhere('name', "ABOGADO");
+                })->get(),
+            "testigos" => $this->tituloModal == "Generales de los testigos" ?
+                Generales::where('tipo', 'Generales de los testigos')
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get() : []
         ]);
     }
 
@@ -251,12 +257,12 @@ class Proyectos extends Component
 
     public function registrarAsignacion(){
         $this->validate([
-            'acta_nac' => 'required|mimes:pdf|max:20000',
-            'acta_matrimonio' => 'required|mimes:pdf|max:20000',
+            'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf|max:20000' : "",
+            'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf|max:20000' : "",
             'curp' => 'required|mimes:pdf|max:20000',
             'rfc' => 'required|mimes:pdf|max:20000',
             'identificacion_oficial' => 'required|mimes:pdf|max:20000',
-            'comprobante_domicilio' => 'required|mimes:pdf|max:20000',
+            'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf|max:20000' : '',
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
@@ -312,6 +318,43 @@ class Proyectos extends Component
 
         $generales->save();
 
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+        $this->closeModal();
+        $this->firebase($this->proyecto_id);
+    }
+
+    public function registrarTestigo(){
+        $this->validate([
+            'identificacion_oficial' => 'required|mimes:pdf|max:20000',
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        $generales = new Generales;
+        $generales->cliente_id = $this->tipoGenerales['id'];
+        $generales->proyecto_id = $this->proyecto_id;
+        $generales->tipo = $this->subprocesoActual->nombre;
+
+        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'];
+        if($this->identificacion_oficial != ""){
+            $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
+            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial);
+            $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
+        }
+
+        $this->tipoGenerales = "";
+        $generales->save();
+    }
+
+    public function borrarTestigo($id){
+        Generales::find($id)->delete();
+    }
+
+    public function guardarTestigos(){
         $avanceProyecto = new AvanceProyecto;
         $avanceProyecto->proyecto_id = $this->proyecto_id;
         $avanceProyecto->proceso_id = $this->procesoActual['id'];
@@ -696,4 +739,6 @@ class Proyectos extends Component
         $this->imgobservacion = "";
         $this->modalVerObservaciones = false;
     }
+
+
 }

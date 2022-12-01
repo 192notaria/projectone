@@ -16,7 +16,14 @@ class SubprocesosCatalogos extends Component
     public $id_subproceso, $nombresubproceso, $tiposub;
     public $cantidadSubprocesos = 10;
 
-    public function openModal(){
+    public function openModal($id){
+        if($id != ""){
+            $subproceso = ModelsSubprocesosCatalogos::find($id);
+            $this->id_subproceso = $subproceso->id;
+            $this->nombresubproceso = $subproceso->nombre;
+            $this->tiposub = $subproceso->tiposub->id ?? "";
+        }
+
         $this->modalNewSubproceso = true;
     }
 
@@ -40,17 +47,25 @@ class SubprocesosCatalogos extends Component
     }
 
     public function save(){
-        $validatedData = $this->validate([
+        $this->validate([
             'nombresubproceso' => 'required|min:3|unique:subprocesos_catalogos,nombre,' . $this->id_subproceso,
             'tiposub' => 'required',
         ]);
+
+        if($this->id_subproceso != ""){
+            $newsubproceso = ModelsSubprocesosCatalogos::find($this->id_subproceso);
+            $newsubproceso->nombre = $this->nombresubproceso;
+            $newsubproceso->tipo_id = $this->tiposub;
+            $newsubproceso->save();
+            return $this->closeModal();
+        }
+
         $newsubproceso = new ModelsSubprocesosCatalogos();
         $newsubproceso->nombre = $this->nombresubproceso;
         $newsubproceso->tipo_id = $this->tiposub;
-        $newsubproceso->updateOrCreate(['id' => $this->id_subproceso],[
-            "nombre" => $this->nombresubproceso,
-            "tipo_id" => $this->tiposub,
-        ]);
-        $this->closeModal();
+        $newsubproceso->save();
+        return $this->closeModal();
+
+
     }
 }

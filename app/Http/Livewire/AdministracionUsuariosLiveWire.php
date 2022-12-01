@@ -26,7 +26,7 @@ class AdministracionUsuariosLiveWire extends Component {
 
     public $id_usuario, $name, $apaterno, $amaterno, $email, $genero, $ocupacion, $fecha_nacimiento, $telefono, $password, $password_confirmation;
 
-    public $user_image = "v3/src/assets/img/g-8.png";
+    public $user_image = "/v3/src/assets/img/g-8.png";
 
     public function updatingSearch(){
         $this->resetPage();
