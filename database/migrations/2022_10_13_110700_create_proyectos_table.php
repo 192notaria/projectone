@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("servicio_id")->nullable();
             $table->unsignedBigInteger("cliente_id")->nullable();
             $table->unsignedBigInteger("usuario_id")->nullable();
+            $table->integer("numero_escritura");
             $table->integer("status");
 
             $table->foreign('servicio_id')

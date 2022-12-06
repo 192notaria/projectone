@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="row justify-content-center">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="">Servicio</label>
                             <select wire:model="servicio_id" class="form-select">
@@ -20,6 +20,13 @@
                                 @endforeach
                             </select>
                             @error('servicio_id') <span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-3">
+                            <label for="">Numero de escritura</label>
+                            <input type="text" wire:model="numero_de_escritura" class="form-control" placeholder="Numero...">
+                            @error('numero_de_escritura') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
                     <div class="col-lg-12">

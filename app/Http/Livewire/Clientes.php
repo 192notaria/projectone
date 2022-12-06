@@ -13,13 +13,24 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-
 class Clientes extends Component
 {
     use WithPagination;
     public $search;
     public $buscarMunicipio = "";
-    public $id_cliente, $nombre, $apaterno, $amaterno, $municipio_nacimiento_id, $fecha_nacimiento, $email, $telefono, $ocupacion, $estado_civil, $genero;
+    public $id_cliente,
+        $nombre,
+        $apaterno,
+        $amaterno,
+        $municipio_nacimiento_id,
+        $fecha_nacimiento,
+        $email,
+        $telefono,
+        $ocupacion = "",
+        $estado_civil = "",
+        $curp,
+        $rfc,
+        $genero = "";
     public $modal = false;
     public $cantidadClientes = 5;
 
@@ -54,13 +65,11 @@ class Clientes extends Component
             'amaterno' => 'required|min:3',
             'municipio_nacimiento_id' => 'required',
             'fecha_nacimiento' => 'required',
-            'email' => 'required|email',
+            'email' => $this->email != "" ? 'email' : "",
             'telefono' => 'required|min:10',
             'ocupacion' => 'required',
             'estado_civil' => 'required',
             'genero' => 'required',
-
-
         ];
     }
 
@@ -100,11 +109,9 @@ class Clientes extends Component
     }
 
     public function editarCliente($id){
-        $this->openModal();
+        // $this->openModal();
         $cliente = ModelClientes::find($id);
-
         $this->id_cliente = $id;
-
         $municipio = Municipios::find($cliente->municipio_nacimiento_id);
         $this->buscarMunicipio = $municipio->nombre . ", " . $municipio->getEstado->nombre . ", " . $municipio->getEstado->getPais->nombre;
 
@@ -118,6 +125,8 @@ class Clientes extends Component
         $this->ocupacion = $cliente->ocupacion;
         $this->estado_civil = $cliente->estado_civil;
         $this->genero = $cliente->genero;
+        $this->curp = $cliente->curp;
+        $this->rfc = $cliente->rfc;
     }
 
     public function borrarCliente(){
@@ -144,14 +153,29 @@ class Clientes extends Component
                 return $this->addError('existeCliente', 'Este cliente ya esta registrado');
             }
 
-            $validatedData['nombre'] = mb_strtoupper($validatedData['nombre']);
-            $validatedData['apaterno'] = mb_strtoupper($validatedData['apaterno']);
-            $validatedData['amaterno'] = mb_strtoupper($validatedData['amaterno']);
-            $validatedData['email'] = mb_strtolower($validatedData['email']);
+            // $validatedData['nombre'] = mb_strtoupper($validatedData['nombre']);
+            // $validatedData['apaterno'] = mb_strtoupper($validatedData['apaterno']);
+            // $validatedData['amaterno'] = mb_strtoupper($validatedData['amaterno']);
+            // $validatedData['email'] = mb_strtolower($validatedData['email']);
 
-            $nuevoCliente = ModelClientes::create($validatedData);
+            $cliente = new ModelClientes;
+            $cliente->nombre = mb_strtoupper($this->nombre);
+            $cliente->apaterno = mb_strtoupper($this->apaterno);
+            $cliente->amaterno = mb_strtoupper($this->amaterno);
+            $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
+            $cliente->fecha_nacimiento = $this->fecha_nacimiento;
+            $cliente->email = mb_strtolower($this->email);
+            $cliente->telefono = $this->telefono;
+            $cliente->ocupacion = $this->ocupacion;
+            $cliente->estado_civil = $this->estado_civil;
+            $cliente->genero = $this->genero;
+            $cliente->curp = $this->curp;
+            $cliente->rfc = $this->rfc;
+            $cliente->save();
+
             $this->clearInputs();
-            return $this->closeModal();
+            return $this->dispatchBrowserEvent('cliente_registrado', "Nuevo cliente registrado");
+            // return $this->closeModal();
         }
 
         $cliente = ModelClientes::find($this->id_cliente);
@@ -165,9 +189,11 @@ class Clientes extends Component
         $cliente->ocupacion = $this->ocupacion;
         $cliente->estado_civil = $this->estado_civil;
         $cliente->genero = $this->genero;
+        $cliente->curp = $this->curp;
+        $cliente->rfc = $this->rfc;
         $cliente->save();
+        $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
         return $this->closeModal();
-
     }
 
     // ===================================================================================== DOMICILIOS ============================================================
@@ -255,6 +281,7 @@ class Clientes extends Component
 
     // ===================================================================================== Nuevo Proyecto ============================================================
     public $buscarAbogado;
+    public $numero_de_escritura;
     public $id_Abogado,
         $nombreAbogado,
         $apaternoAbogado,
@@ -296,12 +323,14 @@ class Clientes extends Component
         $this->validate([
             "servicio_id" => "required",
             "id_Abogado" => "required",
+            "numero_de_escritura" => "required|unique:proyectos,numero_escritura",
         ]);
         $proyecto = new Proyectos;
         $proyecto->servicio_id = $this->servicio_id;
         $proyecto->cliente_id = $this->id_cliente;
         $proyecto->usuario_id = $this->id_Abogado;
         $proyecto->status = 0;
+        $proyecto->numero_escritura = $this->numero_de_escritura;
         $proyecto->save();
         $this->closeModalNuevoProyecto();
     }

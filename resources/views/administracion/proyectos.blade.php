@@ -28,7 +28,7 @@
         <div class="middle-content container-xxl p-0">
             <div class="page-meta">
                 <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                    <h2>Proyectos</h2>
+                    <h2>Proyectos de escrituras</h2>
                 </nav>
             </div>
             <div class="row layout-top-spacing">

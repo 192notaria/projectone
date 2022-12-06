@@ -2,7 +2,10 @@
     <div class="card-header">
         <div style="display:flex; align-items:right;">
             @can('crear-clientes')
-                <button type="button" wire:click='openModal' class="btn btn-outline-success">
+                {{-- <button type="button" wire:click='openModal' class="btn btn-outline-success">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button> --}}
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
@@ -164,6 +167,12 @@
                                     </td>
                                     <td>
                                         <p class="mb-0">
+                                            <span class="fw-bold">CURP:</span><br>{{$cliente->curp}}
+                                        </p>
+                                        <p class="mb-0">
+                                            <span class="fw-bold">RFC:</span><br>{{$cliente->rfc}}
+                                        </p>
+                                        <p class="mb-0">
                                             <span class="fw-bold">Correo:</span><br>{{$cliente->email}}
                                         </p>
                                         <p class="mb-0">
@@ -205,7 +214,9 @@
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 @can('editar-clientes')
-                                                    <button wire:click='editarCliente({{$cliente->id}})' type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                    <button wire:click='editarCliente({{$cliente->id}})' type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
                                                 @endcan
                                                 @can('borrar-clientes')
                                                     <button wire:click='SelectBorrarCliente({{$cliente->id}})' data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
@@ -226,6 +237,7 @@
             </div>
 
             @include('livewire.modals.nuevoCliente')
+            @include('livewire.modals.nuevo-cliente')
             @include('livewire.modals.domicilioCliente')
             @include('livewire.modals.nuevProyectoCliente')
             @include('livewire.modals.borrarCliente')

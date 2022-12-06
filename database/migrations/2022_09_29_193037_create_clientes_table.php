@@ -20,11 +20,13 @@ return new class extends Migration
             $table->string('amaterno');
             $table->unsignedBigInteger('municipio_nacimiento_id')->nullable();
             $table->date('fecha_nacimiento');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('telefono');
             $table->unsignedBigInteger('ocupacion')->nullable();
             $table->string('estado_civil');
             $table->string('genero');
+            $table->string('curp')->nullable();
+            $table->string('rfc')->nullable();
 
             $table->foreign('municipio_nacimiento_id')
                 ->references('id')

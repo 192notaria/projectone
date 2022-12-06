@@ -25,7 +25,7 @@ class Admin extends Seeder
             "telefono" => "1234567890",
             "fecha_nacimiento" => date('Y-m-d H:i:s', time()),
             "ocupacion" => 44,
-            "user_image" => "v3/src/assets/img/g-8.png",
+            "user_image" => "/v3/src/assets/img/g-8.png",
             "email" => "admin@admin.com",
             "email_verified_at" => null,
             "password" => Hash::make("root"),

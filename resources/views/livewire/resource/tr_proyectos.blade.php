@@ -6,11 +6,14 @@
                 <img alt="avatar" src="{{$proyecto->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div>
             <div class="media-body align-self-center">
-                {{$proyecto->id}}<h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
-                <p>
+                <h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
+                <p class="mt-2">
                     <span class="fw-bold">Servicio:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
-                    {{-- <a wire:click='downloadProyect({{$proyecto->id}})' style="cursor: pointer;"><span class="badge badge-danger"><i class="fa-solid fa-file-arrow-down"></i></span></a> --}}
+                </p>
+                <p>
+                    <span class="fw-bold">Escritura:</span>
+                    <span class="badge badge-primary">{{$proyecto->numero_escritura}}</span>
                 </p>
             </div>
         </div>

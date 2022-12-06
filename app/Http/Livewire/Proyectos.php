@@ -275,32 +275,32 @@ class Proyectos extends Component
         $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'];
         if($this->acta_nac != ""){
             $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." . $this->acta_nac->extension();
-            $acta_nacRoute = $this->acta_nac->storeAs($route, $FileName_acta_nac);
+            $acta_nacRoute = $this->acta_nac->storeAs($route, $FileName_acta_nac, 'public');
             $generales->acta_nacimiento = $acta_nacRoute;
         }
         if($this->acta_matrimonio != ""){
             $FileName_acta_matrimonio = "ACTA_Matrimonio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->acta_matrimonio->extension();
-            $acta_matrimonioRoute = $this->acta_matrimonio->storeAs($route, $FileName_acta_matrimonio);
+            $acta_matrimonioRoute = $this->acta_matrimonio->storeAs($route, $FileName_acta_matrimonio, 'public');
             $generales->acta_matrimonio = $acta_matrimonioRoute;
         }
         if($this->curp != ""){
             $FileName_curp = "CURP_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->curp->extension();
-            $curpRoute = $this->curp->storeAs($route, $FileName_curp);
+            $curpRoute = $this->curp->storeAs($route, $FileName_curp, 'public');
             $generales->curp = $curpRoute;
         }
         if($this->rfc != ""){
             $FileName_rfc = "RFC_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->rfc->extension();
-            $rfcRoute = $this->rfc->storeAs($route, $FileName_rfc);
+            $rfcRoute = $this->rfc->storeAs($route, $FileName_rfc, 'public');
             $generales->rfc = $rfcRoute;
         }
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Acta_nacimiento_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
-            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial);
+            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial, 'public');
             $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
         }
         if($this->comprobante_domicilio != ""){
             $FileName_comprobante_domicilio = "Acta_nacimiento_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->comprobante_domicilio->extension();
-            $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio);
+            $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio, 'public');
             $generales->comprobante_domicilio = $comprobante_domicilioRoute;
         }
 
@@ -342,7 +342,7 @@ class Proyectos extends Component
         $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'];
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
-            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial);
+            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial, 'public');
             $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
         }
 
@@ -388,7 +388,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
         $fileName = strtoupper(str_replace(" ", "_", $documentName)) . "." . $this->documentFile->extension();
-        $uploadData = $this->documentFile->storeAs($route, $fileName);
+        $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
 
         $newdocument = new Documentos;
         $newdocument->nombre = $documentName;
