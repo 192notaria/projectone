@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\MunicipiosController;
+use App\Http\Controllers\OcupacionesController;
 use App\Http\Controllers\PaisesController;
 use App\Http\Controllers\ProcesosServicios;
 use App\Http\Controllers\ProyectosController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('admin-usuarios');
     Route::get('/administracion/clientes', [ClientesController::class, 'index'])->name('admin-clientes');
     Route::get('/administracion/proyectos', [ProyectosController::class, 'index'])->name('admin-proyectos');
+    Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
 
     // PROCESOS Y SERVICIOS
     Route::get('/administracion/servicios', [ServiciosController::class, 'index'])->name('admin-servicios');

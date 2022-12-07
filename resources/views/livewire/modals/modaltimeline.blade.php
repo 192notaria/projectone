@@ -30,8 +30,8 @@
                                                                     <p>{{\Carbon\Carbon::parse($avancetime->created_at)->format('Y-m-d')}}</p>
                                                                     <p>{{ $avancetime->created_at->diffForHumans(now()) }}</p>
                                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                                        <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></button>
-                                                                        <button wire:click='editarSubproceso({{$avancetime->id}})' type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                        <button wire:click='verRegistroSubproceso({{$avancetime->id}})' type="button" class="btn btn-outline-success"><i class="fa-solid fa-eye"></i></button>
+                                                                        <button wire:click='editarSubproceso({{$avancetime->id}})' type="button" class="btn btn-outline-info"><i class="fa-solid fa-edit"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -99,5 +99,3 @@
         </div>
     </div>
 </div>
-
-Agregar ocupaciones
