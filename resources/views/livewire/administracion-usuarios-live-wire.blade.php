@@ -242,7 +242,7 @@
     </div>
 
     <!-- Modal Datos Usuario-->
-    <div  class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 {{-- <div class="modal-header">
