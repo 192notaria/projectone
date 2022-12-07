@@ -23,11 +23,13 @@ use Livewire\WithFileUploads;
 use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Kreait\Firebase\Contract\Database;
+use Livewire\WithPagination;
 
 
 class Proyectos extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     protected $database;
     public function mount(Database $database){
