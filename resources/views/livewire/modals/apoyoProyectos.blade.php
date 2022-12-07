@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar apoyo</h5>
-                <button wire:click='closeagregarApoyoModal' type="button" class="btn btn-rounded btn-outline-danger" data-bs-dismiss="modal">
+                <button wire:click='closeModalAgregarApoyo' type="button" class="btn btn-rounded btn-outline-danger" data-bs-dismiss="modal">
                     <i class="fa-solid fa-circle-xmark"></i>
                 </button>
             </div>
