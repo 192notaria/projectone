@@ -66,7 +66,7 @@ class Clientes extends Component
             'municipio_nacimiento_id' => 'required',
             'fecha_nacimiento' => 'required',
             'email' => $this->email != "" ? 'email' : "",
-            'telefono' => 'required|min:10',
+            'telefono' => $this->telefono != "" ? 'min:10' : "",
             'ocupacion' => 'required',
             'estado_civil' => 'required',
             'genero' => 'required',
@@ -348,8 +348,7 @@ class Clientes extends Component
         $this->emailAbogado = $abogado['email'];
     }
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.clientes',[
             "clientes" => ModelClientes::orderBy('nombre', 'ASC')->where('nombre', 'LIKE', '%' . $this->search . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')

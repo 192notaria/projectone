@@ -5,6 +5,9 @@
                 <button type="button" wire:click='openModalNuevoProyecto' class="btn btn-outline-success">
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-generales-docs">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
             @endcan
             <select class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                 <option value="5">5</option>
@@ -192,4 +195,7 @@
     @include("livewire.modals.observaciones")
     @include("livewire.modals.verObservacion")
     @include("livewire.modals.apoyoProyectos")
+
+    {{-- Edtar subprocesos --}}
+    @include("livewire.modal-subprocesos-edicion.generales_docs");
 </div>

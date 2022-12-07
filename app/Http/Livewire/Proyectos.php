@@ -30,7 +30,6 @@ class Proyectos extends Component
     use WithFileUploads;
 
     protected $database;
-
     public function mount(Database $database){
         $this->database = $database;
         // $reference = $database->getReference('/MARCO PEREZ DIAZ');
@@ -303,18 +302,6 @@ class Proyectos extends Component
             $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio, 'public');
             $generales->comprobante_domicilio = $comprobante_domicilioRoute;
         }
-
-        // if($tipo == "vendedor"){
-
-        // }else{
-        //     $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . "COMPRADOR_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'];
-        //     $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." . $this->acta_nac->extension();
-        //     $FileName_acta_matrimonio = "ACTA_Matrimonio_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." .  $this->acta_matrimonio->extension();
-        //     $FileName_curp = "CURP_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." .  $this->curp->extension();
-        //     $FileName_rfc = "RFC_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." .  $this->rfc->extension();
-        //     $FileName_identificacion_oficial = "Acta_nacimiento_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." .  $this->identificacion_oficial->extension();
-        //     $FileName_comprobante_domicilio = "Acta_nacimiento_" . $this->comprador['nombre'] . "_" . $this->comprador['apaterno'] . "_" . $this->comprador['amaterno'] . "." .  $this->comprobante_domicilio->extension();
-        // }
 
         $generales->save();
 
@@ -740,5 +727,52 @@ class Proyectos extends Component
         $this->modalVerObservaciones = false;
     }
 
+    public function editarSubproceso($id){
+        $avance = AvanceProyecto::find($id);
+        // dd($avance->subproceso->tiposub->id, $avance->subproceso->tiposub->nombre);
 
+        // DATOS DE AUTORIZACION DE CATASTRO
+        if($avance->subproceso->tiposub->id == 4){
+
+        }
+
+        if($avance->subproceso->tiposub->id == 4){
+            $generales = Generales::where("proyecto_id", $avance->proyecto_id)
+                ->where("tipo", $avance->subproceso->nombre)->first();
+            $this->tipoGenerales = $generales->cliente;
+            $this->buscarCliente = "";
+            $this->proyecto_id = $avance->proyecto_id;
+            $this->subprocesoActual = $avance->subproceso;
+            return $this->dispatchBrowserEvent('abrir-editar-generales-docs', "Abrir modal");
+        }
+
+        // Fecha y hora
+        if($avance->subproceso->tiposub->id == 5){
+
+        }
+
+        // Documentos (PDF)
+        if($avance->subproceso->tiposub->id == 6){
+
+        }
+
+        // Fecha y hora de solicitud
+        if($avance->subproceso->tiposub->id == 8){
+
+        }
+
+        // $this->closeModalTimeLine();
+    }
+
+    public function editarGeneralesDocs(){
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $proyecto->servicio->nombre . "_" . $proyecto->servicio->id . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales->nombre . "_" . $this->tipoGenerales->apaterno . "_" . $this->tipoGenerales->amaterno;
+        dd($route);
+        // public $acta_nac;
+        // public $acta_matrimonio;
+        // public $curp;
+        // public $rfc;
+        // public $identificacion_oficial;
+        // public $comprobante_domicilio;
+    }
 }
