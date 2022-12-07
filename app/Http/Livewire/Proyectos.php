@@ -118,6 +118,10 @@ class Proyectos extends Component
         ]);
     }
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
     public $agregarApoyoModal = false;
     public $abogadoApoyo;
     public $abogado_titlular_id;
