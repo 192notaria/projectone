@@ -77,7 +77,7 @@ class Proyectos extends Component
     public $buscarAbogado;
     public $abogado_id;
 
-    public $cantidadProyectos = 10;
+    public $cantidadProyectos = 5;
 
     public function render(){
         return view('livewire.proyectos',[
@@ -96,11 +96,9 @@ class Proyectos extends Component
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                })
-                ->orWhereHas('servicio', function($serv){
+                })->orWhereHas('servicio', function($serv){
                     $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                })
-                ->paginate($this->cantidadProyectos),
+                })->paginate($this->cantidadProyectos),
 
             "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
             "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
