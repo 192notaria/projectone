@@ -172,7 +172,7 @@
                                         @endforeach
                                     </div>
                                     @if ($ciudad_localidad != "" && count($ciudades) == 0)
-                                        <button style="margin-left: 3px;" wire:click='asignarCiudad({{$ciudad_localidad}})' class="btn btn-success"><i class="fa-solid fa-circle-plus"></i></button>
+                                        <button style="margin-left: 3px;" wire:click="asignarCiudad('{{$ciudad_localidad}}')" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i></button>
                                     @endif
                                 </div>
                             </div>

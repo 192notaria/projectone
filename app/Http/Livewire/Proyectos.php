@@ -373,7 +373,7 @@ class Proyectos extends Component
 
     public function uploadDocument($documentName){
         $this->validate([
-            "documentFile" => "required|mimes:pdf,doc,docx"
+            "documentFile" => $documentName == "Importar proyecto firmado" ? "required|mimes:pdf,doc,docx" : "required|mimes:pdf"
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
