@@ -214,7 +214,7 @@
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 @can('editar-clientes')
-                                                    <button wire:click='editarCliente({{$cliente->id}})' type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                                                    <button wire:click='editarCliente({{$cliente->id}})' type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
                                                 @endcan

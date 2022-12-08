@@ -18,7 +18,7 @@
         <link href="{{ url("v3/layouts/collapsible-menu/css/light/plugins.css") }}" rel="stylesheet" type="text/css" />
         <link href="{{ url("v3/layouts/collapsible-menu/css/dark/plugins.css") }}" rel="stylesheet" type="text/css" />
 
-        <link href="{{ url( 'v3/src/plugins/src/font-icons/fontawesome/css/all.css' ) }}" rel="stylesheet">
+        <link href="{{ url('v3/src/plugins/src/font-icons/fontawesome/css/all.css') }}" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ url('v3/src/assets/css/light/elements/alert.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url('v3/src/assets/css/dark/elements/alert.css') }}">
 
@@ -72,31 +72,10 @@
             <script src="{{ asset("js/app.js") }}"></script>
             <script>
                 Echo.private('notification.{{auth()->id()}}').listen('.send.notification', (e) => {
-
-                    // const notificationsContent = document.getElementById("notifications-Content")
-                    // document.getElementById("notificationsSpan").classList.add("badge", "badge-success")
-                    // document.getElementById("no-notifications").style.display = "none"
                     if(e.message == "closession"){
                         document.getElementById('logout-form').submit();
                     }
 
-                    // const content = '<div class="media server-log">'+
-                    //     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg>'+
-                    //         '<div class="media-body">'+
-                    //             '<div class="data-info">'+
-                    //                 '<h6 class="">' + e.message + '</h6>'+
-                    //                 '<p class="">Hace 3 segundos</p>'+
-                    //             '</div>'+
-                    //             '<div class="icon-status">'+
-                    //             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'+
-                    //         '</div>'+
-                    //     '</div>'+
-                    // '</div>'
-
-                    // const createDiv = document.createElement("div")
-                    // createDiv.classList.add("dropdown-item")
-                    // createDiv.innerHTML = content
-                    // document.getElementById("notifications-Content").appendChild(createDiv)
                     Livewire.emit('listenNotify')
 
                     var myAudio= document.createElement('audio');
