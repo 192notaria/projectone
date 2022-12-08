@@ -11,8 +11,8 @@
     <link href="{{url('v3/src/assets/css/light/components/timeline.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/components/timeline.css')}}" rel="stylesheet" type="text/css" />
     {{-- <link href="{{url('filepond-master/dist/filepond.css')}}" rel="stylesheet" type="text/css" /> --}}
-    <link href="{{url('v3/src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{url('v3/src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" /> --}}
     <link href="{{url('v3/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
 
@@ -43,7 +43,7 @@
 @section('scripts-content')
 <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
 <script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
-<script src="{{url('v3/src/assets/js/scrollspyNav.js')}}"></script>
+{{-- <script src="{{url('v3/src/assets/js/scrollspyNav.js')}}"></script> --}}
 
 <script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>

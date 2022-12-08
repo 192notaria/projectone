@@ -127,17 +127,17 @@
                                         @endif
                                     @endforeach
                                 @else
-                                    @if ($proyecto->usuario_id == auth()->user()->id || Auth::user()->hasRole('ADMINISTRADOR'))
+                                    @if ($proyecto->usuario_id == auth()->user()->id || Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('RECEPCIONISTA'))
                                         @include('livewire.resource.tr_proyectos')
                                     @endif
                                 @endif
                             @endforeach
 
-                            @if (Auth::user()->hasRole('RECEPCIONISTA'))
+                            {{-- @if (Auth::user()->hasRole('RECEPCIONISTA'))
                                 @foreach ($proyectos as $proyecto)
                                     @include('livewire.resource.tr_proyectos')
                                 @endforeach
-                            @endif
+                            @endif --}}
 
                         @else
                             <td colspan="6" class="text-center">

@@ -60,13 +60,13 @@
 
             @livewireScripts()
             @fcScripts
-            <script src="{{ url("v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-            <script src="{{ url("v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
-            <script src="{{ url("v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>
-            <script src="{{ url("v3/layouts/collapsible-menu/app.js") }}"></script>
+            <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+            <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
+            <script src="{{ url("/v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>
+            <script src="{{ url("/v3/layouts/collapsible-menu/app.js") }}"></script>
 
-            <script src="{{ url("v3/src/plugins/src/global/vendors.min.js") }}"></script>
-            <script src="{{ url('v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
+            <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
+            <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
 
             @yield('scripts-content')
             <script src="{{ asset("js/app.js") }}"></script>

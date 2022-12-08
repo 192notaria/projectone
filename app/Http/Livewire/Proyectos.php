@@ -262,8 +262,8 @@ class Proyectos extends Component
         $this->validate([
             'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf|max:20000' : "",
             'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf|max:20000' : "",
-            'curp' => 'required|mimes:pdf',
-            'rfc' => 'required|mimes:pdf',
+            'curp' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
+            'rfc' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
             'identificacion_oficial' => 'required|mimes:pdf',
             'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf|max:20000' : '',
         ]);
@@ -736,10 +736,15 @@ class Proyectos extends Component
         $avance = AvanceProyecto::find($id);
         // dd($avance->subproceso->tiposub->id, $avance->subproceso->tiposub->nombre);
 
-        // DATOS DE AUTORIZACION DE CATASTRO
-        // if($avance->subproceso->tiposub->id == 4){
+        //DATOS DE AUTORIZACION DE CATASTRO
+        if($avance->subproceso->tiposub->id == 3){
 
-        // }
+        }
+
+        //DATOS DE AUTORIZACION DE CATASTRO
+        if($avance->subproceso->tiposub->id == 3){
+
+        }
 
         if($avance->subproceso->tiposub->id == 4){
             $generales = Generales::where("proyecto_id", $avance->proyecto_id)

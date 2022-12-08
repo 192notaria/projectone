@@ -75,19 +75,85 @@
                                                 <div class="col-lg-8">
                                                     <div class="row">
                                                         <div class="col-lg-12 mt-3">
+                                                            <label for="">Acta de nacimiento</label>
+                                                            {{-- <input type="file" class="form-control" wire:model="acta_nac"> --}}
+                                                            @if ($modalAvance)
+                                                                <x-file-pond wire:model="acta_nac" x-init="
+                                                                    var Pond = FilePond.create($refs.input);
+                                                                    this.addEventListener('pondReset', e => {
+                                                                        Pond.removeFiles();
+                                                                    });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
+                                                                </x-file-pond>
+                                                            @endif
+                                                            @error('acta_nac') <span class="text-danger">{{$message}}</span> @enderror
+                                                        </div>
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label for="">Acta de matrimonio</label>
+                                                            {{-- <input type="file" class="form-control" wire:model="acta_matrimonio"> --}}
+                                                            @if ($modalAvance)
+                                                            <x-file-pond wire:model="acta_matrimonio" x-init="
+                                                                var Pond = FilePond.create($refs.input);
+                                                                this.addEventListener('pondReset', e => {
+                                                                    Pond.removeFiles();
+                                                                });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
+                                                            </x-file-pond>
+                                                        @endif
+                                                        @error('acta_matrimonio') <span class="text-danger">{{$message}}</span> @enderror
+                                                        </div>
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label for="">CURP</label>
+                                                            {{-- <input type="file" class="form-control" wire:model="curp"> --}}
+                                                            @if ($modalAvance)
+                                                                <x-file-pond wire:model="curp" x-init="
+                                                                    var Pond = FilePond.create($refs.input);
+                                                                    this.addEventListener('pondReset', e => {
+                                                                        Pond.removeFiles();
+                                                                    });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
+                                                                </x-file-pond>
+                                                            @endif
+                                                            @error('curp') <span class="text-danger">{{$message}}</span> @enderror
+                                                        </div>
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label for="">RFC</label>
+                                                            {{-- <input type="file" class="form-control" wire:model="rfc"> --}}
+                                                            @if ($modalAvance)
+                                                                <x-file-pond wire:model="rfc" x-init="
+                                                                    var Pond = FilePond.create($refs.input);
+                                                                    this.addEventListener('pondReset', e => {
+                                                                        Pond.removeFiles();
+                                                                    });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
+                                                                </x-file-pond>
+                                                            @endif
+                                                            @error('rfc') <span class="text-danger">{{$message}}</span> @enderror
+                                                        </div>
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label for="">Identificacion oficial con fotografia</label>
                                                             {{-- <input type="file" class="form-control" wire:model="identificacion_oficial"> --}}
                                                             @if ($modalAvance)
                                                                 <x-file-pond wire:model="identificacion_oficial" x-init="
                                                                     var Pond = FilePond.create($refs.input);
                                                                     this.addEventListener('pondReset', e => {
                                                                         Pond.removeFiles();
-                                                                    });" :options="['labelIdle' => 'Identificacion oficial con fotografia...']">
+                                                                    });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
                                                                 </x-file-pond>
                                                             @endif
                                                             @error('identificacion_oficial') <span class="text-danger">{{$message}}</span> @enderror
                                                         </div>
+                                                        <div class="col-lg-12 mt-3">
+                                                            <label for="">Comprobante de domicilio</label>
+                                                            {{-- <input type="file" class="form-control" wire:model="comprobante_domicilio"> --}}
+                                                            @if ($modalAvance)
+                                                                <x-file-pond wire:model="comprobante_domicilio" x-init="
+                                                                    var Pond = FilePond.create($refs.input);
+                                                                    this.addEventListener('pondReset', e => {
+                                                                        Pond.removeFiles();
+                                                                    });" :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
+                                                                </x-file-pond>
+                                                            @endif
+                                                            @error('comprobante_domicilio') <span class="text-danger">{{$message}}</span> @enderror
+                                                        </div>
                                                         <div class="col-lg-12 mt-3 text-end">
-                                                            <button wire:click='registrarTestigo' @if ($identificacion_oficial == "") disabled @endif class="btn btn-success">Save</button>
+                                                            <button wire:click='registrarTestigo' @if ($identificacion_oficial == "") disabled @endif class="btn btn-success">Guardar</button>
                                                         </div>
                                                     </div>
                                                 </div>
