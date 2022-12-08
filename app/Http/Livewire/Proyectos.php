@@ -91,7 +91,7 @@ class Proyectos extends Component
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscarCliente . '%')
                 ->get(),
 
-            "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")
+            "proyectos" => ModelsProyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('cliente', function($q){
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
