@@ -262,9 +262,9 @@ class Proyectos extends Component
         $this->validate([
             'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf|max:20000' : "",
             'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf|max:20000' : "",
-            'curp' => 'required|mimes:pdf|max:20000',
-            'rfc' => 'required|mimes:pdf|max:20000',
-            'identificacion_oficial' => 'required|mimes:pdf|max:20000',
+            'curp' => 'required|mimes:pdf',
+            'rfc' => 'required|mimes:pdf',
+            'identificacion_oficial' => 'required|mimes:pdf',
             'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf|max:20000' : '',
         ]);
 
@@ -373,7 +373,7 @@ class Proyectos extends Component
 
     public function uploadDocument($documentName){
         $this->validate([
-            "documentFile" => $documentName == "Importar proyecto firmado" ? "required|mimes:pdf,doc,docx" : "required|mimes:pdf"
+            "documentFile" => "required|mimes:pdf",
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
