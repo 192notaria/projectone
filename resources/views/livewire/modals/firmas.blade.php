@@ -12,7 +12,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <label for="">Seleccione la fecha y hora para la entrega del proyecto</label>
+                                <label for="">Seleccione la fecha y hora para la firma</label>
                                 <input wire:model='fechayhoraInput' type="datetime-local" class="form-control">
                                 @error('invalidDate') <span class="mt-3 badge badge-danger">{{ $message }}</span>@enderror
                             </div>

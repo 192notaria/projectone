@@ -27,7 +27,7 @@
                 </div>
                 <div class="modal-footer">
                     <button wire:click='closeModal' class="btn btn-outline-danger" type="button" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                    <button @if ($documentFile == "") disabled @endif type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <button @if ($documentFile == "" && $tituloModal != "Certificacion de libertad de gravamen") disabled @endif type="submit" class="btn btn-outline-primary">Guardar</button>
                 </div>
             </div>
         </form>

@@ -372,18 +372,31 @@ class Proyectos extends Component
     }
 
     public function uploadDocument($documentName){
-        $this->validate([
-            "documentFile" => "required|mimes:pdf",
-        ]);
-
-        $proyecto = ModelsProyectos::find($this->proyecto_id);
-        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
-        $fileName = strtoupper(str_replace(" ", "_", $documentName)) . "." . $this->documentFile->extension();
-        $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
+        // Certificacion de libertad de gravamen
+        if($this->tituloModal == "Certificacion de libertad de gravamen"){
+            $this->validate([
+                "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
+            ]);
+        }else{
+            $this->validate([
+                "documentFile" => "required|mimes:pdf",
+            ]);
+        }
 
         $newdocument = new Documentos;
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        if($this->documentFile != ""){
+            $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+            $fileName = strtoupper(str_replace(" ", "_", $documentName)) . "." . $this->documentFile->extension();
+            $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
+            $newdocument->storage = $uploadData;
+        }else{
+            $uploadData = "";
+            $newdocument->storage = $uploadData;
+        }
+
         $newdocument->nombre = $documentName;
-        $newdocument->storage = $uploadData;
         $newdocument->cliente_id = $proyecto->cliente->id;
         $newdocument->proyecto_id = $proyecto->id;
         $newdocument->save();
@@ -401,12 +414,46 @@ class Proyectos extends Component
 
 
     public function agendarfecha(){
+        // $this->firebase($this->proyecto_id);
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
+        $agregarMinutos = strtotime('+' . $proyecto->servicio->tiempo_firma . ' minute', strtotime($this->fechayhoraInput));
+        $agregarMinutos = date("Y-m-d H:i:s", $agregarMinutos);
+
+        $buscarFirmas = Firmas::where('fecha_inicio', 'LIKE', '%' . date("Y-m-d", strtotime($this->fechayhoraInput)) . '%')->get();
+        $firmasignada = false;
+        $i = 0;
+        $errorMessage = "";
+
+        if(count($buscarFirmas) > 0){
+            do {
+                $firmas = $buscarFirmas[$i];
+                $firstCheck = $this->checkTimeRange(date("H:i", strtotime($firmas['fecha_inicio'])), date("H:i", strtotime($firmas['fecha_fin'])), date("H:i", strtotime($this->fechayhoraInput)));
+                $secondCheck = $this->checkTimeRange(date("H:i", strtotime($firmas['fecha_inicio'])), date("H:i", strtotime($firmas['fecha_fin'])), date("H:i", strtotime($agregarMinutos)));
+                // dd($firstCheck, $secondCheck);
+                if($firstCheck == true || $secondCheck == true){
+                    $firmasignada = true;
+                    $errorMessage = "Esta fecha y hora no esta disponible ya que existe una firma para " . $firmas['nombre'] . " de " . date("H:i", strtotime($firmas['fecha_inicio'])) . " a " . date("H:i", strtotime($firmas['fecha_fin']));
+                    return $this->addError('invalidDate', $errorMessage);
+                }else{
+                    if($i == count($buscarFirmas) -1){
+                        $firmasignada = true;
+                    }else{
+                        $i++;
+                    }
+                }
+            } while ($firmasignada == false);
+        }
+
+        // if($firmasignada){
+        //     $this->addError('invalidDate', $errorMessage);
+        // }
+
+        // dd($firmasignada);
         $newfirma = new Firmas;
         $newfirma->nombre = $proyecto->servicio->nombre;
         $newfirma->fecha_inicio = $this->fechayhoraInput;
-        $newfirma->fecha_fin = $this->fechayhoraInput;
+        $newfirma->fecha_fin = $agregarMinutos;
         $newfirma->proceso_id = $this->procesoActual['id'];
         $newfirma->cliente_id = $proyecto->cliente->id;;
         $newfirma->proyecto_id = $proyecto->id;
@@ -418,41 +465,8 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
 
+        $this->fechayhoraInput = "";
         $this->closeModal();
-        $this->firebase($this->proyecto_id);
-        // $agregarMinutos = strtotime('+' . $proyecto->servicio->tiempo_firma . ' minute', strtotime($this->fechayhoraInput));
-        // $agregarMinutos = date("Y-m-d H:i:s", $agregarMinutos);
-
-        // $buscarFirmas = Firmas::where('fecha_inicio', 'LIKE', '%' . date("Y-m-d", strtotime($this->fechayhoraInput)) . '%')
-        //     ->get();
-        // $firmasignada = false;
-        // $i = 0;
-        // $errorMessage = "";
-
-        // if(count($buscarFirmas) > 0){
-        //     do {
-        //         $firmas = $buscarFirmas[$i];
-        //         $firstCheck = $this->checkTimeRange(date("H:i", strtotime($firmas['fecha_inicio'])), date("H:i", strtotime($firmas['fecha_fin'])), date("H:i", strtotime($this->fechayhoraInput)));
-        //         $secondCheck = $this->checkTimeRange(date("H:i", strtotime($firmas['fecha_inicio'])), date("H:i", strtotime($firmas['fecha_fin'])), date("H:i", strtotime($agregarMinutos)));
-        //         // dd($firstCheck, $secondCheck);
-        //         if($firstCheck == true || $secondCheck == true){
-        //             $firmasignada = true;
-        //             $errorMessage = "Esta fecha y hora no esta disponible ya que existe una firma para " . $firmas['nombre'] . " de " . date("H:i", strtotime($firmas['fecha_inicio'])) . " a " . date("H:i", strtotime($firmas['fecha_fin']));
-        //         }else{
-        //             if($i == count($buscarFirmas) -1){
-        //                 $firmasignada = true;
-        //             }else{
-        //                 $i++;
-        //             }
-        //         }
-        //     } while ($firmasignada == false);
-        // }
-
-        // if($firmasignada){
-        //     return $this->addError('invalidDate', $errorMessage);
-        // }
-
-
     }
 
     public function registrarFirma(){
@@ -474,7 +488,8 @@ class Proyectos extends Component
         $avanceProyecto->save();
 
         $this->closeModal();
-        $this->firebase($this->proyecto_id);
+        $this->fechayhoraInput = "";
+        // $this->firebase($this->proyecto_id);
     }
 
     function checkTimeRange($from, $to, $input){
