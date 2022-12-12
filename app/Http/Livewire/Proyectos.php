@@ -12,12 +12,14 @@ use App\Models\Generales;
 use App\Models\Observaciones;
 use App\Models\ProcesosServicios;
 use App\Models\Proyectos as ModelsProyectos;
+use App\Models\RecibosPago;
 use App\Models\RegistroFirmas;
 use App\Models\Servicios;
 use App\Models\Subprocesos;
 use App\Models\SubprocesosCatalogos;
 use App\Models\User;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use NumberFormatter;
@@ -116,6 +118,18 @@ class Proyectos extends Component
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : []
         ]);
+    }
+
+    public function cancelar_id($id){
+        $this->proyecto_id = $id;
+    }
+
+    public function cancelarProyecto(){
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+        $proyecto->status = 1;
+        $proyecto->save();
+        $this->proyecto_id = "";
+        return $this->dispatchBrowserEvent('cancelar-proyecto', "Proyecto Cancelado");
     }
 
     public function updatingSearch(){
@@ -232,7 +246,7 @@ class Proyectos extends Component
                     $this->subprocesoActual = $subprocesoActual;
                     $this->tituloModal = $this->subprocesoActual->nombre;
                     $avance = false;
-                    $this->openModal();
+                    // $this->openModal();
                 }else{
                     if($i2 == count($subprocesos) - 1){
                         if($i == count($procesos) -1){
@@ -253,9 +267,29 @@ class Proyectos extends Component
                 $this->subprocesoActual = $subprocesoActual;
                 $this->tituloModal = $this->subprocesoActual->nombre;
                 $avance = false;
-                $this->openModal();
+
+                // $this->openModal();
             }
         } while ($avance == true);
+
+        if(isset($subprocesoActual->tiposub->id)){
+            if($this->subprocesoActual->tiposub->id != 10 && Auth::user()->hasRole('ABOGADO DE APOYO')){
+                return $this->dispatchBrowserEvent('abrir-modal-no-autorizado');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 4){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-con-docs');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 6){
+                return $this->dispatchBrowserEvent('abrir-modal-subir-documentos');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 10){
+                return $this->dispatchBrowserEvent('abrir-modal-recibo-pago');
+            }
+        }
+
     }
 
     public function registrarAsignacion(){
@@ -315,7 +349,10 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
         $this->closeModal();
-        $this->firebase($this->proyecto_id);
+
+        return $this->dispatchBrowserEvent('cerrar-modal-generales-con-docs', "Registro exitoso");
+
+        // $this->firebase($this->proyecto_id);
     }
 
     public function registrarTestigo(){
@@ -371,7 +408,7 @@ class Proyectos extends Component
         $this->firebase($this->proyecto_id);
     }
 
-    public function uploadDocument($documentName){
+    public function uploadDocument(){
         // Certificacion de libertad de gravamen
         if($this->tituloModal == "Certificacion de libertad de gravamen"){
             $this->validate([
@@ -388,7 +425,7 @@ class Proyectos extends Component
 
         if($this->documentFile != ""){
             $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
-            $fileName = strtoupper(str_replace(" ", "_", $documentName)) . "." . $this->documentFile->extension();
+            $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
             $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
             $newdocument->storage = $uploadData;
         }else{
@@ -396,7 +433,7 @@ class Proyectos extends Component
             $newdocument->storage = $uploadData;
         }
 
-        $newdocument->nombre = $documentName;
+        $newdocument->nombre = $this->subprocesoActual->nombre;
         $newdocument->cliente_id = $proyecto->cliente->id;
         $newdocument->proyecto_id = $proyecto->id;
         $newdocument->save();
@@ -408,7 +445,8 @@ class Proyectos extends Component
         $avanceProyecto->save();
 
         $this->closeModal();
-        $this->firebase($this->proyecto_id);
+        return $this->dispatchBrowserEvent('cerrar-modal-subir-documentos', "Documento registrado con exito");
+        // $this->firebase($this->proyecto_id);
     }
 
 
@@ -840,5 +878,48 @@ class Proyectos extends Component
                 ->where("tipo", $avance->subproceso->nombre)->first();
             return $this->dispatchBrowserEvent('abrir-vista_previa');
         }
+    }
+
+
+// Registrar recbios de pago
+    public $recibo_id;
+    public $gasto_de_recibo = 0.0;
+    public $gasto_de_gestoria = 0.0;
+    public $totalRecbio = 0.0;
+    public $recibo_de_pago;
+
+    public function gastoRecibo(){
+        $this->totalRecbio = $this->gasto_de_recibo + $this->gasto_de_gestoria;
+    }
+
+    public function registrarReciboPago(){
+        $this->validate([
+            "gasto_de_recibo" => "required",
+            "gasto_de_gestoria" => "required",
+            "recibo_de_pago" => "required",
+        ]);
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        $recibo = new RecibosPago;
+
+        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+        $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
+        $uploadData = $this->recibo_de_pago->storeAs($route, $fileName, 'public');
+
+        $recibo->nombre = $this->subprocesoActual->nombre;
+        $recibo->path = "/storage/" . $uploadData;
+        $recibo->costo_recibo = $this->gasto_de_recibo;
+        $recibo->gastos_gestoria = $this->gasto_de_gestoria;
+        $recibo->proyecto_id = $this->proyecto_id;
+        $recibo->subproceso_id = $this->subprocesoActual->id;
+        $recibo->save();
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+
+        return $this->dispatchBrowserEvent('cerrar-modal-recibo-pago', "Recibo de pago registrado con exito");
     }
 }

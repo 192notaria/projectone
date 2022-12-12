@@ -31,7 +31,6 @@
 
         @yield('links-content')
         @livewireStyles()
-        @fcStyles
     </head>
         <body class=" layout-boxed alt-menu">
             <!-- BEGIN LOADER -->
@@ -59,7 +58,6 @@
 
 
             @livewireScripts()
-            @fcScripts
             <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>

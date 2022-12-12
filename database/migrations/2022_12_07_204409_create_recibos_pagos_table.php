@@ -19,18 +19,18 @@ return new class extends Migration
             $table->text("path");
             $table->double("costo_recibo");
             $table->double("gastos_gestoria");
-            $table->unsignedBigInteger("cliente_id");
-            $table->unsignedBigInteger("proyecto_id");
-
-            $table->foreign('cliente_id')
-                ->references('id')
-                ->on('clientes')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger("proyecto_id")->nullable();
+            $table->unsignedBigInteger("subproceso_id")->nullable();
 
             $table->foreign('proyecto_id')
                 ->references('id')
                 ->on('proyectos')
-                ->onDelete('cascade');
+                ->nullOnDelete();
+
+            $table->foreign('subproceso_id')
+                ->references('id')
+                ->on('subprocesos_catalogos')
+                ->nullOnDelete();
 
             $table->timestamps();
         });

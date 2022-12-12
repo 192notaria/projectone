@@ -170,7 +170,7 @@
                     <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
                 @endcan
                 @can('borarr-proyectos')
-                    <button data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                    <button wire:click='cancelar_id({{$proyecto->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                 @endcan
             </div>
         </div>

@@ -14,6 +14,7 @@ class RecibosPago extends Model
         "costo_recibo",
         "gastos_gestoria",
         "cliente_id",
-        "proyecto_id"
+        "proyecto_id",
+        "subproceso_id"
     ];
 }

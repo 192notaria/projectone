@@ -120,15 +120,17 @@
                     <tbody>
                         @if (count($proyectos) > 0)
                             @foreach ($proyectos as $proyecto)
-                                @if (Auth::user()->hasRole('ABOGADO DE APOYO'))
-                                    @foreach ($proyecto->apoyo as $apoyo)
-                                        @if ($apoyo->abogado_apoyo_id == auth()->user()->id)
+                                @if ($proyecto->status == 0)
+                                    @if (Auth::user()->hasRole('ABOGADO DE APOYO'))
+                                        @foreach ($proyecto->apoyo as $apoyo)
+                                            @if ($apoyo->abogado_apoyo_id == auth()->user()->id)
+                                                @include('livewire.resource.tr_proyectos')
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @if ($proyecto->usuario_id == auth()->user()->id || Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('RECEPCIONISTA'))
                                             @include('livewire.resource.tr_proyectos')
                                         @endif
-                                    @endforeach
-                                @else
-                                    @if ($proyecto->usuario_id == auth()->user()->id || Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('RECEPCIONISTA'))
-                                        @include('livewire.resource.tr_proyectos')
                                     @endif
                                 @endif
                             @endforeach
@@ -162,13 +164,13 @@
                 @include("livewire.modals.testigos")
             @endif
 
-            @if ($subprocesoActual->tiposub->id == 4)
+            {{-- @if ($subprocesoActual->tiposub->id == 4)
                 @include("livewire.modals.generalescondocumentos")
-            @endif
+            @endif --}}
 
-            @if ($subprocesoActual->tiposub->id == 6)
+            {{-- @if ($subprocesoActual->tiposub->id == 6)
                 @include("livewire.modals.subirdocumentos")
-            @endif
+            @endif --}}
 
             @if ($subprocesoActual->tiposub->id == 5)
                 @include("livewire.modals.firmas")
@@ -199,4 +201,11 @@
     {{-- Edtar subprocesos --}}
     @include("livewire.modal-subprocesos-edicion.generales_docs")
     @include("livewire.modal-subprocesos-edicion.vista-previa")
+    @include("livewire.modals.cancelar-proyecto")
+
+    {{-- modal wire:ignore.self --}}
+    @include("livewire.modals-ignore-self.generales-con-documentos")
+    @include("livewire.modals-ignore-self.subir-documentos")
+    @include("livewire.modals-ignore-self.recibos-pagos")
+    @include("livewire.modals-ignore-self.no-autorizado")
 </div>

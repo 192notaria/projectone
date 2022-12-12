@@ -25,6 +25,7 @@ class CatalogosTipos extends Seeder
             ['id' => 7, 'nombre' => 'Subir documento de herederos hijos'],
             ['id' => 8, 'nombre' => 'Fecha y hora de solicitud'],
             ['id' => 9, 'nombre' => 'Datos generales'],
+            ['id' => 10, 'nombre' => 'Recibo de pago'],
         ];
 
         foreach ($tipos as $key) {
