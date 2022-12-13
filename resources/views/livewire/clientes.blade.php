@@ -156,7 +156,11 @@
                                     </td>
                                     <td>
                                         <p class="mb-0">
-                                            <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
+                                            @if (isset($cliente->getMunicipio->getEstado->nombre))
+                                                <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
+                                            @else
+                                                <span class="fw-bold">Lugar de nacimiento: </span><br> <span class="text-danger">Sin registro</span>
+                                            @endif
                                         </p>
                                         <p class="mb-0">
                                             <span class="fw-bold">Fecha de nacimiento: </span><br>{{$cliente->fecha_nacimiento}}
