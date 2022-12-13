@@ -193,13 +193,23 @@
                                                 <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
                                                 <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
                                                 <span class="fw-bold">Colonia y Municipio:</span>{{$cliente->domicilio->getColonia->nombre}}, {{$cliente->domicilio->getColonia->getMunicipio->nombre}}<br>
-                                                <span class="fw-bold">Estado y pais: </span>{{$cliente->domicilio->getColonia->getMunicipio->getEstado}}, {{$cliente->domicilio->getColonia->getMunicipio->getEstado}} <br>
+                                                <span class="fw-bold">Estado y pais: </span>
+                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->nombre))
+                                                    {{$cliente->domicilio->getColonia->getMunicipio->getEstado->nombre}},
+                                                @else
+                                                    <span class="text-danger">No hay estado registrado</span>
+                                                @endif
+                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre))
+                                                    <span>{{$cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre}}</span>
+                                                @else
+                                                    <span class="text-danger">No hay pais registrado</span>
+                                                @endif
+                                                <br>
                                                 <span class="fw-bold">Codigo postal: </span>{{$cliente->domicilio->getColonia->codigo_postal}}
                                                 <br>
                                                 @can('editar-domiciliosClientes')
-
+                                                    <button wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})' class="btn btn-outline-info">Editar domicilio <i class="fa-solid fa-pen-to-square"></i></button>
                                                 @endcan
-                                                <button wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})' class="btn btn-outline-info">Editar domicilio <i class="fa-solid fa-pen-to-square"></i></button>
                                             @else
                                                 @can('crear-domiciliosClientes')
                                                     <button wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
