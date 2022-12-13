@@ -23,8 +23,10 @@ class Municipios extends Component
         if($id != ""){
             $municipio = ModelsMunicipios::find($id);
             $this->nombre = $municipio->nombre;
-            $this->estado_id = $municipio->estado;
-            $this->estado_nombre = $municipio->getEstado->nombre;
+            if(isset($municipio->estado->nombre)){
+                $this->estado_id = $municipio->estado;
+                $this->estado_nombre = $municipio->getEstado->nombre;
+            }
             $this->municipio_id = $id;
             return $this->modal = true;
         }
