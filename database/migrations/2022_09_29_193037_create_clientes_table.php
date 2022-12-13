@@ -19,14 +19,15 @@ return new class extends Migration
             $table->string('apaterno');
             $table->string('amaterno');
             $table->unsignedBigInteger('municipio_nacimiento_id')->nullable();
-            $table->date('fecha_nacimiento');
+            $table->date('fecha_nacimiento')->nullable();
             $table->string('email')->nullable();
             $table->string('telefono')->nullable();
             $table->unsignedBigInteger('ocupacion')->nullable();
-            $table->string('estado_civil');
+            $table->string('estado_civil')->nullable();
             $table->string('genero');
             $table->string('curp')->nullable();
             $table->string('rfc')->nullable();
+            $table->boolean('representante_inst')->nullable();
 
             $table->foreign('municipio_nacimiento_id')
                 ->references('id')

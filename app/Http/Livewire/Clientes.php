@@ -16,6 +16,7 @@ use Livewire\WithPagination;
 class Clientes extends Component
 {
     use WithPagination;
+    public $cliente_institucion = false;
     public $search;
     public $buscarMunicipio = "";
     public $id_cliente,

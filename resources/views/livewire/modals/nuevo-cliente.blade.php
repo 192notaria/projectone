@@ -12,6 +12,13 @@
                     @error('existeCliente')
                         <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
                     @enderror
+                    <div class="col-lg-12 mb-4">
+                        <div class="form-check form-switch form-check-inline">
+                            <input wire:model='cliente_institucion' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Representa alguna institución</label>
+                        </div>
+                    </div>
+
                     <div class="col-lg-4">
                         <div class="form-group mb-3">
                             <label for="">Nombre</label>
@@ -34,17 +41,20 @@
                             @error('amaterno') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Estado civil</label>
-                            <select wire:model="estado_civil" class="form-control">
-                                <option value="" selected disabled>Seleccionar...</option>
-                                <option value="Soltero">Soltero</option>
-                                <option value="Casado">Casado</option>
-                            </select>
-                            @error('estado_civil') <span class="text-danger">{{ $message }}</span>@enderror
+                    @if (!$cliente_institucion)
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Estado civil</label>
+                                <select wire:model="estado_civil" class="form-control">
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    <option value="Soltero">Soltero</option>
+                                    <option value="Casado">Casado</option>
+                                </select>
+                                @error('estado_civil') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="">Genero</label>
@@ -56,51 +66,54 @@
                             @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Curp</label>
-                            <input wire:model='curp' type="text" class="form-control" placeholder="CURP">
-                            @error('curp') <span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Rfc</label>
-                            <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
-                            @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3 autocomplete">
-                            <label for="">Municipio de nacimiento</label>
-                            <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
-                            <input type="hidden" wire:model='municipio_nacimiento_id'>
-                            @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
-                            <div class="autocomplete-items">
-                                @foreach ($municipiosData as $municipio)
-                                    <div>
-                                        <a wire:click='selectMunicipio({{$municipio->id}})'>
-                                            <strong>{{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}</strong>
-                                        </a>
-                                    </div>
-                                @endforeach
+                    @if (!$cliente_institucion)
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Curp</label>
+                                <input wire:model='curp' type="text" class="form-control" placeholder="CURP">
+                                @error('curp') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Fecha de nacimiento</label>
-                            <input wire:model="fecha_nacimiento" type="date" class="form-control">
-                            @error('fecha_nacimiento') <span class="text-danger">{{ $message }}</span>@enderror
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Rfc</label>
+                                <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
+                                @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Correo</label>
-                            <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
-                            @error('email') <span class="text-danger">{{ $message }}</span>@enderror
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3 autocomplete">
+                                <label for="">Municipio de nacimiento</label>
+                                <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
+                                <input type="hidden" wire:model='municipio_nacimiento_id'>
+                                @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
+                                <div class="autocomplete-items">
+                                    @foreach ($municipiosData as $municipio)
+                                        <div>
+                                            <a wire:click='selectMunicipio({{$municipio->id}})'>
+                                                <strong>{{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}</strong>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Fecha de nacimiento</label>
+                                <input wire:model="fecha_nacimiento" type="date" class="form-control">
+                                @error('fecha_nacimiento') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Correo</label>
+                                <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
+                                @error('email') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="">Telefono</label>
@@ -108,24 +121,31 @@
                             @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="form-group mb-3">
-                            <label for="">Ocupacion</label>
-                            {{-- <input wire:model="ocupacion" type="text" class="form-control" placeholder="Abogado, Medico, Ingeniero"> --}}
-                            <select wire:model="ocupacion"  class="form-select">
-                                <option value="" selected disabled>Seleccionar...</option>
-                                @foreach ($ocupaciones as $ocupacion)
-                                    <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
-                                @endforeach
-                            </select>
-                            @error('ocupacion') <span class="text-danger">{{ $message }}</span>@enderror
+                    @if (!$cliente_institucion)
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="">Ocupacion</label>
+                                {{-- <input wire:model="ocupacion" type="text" class="form-control" placeholder="Abogado, Medico, Ingeniero"> --}}
+                                <select wire:model="ocupacion"  class="form-select">
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    @foreach ($ocupaciones as $ocupacion)
+                                        <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
+                                    @endforeach
+                                </select>
+                                @error('ocupacion') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
             </div>
             <div class="modal-footer">
                 <button wire:click='clearInputs' class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
+                @if (!$cliente_institucion)
+                    <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
+                @else
+                    <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
+                @endif
             </div>
         </div>
     </div>
