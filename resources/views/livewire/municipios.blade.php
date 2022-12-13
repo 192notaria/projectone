@@ -35,7 +35,7 @@
                                 @else
                                     <td> <span class="text-danger">Sin estado</span> </td>
                                 @endif
-                                @if ($municipio->getEstado->getPais->nombre)
+                                @if (isset($municipio->getEstado->getPais->nombre))
                                     <td>{{$municipio->getEstado->getPais->nombre}}</td>
                                 @else
                                     <td><span class="text-danger">Sin pais</span></td>
