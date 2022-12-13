@@ -30,8 +30,13 @@
                         @foreach ($municipiosData as $municipio)
                             <tr>
                                 <td>{{$municipio->nombre}}</td>
-                                <td>{{$municipio->getEstado->nombre}}</td>
-                                <td>{{$municipio->getEstado->getPais->nombre}}</td>
+                                @if (isset($municipio->getEstado->nombre))
+                                    <td>{{$municipio->getEstado->nombre}}</td>
+                                    <td>{{$municipio->getEstado->getPais->nombre}}</td>
+                                @else
+                                    <td> <span class="text-danger">Sin estado</span> </td>
+                                    <td> <span class="text-danger">Sin pais</span> </td>
+                                @endif
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button wire:click='openModal({{$municipio->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
