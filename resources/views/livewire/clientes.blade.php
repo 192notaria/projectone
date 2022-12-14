@@ -127,7 +127,7 @@
                                             <div class="media-body align-self-center">
                                                 <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
                                                 @can("crear-proyectos")
-                                                    @if (isset($cliente->domicilio->id))
+                                                    @if (isset($cliente->domicilio->id) || $cliente->representante_inst)
                                                         <button wire:click='openModalNuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4"><i class="fa-solid fa-circle-plus"></i></button>
                                                     @endif
                                                 @endcan
@@ -155,40 +155,56 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <p class="mb-0">
-                                            @if (isset($cliente->getMunicipio->getEstado->nombre))
-                                                <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
-                                            @else
-                                                <span class="fw-bold">Lugar de nacimiento: </span><br> <span class="text-danger">Sin registro</span>
-                                            @endif
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">Fecha de nacimiento: </span><br>{{$cliente->fecha_nacimiento}}
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">Edad: </span><br>{{\Carbon\Carbon::parse($cliente->fecha_nacimiento)->diff(\Carbon\Carbon::now())->format('%y')}}
-                                        </p>
+                                        @if ($cliente->representante_inst)
+                                            <span class="text-danger">Sin informacion</span>
+                                        @else
+                                            <p class="mb-0">
+                                                @if (isset($cliente->getMunicipio->getEstado->nombre))
+                                                    <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
+                                                @else
+                                                    <span class="fw-bold">Lugar de nacimiento: </span><br> <span class="text-danger">Sin registro</span>
+                                                @endif
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="fw-bold">Fecha de nacimiento: </span><br>{{$cliente->fecha_nacimiento}}
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="fw-bold">Edad: </span><br>{{\Carbon\Carbon::parse($cliente->fecha_nacimiento)->diff(\Carbon\Carbon::now())->format('%y')}}
+                                            </p>
+                                        @endif
+
                                     </td>
                                     <td>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">CURP:</span><br>{{$cliente->curp}}
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">RFC:</span><br>{{$cliente->rfc}}
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">Correo:</span><br>{{$cliente->email}}
-                                        </p>
-                                        <p class="mb-0">
+                                        @if ($cliente->representante_inst)
                                             <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono}}
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre}}
-                                        </p>
+                                        @else
+                                            <p class="mb-0">
+                                                <span class="fw-bold">CURP:</span><br>{{$cliente->curp}}
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="fw-bold">RFC:</span><br>{{$cliente->rfc}}
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="fw-bold">Correo:</span><br>{{$cliente->email}}
+                                            </p>
+                                            <p class="mb-0">
+                                                <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono}}
+                                            </p>
+                                            <p class="mb-0">
+                                                @if (isset($cliente->getOcupacion->nombre))
+                                                    <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre}}
+                                                @else
+                                                    <span class="fw-bold">Ocupacion:</span><br><span class="text-danger">Sin ocupacion registrada</span>
+                                                @endif
+                                            </p>
+                                        @endif
                                     </td>
 
                                     @can('ver-domiciliosClientes')
                                         <td>
+                                        @if ($cliente->representante_inst)
+                                            <span class="text-danger">Sin domicilio</span>
+                                        @else
                                             @if (isset($cliente->domicilio->calle))
                                                 <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
                                                 <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
@@ -199,11 +215,13 @@
                                                 @else
                                                     <span class="text-danger">No hay estado registrado</span>
                                                 @endif
+
                                                 @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre))
                                                     <span>{{$cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre}}</span>
                                                 @else
                                                     <span class="text-danger">No hay pais registrado</span>
                                                 @endif
+
                                                 <br>
                                                 <span class="fw-bold">Codigo postal: </span>{{$cliente->domicilio->getColonia->codigo_postal}}
                                                 <br>
@@ -215,12 +233,7 @@
                                                     <button wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
                                                 @endcan
                                             @endif
-                                            {{-- @if (count($cliente->getDomicilio) > 0)
-
-                                            @else
-                                                <span class="fw-bold">Calle: </span>{{$cliente->getDomicilio}}<br>
-                                                <button wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
-                                            @endif --}}
+                                        @endif
                                         </td>
                                     @endcan
 

@@ -197,6 +197,26 @@ class Clientes extends Component
         return $this->closeModal();
     }
 
+    public function saveClienteInst(){
+        $this->validate([
+            'nombre' => 'required|min:3',
+            'apaterno' => 'required|min:3',
+            'amaterno' => 'required|min:3',
+            'telefono' => 'min:10|integer',
+            'genero' => 'required',
+        ]);
+
+        $cliente = new ModelClientes;
+        $cliente->nombre = $this->nombre;
+        $cliente->apaterno = $this->apaterno;
+        $cliente->amaterno = $this->amaterno;
+        $cliente->telefono = $this->telefono;
+        $cliente->genero = $this->genero;
+        $cliente->representante_inst = $this->cliente_institucion ?? 0;
+        $cliente->save();
+        return $this->dispatchBrowserEvent('cliente_registrado', "Cliente registrado como representante de alguna institucion");
+    }
+
     // ===================================================================================== DOMICILIOS ============================================================
 
     public function openModalDomicilios($id){

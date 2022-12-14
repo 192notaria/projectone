@@ -144,7 +144,7 @@
                 @if (!$cliente_institucion)
                     <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
                 @else
-                    <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
+                    <button wire:click='saveClienteInst' type="button" class="btn btn-primary">Guardar</button>
                 @endif
             </div>
         </div>
