@@ -205,8 +205,18 @@ class Clientes extends Component
             'telefono' => 'min:10|integer',
             'genero' => 'required',
         ]);
-
-        $cliente = new ModelClientes;
+        if($this->id_cliente == ""){
+            $cliente = new ModelClientes;
+            $cliente->nombre = $this->nombre;
+            $cliente->apaterno = $this->apaterno;
+            $cliente->amaterno = $this->amaterno;
+            $cliente->telefono = $this->telefono;
+            $cliente->genero = $this->genero;
+            $cliente->representante_inst = $this->cliente_institucion ?? 0;
+            $cliente->save();
+            return $this->dispatchBrowserEvent('cliente_registrado', "Cliente registrado como representante de alguna institucion");
+        }
+        $cliente = ModelClientes::find($this->id_cliente);
         $cliente->nombre = $this->nombre;
         $cliente->apaterno = $this->apaterno;
         $cliente->amaterno = $this->amaterno;
@@ -214,7 +224,18 @@ class Clientes extends Component
         $cliente->genero = $this->genero;
         $cliente->representante_inst = $this->cliente_institucion ?? 0;
         $cliente->save();
-        return $this->dispatchBrowserEvent('cliente_registrado', "Cliente registrado como representante de alguna institucion");
+        return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
+    }
+
+    public function editClienteInst($id){
+        $cliente = ModelClientes::find($id);
+        $this->id_cliente = $id;
+        $this->nombre = $cliente->nombre;
+        $this->apaterno = $cliente->apaterno;
+        $this->amaterno = $cliente->amaterno;
+        $this->telefono = $cliente->telefono;
+        $this->genero = $cliente->genero;
+        $this->cliente_institucion = $cliente->representante_inst;
     }
 
     // ===================================================================================== DOMICILIOS ============================================================

@@ -210,6 +210,7 @@
                                                 <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
                                                 <span class="fw-bold">Colonia y Municipio:</span>{{$cliente->domicilio->getColonia->nombre}}, {{$cliente->domicilio->getColonia->getMunicipio->nombre}}<br>
                                                 <span class="fw-bold">Estado y pais: </span>
+
                                                 @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->nombre))
                                                     {{$cliente->domicilio->getColonia->getMunicipio->getEstado->nombre}},
                                                 @else
@@ -241,7 +242,13 @@
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 @can('editar-clientes')
-                                                    <button wire:click='editarCliente({{$cliente->id}})' type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                                                    <button
+                                                        @if ($cliente->representante_inst)
+                                                            wire:click='editClienteInst({{$cliente->id}})'
+                                                        @else
+                                                            wire:click='editarCliente({{$cliente->id}})'
+                                                        @endif
+                                                        type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
                                                 @endcan
