@@ -44,8 +44,24 @@ class Clientes extends Component
     public $tipoDomiclio = "Agregar domiclio";
 
     public $modalBorrarCliente = false;
-
     public $modalNuevoProyecto = false;
+
+    public $proyectos_escrituras = [];
+    public function render(){
+        return view('livewire.clientes',[
+            "clientes" => ModelClientes::orderBy('nombre', 'ASC')->where('nombre', 'LIKE', '%' . $this->search . '%')
+                ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%')
+                ->paginate($this->cantidadClientes),
+            "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
+            "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
+            // "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
+            "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
+                ->whereHas("roles", function($data){
+                    $data->where('name', "ABOGADO");
+                })->get()
+        ]);
+    }
 
     public function closeModalBorrarCliente(){
         $this->modalBorrarCliente = false;
@@ -374,7 +390,12 @@ class Clientes extends Component
         $proyecto->status = 0;
         $proyecto->numero_escritura = $this->numero_de_escritura;
         $proyecto->save();
-        $this->closeModalNuevoProyecto();
+
+        $this->servicio_id = "";
+        $this->id_cliente = "";
+        $this->id_Abogado = "";
+        $this->numero_de_escritura = "";
+        return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto-clientes', 'Proyecto de escritura iniciado');
     }
 
     public function asignarAbogado($abogado){
@@ -390,19 +411,16 @@ class Clientes extends Component
         $this->emailAbogado = $abogado['email'];
     }
 
-    public function render(){
-        return view('livewire.clientes',[
-            "clientes" => ModelClientes::orderBy('nombre', 'ASC')->where('nombre', 'LIKE', '%' . $this->search . '%')
-                ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%')
-                ->paginate($this->cantidadClientes),
-            "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
-            "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
-            "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
-            "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
-                ->whereHas("roles", function($data){
-                    $data->where('name', "ABOGADO");
-                })->get()
-        ]);
+    public function nuevoProyecto($id){
+        $this->id_cliente = $id;
+        $cliente = ModelClientes::find($id);
+        if($cliente->representante_inst){
+            $this->proyectos_escrituras = Servicios::orderBy("nombre","ASC")->where("nombre","Cancelacion de hipoteca")->get();
+            return $this->dispatchBrowserEvent('abrir-modal-nuevo-proyecto-clientes');
+        }
+
+        $this->proyectos_escrituras = Servicios::orderBy("nombre","ASC")->get();
+        return $this->dispatchBrowserEvent('abrir-modal-nuevo-proyecto-clientes');
     }
+
 }

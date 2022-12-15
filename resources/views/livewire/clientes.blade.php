@@ -128,7 +128,9 @@
                                                 <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
                                                 @can("crear-proyectos")
                                                     @if (isset($cliente->domicilio->id) || $cliente->representante_inst)
-                                                        <button wire:click='openModalNuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4"><i class="fa-solid fa-circle-plus"></i></button>
+                                                        <button wire:click='nuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4">
+                                                            <i class="fa-solid fa-circle-plus"></i>
+                                                        </button>
                                                     @endif
                                                 @endcan
                                             </div>
@@ -208,7 +210,18 @@
                                             @if (isset($cliente->domicilio->calle))
                                                 <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
                                                 <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
-                                                <span class="fw-bold">Colonia y Municipio:</span>{{$cliente->domicilio->getColonia->nombre}}, {{$cliente->domicilio->getColonia->getMunicipio->nombre}}<br>
+                                                <span class="fw-bold">Colonia y Municipio:</span>
+                                                @if (isset($cliente->domicilio->getColonia->nombre))
+                                                    {{$cliente->domicilio->getColonia->nombre}},
+                                                @else
+                                                    <span class="text-danger">Sin colonia registrada, </span>
+                                                @endif
+                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->nombre))
+                                                    {{$cliente->domicilio->getColonia->getMunicipio->nombre}}
+                                                @else
+                                                    <span class="text-danger">Sin Municipio registrado</span>
+                                                @endif
+                                                <br>
                                                 <span class="fw-bold">Estado y pais: </span>
 
                                                 @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->nombre))
@@ -224,7 +237,12 @@
                                                 @endif
 
                                                 <br>
-                                                <span class="fw-bold">Codigo postal: </span>{{$cliente->domicilio->getColonia->codigo_postal}}
+                                                <span class="fw-bold">Codigo postal: </span>
+                                                @if (isset($cliente->domicilio->getColonia->codigo_postal))
+                                                    {{$cliente->domicilio->getColonia->codigo_postal}}
+                                                @else
+                                                    <span class="text-danger">Sin codigo postal</span>
+                                                @endif
                                                 <br>
                                                 @can('editar-domiciliosClientes')
                                                     <button wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})' class="btn btn-outline-info">Editar domicilio <i class="fa-solid fa-pen-to-square"></i></button>
@@ -273,8 +291,9 @@
             @include('livewire.modals.nuevoCliente')
             @include('livewire.modals.nuevo-cliente')
             @include('livewire.modals.domicilioCliente')
-            @include('livewire.modals.nuevProyectoCliente')
+            {{-- @include('livewire.modals.nuevProyectoCliente') --}}
             @include('livewire.modals.borrarCliente')
+            @include('livewire.modals-ignore-self.nuevo-proyecto-clientes')
         </div>
     </div>
 </div>
