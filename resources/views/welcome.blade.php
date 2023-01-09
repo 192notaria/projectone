@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <title>Login Notaria 192 </title>
-        <link rel="icon" type="image/x-icon" href="{{ url('v3/src/assets/img/favicon.ico') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ url("v3/src/assets/img/rounded-logo-notaria.svg") }}"/>
         <link href="{{url('v3/layouts/collapsible-menu/css/light/loader.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{url('v3/layouts/collapsible-menu/css/dark/loader.css')}}" rel="stylesheet" type="text/css" />
         <script src="{{url('v3/layouts/collapsible-menu/loader.js')}}"></script>
