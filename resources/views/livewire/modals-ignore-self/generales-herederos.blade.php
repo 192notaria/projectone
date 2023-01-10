@@ -37,9 +37,9 @@
                             </div>
                         </div>
                             @if ($tipoGenerales == "")
-                                @if (count($testigos) == 0)
+                                @if (count($herederos) == 0)
                                     <div class="col-lg-12 text-center">
-                                        <span class="badge badge-warning" style="width: 100%">Sin testigos asignados</span>
+                                        <span class="badge badge-warning" style="width: 100%">Sin herederos asignados</span>
                                     </div>
                                 @endif
                             @else
@@ -151,27 +151,30 @@
                             @endif
                     </div>
                 </div>
-                @if (count($testigos) > 0)
+                @if (count($herederos) > 0)
                     <div class="container mt-4">
                         <h4>Herederos</h4>
                         <div class="row">
-                            @foreach ($testigos as $testigo)
+                            @foreach ($herederos as $heredero)
                                 <div class="col-lg-4 mt-3">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="card style-6" href="javascript:void(0);">
-                                                <a style="cursor: pointer;" wire:click='borrarTestigo({{$testigo->id}})'>
+                                                <a style="cursor: pointer;" wire:click='borrarHeredero({{$heredero->id}})'>
                                                     <span class="badge badge-danger"><i class="fa-solid fa-trash"></i></span>
                                                 </a>
                                                 <img src="{{url('/v3/src/assets/img/avatarprofile.png')}}" class="card-img-top" alt="...">
                                                 <div class="card-footer">
                                                     <div class="row">
                                                         <div class="col-12 mb-0 text-center">
-                                                            <b>{{$testigo->cliente->nombre}} {{$testigo->cliente->apaterno}} {{$testigo->cliente->amaterno}}</b>
+                                                            <b>{{$heredero->cliente->nombre}} {{$heredero->cliente->apaterno}} {{$heredero->cliente->amaterno}}</b>
                                                             <ul class="text-start text-info">
                                                                 <li>Masculino</li>
                                                                 <li>Edad</li>
                                                                 <li>4521996106</li>
+                                                                @if ($heredero->hijo)
+                                                                    <li class="text-success">Es hijo</li>
+                                                                @endif
                                                             </ul>
                                                         </div>
                                                     </div>

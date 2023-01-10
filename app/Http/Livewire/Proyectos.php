@@ -121,7 +121,7 @@ class Proyectos extends Component
                 Generales::where('tipo', 'Generales de los testigos')
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : [],
-            "herederos" => Generales::where('proyecto_id', $this->proyecto_id)->get(),
+            "herederos" => Herederos::where('proyecto_id', $this->proyecto_id)->get(),
         ]);
     }
 
@@ -438,6 +438,10 @@ class Proyectos extends Component
 
     public function borrarTestigo($id){
         Generales::find($id)->delete();
+    }
+
+    public function borrarHeredero($id){
+        Herederos::find($id)->delete();
     }
 
     public function guardarTestigos(){

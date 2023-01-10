@@ -20,4 +20,8 @@ class Herederos extends Model
         "comprobante_domicilio",
         "hijo",
     ];
+
+    public function cliente(){
+        return $this->belongsTo(Clientes::class, 'cliente_id');
+    }
 }
