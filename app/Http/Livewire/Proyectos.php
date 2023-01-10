@@ -190,6 +190,18 @@ class Proyectos extends Component
         return $this->buscarCliente = "";
     }
 
+    public function asignarHeredero($cliente){
+        $generales = Herederos::where("proyecto_id", $this->proyecto_id)->where("cliente_id", $cliente['id'])->first();
+        if($generales){
+            $this->buscarCliente = "";
+            $this->tipoGenerales = "";
+            return $this->addError('asignar_error', $generales->cliente->nombre . ' ' .  $generales->cliente->apaterno . ' ' . $generales->cliente->amaterno . ' YA CUENTA CON ALGUNA ASIGNACIÓN');
+        }
+        $buscarCliente = Clientes::find($cliente['id']);
+        $this->tipoGenerales = $buscarCliente;
+        return $this->buscarCliente = "";
+    }
+
     public function closeModalTimeLine(){
         $this->modalTimeLine = false;
     }

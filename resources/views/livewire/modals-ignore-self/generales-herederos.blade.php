@@ -20,7 +20,7 @@
                                 <div class="autocomplete-items-2">
                                     @foreach ($clientes as $cliente)
                                         <div class="abogadolist">
-                                            <a wire:click="asignarCliente({{$cliente}})">
+                                            <a wire:click="asignarHeredero({{$cliente}})">
                                                 <div class="media">
                                                     <div class="avatar me-2">
                                                         <img alt="avatar" src="{{$cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
