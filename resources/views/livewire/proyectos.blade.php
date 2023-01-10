@@ -211,4 +211,5 @@
     @include("livewire.modals-ignore-self.generales-testigos")
     @include("livewire.modals-ignore-self.agendar-firma")
     @include("livewire.modals-ignore-self.registrar-firma")
+    @include("livewire.modals-ignore-self.generales-herederos")
 </div>

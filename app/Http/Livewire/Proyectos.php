@@ -9,6 +9,7 @@ use App\Models\Clientes;
 use App\Models\Documentos;
 use App\Models\Firmas;
 use App\Models\Generales;
+use App\Models\Herederos;
 use App\Models\Observaciones;
 use App\Models\ProcesosServicios;
 use App\Models\Proyectos as ModelsProyectos;
@@ -283,6 +284,11 @@ class Proyectos extends Component
             if($this->subprocesoActual->tiposub->id == 1){
                 return $this->dispatchBrowserEvent('abrir-modal-generales-testigos');
             }
+
+            if($this->subprocesoActual->tiposub->id == 2){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-herederos');
+            }
+
             if($this->subprocesoActual->tiposub->id == 5){
                 return $this->dispatchBrowserEvent('abrir-modal-agendar-firma');
             }
@@ -376,6 +382,29 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
         $generales = new Generales;
+        $generales->cliente_id = $this->tipoGenerales['id'];
+        $generales->proyecto_id = $this->proyecto_id;
+        $generales->tipo = $this->subprocesoActual->nombre;
+
+        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'];
+        if($this->identificacion_oficial != ""){
+            $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
+            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial, 'public');
+            $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
+        }
+
+        $this->tipoGenerales = "";
+        $generales->save();
+    }
+
+    public function registrarHeredero(){
+        $this->validate([
+            'identificacion_oficial' => 'required|mimes:pdf|max:20000',
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        $generales = new Herederos;
         $generales->cliente_id = $this->tipoGenerales['id'];
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
