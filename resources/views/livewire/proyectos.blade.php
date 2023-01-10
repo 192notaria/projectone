@@ -9,7 +9,7 @@
                     <i class="fa-solid fa-user-plus"></i>
                 </button> --}}
             @endcan
-            <select class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
+            <select wire:model='cantidadProyectos' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -172,9 +172,9 @@
                 @include("livewire.modals.subirdocumentos")
             @endif --}}
 
-            @if ($subprocesoActual->tiposub->id == 5)
+            {{-- @if ($subprocesoActual->tiposub->id == 5)
                 @include("livewire.modals.firmas")
-            @endif
+            @endif --}}
 
             @if ($subprocesoActual->tiposub->id == 8)
                 @include("livewire.modals.registrar_firma")
@@ -208,4 +208,7 @@
     @include("livewire.modals-ignore-self.subir-documentos")
     @include("livewire.modals-ignore-self.recibos-pagos")
     @include("livewire.modals-ignore-self.no-autorizado")
+    @include("livewire.modals-ignore-self.generales-testigos")
+    @include("livewire.modals-ignore-self.agendar-firma")
+    @include("livewire.modals-ignore-self.registrar-firma")
 </div>

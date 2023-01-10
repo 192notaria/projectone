@@ -277,12 +277,23 @@ class Proyectos extends Component
                 return $this->dispatchBrowserEvent('abrir-modal-no-autorizado');
             }
 
+            if($this->subprocesoActual->tiposub->id == 1){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-testigos');
+            }
+            if($this->subprocesoActual->tiposub->id == 5){
+                return $this->dispatchBrowserEvent('abrir-modal-agendar-firma');
+            }
+
             if($this->subprocesoActual->tiposub->id == 4){
                 return $this->dispatchBrowserEvent('abrir-modal-generales-con-docs');
             }
 
             if($this->subprocesoActual->tiposub->id == 6){
                 return $this->dispatchBrowserEvent('abrir-modal-subir-documentos');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 8){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-firma');
             }
 
             if($this->subprocesoActual->tiposub->id == 10){
@@ -351,7 +362,6 @@ class Proyectos extends Component
         $this->closeModal();
 
         return $this->dispatchBrowserEvent('cerrar-modal-generales-con-docs', "Registro exitoso");
-
         // $this->firebase($this->proyecto_id);
     }
 
@@ -388,8 +398,9 @@ class Proyectos extends Component
         $avanceProyecto->proceso_id = $this->procesoActual['id'];
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
-        $this->closeModal();
-        $this->firebase($this->proyecto_id);
+        // $this->closeModal();
+        // $this->firebase($this->proyecto_id);
+        $this->dispatchBrowserEvent("cerrar-modal-generales-testigos", "Testigos registrados con exito");
     }
 
     public function asignacionSinDocs(){
@@ -405,7 +416,7 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
         $this->closeModal();
-        $this->firebase($this->proyecto_id);
+        // $this->firebase($this->proyecto_id);
     }
 
     public function uploadDocument(){
@@ -504,7 +515,8 @@ class Proyectos extends Component
         $avanceProyecto->save();
 
         $this->fechayhoraInput = "";
-        $this->closeModal();
+        // $this->closeModal();
+        return $this->dispatchBrowserEvent('cerrar-modal-agendar-firma');
     }
 
     public function registrarFirma(){
@@ -525,9 +537,10 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
 
-        $this->closeModal();
+        // $this->closeModal();
         $this->fechayhoraInput = "";
         // $this->firebase($this->proyecto_id);
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-firma', "Fecha para entrega de documentos registrada");
     }
 
     function checkTimeRange($from, $to, $input){
