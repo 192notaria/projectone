@@ -141,7 +141,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 mt-3 text-end">
-                                                        <button wire:click='registrarTestigo' @if ($identificacion_oficial == "") disabled @endif class="btn btn-success">Guardar</button>
+                                                        <button wire:click='registrarHeredero' @if ($identificacion_oficial == "") disabled @endif class="btn btn-success">Guardar</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,7 +188,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                @if (count($testigos) == 3) <button wire:click='guardarTestigos' type="button" class="btn btn-outline-primary">Guardar</button>@endif
+                @if (count($herederos) > 0) <button wire:click='guardarHeredero' type="button" class="btn btn-outline-primary">Guardar</button> @endif
             </div>
         </div>
     </div>

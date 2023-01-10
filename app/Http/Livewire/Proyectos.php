@@ -442,6 +442,17 @@ class Proyectos extends Component
         $this->dispatchBrowserEvent("cerrar-modal-generales-testigos", "Testigos registrados con exito");
     }
 
+    public function guardarHeredero(){
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+        // $this->closeModal();
+        // $this->firebase($this->proyecto_id);
+        $this->dispatchBrowserEvent("cerrar-modal-generales-herederos", "Herederos registrados");
+    }
+
     public function asignacionSinDocs(){
         $generales = new Generales;
         $generales->cliente_id = $this->tipoGenerales->id;
