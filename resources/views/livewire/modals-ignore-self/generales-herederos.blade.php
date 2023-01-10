@@ -134,6 +134,12 @@
                                                             </x-file-pond>
                                                         @error('comprobante_domicilio') <span class="text-danger">{{$message}}</span> @enderror
                                                     </div>
+                                                    <div class="col-lg-12 mt-3">
+                                                        <div class="form-check form-switch form-check-inline">
+                                                            <input wire:model='heredero_hijo' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                            <label class="form-check-label" for="flexSwitchCheckDefault">¿Es hijo?</label>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-lg-12 mt-3 text-end">
                                                         <button wire:click='registrarTestigo' @if ($identificacion_oficial == "") disabled @endif class="btn btn-success">Guardar</button>
                                                     </div>

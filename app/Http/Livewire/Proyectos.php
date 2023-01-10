@@ -83,6 +83,8 @@ class Proyectos extends Component
     public $cantidadProyectos = 5;
     public $cliente_id;
 
+    public $heredero_hijo = false;
+
     public function render(){
         return view('livewire.proyectos',[
             // "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")->paginate($this->cantidadProyectos),
