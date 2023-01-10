@@ -121,10 +121,7 @@ class Proyectos extends Component
                 Generales::where('tipo', 'Generales de los testigos')
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : [],
-            "herederos" => $this->tituloModal == "Generales de los herederos" ?
-                Generales::where('tipo', 'Generales de los herederos')
-                ->where('proyecto_id', $this->proyecto_id)
-                ->get() : [],
+            "herederos" => Generales::where('proyecto_id', $this->proyecto_id)->get(),
         ]);
     }
 
