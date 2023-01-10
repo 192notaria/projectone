@@ -80,6 +80,7 @@ class Proyectos extends Component
     public $abogado_id;
 
     public $cantidadProyectos = 5;
+    public $cliente_id;
 
     public function render(){
         return view('livewire.proyectos',[
@@ -220,9 +221,11 @@ class Proyectos extends Component
         $this->inputFiles = false;
     }
 
-    public function avanzar($proyecto, $procesos, $servicio){
+    public function avanzar($proyecto, $servicio){
+        $servicioActual = Servicios::find($servicio);
         $this->proyecto_id = $proyecto;
-        $this->servicio = $servicio;
+        $this->servicio = $servicioActual;
+        $procesos = $servicioActual->procesos;
         $avance = true;
         $avancesubproceso = true;
         $i = 0;
@@ -424,6 +427,10 @@ class Proyectos extends Component
         if($this->tituloModal == "Certificacion de libertad de gravamen"){
             $this->validate([
                 "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
+            ]);
+        }elseif($this->tituloModal == "Importar proyecto"){
+            $this->validate([
+                "documentFile" => "required|mimes:doc,docx",
             ]);
         }else{
             $this->validate([
@@ -699,7 +706,6 @@ class Proyectos extends Component
             "cliente_id" => "required",
         ]);
     }
-
 
     public function firebase($proyecto_id){
         if($this->hasConnection()){

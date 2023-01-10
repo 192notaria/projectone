@@ -159,17 +159,17 @@
         <div class="action-btns">
             <div class="btn-group" role="group" aria-label="Basic example">
                 @if (count($proyecto->porcentaje) > 0)
-                @can('ver-avanzarProyecto')
-                    <button wire:click='avanzar({{$proyecto->id}}, {{$proyecto->servicio->procesos}}, {{$proyecto->servicio}})' type="button" class="btn btn-outline-success"><i class="fa-solid fa-file-import"></i></button>
+                    @can('ver-avanzarProyecto')
+                        <button wire:click='avanzar({{$proyecto->id}},{{$proyecto->servicio->id}})' type="button" class="btn btn-outline-success"><i class="fa-solid fa-file-import"></i></button>
                     @endcan
-                @can('ver-lineatiempoProyecto')
-                    <button wire:click='openModalTimeLine({{$proyecto->servicio->id}}, {{$proyecto->id}})' type="button" class="btn btn-outline-warning"><i class="fa-solid fa-timeline"></i></button>
-                @endcan
+                    @can('ver-lineatiempoProyecto')
+                        <button wire:click='openModalTimeLine({{$proyecto->servicio->id}}, {{$proyecto->id}})' type="button" class="btn btn-outline-warning"><i class="fa-solid fa-timeline"></i></button>
+                    @endcan
                 @endif
                 @can('editar-proyectos')
                     <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
                 @endcan
-                @can('borarr-proyectos')
+                @can('borrar-proyectos')
                     <button wire:click='cancelar_id({{$proyecto->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                 @endcan
             </div>
