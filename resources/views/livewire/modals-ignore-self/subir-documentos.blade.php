@@ -20,7 +20,7 @@
             </div>
             <div class="modal-footer">
                 <button wire:click='closeModal' class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                @if ($documentFile != "")<button type="button" wire:click='uploadDocument' class="btn btn-outline-primary">Guardar</button>@endif
+                <button type="button" wire:click='uploadDocument' class="btn btn-outline-primary">Guardar</button>
             </div>
         </div>
     </div>

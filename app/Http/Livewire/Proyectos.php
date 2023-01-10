@@ -408,6 +408,32 @@ class Proyectos extends Component
             $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
         }
 
+        if($this->acta_nac != ""){
+            $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." . $this->acta_nac->extension();
+            $acta_nacRoute = $this->acta_nac->storeAs($route, $FileName_acta_nac, 'public');
+            $generales->acta_nacimiento = $acta_nacRoute;
+        }
+        if($this->acta_matrimonio != ""){
+            $FileName_acta_matrimonio = "ACTA_Matrimonio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->acta_matrimonio->extension();
+            $acta_matrimonioRoute = $this->acta_matrimonio->storeAs($route, $FileName_acta_matrimonio, 'public');
+            $generales->acta_matrimonio = $acta_matrimonioRoute;
+        }
+        if($this->curp != ""){
+            $FileName_curp = "CURP_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->curp->extension();
+            $curpRoute = $this->curp->storeAs($route, $FileName_curp, 'public');
+            $generales->curp = $curpRoute;
+        }
+        if($this->rfc != ""){
+            $FileName_rfc = "RFC_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->rfc->extension();
+            $rfcRoute = $this->rfc->storeAs($route, $FileName_rfc, 'public');
+            $generales->rfc = $rfcRoute;
+        }
+        if($this->comprobante_domicilio != ""){
+            $FileName_comprobante_domicilio = "Comprobante_de_domicilio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->comprobante_domicilio->extension();
+            $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio, 'public');
+            $generales->comprobante_domicilio = $comprobante_domicilioRoute;
+        }
+
         $this->tipoGenerales = "";
         $generales->save();
     }
@@ -429,6 +455,32 @@ class Proyectos extends Component
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
             $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial, 'public');
             $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
+        }
+
+        if($this->acta_nac != ""){
+            $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." . $this->acta_nac->extension();
+            $acta_nacRoute = $this->acta_nac->storeAs($route, $FileName_acta_nac, 'public');
+            $generales->acta_nacimiento = $acta_nacRoute;
+        }
+        if($this->acta_matrimonio != ""){
+            $FileName_acta_matrimonio = "ACTA_Matrimonio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->acta_matrimonio->extension();
+            $acta_matrimonioRoute = $this->acta_matrimonio->storeAs($route, $FileName_acta_matrimonio, 'public');
+            $generales->acta_matrimonio = $acta_matrimonioRoute;
+        }
+        if($this->curp != ""){
+            $FileName_curp = "CURP_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->curp->extension();
+            $curpRoute = $this->curp->storeAs($route, $FileName_curp, 'public');
+            $generales->curp = $curpRoute;
+        }
+        if($this->rfc != ""){
+            $FileName_rfc = "RFC_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->rfc->extension();
+            $rfcRoute = $this->rfc->storeAs($route, $FileName_rfc, 'public');
+            $generales->rfc = $rfcRoute;
+        }
+        if($this->comprobante_domicilio != ""){
+            $FileName_comprobante_domicilio = "Comprobante_de_domicilio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->comprobante_domicilio->extension();
+            $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio, 'public');
+            $generales->comprobante_domicilio = $comprobante_domicilioRoute;
         }
 
         $this->tipoGenerales = "";
@@ -484,13 +536,19 @@ class Proyectos extends Component
 
     public function uploadDocument(){
         // Certificacion de libertad de gravamen
-        if($this->tituloModal == "Certificacion de libertad de gravamen"){
-            $this->validate([
-                "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
-            ]);
-        }elseif($this->tituloModal == "Importar proyecto"){
+        if($this->tituloModal == "Importar proyecto"){
             $this->validate([
                 "documentFile" => "required|mimes:doc,docx",
+            ]);
+        }elseif(
+            $this->tituloModal == "Importar inventario y avaluo" ||
+            $this->tituloModal == "Importar sesiones de derechos hereditarios" ||
+            $this->tituloModal == "Importar edictos" ||
+            $this->tituloModal == "Importar testamento" ||
+            $this->tituloModal == "Certificacion de libertad de gravamen"
+        ){
+            $this->validate([
+                "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
             ]);
         }else{
             $this->validate([
