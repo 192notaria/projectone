@@ -153,7 +153,7 @@
                 </div>
                 @if (count($testigos) > 0)
                     <div class="container mt-4">
-                        <h4>Testigos</h4>
+                        <h4>Herederos</h4>
                         <div class="row">
                             @foreach ($testigos as $testigo)
                                 <div class="col-lg-4 mt-3">

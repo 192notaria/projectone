@@ -11,6 +11,7 @@ class Generales extends Model
     protected $fillable = [
         "cliente_id",
         "proyecto_id",
+        "tipo",
         "acta_nacimiento",
         "acta_matrimonio",
         "curp",

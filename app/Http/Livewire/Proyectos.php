@@ -120,7 +120,11 @@ class Proyectos extends Component
             "testigos" => $this->tituloModal == "Generales de los testigos" ?
                 Generales::where('tipo', 'Generales de los testigos')
                 ->where('proyecto_id', $this->proyecto_id)
-                ->get() : []
+                ->get() : [],
+            "herederos" => $this->tituloModal == "Generales de los herederos" ?
+                Generales::where('tipo', 'Generales de los herederos')
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get() : [],
         ]);
     }
 
@@ -419,6 +423,7 @@ class Proyectos extends Component
         }
 
         $this->tipoGenerales = "";
+        $generales->hijo = $this->heredero_hijo ? 1 : 0;
         $generales->save();
     }
 
