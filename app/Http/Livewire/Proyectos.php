@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\ActasDestacas;
 use App\Models\ApoyoProyectos;
 use App\Models\AutorizacionCatastro;
 use App\Models\AvanceProyecto;
@@ -27,6 +28,7 @@ use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Kreait\Firebase\Contract\Database;
 use Livewire\WithPagination;
+
 
 
 class Proyectos extends Component
@@ -84,6 +86,8 @@ class Proyectos extends Component
     public $cliente_id;
 
     public $heredero_hijo = false;
+    public $nombreacta;
+    public $documentsActaDestacada = [];
 
     public function render(){
         return view('livewire.proyectos',[
@@ -304,6 +308,10 @@ class Proyectos extends Component
                 return $this->dispatchBrowserEvent('abrir-modal-generales-herederos');
             }
 
+            if($this->subprocesoActual->tiposub->id == 3){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-autorizacion-catastro');
+            }
+
             if($this->subprocesoActual->tiposub->id == 5){
                 return $this->dispatchBrowserEvent('abrir-modal-agendar-firma');
             }
@@ -323,18 +331,25 @@ class Proyectos extends Component
             if($this->subprocesoActual->tiposub->id == 10){
                 return $this->dispatchBrowserEvent('abrir-modal-recibo-pago');
             }
-        }
 
+            if($this->subprocesoActual->tiposub->id == 11){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-nombre-acta');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 12){
+                return $this->dispatchBrowserEvent('abrir-modal-subir-varios-documentos');
+            }
+        }
     }
 
     public function registrarAsignacion(){
         $this->validate([
-            'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf|max:20000' : "",
-            'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf|max:20000' : "",
+            'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf' : "",
+            'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf' : "",
             'curp' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
             'rfc' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
             'identificacion_oficial' => 'required|mimes:pdf',
-            'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf|max:20000' : '',
+            'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf' : '',
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
@@ -697,8 +712,13 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
 
-        $this->closeModal();
-        $this->firebase($this->proyecto_id);
+        // $this->closeModal();
+        // $this->firebase($this->proyecto_id);
+        $this->num_comprobante = '';
+        $this->cuenta_predial = '';
+        $this->clave_catastral = '';
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-autorizacion-catastro', "Autorizacion registrada");
+
     }
 
     public $letras = "";
@@ -1057,6 +1077,59 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
 
+        $this->gasto_de_recibo = "";
+        $this->gasto_de_gestoria = "";
+        $this->recibo_de_pago = "";
+
         return $this->dispatchBrowserEvent('cerrar-modal-recibo-pago', "Recibo de pago registrado con exito");
+    }
+
+    public function asignarnombredelacta(){
+        $this->validate([
+            "nombreacta" => "required"
+        ]);
+
+        $nombreacta = new ActasDestacas;
+        $nombreacta->nombre = $this->nombreacta;
+        $nombreacta->proyecto_id = $this->proyecto_id;
+        $nombreacta->save();
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+
+        $this->nombreacta = "";
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-nombre-acta', "Nombre del acta registrado");
+    }
+
+    public function importarArchivos(){
+        $this->validate([
+            'documentsActaDestacada.*' => 'mimes:pdf',
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        foreach ($this->documentsActaDestacada as $documentFile) {
+            $newdocument = new Documentos;
+            $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+            $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . $documentFile->getClientOriginalName();
+            $uploadData = $documentFile->storeAs($route, $fileName, 'public');
+            $newdocument->storage = $uploadData;
+            $newdocument->nombre = $this->subprocesoActual->nombre . " " . $fileName;
+            $newdocument->cliente_id = $proyecto->cliente->id;
+            $newdocument->proyecto_id = $proyecto->id;
+            $newdocument->save();
+        }
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+        $this->documentsActaDestacada = [];
+        return $this->dispatchBrowserEvent('cerrar-modal-subir-varios-documentos', "Documentos registrados");
+
     }
 }

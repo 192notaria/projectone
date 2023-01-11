@@ -212,4 +212,7 @@
     @include("livewire.modals-ignore-self.agendar-firma")
     @include("livewire.modals-ignore-self.registrar-firma")
     @include("livewire.modals-ignore-self.generales-herederos")
+    @include("livewire.modals-ignore-self.registrar-nombre-acta")
+    @include("livewire.modals-ignore-self.importar-muchos-docs")
+    @include("livewire.modals-ignore-self.registrar-autorizacion-catastro")
 </div>

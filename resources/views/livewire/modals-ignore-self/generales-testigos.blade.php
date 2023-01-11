@@ -12,13 +12,11 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group mb-3 autocomplete">
-                                @if (count($testigos) < 3)
-                                    <label for="">Buscar en lista de clientes</label>
-                                    <input type="text" class="form-control" wire:model='buscarCliente' placeholder="Jorge Luis...">
-                                    @error('asignar_error')
-                                        <span class="badge badge-danger" style="width: 100%">{{$message}}</span>
-                                    @enderror
-                                @endif
+                                <label for="">Buscar en lista de clientes</label>
+                                <input type="text" class="form-control" wire:model='buscarCliente' placeholder="Jorge Luis...">
+                                @error('asignar_error')
+                                    <span class="badge badge-danger" style="width: 100%">{{$message}}</span>
+                                @enderror
                                 <div class="autocomplete-items-2">
                                     @foreach ($clientes as $cliente)
                                         <div class="abogadolist">
@@ -184,7 +182,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                @if (count($testigos) == 3) <button wire:click='guardarTestigos' type="button" class="btn btn-outline-primary">Guardar</button>@endif
+                <button wire:click='guardarTestigos' type="button" class="btn btn-outline-primary">Guardar</button>
             </div>
         </div>
     </div>

@@ -16,13 +16,7 @@ return new class extends Migration
         Schema::create('actas_destacas', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
-            $table->unsignedBigInteger("cliente_id");
             $table->unsignedBigInteger("proyecto_id");
-
-            $table->foreign('cliente_id')
-                ->references('id')
-                ->on('clientes')
-                ->onDelete('cascade');
 
             $table->foreign('proyecto_id')
                 ->references('id')
