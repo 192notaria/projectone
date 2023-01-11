@@ -215,4 +215,7 @@
     @include("livewire.modals-ignore-self.registrar-nombre-acta")
     @include("livewire.modals-ignore-self.importar-muchos-docs")
     @include("livewire.modals-ignore-self.registrar-autorizacion-catastro")
+    @include("livewire.modals-ignore-self.registrar-nombres-apoderados")
+    @include("livewire.modals-ignore-self.generales-menores")
+    @include("livewire.modals-ignore-self.registrar-informacion-viaje-menores")
 </div>

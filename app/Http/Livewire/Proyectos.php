@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\ActasDestacas;
+use App\Models\Apoderados;
 use App\Models\ApoyoProyectos;
 use App\Models\AutorizacionCatastro;
 use App\Models\AvanceProyecto;
@@ -11,7 +12,9 @@ use App\Models\Documentos;
 use App\Models\Firmas;
 use App\Models\Generales;
 use App\Models\Herederos;
+use App\Models\InformacionDelViajeDelMenor;
 use App\Models\Observaciones;
+use App\Models\Paises;
 use App\Models\ProcesosServicios;
 use App\Models\Proyectos as ModelsProyectos;
 use App\Models\RecibosPago;
@@ -89,6 +92,8 @@ class Proyectos extends Component
     public $nombreacta;
     public $documentsActaDestacada = [];
 
+    public $nombreapoderados;
+
     public function render(){
         return view('livewire.proyectos',[
             // "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")->paginate($this->cantidadProyectos),
@@ -125,7 +130,12 @@ class Proyectos extends Component
                 Generales::where('tipo', 'Generales de los testigos')
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : [],
+            "menores" => $this->tituloModal == "Generales de los menores" ?
+                Generales::where('tipo', 'Generales de los menores')
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get() : [],
             "herederos" => Herederos::where('proyecto_id', $this->proyecto_id)->get(),
+            "paises" => Paises::orderBy("nombre","ASC")->get()
         ]);
     }
 
@@ -338,6 +348,18 @@ class Proyectos extends Component
 
             if($this->subprocesoActual->tiposub->id == 12){
                 return $this->dispatchBrowserEvent('abrir-modal-subir-varios-documentos');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 13){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-nombre-apoderados');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 14){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-menores');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 15){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-informacion-viaje');
             }
         }
     }
@@ -1077,8 +1099,8 @@ class Proyectos extends Component
         $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
         $avanceProyecto->save();
 
-        $this->gasto_de_recibo = "";
-        $this->gasto_de_gestoria = "";
+        $this->gasto_de_recibo = 0;
+        $this->gasto_de_gestoria = 0;
         $this->recibo_de_pago = "";
 
         return $this->dispatchBrowserEvent('cerrar-modal-recibo-pago', "Recibo de pago registrado con exito");
@@ -1130,6 +1152,76 @@ class Proyectos extends Component
         $avanceProyecto->save();
         $this->documentsActaDestacada = [];
         return $this->dispatchBrowserEvent('cerrar-modal-subir-varios-documentos', "Documentos registrados");
+    }
+
+    public function registrarapoderados(){
+        $this->validate([
+            "nombreapoderados" => "required"
+        ]);
+
+        $apoderados = new Apoderados;
+        $apoderados->apoderados = $this->nombreapoderados;
+        $apoderados->proyecto_id = $this->proyecto_id;
+        $apoderados->save();
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+
+        $this->nombreapoderados = "";
+
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-nombre-apoderados', "Nombres de los apoderados registrados");
+    }
+
+    public $pais_procedencia = "";
+    public $pais_destino = "";
+    public $aereolinea;
+    public $numero_vuelo;
+    public $nombre_garita;
+    public $tiempo_extranjero;
+    public $domicilio_destino;
+    public $personas_viaje;
+
+    public function registrarinformacionmenor(){
+        $this->validate([
+            "pais_procedencia" => "required",
+            "pais_destino" => "required",
+            "tiempo_extranjero" => "required",
+            "domicilio_destino" => "required",
+            "personas_viaje" => "required"
+        ]);
+
+        $infoviaje = new InformacionDelViajeDelMenor;
+        $infoviaje->pais_procedencia = $this->pais_procedencia;
+        $infoviaje->pais_destino = $this->pais_destino;
+        $infoviaje->aereolinea = $this->aereolinea;
+        $infoviaje->numero_vuelo = $this->numero_vuelo;
+        $infoviaje->nombre_garita = $this->nombre_garita;
+        $infoviaje->tiempo_extranjero = $this->tiempo_extranjero;
+        $infoviaje->domicilio_destino = $this->domicilio_destino;
+        $infoviaje->personas_viaje = $this->personas_viaje;
+        $infoviaje->proyecto_id = $this->proyecto_id;
+        $infoviaje->save();
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+
+        $this->pais_procedencia = "";
+        $this->pais_destino = "";
+        $this->aereolinea = "";
+        $this->numero_vuelo = "";
+        $this->nombre_garita = "";
+        $this->tiempo_extranjero = "";
+        $this->domicilio_destino = "";
+        $this->personas_viaje = "";
+
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-informacion-viaje', "Informacion del viaje registrada");
 
     }
+
 }
