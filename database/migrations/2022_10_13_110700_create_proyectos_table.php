@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger("usuario_id")->nullable();
             $table->integer("numero_escritura");
             $table->integer("status");
+            $table->integer("volumen");
 
             $table->foreign('servicio_id')
                 ->references('id')

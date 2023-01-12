@@ -13,6 +13,7 @@ use App\Models\Firmas;
 use App\Models\Generales;
 use App\Models\Herederos;
 use App\Models\InformacionDelViajeDelMenor;
+use App\Models\Mutuos;
 use App\Models\Observaciones;
 use App\Models\Paises;
 use App\Models\ProcesosServicios;
@@ -132,6 +133,14 @@ class Proyectos extends Component
                 ->get() : [],
             "menores" => $this->tituloModal == "Generales de los menores" ?
                 Generales::where('tipo', 'Generales de los menores')
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get() : [],
+            "socios" => $this->tituloModal == "Generales de los socios" ?
+                Generales::where('tipo', 'Generales de los socios')
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get() : [],
+            "apoderados" => $this->tituloModal == "Generales de los apoderados" ?
+                Generales::where('tipo', 'Generales de los apoderados')
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : [],
             "herederos" => Herederos::where('proyecto_id', $this->proyecto_id)->get(),
@@ -361,18 +370,43 @@ class Proyectos extends Component
             if($this->subprocesoActual->tiposub->id == 15){
                 return $this->dispatchBrowserEvent('abrir-modal-registrar-informacion-viaje');
             }
+
+            if($this->subprocesoActual->tiposub->id == 16){
+                return $this->dispatchBrowserEvent('abrir-modal-registrar-mutuos');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 17){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-socios');
+            }
+
+            if($this->subprocesoActual->tiposub->id == 18){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-apoderados');
+            }
         }
     }
 
     public function registrarAsignacion(){
-        $this->validate([
-            'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf' : "",
-            'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf' : "",
-            'curp' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
-            'rfc' => $this->tituloModal == 'Generales de los testigos' ? '' : 'required|mimes:pdf',
-            'identificacion_oficial' => 'required|mimes:pdf',
-            'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf' : '',
-        ]);
+        if($this->tituloModal == "Generales del testador" ||
+            $this->tituloModal == "Generales de los testigos"
+        ){
+            $this->validate([
+                'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf' : "",
+                'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf' : "",
+                'curp' => $this->curp != "" ? 'mimes:pdf' : "",
+                'rfc' => $this->rfc != "" ? 'mimes:pdf' : "",
+                'identificacion_oficial' => 'required|mimes:pdf',
+                'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf' : '',
+            ]);
+        }else{
+            $this->validate([
+                'acta_nac' => $this->acta_nac != "" ? 'mimes:pdf' : "",
+                'acta_matrimonio' => $this->acta_matrimonio != "" ? 'mimes:pdf' : "",
+                'curp' => 'required|mimes:pdf',
+                'rfc' => 'required|mimes:pdf',
+                'identificacion_oficial' => 'required|mimes:pdf',
+                'comprobante_domicilio' => $this->comprobante_domicilio != "" ? 'mimes:pdf' : '',
+            ]);
+        }
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
@@ -428,7 +462,7 @@ class Proyectos extends Component
 
     public function registrarTestigo(){
         $this->validate([
-            'identificacion_oficial' => 'required|mimes:pdf|max:20000',
+            'identificacion_oficial' => 'required|mimes:pdf',
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
@@ -533,7 +567,7 @@ class Proyectos extends Component
         Herederos::find($id)->delete();
     }
 
-    public function guardarTestigos(){
+    public function guardarTestigos($tipo){
         $avanceProyecto = new AvanceProyecto;
         $avanceProyecto->proyecto_id = $this->proyecto_id;
         $avanceProyecto->proceso_id = $this->procesoActual['id'];
@@ -541,7 +575,22 @@ class Proyectos extends Component
         $avanceProyecto->save();
         // $this->closeModal();
         // $this->firebase($this->proyecto_id);
-        $this->dispatchBrowserEvent("cerrar-modal-generales-testigos", "Testigos registrados con exito");
+
+        if($tipo == "testigos"){
+            return $this->dispatchBrowserEvent("cerrar-modal-generales-testigos", "Testigos registrados con exito");
+        }
+
+        if($tipo == "menores"){
+            return $this->dispatchBrowserEvent("cerrar-modal-generales-menores", "Menores registrados con exito");
+        }
+
+        if($tipo == "socios"){
+            return $this->dispatchBrowserEvent("cerrar-modal-generales-socios", "Socios registrados con exito");
+        }
+
+        if($tipo == "apoderados"){
+            return $this->dispatchBrowserEvent("cerrar-modal-generales-apoderados", "Apoderados registrados con exito");
+        }
     }
 
     public function guardarHeredero(){
@@ -1052,10 +1101,17 @@ class Proyectos extends Component
     public function verRegistroSubproceso($id){
         $avance = AvanceProyecto::find($id);
         $this->tituloModal = $avance->subproceso->nombre;
+
         if($avance->subproceso->tiposub->id == 4){
             $this->generales_data = Generales::where("proyecto_id", $avance->proyecto_id)
                 ->where("tipo", $avance->subproceso->nombre)->first();
             return $this->dispatchBrowserEvent('abrir-vista_previa');
+        }
+
+        if($avance->subproceso->tiposub->id == 11){
+            $nombreacta = ActasDestacas::where("proyecto_id", $avance->proyecto_id)->first();
+            $this->nombreacta = $nombreacta->nombre;
+            return $this->dispatchBrowserEvent('abrir-modal-nombre-acta');
         }
     }
 
@@ -1221,7 +1277,36 @@ class Proyectos extends Component
         $this->personas_viaje = "";
 
         return $this->dispatchBrowserEvent('cerrar-modal-registrar-informacion-viaje', "Informacion del viaje registrada");
-
     }
 
+    public $cantidad_mutuo;
+    public $forma_pago_mutuo;
+    public $tiempo_mutuo;
+
+    public function registrarInfoMutuo(){
+        $this->validate([
+            "cantidad_mutuo" => "required",
+            "forma_pago_mutuo" => "required",
+            "tiempo_mutuo" => "required",
+        ]);
+
+        $mutuo = new Mutuos;
+        $mutuo->cantidad = $this->cantidad_mutuo;
+        $mutuo->forma_pago = $this->forma_pago_mutuo;
+        $mutuo->tiempo = $this->tiempo_mutuo;
+        $mutuo->proyecto_id = $this->proyecto_id;
+        $mutuo->save();
+
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+
+        $this->cantidad_mutuo = "";
+        $this->forma_pago_mutuo = "";
+        $this->tiempo_mutuo = "";
+
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-mutuos', "Informacion registrada");
+    }
 }

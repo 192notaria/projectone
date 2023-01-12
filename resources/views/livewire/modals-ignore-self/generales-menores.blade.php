@@ -182,7 +182,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                <button wire:click='guardarTestigos' type="button" class="btn btn-outline-primary">Guardar</button>
+                <button wire:click='guardarTestigos("menores")' type="button" class="btn btn-outline-primary">Guardar</button>
             </div>
         </div>
     </div>

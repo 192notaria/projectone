@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade modal-generales-testigos"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
+<div wire:ignore.self class="modal fade modal-generales-socios"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,9 +37,9 @@
                             </div>
                         </div>
                             @if ($tipoGenerales == "")
-                                @if (count($testigos) == 0)
+                                @if (count($socios) == 0)
                                     <div class="col-lg-12 text-center">
-                                        <span class="badge badge-warning" style="width: 100%">Sin testigos asignados</span>
+                                        <span class="badge badge-warning" style="width: 100%">Sin socios asignados</span>
                                     </div>
                                 @endif
                             @else
@@ -145,23 +145,23 @@
                             @endif
                     </div>
                 </div>
-                @if (count($testigos) > 0)
+                @if (count($socios) > 0)
                     <div class="container mt-4">
-                        <h4>Testigos</h4>
+                        <h4>Socios</h4>
                         <div class="row">
-                            @foreach ($testigos as $testigo)
+                            @foreach ($socios as $socio)
                                 <div class="col-lg-4 mt-3">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="card style-6" href="javascript:void(0);">
-                                                <a style="cursor: pointer;" wire:click='borrarTestigo({{$testigo->id}})'>
+                                                <a style="cursor: pointer;" wire:click='borrarTestigo({{$socio->id}})'>
                                                     <span class="badge badge-danger"><i class="fa-solid fa-trash"></i></span>
                                                 </a>
                                                 <img src="{{url('/v3/src/assets/img/avatarprofile.png')}}" class="card-img-top" alt="...">
                                                 <div class="card-footer">
                                                     <div class="row">
                                                         <div class="col-12 mb-0 text-center">
-                                                            <b>{{$testigo->cliente->nombre}} {{$testigo->cliente->apaterno}} {{$testigo->cliente->amaterno}}</b>
+                                                            <b>{{$socio->cliente->nombre}} {{$socio->cliente->apaterno}} {{$socio->cliente->amaterno}}</b>
                                                             <ul class="text-start text-info">
                                                                 <li>Masculino</li>
                                                                 <li>Edad</li>
@@ -182,18 +182,19 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                <button wire:click='guardarTestigos("testigos")' type="button" class="btn btn-outline-primary">Guardar</button>
+                <button wire:click='guardarTestigos("socios")' type="button" class="btn btn-outline-primary">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    window.addEventListener('abrir-modal-generales-testigos', event => {
-        $(".modal-generales-testigos").modal("show")
+    window.addEventListener('abrir-modal-generales-socios', event => {
+        $(".modal-generales-socios").modal("show")
     })
-    window.addEventListener('cerrar-modal-generales-testigos', event => {
-        $(".modal-generales-testigos").modal("hide")
+
+    window.addEventListener('cerrar-modal-generales-socios', event => {
+        $(".modal-generales-socios").modal("hide")
 
         var myAudio= document.createElement('audio')
         myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"

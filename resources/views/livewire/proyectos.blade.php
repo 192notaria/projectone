@@ -200,7 +200,6 @@
 
     {{-- Edtar subprocesos --}}
     @include("livewire.modal-subprocesos-edicion.generales_docs")
-    @include("livewire.modal-subprocesos-edicion.vista-previa")
     @include("livewire.modals.cancelar-proyecto")
 
     {{-- modal wire:ignore.self --}}
@@ -218,4 +217,12 @@
     @include("livewire.modals-ignore-self.registrar-nombres-apoderados")
     @include("livewire.modals-ignore-self.generales-menores")
     @include("livewire.modals-ignore-self.registrar-informacion-viaje-menores")
+    @include("livewire.modals-ignore-self.registrar-informacion-mutuos")
+    @include("livewire.modals-ignore-self.generales-socios")
+    @include("livewire.modals-ignore-self.generales-apoderados")
+
+    {{-- Vista previa --}}
+    @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")
+    @include("livewire.modal-subprocesos-edicion.vista-nombre-acta")
+
 </div>

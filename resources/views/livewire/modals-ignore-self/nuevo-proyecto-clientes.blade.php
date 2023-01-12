@@ -21,18 +21,24 @@
                             @error('servicio_id') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="form-group mb-3">
                             <label for="">Numero de escritura</label>
                             <input type="number" wire:model="numero_de_escritura" class="form-control" placeholder="Numero...">
                             @error('numero_de_escritura') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label for="">Volumen</label>
+                            <input type="number" wire:model="volumen" class="form-control" placeholder="Volumen...">
+                            @error('volumen') <span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="form-group mb-3 autocomplete">
                             <label for="">Asignar abogado</label>
                             <input type="text" class="form-control" wire:model='buscarAbogado' placeholder="Jorge Luis...">
-
                             {{-- <input type="hidden" wire:model='municipio_nacimiento_id'> --}}
                             @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
                             <div class="autocomplete-items-2">

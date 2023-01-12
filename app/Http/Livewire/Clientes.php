@@ -108,8 +108,6 @@ class Clientes extends Component
         $this->nombre = "";
         $this->apaterno = "";
         $this->amaterno = "";
-        $this->nacimiento_ef = "";
-        $this->nacimiento_mun = "";
         $this->fecha_nacimiento = "";
         $this->buscarMunicipio = "";
         $this->email = "";
@@ -340,6 +338,7 @@ class Clientes extends Component
     // ===================================================================================== Nuevo Proyecto ============================================================
     public $buscarAbogado;
     public $numero_de_escritura;
+    public $volumen;
     public $id_Abogado,
         $nombreAbogado,
         $apaternoAbogado,
@@ -381,7 +380,7 @@ class Clientes extends Component
         $this->validate([
             "servicio_id" => "required",
             "id_Abogado" => "required",
-            "numero_de_escritura" => "required|unique:proyectos,numero_escritura",
+            "numero_de_escritura" => $this->numero_de_escritura != "" ? "unique:proyectos,numero_escritura" : "",
         ]);
         $proyecto = new Proyectos;
         $proyecto->servicio_id = $this->servicio_id;
@@ -389,6 +388,7 @@ class Clientes extends Component
         $proyecto->usuario_id = $this->id_Abogado;
         $proyecto->status = 0;
         $proyecto->numero_escritura = $this->numero_de_escritura;
+        $proyecto->volumen = $this->volumen;
         $proyecto->save();
 
         $this->servicio_id = "";

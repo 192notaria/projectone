@@ -15,6 +15,10 @@
                     <span class="fw-bold">Escritura:</span>
                     <span class="badge badge-primary">{{$proyecto->numero_escritura}}</span>
                 </p>
+                <p>
+                    <span class="fw-bold">Volumen:</span>
+                    <span class="badge badge-primary">{{$proyecto->volumen}}</span>
+                </p>
             </div>
         </div>
     </td>
@@ -61,11 +65,11 @@
                 @endcan
             </p>
         @endcan
-        <p class="mb-0 text-left">
+        <p class="mt-3 mb-0 text-left">
             <span class="fw-bold">Fecha de registro:</span>
             <p>{{$proyecto->created_at}} </p>
         </p>
-        @can('ver-plantillas-proyecto')
+        {{-- @can('ver-plantillas-proyecto')
             @if (isset($proyecto->getstatus->proceso->nombre))
                 @if ($proyecto->servicio->procesos[0]->id != $proyecto->getstatus->proceso_id)
                     <div class="btn-group" style="width: 100%;" role="group">
@@ -81,7 +85,7 @@
                     </div>
                 @endif
             @endif
-        @endcan
+        @endcan --}}
     </td>
 
     @can('ver-estado-proyecto')
