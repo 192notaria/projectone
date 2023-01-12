@@ -562,6 +562,7 @@ class Proyectos extends Component
         }
 
         $this->tipoGenerales = "";
+        $this->identificacion_oficial = "";
         $generales->save();
     }
 
