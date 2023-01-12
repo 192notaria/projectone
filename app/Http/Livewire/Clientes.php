@@ -213,29 +213,21 @@ class Clientes extends Component
 
     public function saveClienteInst(){
         $this->validate([
-            'nombre' => 'required|min:3',
-            'apaterno' => 'required|min:3',
-            'amaterno' => 'required|min:3',
-            'telefono' => 'min:10|integer',
-            'genero' => 'required',
+            'nombre' => 'required',
+            'telefono' => $this->telefono != "" ? 'min:10|integer' : '',
         ]);
         if($this->id_cliente == ""){
             $cliente = new ModelClientes;
             $cliente->nombre = $this->nombre;
-            $cliente->apaterno = $this->apaterno;
-            $cliente->amaterno = $this->amaterno;
             $cliente->telefono = $this->telefono;
-            $cliente->genero = $this->genero;
             $cliente->representante_inst = $this->cliente_institucion ?? 0;
             $cliente->save();
             return $this->dispatchBrowserEvent('cliente_registrado', "Cliente registrado como representante de alguna institucion");
         }
+
         $cliente = ModelClientes::find($this->id_cliente);
         $cliente->nombre = $this->nombre;
-        $cliente->apaterno = $this->apaterno;
-        $cliente->amaterno = $this->amaterno;
         $cliente->telefono = $this->telefono;
-        $cliente->genero = $this->genero;
         $cliente->representante_inst = $this->cliente_institucion ?? 0;
         $cliente->save();
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
@@ -245,10 +237,7 @@ class Clientes extends Component
         $cliente = ModelClientes::find($id);
         $this->id_cliente = $id;
         $this->nombre = $cliente->nombre;
-        $this->apaterno = $cliente->apaterno;
-        $this->amaterno = $cliente->amaterno;
         $this->telefono = $cliente->telefono;
-        $this->genero = $cliente->genero;
         $this->cliente_institucion = $cliente->representante_inst;
     }
 

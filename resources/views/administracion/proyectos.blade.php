@@ -22,6 +22,8 @@
     <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{url('v3/src/assets/css/dark/components/accordions.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="layout-px-spacing">

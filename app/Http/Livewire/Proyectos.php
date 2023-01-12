@@ -94,6 +94,7 @@ class Proyectos extends Component
     public $documentsActaDestacada = [];
 
     public $nombreapoderados;
+    public $varios_generales_data = [];
 
     public function render(){
         return view('livewire.proyectos',[
@@ -691,9 +692,9 @@ class Proyectos extends Component
 
     public function uploadDocument(){
         // Certificacion de libertad de gravamen
-        if($this->tituloModal == "Importar proyecto"){
+        if($this->tituloModal == "Importar proyecto" || $this->tituloModal == 'Aviso de testamento'){
             $this->validate([
-                "documentFile" => "required|mimes:doc,docx",
+                "documentFile" => "required|mimes:pdf,doc,docx",
             ]);
         }elseif(
             $this->tituloModal == "Importar inventario y avaluo" ||
@@ -1181,6 +1182,12 @@ class Proyectos extends Component
             $nombreacta = ActasDestacas::where("proyecto_id", $avance->proyecto_id)->first();
             $this->nombreacta = $nombreacta->nombre;
             return $this->dispatchBrowserEvent('abrir-modal-nombre-acta');
+        }
+
+        if($avance->subproceso->tiposub->id == 19){
+            $this->varios_generales_data = Generales::where("proyecto_id", $avance->proyecto_id)
+                ->where("tipo", $avance->subproceso->nombre)->get();
+            return $this->dispatchBrowserEvent('abrir-modal-vista-varios-generales');
         }
     }
 

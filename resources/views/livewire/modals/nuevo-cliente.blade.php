@@ -15,33 +15,45 @@
                     <div class="col-lg-12 mb-4">
                         <div class="form-check form-switch form-check-inline">
                             <input wire:model='cliente_institucion' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Representa alguna institución</label>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Institución pública o privada</label>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="
+                    @if ($cliente_institucion)
+                        col-lg-6
+                    @else
+                        col-lg-4
+                    @endif
+                    ">
                         <div class="form-group mb-3">
                             <label for="">Nombre</label>
                             <input type="hidden" wire:model="id_cliente" class="form-control">
-                            <input wire:model="nombre" type="text" class="form-control was-validated" placeholder="Juan">
+                            <input wire:model="nombre" type="text" class="form-control was-validated"
+                            @if ($cliente_institucion)
+                                placeholder="Infonativ"
+                            @else
+                                placeholder="Juan"
+                            @endif>
                             @error('nombre') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="form-group mb-3">
-                            <label for="">Apellido Paterno</label>
-                            <input wire:model="apaterno" type="text" class="form-control" placeholder="Perez">
-                            @error('apaterno') <span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group mb-3">
-                            <label for="">Apellido Materno</label>
-                            <input wire:model="amaterno" type="text" class="form-control" placeholder="Rodriguez">
-                            @error('amaterno') <span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
                     @if (!$cliente_institucion)
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="">Apellido Paterno</label>
+                                <input wire:model="apaterno" type="text" class="form-control" placeholder="Perez">
+                                @error('apaterno') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="">Apellido Materno</label>
+                                <input wire:model="amaterno" type="text" class="form-control" placeholder="Rodriguez">
+                                @error('amaterno') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
                                 <label for="">Estado civil</label>
@@ -53,19 +65,20 @@
                                 @error('estado_civil') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Genero</label>
+                                <select wire:model="genero" class="form-control">
+                                    <option value="" selected disabled>Seleccionar...</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                                @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
                     @endif
 
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Genero</label>
-                            <select wire:model="genero" class="form-control">
-                                <option value="" selected disabled>Seleccionar...</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                            </select>
-                            @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
                     @if (!$cliente_institucion)
                         <div class="col-lg-6">
                             <div class="form-group mb-3">

@@ -227,5 +227,6 @@
     {{-- Vista previa --}}
     @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")
     @include("livewire.modal-subprocesos-edicion.vista-nombre-acta")
+    @include("livewire.modal-subprocesos-edicion.vista-varios-generales")
 
 </div>
