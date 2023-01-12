@@ -143,6 +143,9 @@ class Proyectos extends Component
                 Generales::where('tipo', 'Generales de los apoderados')
                 ->where('proyecto_id', $this->proyecto_id)
                 ->get() : [],
+            "varios" => Generales::where('tipo', $this->tituloModal)
+                ->where('proyecto_id', $this->proyecto_id)
+                ->get(),
             "herederos" => Herederos::where('proyecto_id', $this->proyecto_id)->get(),
             "paises" => Paises::orderBy("nombre","ASC")->get()
         ]);
@@ -382,6 +385,10 @@ class Proyectos extends Component
             if($this->subprocesoActual->tiposub->id == 18){
                 return $this->dispatchBrowserEvent('abrir-modal-generales-apoderados');
             }
+
+            if($this->subprocesoActual->tiposub->id == 19){
+                return $this->dispatchBrowserEvent('abrir-modal-generales-varios');
+            }
         }
     }
 
@@ -461,6 +468,55 @@ class Proyectos extends Component
     }
 
     public function registrarTestigo(){
+        $this->validate([
+            'identificacion_oficial' => 'required|mimes:pdf',
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+
+        $generales = new Generales;
+        $generales->cliente_id = $this->tipoGenerales['id'];
+        $generales->proyecto_id = $this->proyecto_id;
+        $generales->tipo = $this->subprocesoActual->nombre;
+
+        $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'];
+        if($this->identificacion_oficial != ""){
+            $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
+            $identificacion_oficialRoute = $this->identificacion_oficial->storeAs($route, $FileName_identificacion_oficial, 'public');
+            $generales->identificacion_oficial_con_foto = $identificacion_oficialRoute;
+        }
+
+        if($this->acta_nac != ""){
+            $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." . $this->acta_nac->extension();
+            $acta_nacRoute = $this->acta_nac->storeAs($route, $FileName_acta_nac, 'public');
+            $generales->acta_nacimiento = $acta_nacRoute;
+        }
+        if($this->acta_matrimonio != ""){
+            $FileName_acta_matrimonio = "ACTA_Matrimonio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->acta_matrimonio->extension();
+            $acta_matrimonioRoute = $this->acta_matrimonio->storeAs($route, $FileName_acta_matrimonio, 'public');
+            $generales->acta_matrimonio = $acta_matrimonioRoute;
+        }
+        if($this->curp != ""){
+            $FileName_curp = "CURP_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->curp->extension();
+            $curpRoute = $this->curp->storeAs($route, $FileName_curp, 'public');
+            $generales->curp = $curpRoute;
+        }
+        if($this->rfc != ""){
+            $FileName_rfc = "RFC_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->rfc->extension();
+            $rfcRoute = $this->rfc->storeAs($route, $FileName_rfc, 'public');
+            $generales->rfc = $rfcRoute;
+        }
+        if($this->comprobante_domicilio != ""){
+            $FileName_comprobante_domicilio = "Comprobante_de_domicilio_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->comprobante_domicilio->extension();
+            $comprobante_domicilioRoute = $this->comprobante_domicilio->storeAs($route, $FileName_comprobante_domicilio, 'public');
+            $generales->comprobante_domicilio = $comprobante_domicilioRoute;
+        }
+
+        $this->tipoGenerales = "";
+        $generales->save();
+    }
+
+    public function registrarGenerales(){
         $this->validate([
             'identificacion_oficial' => 'required|mimes:pdf',
         ]);
@@ -591,6 +647,18 @@ class Proyectos extends Component
         if($tipo == "apoderados"){
             return $this->dispatchBrowserEvent("cerrar-modal-generales-apoderados", "Apoderados registrados con exito");
         }
+    }
+
+    public function guardarGeneralesVarios(){
+        $avanceProyecto = new AvanceProyecto;
+        $avanceProyecto->proyecto_id = $this->proyecto_id;
+        $avanceProyecto->proceso_id = $this->procesoActual['id'];
+        $avanceProyecto->subproceso_id = $this->subprocesoActual['id'];
+        $avanceProyecto->save();
+        // $this->closeModal();
+        // $this->firebase($this->proyecto_id);
+
+        return $this->dispatchBrowserEvent("cerrar-modal-generales-varios", "Registro guardado con exito");
     }
 
     public function guardarHeredero(){

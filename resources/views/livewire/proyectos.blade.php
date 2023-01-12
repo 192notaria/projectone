@@ -156,8 +156,10 @@
 
     @if (isset($procesoActual->nombre))
         {{-- <p>{{$procesoActual->nombre}}</p> --}}
-        <p>{{$procesoActual}}</p>
-        <p>{{$subprocesoActual}}</p>
+
+        {{-- <p>{{$procesoActual}}</p>
+        <p>{{$subprocesoActual}}</p> --}}
+
         {{-- <p>{{$subprocesoActual->tiposub}}</p> --}}
         @if (isset($subprocesoActual->tiposub->id))
             @if ($subprocesoActual->tiposub->id == 1)
@@ -220,6 +222,7 @@
     @include("livewire.modals-ignore-self.registrar-informacion-mutuos")
     @include("livewire.modals-ignore-self.generales-socios")
     @include("livewire.modals-ignore-self.generales-apoderados")
+    @include("livewire.modals-ignore-self.generales-varios")
 
     {{-- Vista previa --}}
     @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")
