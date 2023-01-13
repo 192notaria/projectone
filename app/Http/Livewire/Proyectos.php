@@ -1047,9 +1047,9 @@ class Proyectos extends Component
 
     public function saveObservacion(){
         $this->validate([
-            'tituloObservacion' => 'required|max:50',
-            'descripcionObservacion' => 'required|max:100',
-            'imgobservacion' => 'image',
+            'tituloObservacion' => 'required|max:250',
+            'descripcionObservacion' => 'required',
+            'imgobservacion' => $this->imgobservacion != "" ? 'image' : "",
         ]);
 
         $newobservacion = new Observaciones();
