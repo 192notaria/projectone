@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <label for="">Subir documento</label>
-                            <x-file-pond wire:model="documentFile"
+                            <x-file-pond name="documentFile" wire:model="documentFile"
                                 :options="['labelIdle' => 'Cargar un archivo... o arrastra y suelta']">
                             </x-file-pond>
                         @error('documentFile') <span class="text-danger">{{ $message }}</span>@enderror
