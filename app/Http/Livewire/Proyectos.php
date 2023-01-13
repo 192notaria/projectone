@@ -98,7 +98,7 @@ class Proyectos extends Component
 
     public function render(){
         return view('livewire.proyectos',[
-            "proyectos_escrituras" => Servicios::orderBy("nombre","ASC")->get(),
+            "proyectos_escrituras" => Servicios::orderBy("numero_escritura","ASC")->get(),
             // "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")->paginate($this->cantidadProyectos),
             "compradores" => $this->buscarComprador == "" ? [] : Clientes::where('nombre', 'LIKE', '%' . $this->buscarComprador . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscarComprador . '%')
