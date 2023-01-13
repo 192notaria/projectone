@@ -203,6 +203,7 @@
     {{-- Edtar subprocesos --}}
     @include("livewire.modal-subprocesos-edicion.generales_docs")
     @include("livewire.modals.cancelar-proyecto")
+    @include("livewire.modals-ignore-self.editar-proyecto-clientes")
 
     {{-- modal wire:ignore.self --}}
     @include("livewire.modals-ignore-self.generales-con-documentos")
@@ -228,5 +229,6 @@
     @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")
     @include("livewire.modal-subprocesos-edicion.vista-nombre-acta")
     @include("livewire.modal-subprocesos-edicion.vista-varios-generales")
+    @include("livewire.modal-subprocesos-edicion.vista-proyecto")
 
 </div>

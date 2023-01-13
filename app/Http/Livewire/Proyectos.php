@@ -98,6 +98,7 @@ class Proyectos extends Component
 
     public function render(){
         return view('livewire.proyectos',[
+            "proyectos_escrituras" => Servicios::orderBy("nombre","ASC")->get(),
             // "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")->paginate($this->cantidadProyectos),
             "compradores" => $this->buscarComprador == "" ? [] : Clientes::where('nombre', 'LIKE', '%' . $this->buscarComprador . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscarComprador . '%')
@@ -694,7 +695,7 @@ class Proyectos extends Component
         // Certificacion de libertad de gravamen
         if($this->tituloModal == "Importar proyecto" || $this->tituloModal == 'Aviso de testamento'){
             $this->validate([
-                "documentFile" => "required|mimes:pdf,doc,docx",
+                "documentFile" => "required|mimes:pdf,doc,docx|max:30024",
             ]);
         }elseif(
             $this->tituloModal == "Importar inventario y avaluo" ||
@@ -704,11 +705,11 @@ class Proyectos extends Component
             $this->tituloModal == "Certificacion de libertad de gravamen"
         ){
             $this->validate([
-                "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
+                "documentFile" => $this->documentFile != "" ? "mimes:pdf|max:30024" : "",
             ]);
         }else{
             $this->validate([
-                "documentFile" => "required|mimes:pdf",
+                "documentFile" => "required|mimes:pdf|max:30024",
             ]);
         }
 
@@ -1178,6 +1179,12 @@ class Proyectos extends Component
             return $this->dispatchBrowserEvent('abrir-vista_previa');
         }
 
+        if($avance->subproceso->tiposub->id == 6){
+            $this->documentFile = Documentos::where("proyecto_id", $avance->proyecto_id)
+                ->where("nombre", $avance->subproceso->nombre)->first();
+            return $this->dispatchBrowserEvent('abrir-modal-proyecto');
+        }
+
         if($avance->subproceso->tiposub->id == 11){
             $nombreacta = ActasDestacas::where("proyecto_id", $avance->proyecto_id)->first();
             $this->nombreacta = $nombreacta->nombre;
@@ -1189,6 +1196,8 @@ class Proyectos extends Component
                 ->where("tipo", $avance->subproceso->nombre)->get();
             return $this->dispatchBrowserEvent('abrir-modal-vista-varios-generales');
         }
+
+        // dd($avance->subproceso->tiposub->id);
     }
 
 
@@ -1384,5 +1393,49 @@ class Proyectos extends Component
         $this->tiempo_mutuo = "";
 
         return $this->dispatchBrowserEvent('cerrar-modal-registrar-mutuos', "Informacion registrada");
+    }
+
+
+    public $id_Abogado;
+    public $numero_de_escritura;
+    public $volumen;
+    public $avatarAbogado;
+    public $nombreAbogado;
+    public $apaternoAbogado;
+    public $amaternoAbogado;
+    public $generoAbogado;
+    public $telefonoAbogado;
+    public $emailAbogado;
+    public $fecha_nacimientoAbogado;
+
+    public function editarProyecto($id){
+        $proyecto = ModelsProyectos::find($id);
+        $this->proyecto_id = $id;
+        $this->numero_de_escritura = $proyecto->numero_escritura;
+        $this->volumen = $proyecto->volumen;
+        $this->id_Abogado = $proyecto->usuario_id;
+        $this->avatarAbogado = $proyecto->abogado->user_image;
+        $this->nombreAbogado = $proyecto->abogado->nombre;
+        $this->apaternoAbogado = $proyecto->abogado->apaterno;
+        $this->amaternoAbogado = $proyecto->abogado->amaterno;
+        $this->generoAbogado = $proyecto->abogado->genero;
+        $this->telefonoAbogado = $proyecto->abogado->telefono;
+        $this->emailAbogado = $proyecto->abogado->email;
+        $this->fecha_nacimientoAbogado = $proyecto->abogado->fecha_nacimiento;
+        $this->servicio_id = $proyecto->servicio_id;
+        return $this->dispatchBrowserEvent('abrir-modal-nuevo-proyecto-clientes');
+    }
+
+    public function guardarProyecto(){
+        $this->validate([
+            "numero_de_escritura" => "required|unique:proyectos,numero_escritura," . $this->proyecto_id,
+            "volumen" => "required",
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+        $proyecto->numero_escritura = $this->numero_de_escritura;
+        $proyecto->volumen = $this->volumen;
+        $proyecto->save();
+        return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto-clientes', "Registro editado");
     }
 }

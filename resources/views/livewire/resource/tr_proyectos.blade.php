@@ -171,7 +171,7 @@
                     @endcan
                 @endif
                 @can('editar-proyectos')
-                    <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button wire:click='editarProyecto("{{$proyecto->id}}")' type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
                 @endcan
                 @can('borrar-proyectos')
                     <button wire:click='cancelar_id({{$proyecto->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>

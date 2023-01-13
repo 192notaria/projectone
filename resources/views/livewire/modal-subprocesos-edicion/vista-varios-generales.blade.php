@@ -24,45 +24,45 @@
                                     <div class="row">
                                         @if ($generales->acta_nacmiento)
                                             <div class="col-lg-12 mt-3">
-                                                    <label for="">Acta de nacimiento</label>
-                                                    <embed src="{{url('/storage/' . $generales->acta_nacmiento)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                                <label for="">Acta de nacimiento</label>
+                                                <embed src="{{url('/storage/' . $generales->acta_nacmiento)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
 
-                                            @if ($generales->acta_matrimonio)
-                                                <div class="col-lg-12 mt-3">
-                                                    <label for="">Acta de matrimonio</label>
-                                                    <embed src="{{url('/storage/' . $generales->acta_matrimonio)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                        @if ($generales->acta_matrimonio)
+                                            <div class="col-lg-12 mt-3">
+                                                <label for="">Acta de matrimonio</label>
+                                                <embed src="{{url('/storage/' . $generales->acta_matrimonio)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
 
-                                            @if ($generales->curp)
-                                                <div class="col-lg-12 mt-3">
-                                                    <label for="">CURP</label>
-                                                    <embed src="{{url('/storage/' . $generales->curp)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                        @if ($generales->curp)
+                                            <div class="col-lg-12 mt-3">
+                                                <label for="">CURP</label>
+                                                <embed src="{{url('/storage/' . $generales->curp)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
 
-                                            @if ($generales->rfc)
-                                                <div class="col-lg-12 mt-3">
-                                                    <label for="">RFC</label>
-                                                    <embed src="{{url('/storage/' . $generales->rfc)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                        @if ($generales->rfc)
+                                            <div class="col-lg-12 mt-3">
+                                                <label for="">RFC</label>
+                                                <embed src="{{url('/storage/' . $generales->rfc)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
 
-                                            @if ($generales->identificacion_oficial_con_foto)
-                                                <div class="col-lg-12 mt-3">
-                                                    <label for="">Identificacion oficial con fotografia</label>
-                                                    <embed src="{{url('/storage/' . $generales->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                        @if ($generales->identificacion_oficial_con_foto)
+                                            <div class="col-lg-12 mt-3">
+                                                <label for="">Identificacion oficial con fotografia</label>
+                                                <embed src="{{url('/storage/' . $generales->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
 
-                                            @if ($generales->comprobante_domicilio)
-                                                <div class="col-lg-12 mt-3">
-                                                    <label for="">Comprobante de domicilio</label>
-                                                    <embed src="{{url('/storage/' . $generales->comprobante_domicilio)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                                                </div>
-                                            @endif
+                                        @if ($generales->comprobante_domicilio)
+                                            <div class="col-lg-12 mt-3">
+                                                <label for="">Comprobante de domicilio</label>
+                                                <embed src="{{url('/storage/' . $generales->comprobante_domicilio)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
