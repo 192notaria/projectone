@@ -8,10 +8,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4">
-                        <a class="btn btn-info">Descargar proyecto</a>
-                    </div>
+                <div class="row">
+                    @foreach ($proyectos_escritura as $proyecto_data)
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="badge badge-primary">
+                                        {{$proyecto_data->created_at}}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <a target="_blank" href="{{url($proyecto_data->storage)}}" class="btn btn-info" style="width: 100%;"><i class="fa-solid fa-file-word"></i> Descargar documento</a>
+                                </div>
+                                <div class="card-footer">
+                                    <button wire:click='cambiar_documento_escritura({{$proyecto_data->id}})' class="btn btn-primary mt-2">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="modal-footer">
@@ -40,5 +54,8 @@
             duration: 5000,
             actionText: '<i class="fa-solid fa-circle-xmark"></i>'
         })
+    })
+    window.addEventListener('cerrar-modal-proyecto-temp', event => {
+        $(".modal-proyecto").modal("hide")
     })
 </script>

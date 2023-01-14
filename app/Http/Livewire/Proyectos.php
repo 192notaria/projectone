@@ -96,6 +96,9 @@ class Proyectos extends Component
     public $nombreapoderados;
     public $varios_generales_data = [];
 
+    public $generales_data;
+    public $document_id;
+
     public function render(){
         return view('livewire.proyectos',[
             "proyectos_escrituras" => Servicios::orderBy("nombre","ASC")->get(),
@@ -718,7 +721,7 @@ class Proyectos extends Component
 
         if($this->documentFile != ""){
             $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
-            $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
+            $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
             $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
             $newdocument->storage = $uploadData;
         }else{
@@ -740,6 +743,28 @@ class Proyectos extends Component
         $this->closeModal();
         return $this->dispatchBrowserEvent('cerrar-modal-subir-documentos', "Documento registrado con exito");
         // $this->firebase($this->proyecto_id);
+    }
+
+
+    public function uploadNewDocument(){
+        $this->validate([
+            "documentFile" => "required|mimes:pdf,doc,docx",
+        ]);
+
+        $newdocument = Documentos::find($this->document_id);
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+        $this->servicio = $proyecto->servicio;
+
+        $route = "/uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+        $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
+        $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
+        $newdocument->storage = $uploadData;
+
+        $newdocument->save();
+
+        // $this->closeModal();
+        // $this->firebase($this->proyecto_id);
+        return $this->dispatchBrowserEvent('cerrar-modal-editar-documentos', "Documento editado con exito");
     }
 
 
@@ -1083,7 +1108,7 @@ class Proyectos extends Component
         $this->modalVerObservaciones = false;
     }
 
-    public $generales_data;
+
     public function editarSubproceso($id){
         $avance = AvanceProyecto::find($id);
         // dd($avance->subproceso->tiposub->id, $avance->subproceso->tiposub->nombre);
@@ -1116,9 +1141,10 @@ class Proyectos extends Component
         }
 
         // Documentos (PDF)
-        if($avance->subproceso->tiposub->id == 6){
+        // if($avance->subproceso->tiposub->id == 6){
 
-        }
+        //     return $this->dispatchBrowserEvent('abrir-modal-subir-documentos ');
+        // }
 
         // Fecha y hora de solicitud
         if($avance->subproceso->tiposub->id == 8){
@@ -1168,10 +1194,12 @@ class Proyectos extends Component
         $generales->save();
         return $this->dispatchBrowserEvent('cerrar-editar-generales-docs', "$generales->tipo" . " ha sido editado");
     }
+    public $proyectos_escritura = [];
 
     public function verRegistroSubproceso($id){
         $avance = AvanceProyecto::find($id);
         $this->tituloModal = $avance->subproceso->nombre;
+        $this->subprocesoActual = SubprocesosCatalogos::find($avance->subproceso_id);
 
         if($avance->subproceso->tiposub->id == 4){
             $this->generales_data = Generales::where("proyecto_id", $avance->proyecto_id)
@@ -1180,8 +1208,8 @@ class Proyectos extends Component
         }
 
         if($avance->subproceso->tiposub->id == 6){
-            $this->documentFile = Documentos::where("proyecto_id", $avance->proyecto_id)
-                ->where("nombre", $avance->subproceso->nombre)->first();
+            $this->proyectos_escritura = Documentos::where("proyecto_id", $avance->proyecto_id)
+                ->where("nombre", $avance->subproceso->nombre)->get();
             return $this->dispatchBrowserEvent('abrir-modal-proyecto');
         }
 
@@ -1436,6 +1464,15 @@ class Proyectos extends Component
         $proyecto->numero_escritura = $this->numero_de_escritura;
         $proyecto->volumen = $this->volumen;
         $proyecto->save();
+
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto-clientes', "Registro editado");
+    }
+
+    public function cambiar_documento_escritura($id){
+        $documento = Documentos::find($id);
+        $this->proyecto_id = $documento->proyecto_id;
+        $this->document_id = $id;
+        $this->dispatchBrowserEvent('cerrar-modal-proyecto-temp');
+        return $this->dispatchBrowserEvent('abrir-modal-editar-documentos');
     }
 }
