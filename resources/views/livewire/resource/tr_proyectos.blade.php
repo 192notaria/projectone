@@ -19,6 +19,9 @@
                     <span class="fw-bold">Volumen:</span>
                     <span class="badge badge-primary">{{$proyecto->volumen}}</span>
                 </p>
+                <p>
+                    <button wire:click='generarQr({{$proyecto->id}})' class="btn btn-info"><i class="fa-solid fa-qrcode"></i></button>
+                </p>
             </div>
         </div>
     </td>

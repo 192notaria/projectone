@@ -720,7 +720,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
         if($this->documentFile != ""){
-            $route = "uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+            $route = "/storage/uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
             $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
             $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
             $newdocument->storage = $uploadData;
@@ -755,7 +755,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $this->servicio = $proyecto->servicio;
 
-        $route = "/uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
+        $route = "/storage/uploads/proyectos/" . $proyecto->cliente->nombre . "_" . $proyecto->cliente->apaterno . "_" . $proyecto->cliente->amaterno . "/" . $this->servicio['nombre'] . "_" . $this->servicio['id'] . "/documentos";
         $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
         $uploadData = $this->documentFile->storeAs($route, $fileName, 'public');
         $newdocument->storage = $uploadData;
@@ -766,8 +766,6 @@ class Proyectos extends Component
         // $this->firebase($this->proyecto_id);
         return $this->dispatchBrowserEvent('cerrar-modal-editar-documentos', "Documento editado con exito");
     }
-
-
 
     public function agendarfecha(){
         // $this->firebase($this->proyecto_id);
@@ -1474,5 +1472,13 @@ class Proyectos extends Component
         $this->document_id = $id;
         $this->dispatchBrowserEvent('cerrar-modal-proyecto-temp');
         return $this->dispatchBrowserEvent('abrir-modal-editar-documentos');
+    }
+
+    public $qrData = "Sin informacion";
+
+    public function generarQr($id){
+        $proyecto = ModelsProyectos::find($id);
+        $this->qrData = $proyecto->servicio->nombre;
+        return $this->dispatchBrowserEvent('abrir-modal-generar-qr');
     }
 }
