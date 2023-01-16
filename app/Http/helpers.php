@@ -33,4 +33,8 @@ use App\Models\User;
                 event(new NotificationEvent($authId, $bodyAuthUser));
         }
     }
+
+    function bitacora ($usuario, $cliente, $proyecto, $proceso, $subproceso, $tipo){
+
+    }
 ?>
