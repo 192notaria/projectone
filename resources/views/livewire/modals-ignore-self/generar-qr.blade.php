@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="visible-print text-center">
                     {{-- <img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!'), 'QrCode.png', 'image/png'!!}"> --}}
-                    <img src="{!!$message_data->embedData(QrCode::format('png')->generate('Incorpórame en un e-mail!'), 'QrCode.png', 'image/png')!!}">
+
                 </div>
             </div>
             <div class="modal-footer">

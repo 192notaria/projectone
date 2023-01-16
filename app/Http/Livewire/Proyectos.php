@@ -98,7 +98,6 @@ class Proyectos extends Component
 
     public $generales_data;
     public $document_id;
-    public $message_data = "data";
 
     public function render(){
         return view('livewire.proyectos',[
