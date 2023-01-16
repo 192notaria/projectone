@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="visible-print text-center">
-                    <img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!'), 'QrCode.png', 'image/png'!!}">
+                    {{-- <img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!'), 'QrCode.png', 'image/png'!!}"> --}}
                     {{-- {!! QrCode::format('png')->size(400)->style('round')->generate("data"); !!} --}}
                 </div>
             </div>
