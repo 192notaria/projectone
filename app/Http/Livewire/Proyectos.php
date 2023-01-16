@@ -698,7 +698,7 @@ class Proyectos extends Component
         // Certificacion de libertad de gravamen
         if($this->tituloModal == "Importar proyecto" || $this->tituloModal == 'Aviso de testamento'){
             $this->validate([
-                "documentFile" => "required|mimes:pdf,doc,docx|max:30024",
+                "documentFile" => "required|mimes:pdf,doc,docx",
             ]);
         }elseif(
             $this->tituloModal == "Importar inventario y avaluo" ||
@@ -708,11 +708,11 @@ class Proyectos extends Component
             $this->tituloModal == "Certificacion de libertad de gravamen"
         ){
             $this->validate([
-                "documentFile" => $this->documentFile != "" ? "mimes:pdf|max:30024" : "",
+                "documentFile" => $this->documentFile != "" ? "mimes:pdf" : "",
             ]);
         }else{
             $this->validate([
-                "documentFile" => "required|mimes:pdf|max:30024",
+                "documentFile" => "required|mimes:pdf",
             ]);
         }
 
