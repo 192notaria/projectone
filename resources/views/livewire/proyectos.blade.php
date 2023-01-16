@@ -232,6 +232,6 @@
     @include("livewire.modal-subprocesos-edicion.vista-nombre-acta")
     @include("livewire.modal-subprocesos-edicion.vista-varios-generales")
     @include("livewire.modal-subprocesos-edicion.vista-proyecto")
-    {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
+    @include("livewire.modals-ignore-self.generar-qr")
 
 </div>
