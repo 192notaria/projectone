@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="visible-print text-center">
-                    {!! QrCode::encoding('UTF-8')->format('png')->size(400)->style('round')->generate("data"); !!}
+                    {!! QrCode::format('png')->size(400)->style('round')->generate("data"); !!}
                 </div>
             </div>
             <div class="modal-footer">
