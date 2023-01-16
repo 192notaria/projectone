@@ -112,7 +112,22 @@ class Proyectos extends Component
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscarCliente . '%')
                 ->get(),
 
-            "proyectos" => ModelsProyectos::orderBy("numero_escritura", "ASC")
+            "proyectos" =>
+            Auth::user()->hasRole('ADMINISTRADOR') ? ModelsProyectos::orderBy("numero_escritura", "ASC")
+                // ->where('usuario_id', auth()->user()->id)
+                ->whereHas('cliente', function($q){
+                    $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                })->orWhereHas('servicio', function($serv){
+                    $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                })->paginate($this->cantidadProyectos)
+            :
+                ModelsProyectos::orderBy("numero_escritura", "ASC")
+                ->where('usuario_id', auth()->user()->id)
+                ->whereHas('apoyo', function($q){
+                    $q->where('abogado_apoyo_id', auth()->user()->id);
+                })
                 ->whereHas('cliente', function($q){
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
