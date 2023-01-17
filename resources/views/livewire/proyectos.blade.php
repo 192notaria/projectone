@@ -226,6 +226,7 @@
     @include("livewire.modals-ignore-self.generales-socios")
     @include("livewire.modals-ignore-self.generales-apoderados")
     @include("livewire.modals-ignore-self.generales-varios")
+    @include("livewire.modals-ignore-self.registrar-activiad-vulnerable")
 
     {{-- Vista previa --}}
     @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")

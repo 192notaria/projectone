@@ -125,16 +125,15 @@ class Proyectos extends Component
             :
                 ModelsProyectos::orderBy("numero_escritura", "ASC")
                 ->where('usuario_id', auth()->user()->id)
-                ->whereHas('apoyo', function($q){
-                    $q->where('abogado_apoyo_id', auth()->user()->id);
-                })
                 ->whereHas('cliente', function($q){
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                })->orWhereHas('servicio', function($serv){
-                    $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                })->paginate($this->cantidadProyectos),
+                })
+                // ->orWhereHas('servicio', function($serv){
+                //     $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                // })
+                ->paginate($this->cantidadProyectos),
 
             "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
             "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
@@ -1207,6 +1206,7 @@ class Proyectos extends Component
         $generales->save();
         return $this->dispatchBrowserEvent('cerrar-editar-generales-docs', "$generales->tipo" . " ha sido editado");
     }
+
     public $proyectos_escritura = [];
 
     public function verRegistroSubproceso($id){
@@ -1496,4 +1496,12 @@ class Proyectos extends Component
         $this->qrData = $proyecto->servicio->nombre;
         return $this->dispatchBrowserEvent('abrir-modal-generar-qr');
     }
+
+    public $avividad_vulnerable = false;
+    public function actividadvulnerable($id){
+        $proyecto = ModelsProyectos::find($id);
+        $this->proyecto_id = $proyecto->id;
+        return $this->dispatchBrowserEvent('abrir-modal-registrar-actividad-vulnerable');
+    }
+
 }

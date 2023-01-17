@@ -22,6 +22,10 @@
                 <p>
                     <button wire:click='generarQr({{$proyecto->id}})' class="btn btn-info"><i class="fa-solid fa-qrcode"></i></button>
                 </p>
+                <p class="text-danger">
+                    {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
+                    <button wire:click='actividadvulnerable({{$proyecto->id}})' data-toggle="modal" data-target=".modal-registrar-actividad-vulnerable" class="btn btn-primary">Actividad vulnerable</button>
+                </p>
             </div>
         </div>
     </td>

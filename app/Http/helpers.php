@@ -35,6 +35,6 @@ use App\Models\User;
     }
 
     function bitacora ($usuario, $cliente, $proyecto, $proceso, $subproceso, $tipo){
-
+        
     }
 ?>
