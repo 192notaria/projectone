@@ -442,7 +442,7 @@ class Proyectos extends Component
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
 
         if($this->acta_nac != ""){
             $FileName_acta_nac = "ACTA_NACIMIENTO_" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." . $this->acta_nac->extension();
@@ -500,7 +500,7 @@ class Proyectos extends Component
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
 
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
@@ -550,7 +550,7 @@ class Proyectos extends Component
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
 
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
@@ -601,7 +601,7 @@ class Proyectos extends Component
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
 
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
@@ -739,7 +739,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
         if($this->documentFile != ""){
-            $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+            $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
 
             $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
             $uploadData = $this->documentFile->storeAs(mb_strtolower($route), $fileName, 'public');
@@ -775,7 +775,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $this->servicio = $proyecto->servicio;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
 
         $fileName = time() . "_" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->documentFile->extension();
         $uploadData = $this->documentFile->storeAs(mb_strtolower($route), $fileName, 'public');
@@ -1101,7 +1101,7 @@ class Proyectos extends Component
         $newobservacion->descripcion = $this->descripcionObservacion;
 
         if($this->imgobservacion != ""){
-            $route = "/storage/uploads/img/observaciones";
+            $route = "/uploads/img/observaciones";
             $filename = "Observacion_" . $this->proyecto_id . "_" . time() . "." . $this->imgobservacion->extension();
             $imgpath = $this->imgobservacion->storeAs(mb_strtolower($route), $filename, 'public');
             $newobservacion->img_path = $imgpath;
@@ -1175,7 +1175,7 @@ class Proyectos extends Component
 
     public function editarGeneralesDocs(){
         $proyecto = ModelsProyectos::find($this->proyecto_id);
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
         $generales = Generales::find($this->generales_data->id);
 
         $generales->cliente_id = $this->tipoGenerales->id;
@@ -1270,13 +1270,13 @@ class Proyectos extends Component
 
         $recibo = new RecibosPago;
 
-        $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
 
         $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
         $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
 
         $recibo->nombre = $this->subprocesoActual->nombre;
-        $recibo->path = "/storage/" . $uploadData;
+        $recibo->path = "/" . $uploadData;
         $recibo->costo_recibo = $this->gasto_de_recibo;
         $recibo->gastos_gestoria = $this->gasto_de_gestoria;
         $recibo->proyecto_id = $this->proyecto_id;
@@ -1325,7 +1325,7 @@ class Proyectos extends Component
 
         foreach ($this->documentsActaDestacada as $documentFile) {
             $newdocument = new Documentos;
-            $route = "/storage/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+            $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
 
             $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . $documentFile->getClientOriginalName();
             $uploadData = $documentFile->storeAs(mb_strtolower($route), $fileName, 'public');
