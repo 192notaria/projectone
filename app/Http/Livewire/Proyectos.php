@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\ActasDestacas;
+use App\Models\ActividadVulnerable;
 use App\Models\Apoderados;
 use App\Models\ApoyoProyectos;
 use App\Models\AutorizacionCatastro;
@@ -130,9 +131,9 @@ class Proyectos extends Component
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
                 })
-                // ->orWhereHas('servicio', function($serv){
-                //     $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                // })
+                ->orWhereHas('servicio', function($serv){
+                    $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                })
                 ->paginate($this->cantidadProyectos),
 
             "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
@@ -1498,10 +1499,35 @@ class Proyectos extends Component
     }
 
     public $avividad_vulnerable = false;
+    public $avividad_vulnerable_id;
+
     public function actividadvulnerable($id){
         $proyecto = ModelsProyectos::find($id);
         $this->proyecto_id = $proyecto->id;
+        if(isset($proyecto->activiadVulnerable->id)){
+            $this->avividad_vulnerable_id = $proyecto->activiadVulnerable->id;
+            $this->avividad_vulnerable = $proyecto->activiadVulnerable->activo;
+        }
         return $this->dispatchBrowserEvent('abrir-modal-registrar-actividad-vulnerable');
     }
 
+    public function guardarActividadVulnerable(){
+        if($this->avividad_vulnerable_id == ''){
+            $actividad = new ActividadVulnerable;
+            $actividad->proyecto_id = $this->proyecto_id;
+            $actividad->activo = $this->avividad_vulnerable != '' ? 1 : 0;
+            $actividad->save();
+            return $this->dispatchBrowserEvent('cerrar-modal-registrar-actividad-vulnerable', "Actividad registrada");
+        }
+
+        $actividad = ActividadVulnerable::find($this->avividad_vulnerable_id);
+        $actividad->activo = $this->avividad_vulnerable ? 1 : 0;
+        $actividad->save();
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-actividad-vulnerable', "Actividad editada");
+    }
+
+    public function clearActividad(){
+        $this->avividad_vulnerable = false;
+        $this->avividad_vulnerable_id = '';
+    }
 }

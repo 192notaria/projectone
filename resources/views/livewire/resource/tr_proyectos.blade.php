@@ -24,7 +24,16 @@
                 </p>
                 <p class="text-danger">
                     {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
-                    <button wire:click='actividadvulnerable({{$proyecto->id}})' data-toggle="modal" data-target=".modal-registrar-actividad-vulnerable" class="btn btn-primary">Actividad vulnerable</button>
+                    @if (isset($proyecto->activiadVulnerable->id))
+                        @if ($proyecto->activiadVulnerable->activo == 0)
+                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
+                        @else
+                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-danger"><i class="fa-solid fa-circle-exclamation"></i> Actividad vulnerable</button>
+                        @endif
+                    @else
+                        <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
+                    @endif
+
                 </p>
             </div>
         </div>

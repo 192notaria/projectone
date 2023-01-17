@@ -23,6 +23,10 @@ class Proyectos extends Model
         return $this->belongsTo(Servicios::class, 'servicio_id');
     }
 
+    public function activiadVulnerable(){
+        return $this->hasOne(ActividadVulnerable::class, 'proyecto_id');
+    }
+
     public function cliente(){
         return $this->belongsTo(Clientes::class, 'cliente_id');
     }
