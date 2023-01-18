@@ -116,7 +116,7 @@ class Proyectos extends Component
             "proyectos" =>
             Auth::user()->hasRole('ADMINISTRADOR') ? ModelsProyectos::orderBy("numero_escritura", "ASC")
                 // ->where('usuario_id', auth()->user()->id)
-                ->where('status', 1)
+                ->where('status', 0)
                 ->whereHas('cliente', function($q){
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
@@ -129,7 +129,7 @@ class Proyectos extends Component
             :
                 ModelsProyectos::orderBy("numero_escritura", "ASC")
                 ->where('usuario_id', auth()->user()->id)
-                ->where('status', 1)
+                ->where('status', 0)
                 ->whereHas('cliente', function($q){
                     $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
