@@ -1295,7 +1295,7 @@ $(document).ready(function(){
 var chart = new ApexCharts( document.querySelector("#revenueMonthly") , options);
 chart.render();
 
-var url = "http://projectone.test/chartsData/area"
+var url = "http://192.168.68.157/chartsData/area"
 $.getJSON(url, function(response) {
     // console.log(response.data);
     chart.updateSeries([{
@@ -1420,7 +1420,7 @@ function appendData() {
 }
 
 appendData()
-const urldonut = "http://projectone.test/chartsData/dounut"
+const urldonut = "http://192.168.68.157/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
     chart2.updateOptions({
