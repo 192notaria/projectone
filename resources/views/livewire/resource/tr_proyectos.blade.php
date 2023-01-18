@@ -19,12 +19,19 @@
                     <span class="fw-bold">Volumen:</span>
                     <span class="badge badge-primary">{{$proyecto->volumen}}</span>
                 </p>
-                <p>
+                {{-- <p>
                     <button wire:click='generarQr({{$proyecto->id}})' class="btn btn-info"><i class="fa-solid fa-qrcode"></i></button>
-                </p>
+                </p> --}}
                 <p class="text-danger">
+                    <div class="action-btns">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button wire:click='generarQr({{$proyecto->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-timeline"></i></button>
+                            <button wire:click='actividadvulnerable({{$proyecto->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-file-import"></i></button>
+                            <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                    </div>
                     {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
-                    @if (isset($proyecto->activiadVulnerable->id))
+                    {{-- @if (isset($proyecto->activiadVulnerable->id))
                         @if ($proyecto->activiadVulnerable->activo == 0)
                             <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
                         @else
@@ -32,7 +39,7 @@
                         @endif
                     @else
                         <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
-                    @endif
+                    @endif --}}
 
                 </p>
             </div>
