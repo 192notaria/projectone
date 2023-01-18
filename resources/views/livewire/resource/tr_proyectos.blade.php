@@ -25,9 +25,15 @@
                 <p class="text-danger">
                     <div class="action-btns">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button wire:click='generarQr({{$proyecto->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-timeline"></i></button>
-                            <button wire:click='actividadvulnerable({{$proyecto->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-file-import"></i></button>
-                            <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button wire:click='generarQr({{$proyecto->id}})' type="button" class="btn btn-info">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </button>
+                            <button wire:click='actividadvulnerable({{$proyecto->id}})' type="button" class="btn btn-danger">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </button>
                         </div>
                     </div>
                     {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
