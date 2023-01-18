@@ -8,7 +8,7 @@
             <div class="media-body align-self-center">
                 <h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
                 <p class="mt-2">
-                    <span class="fw-bold">Actos:</span>
+                    <span class="fw-bold">Acto:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
                 </p>
                 <p>
