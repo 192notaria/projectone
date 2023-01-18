@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NotificationEvent;
+use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
 use App\Http\Controllers\EstadosController;
@@ -49,5 +50,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/catalogos/estados', [EstadosController::class, 'index'])->name('catalogos-estados');
     Route::get('/catalogos/municipios', [MunicipiosController::class, 'index'])->name('catalogos-municipios');
     Route::get('/catalogos/colonias', [ColoniasController::class, 'index'])->name('catalogos-colonias');
+
+    Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
     // Route::resource('/user/profile', UserProfileController::class);
 });

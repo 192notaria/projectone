@@ -94,7 +94,7 @@ window.addEventListener("load", function(){
             },
             xaxis: {
                 type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
+                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],
             },
             tooltip: {
                 x: {
@@ -118,7 +118,7 @@ window.addEventListener("load", function(){
                 bar: {
                     horizontal: false,
                     columnWidth: '55%',
-                    endingShape: 'rounded'  
+                    endingShape: 'rounded'
                 },
             },
             dataLabels: {
@@ -392,7 +392,7 @@ window.addEventListener("load", function(){
                 }
             },
             series: [44, 55, 67, 83],
-            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
         }
 
     } else {
@@ -485,7 +485,7 @@ window.addEventListener("load", function(){
             },
             xaxis: {
                 type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
+                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],
             },
             tooltip: {
                 x: {
@@ -509,7 +509,7 @@ window.addEventListener("load", function(){
                 bar: {
                     horizontal: false,
                     columnWidth: '55%',
-                    endingShape: 'rounded'  
+                    endingShape: 'rounded'
                 },
             },
             dataLabels: {
@@ -783,9 +783,9 @@ window.addEventListener("load", function(){
                 }
             },
             series: [44, 55, 67, 83],
-            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
         }
-        
+
     }
 
     // Simple Line
@@ -911,13 +911,13 @@ window.addEventListener("load", function(){
                     borderColor: '#191e3a'
                 },
             })
-            
+
             simpleBar.updateOptions({
                 grid: {
                     borderColor: '#191e3a'
                 },
             })
-            
+
             mixed.updateOptions({
                 grid: {
                     borderColor: '#191e3a'
@@ -929,8 +929,8 @@ window.addEventListener("load", function(){
                     colors: '#0e1726'
                 }
             })
-            
-            
+
+
         } else {
             // Apex.grid = {
             //     borderColor: '#ebedf2'
@@ -943,7 +943,7 @@ window.addEventListener("load", function(){
             // }
 
 
-            
+
 
             simpleLine.updateOptions({
                 grid: {
@@ -973,13 +973,13 @@ window.addEventListener("load", function(){
                     borderColor: '#ebedf2'
                 },
             })
-            
+
             simpleBar.updateOptions({
                 grid: {
                     borderColor: '#ebedf2'
                 },
             })
-            
+
             mixed.updateOptions({
                 grid: {
                     borderColor: '#ebedf2'
@@ -991,9 +991,9 @@ window.addEventListener("load", function(){
                     colors: '#e0e6ed'
                 }
             })
-            
+
         }
-         
+
      })
-    
+
 })

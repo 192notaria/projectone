@@ -108,6 +108,8 @@ class Clientes extends Component
         $this->nombre = "";
         $this->apaterno = "";
         $this->amaterno = "";
+        $this->curp = "";
+        $this->rfc = "";
         $this->fecha_nacimiento = "";
         $this->buscarMunicipio = "";
         $this->email = "";
@@ -115,6 +117,7 @@ class Clientes extends Component
         $this->ocupacion = "";
         $this->estado_civil = "";
         $this->genero = "";
+        $this->id_cliente = "";
     }
 
     public function selectMunicipio($id){
@@ -193,6 +196,20 @@ class Clientes extends Component
             // return $this->closeModal();
         }
 
+        $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $validatedData['nombre'] . '%')
+                ->where('apaterno', 'LIKE', '%' . $validatedData['apaterno'] . '%')
+                ->where('amaterno', 'LIKE', '%' . $validatedData['amaterno'] . '%')
+                ->where('fecha_nacimiento', 'LIKE', '%' . $validatedData['fecha_nacimiento'] . '%')
+                ->get();
+
+        if(count($buscarCliente) > 0){
+            foreach($buscarCliente as $clienteEncontrado){
+                if($this->id_cliente != $clienteEncontrado->id){
+                    return $this->addError('existeCliente', 'Este cliente ya esta registrado');
+                }
+            }
+        }
+
         $cliente = ModelClientes::find($this->id_cliente);
         $cliente->nombre = $this->nombre;
         $cliente->apaterno = $this->apaterno;
@@ -207,8 +224,9 @@ class Clientes extends Component
         $cliente->curp = $this->curp;
         $cliente->rfc = $this->rfc;
         $cliente->save();
-        $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
-        return $this->closeModal();
+        $this->clearInputs();
+        return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
+        // return $this->closeModal();
     }
 
     public function saveClienteInst(){

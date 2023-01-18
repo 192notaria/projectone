@@ -58,6 +58,8 @@
 
 
             @livewireScripts()
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
             <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>
@@ -66,8 +68,9 @@
             <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
             <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
 
-            @yield('scripts-content')
             <script src="{{ asset("js/app.js") }}"></script>
+
+            @yield('scripts-content')
             <script>
                 Echo.private('notification.{{auth()->id()}}').listen('.send.notification', (e) => {
                     if(e.message == "closession"){
