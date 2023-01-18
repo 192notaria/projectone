@@ -149,7 +149,9 @@
                             </div>
                         </div>
                     @endif
-
+                    @error('existeCliente')
+                        <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
+                    @enderror
                 </div>
             </div>
             <div class="modal-footer">
