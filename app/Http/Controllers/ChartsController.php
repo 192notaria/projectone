@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyectos;
 use Illuminate\Http\Request;
 
 class ChartsController extends Controller
@@ -44,6 +45,11 @@ class ChartsController extends Controller
 
         return json_encode($datareturn);
     }
+
+        if($request->type == 'prueba'){
+            $actos = Proyectos::withCount(['servicios_id'])->get();
+            return $actos;
+        }
 
     }
 }

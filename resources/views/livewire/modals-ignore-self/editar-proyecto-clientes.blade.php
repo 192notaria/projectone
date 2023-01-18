@@ -21,6 +21,18 @@
                             @error('servicio_id') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div> --}}
+                    <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label for="">Acto</label>
+                            <select wire:model="servicio_id" class="form-select">
+                                <option value="" selected disabled>Seleccionar servicio...</option>
+                                @foreach ($proyectos_escrituras as $servicio)
+                                    <option value="{{$servicio->id}}">{{$servicio->nombre}}</option>
+                                @endforeach
+                            </select>
+                            @error('servicio_id') <span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="">Numero de escritura</label>

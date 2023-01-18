@@ -1488,6 +1488,7 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $proyecto->numero_escritura = $this->numero_de_escritura;
         $proyecto->volumen = $this->volumen;
+        $proyecto->servicio_id = $this->servicio_id;
         $proyecto->save();
 
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto-clientes', "Registro editado");

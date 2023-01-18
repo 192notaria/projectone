@@ -11,7 +11,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
-                            <label for="">Servicio</label>
+                            <label for="">Acto</label>
                             <select wire:model="servicio_id" class="form-select">
                                 <option value="" selected disabled>Seleccionar servicio...</option>
                                 @foreach ($proyectos_escrituras as $servicio)
