@@ -12,7 +12,9 @@ class Proyectos extends Model
         "servicio_id",
         "cliente_id",
         "usuario_id",
-        "status"
+        "status",
+        "numero_escritura",
+        "volumen",
     ];
 
     public function abogado(){
