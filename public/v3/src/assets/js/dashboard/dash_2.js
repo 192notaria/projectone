@@ -1313,7 +1313,7 @@ $.getJSON(url, function(response) {
               width: 370,
               height: 430
           },
-          colors: ['#622bd7', '#e2a03f', '#e7515a', '#9ae751', "#e75151"],
+          colors: ['#ffe43f', '#ffcf40', '#ff9b42', '#ff7140', "#ff2942", "#c5265e", "#4a3774", "#4b479b", "#0062ad", "#00717a", "#00975a", "#00cc5b"],
           dataLabels: {
             enabled: false
           },
@@ -1335,7 +1335,7 @@ $.getJSON(url, function(response) {
           plotOptions: {
             pie: {
               donut: {
-                size: '75%',
+                // size: '75%',
                 background: 'transparent',
                 labels: {
                   show: true,
@@ -1371,12 +1371,12 @@ $.getJSON(url, function(response) {
               }
             }
           },
-          stroke: {
-            show: true,
-            width: 15,
-            colors: '#fff'
-          },
-        // series: [985, 737, 270],
+        //   stroke: {
+        //     show: true,
+        //     width: 5,
+        //     // colors: '#fff'
+        //   },
+        // series: [985, 737, 270, 123, 999, 9192, 11, 1929],
         series:[],
         noData: { text: "Cargando ..."},
         //   labels: ['Apparel', 'Sports', 'Others'],
@@ -1415,11 +1415,11 @@ chart2.render();
 const urldonut = "http://192.168.68.157/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
-    // chart2.updateOptions({
-    //     series: response.data.values,
-    //     labels: response.data.labels
-    // })
-    chart2.updateSeries(response.data.values)
+    chart2.updateOptions({
+        series: response.data.values,
+        labels: response.data.labels
+    })
+    // chart2.updateSeries([1,2,3,4])
 });
 
 var d_2options1 = {
