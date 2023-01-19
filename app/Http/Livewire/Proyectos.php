@@ -908,7 +908,6 @@ class Proyectos extends Component
         $this->cuenta_predial = '';
         $this->clave_catastral = '';
         return $this->dispatchBrowserEvent('cerrar-modal-registrar-autorizacion-catastro', "Autorizacion registrada");
-
     }
 
     public $letras = "";
@@ -1490,7 +1489,7 @@ class Proyectos extends Component
         $proyecto->volumen = $this->volumen;
         $proyecto->servicio_id = $this->servicio_id;
         $proyecto->save();
-
+        $this->firebase($this->proyecto_id);
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto-clientes', "Registro editado");
     }
 
