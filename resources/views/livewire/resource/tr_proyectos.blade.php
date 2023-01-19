@@ -8,15 +8,15 @@
             <div class="media-body align-self-center">
                 <h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
                 <p class="mt-2">
-                    <span class="fw-bold">Acto:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id)) text-white @endif">Acto:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
                 </p>
                 <p>
-                    <span class="fw-bold">Escritura:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id)) text-white @endif">Escritura:</span>
                     <span class="badge badge-primary">{{$proyecto->numero_escritura}}</span>
                 </p>
                 <p>
-                    <span class="fw-bold">Volumen:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id)) text-white @endif">Volumen:</span>
                     <span class="badge badge-primary">{{$proyecto->volumen}}</span>
                 </p>
                 {{-- <p>
