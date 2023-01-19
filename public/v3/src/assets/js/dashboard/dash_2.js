@@ -1422,10 +1422,11 @@ appendData()
 const urldonut = "http://192.168.68.157/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
-    chart2.updateOptions({
-        series: response.data.values,
-        labels: response.data.labels
-    })
+    // chart2.updateOptions({
+    //     series: response.data.values,
+    //     labels: response.data.labels
+    // })
+    chart2.updateSeries(response.data.values)
 });
 
 var d_2options1 = {
