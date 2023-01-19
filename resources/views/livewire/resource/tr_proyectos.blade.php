@@ -1,5 +1,5 @@
 <tr>
-    <td>
+    <td @if (isset($proyecto->activiadVulnerable->id)) class='bg-danger' @endif>
         <div class="media">
             <div class="avatar me-2">
                 {{-- <img alt="avatar" src="{{url('v3/src/assets/img/male-avatar.svg')}}" class="rounded-circle" /> --}}
