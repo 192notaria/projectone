@@ -45,7 +45,7 @@ class ChartsController extends Controller
         // ];
 
         // return json_encode($datareturn);
-        $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
+        $actos = Proyectos::where("status", 0)->select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
             $values = [];
             $labels = [];
             foreach($actos as $acto){
