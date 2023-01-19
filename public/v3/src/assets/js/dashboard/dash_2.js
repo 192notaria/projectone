@@ -1332,45 +1332,45 @@ $.getJSON(url, function(response) {
                 vertical: 30
               }
           },
-          plotOptions: {
-            pie: {
-              donut: {
-                size: '75%',
-                background: 'transparent',
-                labels: {
-                  show: true,
-                  name: {
-                    show: true,
-                    fontSize: '29px',
-                    fontFamily: 'Nunito, sans-serif',
-                    color: undefined,
-                    offsetY: -10
-                  },
-                  value: {
-                    show: true,
-                    fontSize: '26px',
-                    fontFamily: 'Nunito, sans-serif',
-                    color: '#0e1726',
-                    offsetY: 16,
-                    formatter: function (val) {
-                      return val
-                    }
-                  },
-                  total: {
-                    show: true,
-                    showAlways: true,
-                    label: 'Total',
-                    color: '#888ea8',
-                    formatter: function (w) {
-                      return w.globals.seriesTotals.reduce( function(a, b) {
-                        return a + b
-                      }, 0)
-                    }
-                  }
-                }
-              }
-            }
-          },
+        //   plotOptions: {
+        //     pie: {
+        //       donut: {
+        //         size: '75%',
+        //         background: 'transparent',
+        //         labels: {
+        //           show: true,
+        //           name: {
+        //             show: true,
+        //             fontSize: '29px',
+        //             fontFamily: 'Nunito, sans-serif',
+        //             // color: undefined,
+        //             offsetY: -10
+        //           },
+        //           value: {
+        //             show: true,
+        //             fontSize: '26px',
+        //             fontFamily: 'Nunito, sans-serif',
+        //             color: '#0e1726',
+        //             offsetY: 16,
+        //             formatter: function (val) {
+        //               return val
+        //             }
+        //           },
+        //           total: {
+        //             show: true,
+        //             showAlways: true,
+        //             label: 'Total',
+        //             color: '#888ea8',
+        //             formatter: function (w) {
+        //               return w.globals.seriesTotals.reduce( function(a, b) {
+        //                 return a + b
+        //               }, 0)
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   },
           stroke: {
             show: true,
             width: 15,
@@ -1380,7 +1380,6 @@ $.getJSON(url, function(response) {
         series:[],
         noData: { text: "Cargando ..."},
         //   labels: ['Apparel', 'Sports', 'Others'],
-
         //   responsive: [
         //     {
         //       breakpoint: 1440, options: {
