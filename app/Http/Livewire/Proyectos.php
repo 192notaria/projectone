@@ -1181,6 +1181,7 @@ class Proyectos extends Component
                 $this->gasto_de_gestoria = $generales->gasto_de_gestoria;
             return $this->dispatchBrowserEvent('abrir-modal-editar-recibos-pago');
         }
+        dd($avance->subproceso->tiposub->id);
 
         // $this->closeModalTimeLine();
     }
