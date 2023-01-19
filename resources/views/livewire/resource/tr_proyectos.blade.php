@@ -1,22 +1,22 @@
 <tr>
-    <td @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->id == 1) class='bg-danger' @endif>
+    <td @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div class="media">
             <div class="avatar me-2">
                 {{-- <img alt="avatar" src="{{url('v3/src/assets/img/male-avatar.svg')}}" class="rounded-circle" /> --}}
                 <img alt="avatar" src="{{$proyecto->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div>
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->id == 1) text-white @endif">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
+                <h6 class="mb-0 fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->activo == 1) text-white @endif">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
                 <p class="mt-2">
-                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->id == 1) text-white @endif">Acto:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->activo == 1) text-white @endif">Acto:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
                 </p>
                 <p>
-                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->id == 1) text-white @endif">Escritura:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->activo == 1) text-white @endif">Escritura:</span>
                     <span class="badge badge-primary">{{$proyecto->numero_escritura}}</span>
                 </p>
                 <p>
-                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->id == 1) text-white @endif">Volumen:</span>
+                    <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id) && $proyecto->activiadVulnerable->activo == 1) text-white @endif">Volumen:</span>
                     <span class="badge badge-primary">{{$proyecto->volumen}}</span>
                 </p>
                 {{-- <p>
