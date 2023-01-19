@@ -1313,7 +1313,7 @@ $.getJSON(url, function(response) {
               width: 370,
               height: 430
           },
-          colors: ['#622bd7', '#e2a03f', '#e7515a', '#e2a03f'],
+          colors: ['#622bd7', '#e2a03f', '#e7515a', '#9ae751', "#e75151"],
           dataLabels: {
             enabled: false
           },
@@ -1412,21 +1412,15 @@ var chart2 = new ApexCharts(
 );
 
 chart2.render();
-function appendData() {
-    var arr = chart2.w.globals.series.slice()
-    arr.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
-    console.log(arr);
-}
 
-appendData()
 const urldonut = "http://192.168.68.157/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
-    // chart2.updateOptions({
-    //     series: response.data.values,
-    //     labels: response.data.labels
-    // })
-    chart2.updateSeries(response.data.values)
+    chart2.updateOptions({
+        series: response.data.values,
+        labels: response.data.labels
+    })
+    // chart2.updateSeries(response.data.values)
 });
 
 var d_2options1 = {
