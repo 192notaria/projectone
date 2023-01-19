@@ -1332,45 +1332,45 @@ $.getJSON(url, function(response) {
                 vertical: 30
               }
           },
-        //   plotOptions: {
-        //     pie: {
-        //       donut: {
-        //         size: '75%',
-        //         background: 'transparent',
-        //         labels: {
-        //           show: true,
-        //           name: {
-        //             show: true,
-        //             fontSize: '29px',
-        //             fontFamily: 'Nunito, sans-serif',
-        //             // color: undefined,
-        //             offsetY: -10
-        //           },
-        //           value: {
-        //             show: true,
-        //             fontSize: '26px',
-        //             fontFamily: 'Nunito, sans-serif',
-        //             color: '#0e1726',
-        //             offsetY: 16,
-        //             formatter: function (val) {
-        //               return val
-        //             }
-        //           },
-        //           total: {
-        //             show: true,
-        //             showAlways: true,
-        //             label: 'Total',
-        //             color: '#888ea8',
-        //             formatter: function (w) {
-        //               return w.globals.seriesTotals.reduce( function(a, b) {
-        //                 return a + b
-        //               }, 0)
-        //             }
-        //           }
-        //         }
-        //       }
-        //     }
-        //   },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: '75%',
+                background: 'transparent',
+                labels: {
+                  show: true,
+                  name: {
+                    show: true,
+                    fontSize: '29px',
+                    fontFamily: 'Nunito, sans-serif',
+                    // color: undefined,
+                    offsetY: -10
+                  },
+                  value: {
+                    show: true,
+                    fontSize: '26px',
+                    fontFamily: 'Nunito, sans-serif',
+                    color: '#0e1726',
+                    offsetY: 16,
+                    formatter: function (val) {
+                      return val
+                    }
+                  },
+                  total: {
+                    show: true,
+                    showAlways: true,
+                    label: 'Total',
+                    color: '#888ea8',
+                    formatter: function (w) {
+                      return w.globals.seriesTotals.reduce( function(a, b) {
+                        return a + b
+                      }, 0)
+                    }
+                  }
+                }
+              }
+            }
+          },
           stroke: {
             show: true,
             width: 15,
@@ -1415,11 +1415,11 @@ chart2.render();
 const urldonut = "http://192.168.68.157/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
-    chart2.updateOptions({
-        series: response.data.values,
-        labels: response.data.labels
-    })
-    // chart2.updateSeries(response.data.values)
+    // chart2.updateOptions({
+    //     series: response.data.values,
+    //     labels: response.data.labels
+    // })
+    chart2.updateSeries(response.data.values)
 });
 
 var d_2options1 = {
