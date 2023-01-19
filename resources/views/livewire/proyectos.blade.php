@@ -206,6 +206,7 @@
     @include("livewire.modals.cancelar-proyecto")
     @include("livewire.modals-ignore-self.editar-proyecto-clientes")
     @include("livewire.modal-subprocesos-edicion.editar-documentos")
+    @include("livewire.modal-subprocesos-edicion.editar-recibos-pago")
 
     {{-- modal wire:ignore.self --}}
     @include("livewire.modals-ignore-self.generales-con-documentos")

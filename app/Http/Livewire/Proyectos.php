@@ -1173,6 +1173,15 @@ class Proyectos extends Component
 
         }
 
+        // Recibos de pago
+        if($avance->subproceso->tiposub->id == 10){
+            $generales = RecibosPago::where("proyecto_id", $avance->proyecto_id)
+                ->where("subproceso_id", $avance->subproceso_id)->get();
+                $this->gasto_de_recibo = $generales->gasto_de_recibo;
+                $this->gasto_de_gestoria = $generales->gasto_de_gestoria;
+            return $this->dispatchBrowserEvent('abrir-modal-editar-recibos-pago');
+        }
+
         // $this->closeModalTimeLine();
     }
 
@@ -1253,7 +1262,7 @@ class Proyectos extends Component
 
 
 // Registrar recbios de pago
-    public $recibo_id;
+    public $recibo_pago_id;
     public $gasto_de_recibo = 0.0;
     public $gasto_de_gestoria = 0.0;
     public $totalRecbio = 0.0;
@@ -1269,15 +1278,13 @@ class Proyectos extends Component
             "gasto_de_gestoria" => "required",
             "recibo_de_pago" => "required",
         ]);
+
         $proyecto = ModelsProyectos::find($this->proyecto_id);
-
-        $recibo = new RecibosPago;
-
         $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
-
-        $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
+        $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
         $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
 
+        $recibo = new RecibosPago;
         $recibo->nombre = $this->subprocesoActual->nombre;
         $recibo->path = "/storage/" . $uploadData;
         $recibo->costo_recibo = $this->gasto_de_recibo;
@@ -1297,6 +1304,32 @@ class Proyectos extends Component
         $this->recibo_de_pago = "";
 
         return $this->dispatchBrowserEvent('cerrar-modal-recibo-pago', "Recibo de pago registrado con exito");
+    }
+
+    public function editarReciboPago(){
+        $this->validate([
+            "gasto_de_recibo" => "required",
+            "gasto_de_gestoria" => "required",
+            "recibo_de_pago" => $this->recibo_de_pago != "" ? "required" : "",
+        ]);
+
+        $proyecto = ModelsProyectos::find($this->proyecto_id);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+        $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
+        $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
+        $recibo = new RecibosPago;
+
+        $recibo = RecibosPago::find($this->recibo_pago_id);
+        $recibo->path = "/storage/" . $uploadData;
+        $recibo->costo_recibo = $this->gasto_de_recibo;
+        $recibo->gastos_gestoria = $this->gasto_de_gestoria;
+        $recibo->save();
+
+        $this->gasto_de_recibo = 0;
+        $this->gasto_de_gestoria = 0;
+        $this->recibo_de_pago = "";
+
+        return $this->dispatchBrowserEvent('cerrar-modal-editar-recibos-pago', "Recibo de pago editado");
     }
 
     public function asignarnombredelacta(){

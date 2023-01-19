@@ -63,6 +63,12 @@ class Clientes extends Component
         ]);
     }
 
+    public function mount(){
+        $modelo = "/App/Models/Clientes";
+        $buscarCliente = $modelo::find(1);
+        dd($buscarCliente);
+    }
+
     public function closeModalBorrarCliente(){
         $this->modalBorrarCliente = false;
     }

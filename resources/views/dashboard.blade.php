@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-            {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 
                 <div class="widget widget-activity-four">
 
@@ -191,7 +191,6 @@
                     </div>
 
                     <div class="widget-content">
-
                         <div class="mt-container-ra mx-auto">
                             <div class="timeline-line">
 
@@ -705,7 +704,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
 
