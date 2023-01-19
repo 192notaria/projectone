@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proyectos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ChartsController extends Controller
 {
@@ -34,22 +35,63 @@ class ChartsController extends Controller
     }
 
     if($request->type == 'dounut'){
-        $data = [
-            "values" => [15,90,30],
-            "labels" => ["Compraventas","Donaciones","Testamentos"],
-        ];
+        // $data = [
+        //     "values" => [15,90,30],
+        //     "labels" => ["Compraventas","Donaciones","Testamentos"],
+        // ];
 
-        $datareturn = [
-            "data" => $data,
-        ];
+        // $datareturn = [
+        //     "data" => $data,
+        // ];
 
-        return json_encode($datareturn);
+        // return json_encode($datareturn);
+        $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->limit(5)->get();
+            $values = [];
+            $labels = [];
+            foreach($actos as $acto){
+                 array_push($values,$acto->cantidad);
+                 array_push($labels,$acto->servicio->nombre);
+            }
+            $data = [
+                "values" => $values,
+                "labels" => $labels,
+            ];
+            $datareturn = [
+                "data" => $data,
+            ];
+            // $actos = Proyectos::selectRaw('count(*) as qty')
+            //     ->groupBy('if')
+            //     ->get();
+            // $actos = DB::table('proyectos')
+            //     ->groupBy('servicio_id')
+            //     ->having(DB::raw('count(*)'), '<', 2)
+            //     ->pluck('servicio_id');
+            return json_encode($datareturn);
     }
 
         if($request->type == 'prueba'){
-            $actos = Proyectos::withCount(['servicios_id'])->get();
-            return $actos;
+            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
+            $values = [];
+            $labels = [];
+            foreach($actos as $acto){
+                 array_push($values,$acto->cantidad);
+                 array_push($labels,$acto->servicio->nombre);
+            }
+            $data = [
+                "values" => $values,
+                "labels" => $labels,
+            ];
+            $datareturn = [
+                "data" => $data,
+            ];
+            // $actos = Proyectos::selectRaw('count(*) as qty')
+            //     ->groupBy('if')
+            //     ->get();
+            // $actos = DB::table('proyectos')
+            //     ->groupBy('servicio_id')
+            //     ->having(DB::raw('count(*)'), '<', 2)
+            //     ->pluck('servicio_id');
+            return json_encode($datareturn);
         }
-
     }
 }

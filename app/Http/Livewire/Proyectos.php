@@ -1059,7 +1059,7 @@ class Proyectos extends Component
             }
 
             $this->database = app('firebase.database');
-            $this->database->getReference($proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno . "/" .$proyecto->servicio->nombre . "_" . $proyecto->servicio->id)
+            $this->database->getReference("actos/" . $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno . "/" .$proyecto->servicio->nombre . "_" . $proyecto->servicio->id)
             ->set([
                 'cliente' => $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno,
                 'avance' => $arrayTemp

@@ -46,7 +46,6 @@
                     @else
                         <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
                     @endif --}}
-
                 </p>
             </div>
         </div>
