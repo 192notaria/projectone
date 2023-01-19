@@ -6,7 +6,7 @@
                 <img alt="avatar" src="{{$proyecto->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div>
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
+                <h6 class="mb-0 fw-bold @if (isset($proyecto->activiadVulnerable->id)) text-white @endif">{{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</h6>
                 <p class="mt-2">
                     <span class="fw-bold @if (isset($proyecto->activiadVulnerable->id)) text-white @endif">Acto:</span>
                     <span class="badge badge-primary">{{$proyecto->servicio->nombre}}</span>
