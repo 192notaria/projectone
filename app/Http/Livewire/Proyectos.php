@@ -1330,7 +1330,7 @@ class Proyectos extends Component
 
         if($this->recibo_de_pago != ""){
             $proyecto = ModelsProyectos::find($this->proyecto_id);
-            $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+            $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $proyecto->servicio->nombre) . "_" . $proyecto->servicio->id . "/documentos";
             $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
             $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
             $recibo->path = "/storage/" . $uploadData;
