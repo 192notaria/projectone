@@ -13,14 +13,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="text-primary">Gasto del recibo..........</span> {{$gasto_de_recibo}}
+                                    <div class="col-lg-12">
+                                        <span class="text-primary">Gasto del recibo............</span> {{$gasto_de_recibo}}
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <span class="text-primary">Gastos de gestoria..........</span> {{$gasto_de_gestoria}}
                                     </div>
-                                    <div class="col-lg-3">
-                                        <span class="text-primary">Total.......................</span> {{$totalRecbio}}
+                                    <div class="col-lg-12">
+                                        <span class="text-primary">Total........................</span> {{$totalRecbio}}
                                     </div>
                                 </div>
                             </div>
