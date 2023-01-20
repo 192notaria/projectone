@@ -730,7 +730,7 @@
                                             $totalRam = 16000;
                                             $procentajeram = $ramusada * 100 / $totalRam;
                                         @endphp
-                                        <p class="browser-count">{{$freeSpace}}GB Libres de {{$totalhdd}}GB | {{round($porcentje)}}% Usado</p>
+                                        <p class="browser-count">{{$freeSpace}}GB Libres de {{$totalhdd}}GB | {{round($porcentje)}}% Libres</p>
                                     </div>
                                     <div class="w-browser-stats">
                                         <div class="progress">
