@@ -724,12 +724,13 @@
                                         @php
                                             $totalhdd = round(disk_total_space("/") / 1024 /1024 / 1024);
                                             $freeSpace = round(disk_free_space("/") / 1024 / 1024 / 1024);
-                                            $porcentje = $freeSpace * 100 / $totalhdd;
+                                            $hddusado = $totalhdd - $freeSpace;
+                                            $porcentje = $hddusado * 100 / $totalhdd;
                                             $ramusada = (memory_get_usage() / 1024) / 1024;
                                             $totalRam = 16000;
                                             $procentajeram = $ramusada * 100 / $totalRam;
                                         @endphp
-                                        <p class="browser-count">{{$freeSpace}}GB Libres de {{$totalhdd}}GB | {{round($porcentje)}}% Libre</p>
+                                        <p class="browser-count">{{$freeSpace}}GB usados de {{$totalhdd}}GB | {{round($porcentje)}}% Usado</p>
                                     </div>
                                     <div class="w-browser-stats">
                                         <div class="progress">
