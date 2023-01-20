@@ -1325,14 +1325,16 @@ class Proyectos extends Component
             "recibo_de_pago" => $this->recibo_de_pago != "" ? "required" : "",
         ]);
 
-        $proyecto = ModelsProyectos::find($this->proyecto_id);
-        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
-        $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
-        $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
-        $recibo = new RecibosPago;
-
         $recibo = RecibosPago::find($this->recibo_pago_id);
-        $recibo->path = "/storage/" . $uploadData;
+
+        if($this->recibo_de_pago != ""){
+            $proyecto = ModelsProyectos::find($this->proyecto_id);
+            $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
+            $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
+            $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
+            $recibo->path = "/storage/" . $uploadData;
+        }
+
         $recibo->costo_recibo = $this->gasto_de_recibo;
         $recibo->gastos_gestoria = $this->gasto_de_gestoria;
         $recibo->save();
