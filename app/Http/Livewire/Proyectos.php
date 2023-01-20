@@ -1175,11 +1175,12 @@ class Proyectos extends Component
 
         // Recibos de pago
         if($avance->subproceso->tiposub->id == 10){
-            $generales = RecibosPago::where("proyecto_id", $avance->proyecto_id)
+            $recibopago = RecibosPago::where("proyecto_id", $avance->proyecto_id)
                 ->where("subproceso_id", $avance->subproceso_id)
                 ->first();
-                $this->gasto_de_recibo = $generales->costo_recibo;
-                $this->gasto_de_gestoria = $generales->gastos_gestoria;
+                $this->gasto_de_recibo = $recibopago->costo_recibo;
+                $this->gasto_de_gestoria = $recibopago->gastos_gestoria;
+                $this->recibo_pago_id = $recibopago->id;
             return $this->dispatchBrowserEvent('abrir-modal-editar-recibos-pago');
         }
         // dd($avance->subproceso->tiposub->id);
