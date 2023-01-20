@@ -15,31 +15,13 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <span class="text-primary">Gasto del recibo: </span> {{$gasto_de_recibo}}
+                                            <span class="text-primary">Gasto del recibo..........</span> {{$gasto_de_recibo}}
                                         </div>
                                         <div class="col-lg-6">
-                                            <span class="text-primary">Gastos de gestoria: </span> {{$generales_data->cliente->curp}}
+                                            <span class="text-primary">Gastos de gestoria..........</span> {{$gasto_de_gestoria}}
                                         </div>
                                         <div class="col-lg-3">
-                                            <li><span class="text-primary">RFC: </span> {{$generales_data->cliente->rfc}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Fecha de nacimiento: </span> {{$generales_data->cliente->fecha_nacimiento}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Email: </span> {{$generales_data->cliente->email}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Telefono: </span> {{$generales_data->cliente->telefono}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Ocupacion: </span> {{$generales_data->cliente->getOcupacion->nombre}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Estado civil: </span> {{$generales_data->cliente->estado_civil}}</li>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <li><span class="text-primary">Genero: </span> {{$generales_data->cliente->genero}}</li>
+                                            <span class="text-primary">Total.......................</span> {{$totalRecbio}}
                                         </div>
                                     </div>
                                 </div>
