@@ -1249,7 +1249,7 @@ class Proyectos extends Component
 
         if($avance->subproceso->tiposub->id == 10){
             $reciboPago = RecibosPago::where("proyecto_id", $avance->proyecto_id)
-                ->where("subproceso_id", $avance->subproceso_id)->get();
+                ->where("subproceso_id", $avance->subproceso_id)->first();
             $this->gasto_de_recibo = $reciboPago->costo_recibo;
             $this->gasto_de_gestoria = $reciboPago->gastos_gestoria;
             $this->totalRecbio = $reciboPago->costo_recibo + $reciboPago->gastos_gestoria;
