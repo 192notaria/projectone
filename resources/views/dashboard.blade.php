@@ -705,9 +705,7 @@
                     </div>
                 </div>
             </div>
-            <p>{{round(disk_total_space("/") / 1024 /1024 / 1024)}}</p>
-            <p>{{round(disk_free_space("/") / 1024 / 1024 / 1024)}}</p>
-            <p>{{((memory_get_usage() / 1024) / 1024)}}</p>
+
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                 <div class="widget-four">
                     <div class="widget-heading">
