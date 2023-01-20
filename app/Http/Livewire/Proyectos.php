@@ -1247,6 +1247,15 @@ class Proyectos extends Component
             return $this->dispatchBrowserEvent('abrir-modal-proyecto');
         }
 
+        if($avance->subproceso->tiposub->id == 10){
+            $reciboPago = RecibosPago::where("proyecto_id", $avance->proyecto_id)
+                ->where("subproceso_id", $avance->subproceso_id)->get();
+            $this->gasto_de_recibo = $reciboPago->costo_recibo;
+            $this->gasto_de_gestoria = $reciboPago->gastos_gestoria;
+            $this->totalRecbio = $reciboPago->costo_recibo + $reciboPago->gastos_gestoria;
+            return $this->dispatchBrowserEvent('abrir-modal-ver-recibo-pago');
+        }
+
         if($avance->subproceso->tiposub->id == 11){
             $nombreacta = ActasDestacas::where("proyecto_id", $avance->proyecto_id)->first();
             $this->nombreacta = $nombreacta->nombre;
