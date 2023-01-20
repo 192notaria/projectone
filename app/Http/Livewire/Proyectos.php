@@ -1133,6 +1133,7 @@ class Proyectos extends Component
 
     public function editarSubproceso($id){
         $avance = AvanceProyecto::find($id);
+        $this->proyecto_id = $avance->proyecto_id;
         // dd($avance->subproceso->tiposub->id, $avance->subproceso->tiposub->nombre);
 
         //DATOS DE AUTORIZACION DE CATASTRO
@@ -1151,7 +1152,6 @@ class Proyectos extends Component
             $this->generales_data = $generales;
             $this->tipoGenerales = $generales->cliente;
             $this->buscarCliente = "";
-            $this->proyecto_id = $avance->proyecto_id;
             $this->subprocesoActual = $avance->subproceso;
             $this->tituloModal = $avance->subproceso->nombre;
             return $this->dispatchBrowserEvent('abrir-editar-generales-docs', "Abrir modal");
