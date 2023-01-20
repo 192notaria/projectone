@@ -235,6 +235,6 @@
     @include("livewire.modal-subprocesos-edicion.vista-varios-generales")
     @include("livewire.modal-subprocesos-edicion.vista-proyecto")
     @include("livewire.modals-ignore-self.generar-qr")
-    @include("livewire.modals-ignore-self.recibos-pagos")
+    @include("livewire.modal-subprocesos-edicion.vista-recibos-pago")
 
 </div>
