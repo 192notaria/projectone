@@ -8,68 +8,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if ($generales_data != "")
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <span class="text-primary">Gasto del recibo..........</span> {{$gasto_de_recibo}}
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <span class="text-primary">Gastos de gestoria..........</span> {{$gasto_de_gestoria}}
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <span class="text-primary">Total.......................</span> {{$totalRecbio}}
-                                        </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span class="text-primary">Gasto del recibo..........</span> {{$gasto_de_recibo}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="text-primary">Gastos de gestoria..........</span> {{$gasto_de_gestoria}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <span class="text-primary">Total.......................</span> {{$totalRecbio}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @if ($generales_data->acta_nacmiento)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">Acta de nacimiento</label>
-                                <embed src="{{url('/storage/' . $generales_data->acta_nacmiento)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
-
-                        @if ($generales_data->acta_matrimonio)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">Acta de matrimonio</label>
-                                <embed src="{{url('/storage/' . $generales_data->acta_matrimonio)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
-
-                        @if ($generales_data->curp)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">CURP</label>
-                                <embed src="{{url('/storage/' . $generales_data->curp)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
-
-                        @if ($generales_data->rfc)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">RFC</label>
-                                <embed src="{{url('/storage/' . $generales_data->rfc)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
-
-                        @if ($generales_data->identificacion_oficial_con_foto)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">Identificacion oficial con fotografia</label>
-                                <embed src="{{url('/storage/' . $generales_data->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
-
-                        @if ($generales_data->comprobante_domicilio)
-                            <div class="col-lg-12 mt-3">
-                                <label for="">Comprobante de domicilio</label>
-                                <embed src="{{url('/storage/' . $generales_data->comprobante_domicilio)}}" style="width: 100%; height: 400px;" type="application/pdf">
-                            </div>
-                        @endif
                     </div>
-                @endif
+                    @if ($recibo_de_pago != "")
+                        <div class="col-lg-12 mt-3">
+                            <embed src="{{url($recibo_de_pago)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                        </div>
+                    @endif
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cerrar</button>

@@ -1253,6 +1253,7 @@ class Proyectos extends Component
             $this->gasto_de_recibo = $reciboPago->costo_recibo;
             $this->gasto_de_gestoria = $reciboPago->gastos_gestoria;
             $this->totalRecbio = $reciboPago->costo_recibo + $reciboPago->gastos_gestoria;
+            $this->recibo_de_pago = $reciboPago->path;
             return $this->dispatchBrowserEvent('abrir-modal-ver-recibo-pago');
         }
 
