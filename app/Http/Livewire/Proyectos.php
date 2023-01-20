@@ -753,7 +753,7 @@ class Proyectos extends Component
             $newdocument->storage = $uploadData;
         }
 
-        $newdocument->nombre = $this->subprocesoActual->nombre;
+        $newdocument->nombre = $this->documentFile == '' ? 'Sin documento' : $this->documentFile->getClientOriginalName();
         $newdocument->cliente_id = $proyecto->cliente->id;
         $newdocument->proyecto_id = $proyecto->id;
         $newdocument->save();
@@ -1382,7 +1382,7 @@ class Proyectos extends Component
             $fileName = strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . $documentFile->getClientOriginalName();
             $uploadData = $documentFile->storeAs(mb_strtolower($route), $fileName, 'public');
             $newdocument->storage = "/storage/" . $uploadData;
-            $newdocument->nombre = $this->subprocesoActual->nombre . " " . $fileName;
+            $newdocument->nombre = $documentFile == '' ? 'Sin documento' : $documentFile->getClientOriginalName();
             $newdocument->cliente_id = $proyecto->cliente->id;
             $newdocument->proyecto_id = $proyecto->id;
             $newdocument->save();
