@@ -1134,6 +1134,7 @@ class Proyectos extends Component
     public function editarSubproceso($id){
         $avance = AvanceProyecto::find($id);
         $this->proyecto_id = $avance->proyecto_id;
+        $this->subprocesoActual = SubprocesosCatalogos::find($avance->subproceso_id);
         // dd($avance->subproceso->tiposub->id, $avance->subproceso->tiposub->nombre);
 
         //DATOS DE AUTORIZACION DE CATASTRO
