@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-header">
-        <a href="/file_system/word.docx" class="btn btn-danger">Document</a>
+        {{-- <a href="/file_system/word.docx" class="btn btn-danger">Document</a> --}}
         <div style="display:flex; align-items:right;">
             @can('crear-clientes')
                 {{-- <button type="button" wire:click='openModal' class="btn btn-outline-success">
                     <i class="fa-solid fa-user-plus"></i>
                 </button> --}}
-                {{-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                     <i class="fa-solid fa-user-plus"></i>
-                </button> --}}
+                </button>
             @endcan
             <select class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                 <option value="5">5</option>
