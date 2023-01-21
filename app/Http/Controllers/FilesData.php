@@ -7,7 +7,7 @@ use Vish4395\LaravelFileViewer\LaravelFileViewer;
 
 class FilesData extends Controller implements LaravelFileViewer
 {
-    // use LaravelFileViewer;
+    use LaravelFileViewer;
     public function file_preview(Request $request){
         $filepath = 'public/word-template/' . $request->filename;
         $file_url = asset('storage/word-template/' . $request->filename);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "134e520ddb9460d2572f3161ef5e7b27",
+    "content-hash": "865b65dda514bb324948d74c0940731b",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -8707,67 +8707,6 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
-        },
-        {
-            "name": "vish4395/laravel-file-viewer",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vish4395/laravel-file-viewer.git",
-                "reference": "ca87583922ab14e265ef7031393507edc2561b44"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vish4395/laravel-file-viewer/zipball/ca87583922ab14e265ef7031393507edc2561b44",
-                "reference": "ca87583922ab14e265ef7031393507edc2561b44",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "*",
-                "php": "^7.4|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^6.0",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Vish4395\\LaravelFileViewer\\LaravelFileViewerServiceProvider"
-                    ],
-                    "aliases": {
-                        "LaravelFileViewer": "Vish4395\\LaravelFileViewer\\LaravelFileViewerFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Vish4395\\LaravelFileViewer\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vishal Sharma",
-                    "email": "vishal@newai.in",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A basic file viewer for Laravel projects",
-            "homepage": "https://github.com/vish4395/laravel-file-viewer",
-            "keywords": [
-                "laravel-file-viewer",
-                "vish4395"
-            ],
-            "support": {
-                "issues": "https://github.com/vish4395/laravel-file-viewer/issues",
-                "source": "https://github.com/vish4395/laravel-file-viewer/tree/1.0.1"
-            },
-            "time": "2023-01-03T13:47:45+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
