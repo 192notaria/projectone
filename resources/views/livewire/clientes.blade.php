@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-header">
+        <a href="/file_system/word.docx" class="btn btn-danger">Document</a>
         <div style="display:flex; align-items:right;">
             @can('crear-clientes')
                 {{-- <button type="button" wire:click='openModal' class="btn btn-outline-success">

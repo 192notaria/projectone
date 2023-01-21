@@ -1290,7 +1290,7 @@ class Proyectos extends Component
         $this->validate([
             "gasto_de_recibo" => "required",
             "gasto_de_gestoria" => "required",
-            "recibo_de_pago" => "required",
+            "recibo_de_pago" => $this->recibo_de_pago != "" ? "required" : "",
         ]);
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);

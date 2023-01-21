@@ -5,6 +5,7 @@ use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
 use App\Http\Controllers\EstadosController;
+use App\Http\Controllers\FilesData;
 use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\OcupacionesController;
 use App\Http\Controllers\PaisesController;
@@ -52,5 +53,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/catalogos/colonias', [ColoniasController::class, 'index'])->name('catalogos-colonias');
 
     Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
+    Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
     // Route::resource('/user/profile', UserProfileController::class);
+    Route::get('/file_system/{filename}', [FilesData::class, 'file_preview'])->name('file-preview');
 });
