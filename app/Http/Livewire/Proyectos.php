@@ -1299,10 +1299,10 @@ class Proyectos extends Component
             $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
             $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();
             $uploadData = $this->recibo_de_pago->storeAs(mb_strtolower($route), $fileName, 'public');
+            $recibo->path = "/storage/" . $uploadData;
         }
 
-        $recibo->nombre = $this->subprocesoActual->nombre;
-        $recibo->path = "/storage/" . $uploadData;
+        $recibo->nombre = $this->recibo_de_pago != '' ? $this->subprocesoActual->nombre : "Sin nombre";
         $recibo->costo_recibo = $this->gasto_de_recibo;
         $recibo->gastos_gestoria = $this->gasto_de_gestoria;
         $recibo->proyecto_id = $this->proyecto_id;
