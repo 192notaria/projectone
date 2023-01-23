@@ -1295,6 +1295,7 @@ class Proyectos extends Component
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $recibo = new RecibosPago;
+
         if($this->recibo_de_pago != ''){
             $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/documentos";
             $fileName = mb_strtolower(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "." . $this->recibo_de_pago->extension();

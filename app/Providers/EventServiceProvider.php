@@ -2,7 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\AvanceProyecto;
+use App\Models\Clientes;
+use App\Models\Proyectos;
 use App\Models\User;
+use App\Observers\AvanceProyectosObserver;
+use App\Observers\ClientesObserver;
+use App\Observers\ProyectosObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,9 +35,10 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         User::observe(UserObserver::class);
-
+        Clientes::observe(ClientesObserver::class);
+        Proyectos::observe(ProyectosObserver::class);
+        AvanceProyecto::observe(AvanceProyectosObserver::class);
     }
 
     /**

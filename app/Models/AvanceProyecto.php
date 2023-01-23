@@ -23,6 +23,4 @@ class AvanceProyecto extends Model
         return $this->hasOne(SubprocesosCatalogos::class, 'id', 'subproceso_id');
     }
 
-
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Bitacora;
 use App\Models\User;
 
 class UserObserver
@@ -14,8 +15,15 @@ class UserObserver
      */
     public function created(User $user)
     {
-        //
-        dd("usuario creado");
+        // dd($user);
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Nuevo registro";
+        $bitacora->detalle = "Nuevo usuario registrado";
+        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+            " ha registrado a " .
+            $user->name . " " . $user->apaterno . " " . $user->amaterno . " como nuevo usuario";
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
@@ -26,7 +34,14 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        //
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Registro editado";
+        $bitacora->detalle = "Usuario editado";
+        $usuarioAuth = auth()->user()->name . " " . auth()->user()->apaterno;
+        $bitacora->descripcion =  $usuarioAuth . " ha editado los datos del usuario " .
+            $user->name . " " . $user->apaterno . " " . $user->amaterno;
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
@@ -37,7 +52,14 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Registro borrado";
+        $bitacora->detalle = "Usuario borrado";
+        $usuarioAuth = auth()->user()->name . " " . auth()->user()->apaterno;
+        $bitacora->descripcion =  $usuarioAuth . " ha borrado los datos del usuario " .
+            $user->name . " " . $user->apaterno . " " . $user->amaterno;
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
