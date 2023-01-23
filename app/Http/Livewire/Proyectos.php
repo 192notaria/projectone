@@ -114,7 +114,7 @@ class Proyectos extends Component
                 ->get(),
 
             "proyectos" =>
-            Auth::user()->hasRole('ADMINISTRADOR') ? ModelsProyectos::orderBy("numero_escritura", "ASC")
+            Auth::user()->hasRole('ADMINISTRADOR') == true || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') == true ? ModelsProyectos::orderBy("numero_escritura", "ASC")
                 // ->where('usuario_id', auth()->user()->id)
                 ->where('status', 0)
                 ->whereHas('cliente', function($q){
