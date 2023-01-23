@@ -10,7 +10,7 @@ class BitacoraDashboard extends Component
     public function render()
     {
         return view('livewire.bitacora-dashboard',[
-            "registros_actividad" => Bitacora::orderBy("created_at", "DESC")->get()
+            "registros_actividad" => Bitacora::orderBy("created_at", "DESC")->limit(9)->get()
         ]);
     }
 }

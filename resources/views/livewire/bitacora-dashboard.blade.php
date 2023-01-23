@@ -24,8 +24,10 @@
                                 <div class="t-dot" data-original-title="" title="">
                                 </div>
                                 <div class="t-text">
-                                    <p><span>{{$registro->actividad}}</span> - {{$registro->detalle}}</p>
-                                    <span class="badge">{{$registro->created_at}}</span>
+                                    <p>
+                                        <span>{{$registro->actividad}}</span> - {{$registro->detalle}}
+                                    </p>
+                                    <span class="badge bs-popover rounded" data-bs-container="body" data-bs-trigger="hover" data-bs-content="{{$registro->descripcion}}">{{$registro->created_at}}</span>
                                     <p class="t-time">{{$registro->created_at->diffForHumans(now())}}</p>
                                 </div>
                             </div>

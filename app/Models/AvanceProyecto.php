@@ -14,7 +14,6 @@ class AvanceProyecto extends Model
         "subproceso_id",
     ];
 
-
     public function proceso(){
         return $this->hasOne(ProcesosServicios::class, 'id', 'proceso_id');
     }
@@ -23,4 +22,7 @@ class AvanceProyecto extends Model
         return $this->hasOne(SubprocesosCatalogos::class, 'id', 'subproceso_id');
     }
 
+    public function proyecto(){
+        return $this->hasOne(Proyectos::class, 'id', 'proyecto_id');
+    }
 }

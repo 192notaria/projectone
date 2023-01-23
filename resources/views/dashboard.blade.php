@@ -9,7 +9,8 @@
     <link href="{{url('v3/src/assets/css/dark/dashboard/dash_2.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{url('v3/src/assets/css/dark/widgets/modules-widgets.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('v3/src/assets/css/light/widgets/modules-widgets.css')}}">
-
+    <link href="{{url('v3/src/assets/css/light/elements/popover.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('v3/src/assets/css/dark/elements/popover.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="layout-px-spacing">
@@ -596,5 +597,7 @@
 @section('scripts-content')
     <script src="{{ url("v3/src/plugins/src/apex/apexcharts.min.js") }}"></script>
     <script src="{{url("v3/src/assets/js/dashboard/dash_2.js")}}"></script>
+    <script src="{{url("v3/src/assets/js/elements/popovers.js")}}"></script>
+
 @endsection
 

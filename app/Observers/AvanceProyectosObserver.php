@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\AvanceProyecto;
+use App\Models\Bitacora;
 
 class AvanceProyectosObserver
 {
@@ -14,7 +15,14 @@ class AvanceProyectosObserver
      */
     public function created(AvanceProyecto $avanceProyecto)
     {
-        //
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Nuevo registro";
+        $bitacora->detalle = $avanceProyecto->subproceso->nombre . " registrado";
+        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+            " ha registrado " . $avanceProyecto->subproceso->nombre . " del acto " . $avanceProyecto->proyecto->servicio->nombre . " para el cliente " .
+            $avanceProyecto->proyecto->cliente->nombre . " " . $avanceProyecto->proyecto->cliente->apaterno . " " . $avanceProyecto->proyecto->cliente->amaterno;
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
@@ -25,7 +33,14 @@ class AvanceProyectosObserver
      */
     public function updated(AvanceProyecto $avanceProyecto)
     {
-        //
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Nuevo registro";
+        $bitacora->detalle = $avanceProyecto->subproceso->nombre . " editado";
+        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+            " ha editado " . $avanceProyecto->subproceso->nombre . " del acto " . $avanceProyecto->proyecto->servicio->nombre . " para el cliente " .
+            $avanceProyecto->proyecto->cliente->nombre . " " . $avanceProyecto->proyecto->cliente->apaterno . " " . $avanceProyecto->proyecto->cliente->amaterno;
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
@@ -36,7 +51,14 @@ class AvanceProyectosObserver
      */
     public function deleted(AvanceProyecto $avanceProyecto)
     {
-        //
+        $bitacora = new Bitacora;
+        $bitacora->actividad = "Registro borrado";
+        $bitacora->detalle = $avanceProyecto->subproceso->nombre . " borrado";
+        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+            " ha borrado " . $avanceProyecto->subproceso->nombre . " del acto " . $avanceProyecto->proyecto->servicio->nombre . " para el cliente " .
+            $avanceProyecto->proyecto->cliente->nombre . " " . $avanceProyecto->proyecto->cliente->apaterno . " " . $avanceProyecto->proyecto->cliente->amaterno;
+        $bitacora->user_id = auth()->user()->id;
+        $bitacora->save();
     }
 
     /**
