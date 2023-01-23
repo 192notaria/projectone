@@ -5,28 +5,31 @@
         </div>
         <div class="widget-content">
             <div class="mt-container-ra mx-auto">
-                <div class="timeline-line">
-                    @foreach ($registros_actividad as $registro)
-                        <div class="item-timeline
-                            @if ($registro->actividad == 'Nuevo registro')
-                                timeline-success
-                            @endif
-                            @if ($registro->actividad == 'Registro editado')
-                                timeline-primary
-                            @endif
-                            @if ($registro->actividad == 'Registro borrado')
-                                timeline-danger
-                            @endif
-                        ">
-                            <div class="t-dot" data-original-title="" title="">
+                @if (count($registros_actividad) == 0)
+                    <p>Sin registros de actividad</p>
+                @else
+                    <div class="timeline-line">
+                        @foreach ($registros_actividad as $registro)
+                            <div class="item-timeline
+                                @if ($registro->actividad == 'Nuevo registro')
+                                    timeline-success
+                                @endif
+                                @if ($registro->actividad == 'Registro editado')
+                                    timeline-primary
+                                @endif
+                                @if ($registro->actividad == 'Registro borrado')
+                                    timeline-danger
+                                @endif
+                            ">
+                                <div class="t-dot" data-original-title="" title="">
+                                </div>
+                                <div class="t-text">
+                                    <p><span>{{$registro->actividad}}</span> - {{$registro->detalle}}</p>
+                                    <span class="badge">{{$registro->created_at}}</span>
+                                    <p class="t-time">{{$registro->created_at->diffForHumans(now())}}</p>
+                                </div>
                             </div>
-                            <div class="t-text">
-                                <p><span>{{$registro->actividad}}</span> - {{$registro->detalle}}</p>
-                                <span class="badge">{{$registro->created_at}}</span>
-                                <p class="t-time">{{$registro->created_at->diffForHumans(now())}}</p>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 {{--
                     <div class="item-timeline timeline-success">
                         <div class="t-dot" data-original-title="" title="">
@@ -179,6 +182,7 @@
                     </div> --}}
 
                 </div>
+                @endif
             </div>
 
             <div class="tm-action-btn">
