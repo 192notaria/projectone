@@ -28,40 +28,6 @@
                 </a>
             </li>
 
-            <li class="menu menu-heading">
-                <div class="heading">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>ADMINISTRACIÓN</span>
-                </div>
-            </li>
-
-            <li class="menu {{activeRoute(route('admin-roles'))}} {{activeRoute(route('admin-usuarios'))}} {{activeRoute(route('user_profile'))}}">
-                <a href="#usuariosCollapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        <span>Usuarios</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="usuariosCollapse" data-bs-parent="#accordionExample">
-                    @can('ver-usuarios')
-                        <li class="{{activeRoute(route('admin-usuarios'))}}">
-                            <a href="/administracion/usuarios"> Usuarios </a>
-                        </li>
-                    @endcan
-                    @can('ver-rol')
-                        <li class="{{activeRoute(route('admin-roles'))}}">
-                            <a href="/administracion/roles"> Roles de usuario </a>
-                        </li>
-                        @endcan
-                    <li class="{{activeRoute(route('user_profile'))}}">
-                        <a href="/user/profile">Mi perfil</a>
-                    </li>
-                </ul>
-            </li>
-
             <li class="menu {{activeRoute(route('admin-clientes'))}}">
                 <a href="#clientesNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div>
@@ -166,6 +132,41 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="menu menu-heading">
+                <div class="heading">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>SEGURIDAD</span>
+                </div>
+            </li>
+
+            <li class="menu {{activeRoute(route('admin-roles'))}} {{activeRoute(route('admin-usuarios'))}} {{activeRoute(route('user_profile'))}}">
+                <a href="#usuariosCollapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                        <span>Usuarios</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="usuariosCollapse" data-bs-parent="#accordionExample">
+                    @can('ver-usuarios')
+                        <li class="{{activeRoute(route('admin-usuarios'))}}">
+                            <a href="/administracion/usuarios"> Usuarios </a>
+                        </li>
+                    @endcan
+                    @can('ver-rol')
+                        <li class="{{activeRoute(route('admin-roles'))}}">
+                            <a href="/administracion/roles"> Roles de usuario </a>
+                        </li>
+                        @endcan
+                    <li class="{{activeRoute(route('user_profile'))}}">
+                        <a href="/user/profile">Mi perfil</a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </nav>
 </div>

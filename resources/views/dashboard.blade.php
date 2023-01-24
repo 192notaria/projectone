@@ -402,6 +402,10 @@
                 @livewire('actos-top')
             @endcan
 
+            @can('ver-actos-abogados')
+                @livewire('abogados-proyectos')
+            @endcan
+
             @can('ver-monitor-server')
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget-four">

@@ -1,4 +1,4 @@
-<div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
     <div class="widget widget-table-two">
         <div class="widget-heading">
             <h5 class="">Actos recientes</h5>
