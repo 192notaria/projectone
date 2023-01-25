@@ -107,9 +107,13 @@ class SederPermisionsTable extends Seeder
             // "agregar_observaciones-proyecto",
             // "remover_observaciones-proyecto",
 
-            "ver-actos-recientes",
-            "ver-actos-mas-requeridos",
-            "ver-monitor-server",
+            // "ver-actos-recientes",
+            // "ver-actos-mas-requeridos",
+            // "ver-monitor-server",
+            "ver-ocupaciones",
+            "agregar-ocupaciones",
+            "editar-ocupaciones",
+            "remover-ocupaciones",
         ];
 
         # code...

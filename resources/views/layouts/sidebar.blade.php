@@ -63,77 +63,6 @@
             </li>
 
             <li class="menu menu-heading">
-                <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>CATALOGOS</span>
-                </div>
-            </li>
-
-            <li class="menu {{activeRoute(route('catalogos-paises'))}} {{activeRoute(route('catalogos-estados'))}} {{activeRoute(route('catalogos-municipios'))}} {{activeRoute(route('catalogos-colonias'))}}">
-                <a href="#catalogos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        <span>Ubicaciones</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="catalogos" data-bs-parent="#accordionExample">
-                    <li class="{{activeRoute(route('catalogos-paises'))}}">
-                        <a href="/catalogos/paises"> Paises </a>
-                    </li>
-                    <li class="{{activeRoute(route('catalogos-estados'))}}">
-                        <a href="/catalogos/estados"> Estados  </a>
-                    </li>
-                    <li class="{{activeRoute(route('catalogos-municipios'))}}">
-                        <a href="/catalogos/municipios"> Municipios </a>
-                    </li>
-                    <li class="{{activeRoute(route('catalogos-colonias'))}}">
-                        <a href="/catalogos/colonias"> Colonias </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="menu {{activeRoute(route('admin-servicios'))}} {{activeRoute(route('admin-procesos_servicios'))}} {{activeRoute(route('admin-subprocesos'))}}">
-                <a href="#procesosysub" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-                        <span>Procesos</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="procesosysub" data-bs-parent="#accordionExample">
-                    <li class="{{activeRoute(route('admin-servicios'))}}">
-                        <a href="/administracion/servicios"> Lista de servicios</a>
-                    </li>
-                    <li class="{{activeRoute(route('admin-procesos_servicios'))}}">
-                        <a href="/administracion/procesos_servicios"> Procesos</a>
-                    </li>
-                    <li class="{{activeRoute(route('admin-subprocesos'))}}">
-                        <a href="/administracion/subprocesos"> Subprocesos</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu {{activeRoute(route('admin-ocupaciones'))}}">
-                <a href="#persoaneles" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-                        <span>Personales</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="persoaneles" data-bs-parent="#accordionExample">
-                    <li class="{{activeRoute(route('admin-ocupaciones'))}}">
-                        <a href="/administracion/ocupaciones"> Ocupaciones</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="menu menu-heading">
                 <div class="heading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     <span>CONFIGURACIÓN</span>
@@ -163,6 +92,57 @@
                         @endcan
                     <li class="{{activeRoute(route('user_profile'))}}">
                         <a href="/user/profile">Mi perfil</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu {{activeRoute(route('catalogos-paises'))}} {{activeRoute(route('catalogos-estados'))}} {{activeRoute(route('catalogos-municipios'))}} {{activeRoute(route('catalogos-colonias'))}}">
+                <a href="#catalogos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <span>Catalogos</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="catalogos" data-bs-parent="#accordionExample">
+                    @can('ver-servicios')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Actos</a>
+                        </li>
+                    @endcan
+                    @can('ver-colonias')
+                        <li class="{{activeRoute(route('catalogos-colonias'))}}">
+                            <a href="/catalogos/colonias"> Colonias </a>
+                        </li>
+                    @endcan
+                    @can('ver-estados')
+                        <li class="{{activeRoute(route('catalogos-estados'))}}">
+                            <a href="/catalogos/estados"> Estados  </a>
+                        </li>
+                    @endcan
+                    @can('ver-municipios')
+                        <li class="{{activeRoute(route('catalogos-municipios'))}}">
+                            <a href="/catalogos/municipios"> Municipios </a>
+                        </li>
+                    @endcan
+                    @can('ver-ocupaciones')
+                        <li class="{{activeRoute(route('admin-ocupaciones'))}}">
+                            <a href="/administracion/ocupaciones"> Ocupaciones</a>
+                        </li>
+                    @endcan
+                    @can('ver-paises')
+                        <li class="{{activeRoute(route('catalogos-paises'))}}">
+                            <a href="/catalogos/paises"> Paises </a>
+                        </li>
+                    @endcan
+                    @can('ver-procesos')
+                        <li class="{{activeRoute(route('admin-procesos_servicios'))}}">
+                            <a href="/administracion/procesos_servicios"> Procesos</a>
+                        </li>
+                    @endcan
+                    <li class="{{activeRoute(route('admin-subprocesos'))}}">
+                        <a href="/administracion/subprocesos"> Subprocesos</a>
                     </li>
                 </ul>
             </li>
