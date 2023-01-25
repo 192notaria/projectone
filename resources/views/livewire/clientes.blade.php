@@ -10,7 +10,7 @@
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
-            <select class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
+            <select wire:model='cantidadClientes' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
