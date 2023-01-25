@@ -100,6 +100,7 @@ class Proyectos extends Component
     public $generales_data;
     public $document_id;
 
+
     public function render(){
         return view('livewire.proyectos',[
             "proyectos_escrituras" => Servicios::orderBy("nombre","ASC")->get(),
@@ -114,30 +115,39 @@ class Proyectos extends Component
                 ->get(),
 
             "proyectos" =>
-            Auth::user()->hasRole('ADMINISTRADOR') == true || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') == true ? ModelsProyectos::orderBy("numero_escritura", "ASC")
+            Auth::user()->hasRole('ADMINISTRADOR') == true || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') == true ?
+                ModelsProyectos::orderBy("numero_escritura", "ASC")
                 // ->where('usuario_id', auth()->user()->id)
                 ->where('status', 0)
-                ->whereHas('cliente', function($q){
-                    $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                ->where(function($query){
+                    $query->whereHas('cliente', function($q){
+                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('servicio', function($serv){
+                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
-                // ->orWhereHas('servicio', function($serv){
-                //     $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                // })
                 ->paginate($this->cantidadProyectos)
             :
                 ModelsProyectos::orderBy("numero_escritura", "ASC")
                 ->where('usuario_id', auth()->user()->id)
                 ->where('status', 0)
-                ->whereHas('cliente', function($q){
-                    $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                ->where(function($query){
+                    $query->whereHas('cliente', function($q){
+                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('servicio', function($serv){
+                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
-                // ->orWhereHas('servicio', function($serv){
-                //     $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                // })
                 ->paginate($this->cantidadProyectos),
 
             "servicios" => Servicios::orderBy("nombre", "ASC")->get(),

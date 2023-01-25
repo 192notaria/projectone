@@ -184,12 +184,14 @@
                 </div>
             </div>
 
-            @livewire("bitacora-dashboard")
+            @can('ver-actividad-reciente')
+                @livewire("bitacora-dashboard")
+            @endcan
 
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-table-one">
                     <div class="widget-heading">
-                        <h5 class="">Transactions</h5>
+                        <h5 class="">Transacciones</h5>
                         <div class="task-action">
                             <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -215,7 +217,7 @@
                                         </div>
                                     </div>
                                     <div class="t-name">
-                                        <h4>Electricity Bill</h4>
+                                        <h4>Pago de quincena</h4>
                                         <p class="meta-date">04 Jan 1:00PM</p>
                                     </div>
 
