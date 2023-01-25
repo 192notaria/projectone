@@ -80,7 +80,7 @@ class Clientes extends Component
         return [
             'nombre' => 'required|min:3',
             'apaterno' => 'required|min:3',
-            'amaterno' => 'required|min:3',
+            'amaterno' => $this->amaterno != '' ? 'min:3' : '',
             'municipio_nacimiento_id' => 'required',
             'fecha_nacimiento' => 'required',
             'email' => $this->email != "" ? 'email' : "",
@@ -136,7 +136,7 @@ class Clientes extends Component
 
         $this->nombre = $cliente->nombre;
         $this->apaterno = $cliente->apaterno;
-        $this->amaterno = $cliente->amaterno;
+        $this->amaterno = $cliente->amaterno ?? "";
         $this->fecha_nacimiento = $cliente->fecha_nacimiento;
         $this->municipio_nacimiento_id = $cliente->municipio_nacimiento_id;
         $this->email = $cliente->email;
