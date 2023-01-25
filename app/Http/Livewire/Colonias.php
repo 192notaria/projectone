@@ -72,7 +72,7 @@ class Colonias extends Component
             $this->nombre_colonia = $colonia->nombre;
             $this->codigo_postal = $colonia->codigo_postal;
             $this->municipio_id = $colonia->municipio;
-            $this->municipio_nombre = $colonia->getMunicipio->nombre;
+            $this->municipio_nombre = $colonia->getMunicipio->nombre ?? "";
             $this->ciudad_o_localidad = $colonia->ciudad;
             $this->asentamiento = $colonia->asentamiento;
         }
