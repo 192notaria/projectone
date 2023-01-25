@@ -81,13 +81,13 @@ class Clientes extends Component
             'nombre' => 'required|min:3',
             'apaterno' => 'required|min:3',
             'amaterno' => $this->amaterno != '' ? 'min:3' : '',
-            'municipio_nacimiento_id' => 'required',
-            'fecha_nacimiento' => 'required',
+            'municipio_nacimiento_id' => '',
+            'fecha_nacimiento' => '',
             'email' => $this->email != "" ? 'email' : "",
             'telefono' => $this->telefono != "" ? 'min:10' : "",
-            'ocupacion' => 'required',
-            'estado_civil' => 'required',
-            'genero' => 'required',
+            'ocupacion' => '',
+            'estado_civil' => '',
+            'genero' => '',
         ];
     }
 
@@ -137,15 +137,15 @@ class Clientes extends Component
         $this->nombre = $cliente->nombre;
         $this->apaterno = $cliente->apaterno;
         $this->amaterno = $cliente->amaterno ?? "";
-        $this->fecha_nacimiento = $cliente->fecha_nacimiento;
-        $this->municipio_nacimiento_id = $cliente->municipio_nacimiento_id;
-        $this->email = $cliente->email;
-        $this->telefono = $cliente->telefono;
-        $this->ocupacion = $cliente->ocupacion;
-        $this->estado_civil = $cliente->estado_civil;
-        $this->genero = $cliente->genero;
-        $this->curp = $cliente->curp;
-        $this->rfc = $cliente->rfc;
+        $this->fecha_nacimiento = $cliente->fecha_nacimiento ?? "";
+        $this->municipio_nacimiento_id = $cliente->municipio_nacimiento_id ?? "";
+        $this->email = $cliente->email ?? "";
+        $this->telefono = $cliente->telefono ?? "";
+        $this->ocupacion = $cliente->ocupacion ?? "";
+        $this->estado_civil = $cliente->estado_civil ?? "";
+        $this->genero = $cliente->genero ?? "";
+        $this->curp = $cliente->curp ?? "";
+        $this->rfc = $cliente->rfc ?? "";
     }
 
     public function borrarCliente(){
