@@ -165,7 +165,7 @@ class Clientes extends Component
             $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $validatedData['nombre'] . '%')
                 ->where('apaterno', 'LIKE', '%' . $validatedData['apaterno'] . '%')
                 ->where('amaterno', 'LIKE', '%' . $validatedData['amaterno'] . '%')
-                ->where('fecha_nacimiento', 'LIKE', '%' . $validatedData['fecha_nacimiento'] . '%')
+                ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
                 ->get();
 
             if(count($buscarCliente) > 0){
@@ -180,16 +180,16 @@ class Clientes extends Component
             $cliente = new ModelClientes;
             $cliente->nombre = mb_strtoupper($this->nombre);
             $cliente->apaterno = mb_strtoupper($this->apaterno);
-            $cliente->amaterno = mb_strtoupper($this->amaterno);
-            $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
-            $cliente->fecha_nacimiento = $this->fecha_nacimiento;
-            $cliente->email = mb_strtolower($this->email);
-            $cliente->telefono = $this->telefono;
-            $cliente->ocupacion = $this->ocupacion;
-            $cliente->estado_civil = $this->estado_civil;
-            $cliente->genero = $this->genero;
-            $cliente->curp = $this->curp;
-            $cliente->rfc = $this->rfc;
+            $cliente->amaterno = mb_strtoupper($this->amaterno ?? "");
+            if($this->municipio_nacimiento_id) $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
+            if($this->fecha_nacimiento) $cliente->fecha_nacimiento = $this->fecha_nacimiento;
+            $cliente->email = mb_strtolower($this->email ?? "");
+            if($this->telefono) $cliente->telefono = $this->telefono;
+            if($this->ocupacion) $cliente->ocupacion = $this->ocupacion;
+            $cliente->estado_civil = $this->estado_civil ?? "";
+            $cliente->genero = $this->genero ?? "";
+            $cliente->curp = $this->curp ?? "";
+            $cliente->rfc = $this->rfc ?? "";
             $cliente->save();
 
             $this->clearInputs();

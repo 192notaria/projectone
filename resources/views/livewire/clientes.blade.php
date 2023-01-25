@@ -106,7 +106,6 @@
                     <thead>
                         <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Genero / Estado Civil</th>
                             <th scope="col">Nacimiento</th>
                             <th scope="col">Datos personales</th>
                             @can('ver-domiciliosClientes')
@@ -123,7 +122,17 @@
                                     <td>
                                         <div class="media">
                                             <div class="avatar me-2">
-                                                <img alt="avatar" src="{{$cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
+                                                <img alt="avatar" src="
+                                                @if ($cliente->genero == "Masculino")
+                                                    {{url('v3/src/assets/img/male-avatar.svg')}}
+                                                @endif
+                                                @if ($cliente->genero == "Femenino")
+                                                    {{url('v3/src/assets/img/female-avatar.svg')}}
+                                                @endif
+                                                @if (!$cliente->genero)
+                                                    {{url('v3/src/assets/img/no-gender.png')}}
+                                                @endif
+                                                " class="rounded-circle" />
                                             </div>
                                             <div class="media-body align-self-center">
                                                 <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
@@ -134,28 +143,26 @@
                                                         </button>
                                                     @endif
                                                 @endcan
+                                                <p class="mb-0">
+                                                    <h5>
+                                                        @if ($cliente->genero == "Masculino")
+                                                            <span class="badge badge-info">{{$cliente->genero}}</span>
+                                                        @else
+                                                            <span class="badge badge-secondary">{{$cliente->genero}}</span>
+                                                        @endif
+                                                    </h5>
+                                                </p>
+                                                <p class="mb-0">
+                                                    <h5>
+                                                        @if ($cliente->estado_civil == "Casado")
+                                                            <span class="badge badge-danger">{{$cliente->estado_civil}}</span>
+                                                        @else
+                                                            <span class="badge badge-success">{{$cliente->estado_civil}}</span>
+                                                        @endif
+                                                    </h5>
+                                                </p>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">
-                                            <h5>
-                                                @if ($cliente->genero == "Masculino")
-                                                    <span class="badge badge-info">{{$cliente->genero}}</span>
-                                                @else
-                                                    <span class="badge badge-secondary">{{$cliente->genero}}</span>
-                                                @endif
-                                            </h5>
-                                        </p>
-                                        <p class="mb-0">
-                                            <h5>
-                                                @if ($cliente->estado_civil == "Casado")
-                                                    <span class="badge badge-danger">{{$cliente->estado_civil}}</span>
-                                                @else
-                                                    <span class="badge badge-success">{{$cliente->estado_civil}}</span>
-                                                @endif
-                                            </h5>
-                                        </p>
                                     </td>
                                     <td>
                                         @if ($cliente->representante_inst)
@@ -287,6 +294,20 @@
                     </tbody>
                 </table>
                 {{$clientes->links('pagination-links')}}
+            </div>
+            <div class="col-lg-12">
+                <h1>Simple Recorder.js demo</h1>
+                <p><small>Made by the <a href="https://addpipe.com" target="_blank">Pipe Video Recording Platform</a></small></p>
+                <p>This demo uses <a href="https://github.com/mattdiamond/Recorderjs" target="_blank">Recorder.js</a> to record wav/PCM audio directly in the browser. Matt Diamond‘s <a target="_blank" href="https://github.com/mattdiamond/Recorderjs">Recorder.js</a> is a popular JavaScript library for recording audio in the browser as uncompressed pcm audio in .wav containers. Before it, the only way to record audio was to use Flash.</p>
+                <p>Check out the <a href="https://github.com/addpipe/simple-recorderjs-demo" target="_blank">code on GitHub</a> and <a href="https://addpipe.com/blog/using-recorder-js-to-capture-wav-audio-in-your-html5-web-site/" target="_blank">our blog post on using Recorder.js to capture WAV audio</a>.</p>
+                <div id="controls">
+                  <button id="recordButton">Record</button>
+                  <button id="pauseButton" disabled>Pause</button>
+                  <button id="stopButton" disabled>Stop</button>
+                </div>
+                <div id="formats">Format: start recording to see sample rate</div>
+                <p><strong>Recordings:</strong></p>
+                <ol id="recordingsList"></ol>
             </div>
 
             @include('livewire.modals.nuevoCliente')
