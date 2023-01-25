@@ -48,9 +48,9 @@
                                 <tr>
                                     <td>{{$colonia->nombre}}</td>
                                     <td>{{$colonia->ciudad}}</td>
-                                    <td>{{$colonia->getMunicipio->nombre}}</td>
-                                    <td>{{$colonia->getMunicipio->getEstado->nombre}}</td>
-                                    <td>{{$colonia->getMunicipio->getEstado->getPais->nombre}}</td>
+                                    <td>{{$colonia->getMunicipio->nombre ?? "Sin municipio"}}</td>
+                                    <td>{{$colonia->getMunicipio->getEstado->nombre ?? "Sin estado"}}</td>
+                                    <td>{{$colonia->getMunicipio->getEstado->getPais->nombre ?? "Sin Pais"}}</td>
                                     <td>{{$colonia->asentamiento}}</td>
                                     <td>{{$colonia->codigo_postal}}</td>
                                     <td class="text-center">
