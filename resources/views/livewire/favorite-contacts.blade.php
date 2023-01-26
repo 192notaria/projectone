@@ -62,6 +62,7 @@
         var audioContext
         window.addEventListener('start-interphone-favorite', event => {
             startRecording()
+            console.log(window.location.hostname)
         })
 
         window.addEventListener('stop-interphone-favorite', event => {
