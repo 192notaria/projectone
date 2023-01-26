@@ -27,6 +27,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
      key: 'MYKEY',
      wsHost: window.location.hostname,
      wsPort: 6001,
+     wssPort: 6001,
      forceTLS: true,
      disableStats: true
  });
