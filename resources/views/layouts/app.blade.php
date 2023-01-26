@@ -13,6 +13,7 @@
         <link href="{{ url("v3/layouts/collapsible-menu/css/dark/loader.css") }}" rel="stylesheet" type="text/css" />
 
         <script src="{{ url("v3/layouts/collapsible-menu/loader.js") }}"></script>
+
         <link href="{{ url("v3/src/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
 
         <link href="{{ url("v3/layouts/collapsible-menu/css/light/plugins.css") }}" rel="stylesheet" type="text/css" />
@@ -32,7 +33,7 @@
         @yield('links-content')
         @livewireStyles()
     </head>
-        <body class=" layout-boxed alt-menu">
+        <body class="alt-menu">
             <!-- BEGIN LOADER -->
             <div id="load_screen">
                 <div class="loader">
@@ -44,7 +45,7 @@
 
             @include('layouts.header')
 
-            <div class="main-container sidebar-closed " id="container">
+            <div class="main-container" id="container">
                 <div class="overlay"></div>
                 <div class="search-overlay"></div>
 
@@ -56,19 +57,43 @@
                 </div>
             </div>
 
-
             @livewireScripts()
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
+            <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+            <script>
+                $('#notificationDropdown').on('click', function (event) {
+                    if($("#notificationDropdownDiv").hasClass("show")){
+                        $("#notificationDropdownDiv").removeClass('show');
+                    }else{
+                        $("#notificationDropdownDiv").addClass('show');
+                        $("#favoriteContacsDropdownDiv").removeClass('show');
+                    }
+                });
+
+                $('#favoriteContacsDropdown').on('click', function (event) {
+                    if($("#favoriteContacsDropdownDiv").hasClass("show")){
+                        $("#favoriteContacsDropdownDiv").removeClass('show');
+                    }else{
+                        $("#favoriteContacsDropdownDiv").addClass('show');
+                        $("#notificationDropdownDiv").removeClass('show');
+                    }
+                });
+            </script>
+            <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
             <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>
             <script src="{{ url("/v3/layouts/collapsible-menu/app.js") }}"></script>
-
-            <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
+            <script src="{{ url("/v3/src/assets/js/custom.js") }}"></script>
+            <script src="{{url('v3/src/plugins/src/jquery-ui/jquery-ui.min.js')}}"></script>
+            <script src="{{url('v3/src/assets/js/apps/contact.js')}}"></script>
             <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
 
             <script src="{{ asset("js/app.js") }}"></script>
+
+            <!-- END GLOBAL MANDATORY SCRIPTS -->
+
 
             @yield('scripts-content')
             <script>

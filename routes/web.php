@@ -4,6 +4,7 @@ use App\Events\NotificationEvent;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
+use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\FilesData;
 use App\Http\Controllers\MunicipiosController;
@@ -37,9 +38,12 @@ Route::group(['middleware' => ['auth']], function(){
     // ADMINISTRACION
     Route::get('/administracion/roles', [RolController::class, 'index'])->name('admin-roles');
     Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('admin-usuarios');
-    Route::get('/administracion/clientes', [ClientesController::class, 'index'])->name('admin-clientes');
     Route::get('/administracion/actos', [ProyectosController::class, 'index'])->name('admin-actos');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
+
+    // Clientes
+    Route::get('/administracion/clientes', [ClientesController::class, 'index'])->name('admin-clientes');
+    Route::get('/contactos/lista_contactos', [ContactosController::class, 'index'])->name('lista-contactos');
 
     // PROCESOS Y SERVICIOS
     Route::get('/administracion/servicios', [ServiciosController::class, 'index'])->name('admin-servicios');

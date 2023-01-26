@@ -35,6 +35,7 @@
                 </a>
             </li>
 
+            @livewire('favorite-contacts')
             @livewire('notifications-component')
 
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">

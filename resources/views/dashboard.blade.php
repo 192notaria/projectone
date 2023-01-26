@@ -14,9 +14,7 @@
 @endsection
 @section('content')
 <div class="layout-px-spacing">
-
     <div class="middle-content container-xxl p-0">
-
         <div class="row layout-top-spacing">
             <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-chart-one">
@@ -470,7 +468,6 @@
         </div>
 
     </div>
-
 </div>
 @endsection
 

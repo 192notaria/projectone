@@ -4,14 +4,14 @@
 |           Scroll To Top               |
 |                                       |
 =========================================
-*/ 
+*/
 $('.scrollTop').click(function() {
     $("html, body").animate({scrollTop: 0});
 });
 
 
 $('.navbar .dropdown.notification-dropdown > .dropdown-menu, .navbar .dropdown.message-dropdown > .dropdown-menu ').click(function(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
 });
 
 /*
@@ -30,7 +30,7 @@ function checkall(clickchk, relChkbox) {
 
     checker.click(function () {
         multichk.prop('checked', $(this).prop('checked'));
-    });    
+    });
 }
 
 
@@ -74,7 +74,7 @@ function checkall(clickchk, relChkbox) {
 
     checker.click(function () {
         multichk.prop('checked', $(this).prop('checked'));
-    });    
+    });
 }
 
 /*
@@ -122,11 +122,11 @@ function GetIEVersion() {
   var Idx = sAgent.indexOf("MSIE");
 
   // If IE, return version number.
-  if (Idx > 0) 
+  if (Idx > 0)
     return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
 
   // If IE 11 then look for Updated user agent string.
-  else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+  else if (!!navigator.userAgent.match(/Trident\/7\./))
     return 11;
 
   else

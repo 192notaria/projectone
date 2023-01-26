@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function getNotificationsdata(){
         return $this->hasMany(Notifications::class, 'user_id');
     }
+
+    public function favorites(){
+        return $this->hasOne(Contactos::class, 'usuario_id');
+    }
 }
