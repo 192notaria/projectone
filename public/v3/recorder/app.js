@@ -42,7 +42,7 @@ function startRecording() {
 	*/
 
     console.log(navigator)
-	MediaDevices.getUserMedia(constraints).then(function(stream) {
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 		console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
 
 		/*
@@ -117,7 +117,6 @@ function stopRecording() {
 }
 
 function createDownloadLink(blob) {
-
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
@@ -149,16 +148,32 @@ function createDownloadLink(blob) {
 	upload.href="#";
 	upload.innerHTML = "Upload";
 	upload.addEventListener("click", function(event){
-		  var xhr=new XMLHttpRequest();
-		  xhr.onload=function(e) {
-		      if(this.readyState === 4) {
-		          console.log("Server returned: ",e.target.responseText);
-		      }
-		  };
-		  var fd=new FormData();
-		  fd.append("audio_data",blob, filename);
-		  xhr.open("POST","upload.php",true);
-		  xhr.send(fd);
+        console.log("Click donwload", token_validation)
+            // var xhr=new XMLHttpRequest();
+            // xhr.onload=function(e) {
+            //     if(this.readyState === 4) {
+            //         console.log("Server returned: ", e);
+            //     }
+            // };
+		    var fd =new FormData();
+		    fd.append("audio_data", blob, filename);
+		    fd.append("_token", token_validation);
+		    // xhr.open("POST", "http://projectone.test/intefone",true);
+		    // xhr.send(fd);
+            $.ajax({
+                url: "http://projectone.test/intefone",
+                type: 'POST',
+                data: fd,
+                // headers:{
+                //     "_token": '{{csrf_token()}}'
+                // },
+                success: function (data) {
+                    console.log(data)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
 	})
 	li.appendChild(document.createTextNode (" "))//add a space in between
 	li.appendChild(upload)//add the upload link to li

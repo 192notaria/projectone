@@ -41,7 +41,40 @@
                                     <h6 class="mb-0">{{$usuario->name}} {{$usuario->apaterno}} {{$usuario->amaterno}}</h6>
                                     <span>{{$usuario->email}}</span>
                                 </div>
+                                <p>
+                                    <button
+                                        @if (!$recording)
+                                            wire:click='startRecording({{$usuario->id}})'
+                                            class="btn btn-primary"
+                                        @endif
+                                        @if ($recording && $interphoneUser != $usuario->id)
+                                            class="btn btn-primary"
+                                            disabled
+                                        @endif
+                                        @if ($interphoneUser == $usuario->id && $recording)
+                                            wire:click='stopRecording'
+                                            class="btn btn-danger"
+                                        @endif
+                                        >
+
+                                        @if (!$recording)
+                                            <i class="fa-solid fa-microphone"></i>
+                                        @endif
+                                        @if ($recording && $interphoneUser != $usuario->id)
+                                            <i class="fa-solid fa-microphone"></i>
+                                        @endif
+                                        @if ($interphoneUser == $usuario->id && $recording)
+                                            <i class="fa-solid fa-circle-stop"></i>
+                                        @endif
+                                    </button>
+{{--
+                                    @if(!$recording)
+                                    @else
+                                        <button @if ($interphoneUser != $usuario->id) disabled @endif wire:click='stopRecording' class="btn btn-danger"><i class="fa-solid fa-circle-stop"></i></button>
+                                    @endif --}}
+                                </p>
                             </div>
+
                         </td>
                         <td>
                             @if (isset($usuario))
@@ -320,4 +353,85 @@
             </div>
         </div>
     </div>
+
+    {{-- <script src="{{ url('v3/recorder/app.js') }}"></script> --}}
+    <script src="{{ url('v3/recorder/recorder.js') }}"></script>
+    <script>
+
+        var userid; 						//stream from getUserMedia()
+        var gumStream; 						//stream from getUserMedia()
+        var rec; 							//Recorder.js object
+        var input; 							//MediaStreamAudioSourceNode we'll be recording
+
+        // shim for AudioContext when it's not avb.
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        var audioContext //audio context to help us record
+        window.addEventListener('start-interphone', event => {
+            startRecording()
+        })
+
+        window.addEventListener('stop-interphone', event => {
+            userid = event.detail
+            stopRecording()
+        })
+
+
+        function startRecording(){
+            var constraints = { audio: true, video:true }
+            // recordButton.disabled = true;
+            // stopButton.disabled = false;
+            // pauseButton.disabled = false
+            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+                // console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+                audioContext = new AudioContext();
+                // document.getElementById("formats").innerHTML="Format: 1 channel pcm @ " + audioContext.sampleRate/1000+"kHz"
+                gumStream = stream
+                input = audioContext.createMediaStreamSource(stream)
+                rec = new Recorder(input,{numChannels:1})
+                rec.record()
+            }).catch(function(err) {
+                // recordButton.disabled = false;
+                // stopButton.disabled = true;
+                // pauseButton.disabled = true
+            });
+        }
+
+
+        function stopRecording() {
+            rec.stop();
+            // gumStream.getAudioTracks()[0].stop();
+            gumStream.getAudioTracks().forEach(track => {
+                track.stop();
+            });
+            rec.exportWAV(createDownloadLink);
+        }
+
+        function createDownloadLink(blob) {
+            var url = URL.createObjectURL(blob);
+            var filename = new Date().toISOString();
+            var fd =new FormData();
+
+            fd.append("audio_data", blob, filename);
+            fd.append("_token", "{{csrf_token()}}");
+            fd.append("user_id", userid);
+
+            $.ajax({
+                url: "http://projectone.test/intefone",
+                type: 'POST',
+                data: fd,
+                // headers:{
+                //     "_token": '{{csrf_token()}}'
+                // },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function(error){
+                    console.log(error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+    </script>
 </div>

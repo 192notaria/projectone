@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\InterphoneEvent;
+use App\Models\Interphone;
 use Illuminate\Http\Request;
-use Vish4395\LaravelFileViewer\LaravelFileViewer;
+use Illuminate\Support\Facades\Storage;
 
-class FilesData extends Controller implements LaravelFileViewer
+class FilesData extends Controller
 {
-    use LaravelFileViewer;
-    public function file_preview(Request $request){
-        $filepath = 'public/word-template/' . $request->filename;
-        $file_url = asset('storage/word-template/' . $request->filename);
-        $file_data=[[
-                'label' => __('Label'),
-                'value' => "Value"
-            ]
-        ];
-        return LaravelFileViewer::show($request->filename,$filepath,$file_url,$file_data);
+    public function interphone(Request $request){
+        $originalName = $request->audio_data->getClientOriginalName();
+        $path = "/uploads/interphone/" . time() . ".mp3";
+
+        Storage::disk('public')->put($path, file_get_contents($request->audio_data));
+
+        $interphone = new Interphone;
+        $interphone->from = auth()->user()->id;
+        $interphone->to = intval($request->user_id);
+        $interphone->view = false;
+        $interphone->path = "/storage" . $path;
+        $interphone->save();
+
+        return event(new InterphoneEvent(intval($request->user_id), "Notificacion de interphone", $path));
+
     }
 }
+

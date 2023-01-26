@@ -92,6 +92,30 @@
                         actionText: '<i class="fa-solid fa-circle-xmark"></i>'
                     });
                 })
+
+                Echo.private('interphone.{{auth()->id()}}').listen('.send.interphone', (e) => {
+                    console.log(e.route)
+                    // if(e.message == "closession"){
+                    //     document.getElementById('logout-form').submit();
+                    // }
+
+                    // Livewire.emit('listenNotify')
+
+                    var myAudio= document.createElement('audio');
+                    myAudio.src = "http://projectone.test/storage/" + e.route;
+                    myAudio.play().then(()=>{
+                        console.log("Escuchar")
+                    });
+
+                    Snackbar.show({
+                        text: e.message,
+                        actionTextColor: '#fff',
+                        backgroundColor: '#00ab55',
+                        pos: 'top-center',
+                        duration: 5000,
+                        actionText: '<i class="fa-solid fa-circle-xmark"></i>'
+                    });
+                })
             </script>
         </body>
 </html>

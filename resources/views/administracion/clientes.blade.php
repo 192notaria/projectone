@@ -31,7 +31,5 @@
     <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
     <script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
 
-    <script src="{{ url('v3/recorder/app.js') }}"></script>
-    <script src="{{ url('v3/recorder/recorder.js') }}"></script>
 @endsection
 

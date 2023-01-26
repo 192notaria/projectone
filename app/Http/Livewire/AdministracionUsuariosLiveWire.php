@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\InterphoneEvent;
 use App\Events\NotificationEvent;
 use App\Models\Notifications;
 use App\Models\Ocupaciones;
@@ -23,6 +24,9 @@ class AdministracionUsuariosLiveWire extends Component {
     public $search;
     public $modal = false;
     public $cantidadUsuarios = 10;
+    public $recording = false;
+
+    public $interphoneUser;
 
     public $id_usuario, $name, $apaterno, $amaterno, $email, $genero, $ocupacion, $fecha_nacimiento, $telefono, $password, $password_confirmation;
 
@@ -30,6 +34,18 @@ class AdministracionUsuariosLiveWire extends Component {
 
     public function updatingSearch(){
         $this->resetPage();
+    }
+
+    public function startRecording($id){
+        $this->interphoneUser = $id;
+        $this->recording = true;
+        return $this->dispatchBrowserEvent('start-interphone');
+    }
+
+    public function stopRecording(){
+        $this->dispatchBrowserEvent('stop-interphone', $this->interphoneUser);
+        $this->interphoneUser = "";
+        return $this->recording = false;
     }
 
     protected function rules(){

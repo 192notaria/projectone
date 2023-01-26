@@ -560,11 +560,11 @@ class Proyectos extends Component
         $proyecto = ModelsProyectos::find($this->proyecto_id);
 
         $generales = new Generales;
-        $generales->cliente_id = $this->tipoGenerales['id'];
+        $generales->cliente_id = $this->tipoGenerales->id;
         $generales->proyecto_id = $this->proyecto_id;
         $generales->tipo = $this->subprocesoActual->nombre;
 
-        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $this->servicio['nombre']) . "_" . $this->servicio['id'] . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales['nombre']) . "_" . str_replace(' ', '_', $this->tipoGenerales['apaterno']) . "_" . str_replace(' ', '_', $this->tipoGenerales['amaterno']);
+        $route = "/uploads/proyectos/" . str_replace(" ", "_", $proyecto->cliente->nombre) . "_" . str_replace(" ", "_", $proyecto->cliente->apaterno) . "_" . str_replace(" ", "_", $proyecto->cliente->amaterno) . "/" . str_replace(" ", "_", $proyecto->servicio->nombre) . "_" . $proyecto->servicio->id . "/" . strtoupper(str_replace(" ", "_", $this->subprocesoActual->nombre)) . "_" . str_replace(' ', '_', $this->tipoGenerales->nombre) . "_" . str_replace(' ', '_', $this->tipoGenerales->apaterno) . "_" . str_replace(' ', '_', $this->tipoGenerales->amaterno);
 
         if($this->identificacion_oficial != ""){
             $FileName_identificacion_oficial = "Identificacion_oficial" . $this->tipoGenerales['nombre'] . "_" . $this->tipoGenerales['apaterno'] . "_" . $this->tipoGenerales['amaterno'] . "." .  $this->identificacion_oficial->extension();
@@ -1193,6 +1193,14 @@ class Proyectos extends Component
                 $this->gasto_de_gestoria = $recibopago->gastos_gestoria;
                 $this->recibo_pago_id = $recibopago->id;
             return $this->dispatchBrowserEvent('abrir-modal-editar-recibos-pago');
+        }
+
+        if($avance->subproceso->tiposub->id == 19){
+            $this->proyecto_id = $avance->proyecto_id;
+            $this->tituloModal = $avance->subproceso->nombre;
+            $this->subprocesoActual = $avance->subproceso;
+            // $this->tipoGenerales = $generales->cliente;
+            return $this->dispatchBrowserEvent('abrir-modal-editar-generales-varios');
         }
         // dd($avance->subproceso->tiposub->id);
 

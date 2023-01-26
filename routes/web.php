@@ -56,4 +56,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
     // Route::resource('/user/profile', UserProfileController::class);
     Route::get('/file_system/{filename}', [FilesData::class, 'file_preview'])->name('file-preview');
+
+    Route::post('/intefone', [FilesData::class, 'interphone'])->name('interphone-comunication');
 });
