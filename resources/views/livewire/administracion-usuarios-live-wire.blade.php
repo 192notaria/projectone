@@ -12,7 +12,7 @@
             <option value="20">20</option>
             <option value="50">50</option>
         </select>
-        <input type="text" wire:model="search" class="form-control" placeholder="Buscar...">
+        <input type="text" wire:model="search" class="form-control" placeholder="Buscar..." autocomplete="off">
     </div>
     <div class="col-lg-12">
         <table class="table table-striped">
