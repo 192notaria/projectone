@@ -102,7 +102,7 @@
                     // Livewire.emit('listenNotify')
 
                     var myAudio= document.createElement('audio');
-                    myAudio.src = "http://projectone.test/storage/" + e.route;
+                    myAudio.src = "http://192.168.68.157/storage/" + e.route;
                     myAudio.play().then(()=>{
                         console.log("Escuchar")
                     });
