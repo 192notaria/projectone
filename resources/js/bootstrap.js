@@ -23,11 +23,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  window.Pusher = require('pusher-js');
 
  window.Echo = new Echo({
-        broadcaster: 'pusher',
-        key: 'MYKEY',
-        wsHost: window.location.hostname,
-        wsPort: 443,
-        wssPort: 443,
-        disableStats: true,
-        forceTLS: true
+     broadcaster: 'pusher',
+     key: 'MYKEY',
+     wsHost: window.location.hostname,
+     wsPort: 6001,
+     wssPort: 6001,
+     disableStats: true,
+    //  forceTLS: true,
+     enabledTransports: ['ws', 'wss']
  });
