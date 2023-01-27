@@ -22,14 +22,14 @@
                             </div>
                             <button type="button"
                                 @if (!$recording)
-                                    wire:click='startRecording({{$favorite->id}})'
+                                    wire:click='startRecording({{$favorite->usuario_id}})'
                                     class="btn btn-primary"
                                 @endif
-                                @if ($recording && $interphoneUser != $favorite->id)
+                                @if ($recording && $interphoneUser != $favorite->usuario_id)
                                     class="btn btn-primary"
                                     disabled
                                 @endif
-                                @if ($interphoneUser == $favorite->id && $recording)
+                                @if ($interphoneUser == $favorite->usuario_id && $recording)
                                     wire:click='stopRecording'
                                     class="btn btn-danger"
                                 @endif
@@ -38,10 +38,10 @@
                                 @if (!$recording)
                                     <i class="fa-solid fa-microphone"></i>
                                 @endif
-                                @if ($recording && $interphoneUser != $favorite->id)
+                                @if ($recording && $interphoneUser != $favorite->usuario_id)
                                     <i class="fa-solid fa-microphone"></i>
                                 @endif
-                                @if ($interphoneUser == $favorite->id && $recording)
+                                @if ($interphoneUser == $favorite->usuario_id && $recording)
                                     <i class="fa-solid fa-circle-stop"></i>
                                 @endif
                             </button>
