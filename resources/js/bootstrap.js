@@ -24,15 +24,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
  window.Echo = new Echo({
      broadcaster: 'pusher',
-     key: 'MYKEY',
+     key: process.env.PUSHER_APP_KEY,
      wsHost: window.location.hostname,
-     encrypted: false,
      wsPort: 6001,
      wssPort: 6001,
+     encrypted: true,
      disableStats: true,
      forceTLS: true,
-     enabledTransports: ['ws','wss']
-
-     // wsPort: 6001, <-- Should these be commented out?
-     // wssPort: 6001, <-- Should these be commented out?
+     enabledTransports: ['ws','wss'],
  });
