@@ -12,13 +12,12 @@
             </h6>
         </div>
         <style>
-            #favorites-fluid{
+            #notifications-Content{
                 max-height: 300px;
                 overflow: scroll;
             }
         </style>
         <div class="notification-scroll" id="notifications-Content">
-            <div class="container-fluid" id="favorites-fluid">
                 @foreach ($favorites as $favorite)
                 <div class="dropdown-item">
                     <div class="media server-log">
@@ -56,7 +55,6 @@
                     </div>
                 </div>
             @endforeach
-            </div>
 
         </div>
     </div>
