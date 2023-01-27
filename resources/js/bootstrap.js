@@ -23,13 +23,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  window.Pusher = require('pusher-js');
 
  window.Echo = new Echo({
-     broadcaster: 'pusher',
-     key: process.env.PUSHER_APP_KEY,
-     wsHost: window.location.hostname,
-     wsPort: 6001,
-     wssPort: 6001,
-     encrypted: true,
-     disableStats: true,
-     forceTLS: true,
-     enabledTransports: ['ws','wss'],
+        broadcaster: 'pusher',
+        key: 'MYKEY',
+        wsHost: window.location.hostname,
+        wsPort: 6001,
+        wssPort: 6001,
+        encrypted: true,
+        disableStats: true,
+        forceTLS: true,
+        enabledTransports: ['ws','wss'],
+
+     // wsPort: 6001, <-- Should these be commented out?
+     // wssPort: 6001, <-- Should these be commented out?
  });
