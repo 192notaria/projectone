@@ -86,6 +86,7 @@
             <script src="{{ url("/v3/layouts/collapsible-menu/app.js") }}"></script>
             <script src="{{ url("/v3/src/assets/js/custom.js") }}"></script>
             <script src="{{url('v3/src/plugins/src/jquery-ui/jquery-ui.min.js')}}"></script>
+            <script src="{{url('v3/src/plugins/src/highlight/highlight.pack.js')}}"></script>
             {{-- <script src="{{url('v3/src/assets/js/apps/contact.js')}}"></script> --}}
             <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
             <script src="{{ asset("js/app.js") }}"></script>
