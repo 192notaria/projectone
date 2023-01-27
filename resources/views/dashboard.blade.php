@@ -474,6 +474,5 @@
 @section('scripts-content')
     <script src="{{ url("v3/src/plugins/src/apex/apexcharts.min.js") }}"></script>
     <script src="{{url("v3/src/assets/js/dashboard/dash_2.js")}}"></script>
-    <script src="{{url("v3/src/assets/js/elements/popovers.js")}}"></script>
 @endsection
 

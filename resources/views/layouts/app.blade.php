@@ -58,7 +58,9 @@
             </div>
 
             @livewireScripts()
-            <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+            <script src="{{url("v3/src/assets/js/elements/popovers.js")}}"></script>
+            <script src="{{ url("v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+
             <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
             <script>
