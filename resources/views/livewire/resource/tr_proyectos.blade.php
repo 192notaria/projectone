@@ -204,6 +204,7 @@
                 @can('borrar-proyectos')
                     <button wire:click='cancelar_id({{$proyecto->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                 @endcan
+                {{-- <button wire:click='firebase_demo' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button> --}}
             </div>
         </div>
     </td>
