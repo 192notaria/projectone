@@ -58,8 +58,6 @@
             </div>
 
             @livewireScripts()
-            <script src="{{ url("v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-            <script src="{{url("v3/src/assets/js/elements/popovers.js")}}"></script>
 
             <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
@@ -83,21 +81,21 @@
                 });
             </script>
             <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
+            <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/mousetrap/mousetrap.min.js") }}"></script>
             <script src="{{ url("/v3/layouts/collapsible-menu/app.js") }}"></script>
             <script src="{{ url("/v3/src/assets/js/custom.js") }}"></script>
             <script src="{{url('v3/src/plugins/src/jquery-ui/jquery-ui.min.js')}}"></script>
-            <script src="{{url('v3/src/plugins/src/highlight/highlight.pack.js')}}"></script>
             {{-- <script src="{{url('v3/src/assets/js/apps/contact.js')}}"></script> --}}
             <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
-            <script src="{{ asset("js/app.js") }}"></script>
 
-            @yield('scripts-content')
+            <script src="{{ asset("js/app.js") }}"></script>
 
             <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 
+            @yield('scripts-content')
             <script>
                 Echo.private('notification.{{auth()->id()}}').listen('.send.notification', (e) => {
                     if(e.message == "closession"){
