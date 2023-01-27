@@ -367,6 +367,7 @@
         var AudioContext = window.AudioContext || window.webkitAudioContext;
         var audioContext //audio context to help us record
         window.addEventListener('start-interphone', event => {
+            console.log("start")
             startRecording()
         })
 
