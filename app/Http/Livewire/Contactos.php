@@ -39,7 +39,7 @@ class Contactos extends Component
     }
 
     public function removeFavorites($id){
-        ModelsContactos::where("usuario_id", $id)->delete();
+        ModelsContactos::where("usuario_id", $id)->where("auth_usuario_id", auth()->user()->id)->delete();
         return $this->emit('updateFavorites');
         // $contacto->usuario_id = $id;
         // $contacto->save();
