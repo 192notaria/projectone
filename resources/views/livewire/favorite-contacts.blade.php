@@ -63,8 +63,6 @@
         window.addEventListener('start-interphone-favorite', event => {
             startRecording()
             console.log(window.location.hostname)
-            console.log(process.env.MIX_PUSHER_WSS_PORT)
-            console.log(process.env.MIX_PUSHER_WS_PORT)
         })
 
         window.addEventListener('stop-interphone-favorite', event => {
