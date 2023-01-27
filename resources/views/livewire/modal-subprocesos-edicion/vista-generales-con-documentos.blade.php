@@ -79,7 +79,8 @@
                         @if ($generales_data->identificacion_oficial_con_foto)
                             <div class="col-lg-12 mt-3">
                                 <label for="">Identificacion oficial con fotografia</label>
-                                <embed src="{{url($generales_data->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" type="application/pdf">
+                                {{-- <embed src="{{url($generales_data->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" type="application/pdf"> --}}
+                                <iframe src="{{url($generales_data->identificacion_oficial_con_foto)}}" style="width: 100%; height: 400px;" frameborder="0"></iframe>
                             </div>
                         @endif
 
