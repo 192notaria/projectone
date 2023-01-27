@@ -26,9 +26,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
      broadcaster: 'pusher',
      key: 'MYKEY',
      wsHost: window.location.hostname,
+     encrypted: false,
      wsPort: 6001,
      wssPort: 6001,
      disableStats: true,
-    //  forceTLS: true,
-     enabledTransports: ['ws', 'wss']
+     forceTLS: true,
+     enabledTransports: ['ws']
+
+     // wsPort: 6001, <-- Should these be commented out?
+     // wssPort: 6001, <-- Should these be commented out?
  });
