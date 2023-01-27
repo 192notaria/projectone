@@ -17,7 +17,7 @@ class FrameHeadersMiddleware
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-        $response->header('X-Frame-Options', 'ALLOW FROM http://192.168.68.157/');
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         return $response;
     }
 }
