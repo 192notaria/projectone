@@ -11,8 +11,15 @@
                 <span class="align-self-center">Contactos Favoritos <i class="fa-solid fa-star"></i></span>
             </h6>
         </div>
+        <style>
+            #favorites-fluid{
+                max-height: 300px;
+                overflow: scroll;
+            }
+        </style>
         <div class="notification-scroll" id="notifications-Content">
-            @foreach ($favorites as $favorite)
+            <div class="container-fluid" id="favorites-fluid">
+                @foreach ($favorites as $favorite)
                 <div class="dropdown-item">
                     <div class="media server-log">
                         <img src="{{url($favorite->usuario->user_image)}}" class="img-fluid me-2" alt="avatar">
@@ -49,6 +56,8 @@
                     </div>
                 </div>
             @endforeach
+            </div>
+
         </div>
     </div>
     <script src="{{ url('v3/recorder/recorder.js') }}"></script>

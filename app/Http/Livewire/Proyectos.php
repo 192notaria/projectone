@@ -32,6 +32,8 @@ use Livewire\WithFileUploads;
 use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Kreait\Firebase\Contract\Database;
+use Kreait\Firebase\Contract;
+use Kreait\Firebase\Factory;
 use Livewire\WithPagination;
 
 
@@ -43,9 +45,22 @@ class Proyectos extends Component
 
     protected $database;
     public function mount(Database $database){
-        $this->database = $database;
-        // $reference = $database->getReference('/MARCO PEREZ DIAZ');
-        // $snapshot = $reference->getSnapshot()->numChildren();
+        $factory = (new Factory)->withServiceAccount(env("FIREBASE_CREDENTIALS"));
+        // $this->database = $database;
+        // // $auth_data = $auth;
+        // $userProperties = [
+        //     'email' => 'user@example.com',
+        //     'emailVerified' => false,
+        //     'phoneNumber' => '+15555550100',
+        //     'password' => 'secretPassword',
+        //     'displayName' => 'John Doe',
+        //     'photoUrl' => 'http://www.example.com/12345678/photo.png',
+        //     'disabled' => false,
+        // ];
+
+        // $createdUser = $auth->createUser($userProperties);
+        // // $reference = $database->getReference('/MARCO PEREZ DIAZ');
+        // // $snapshot = $reference->getSnapshot()->numChildren();
         // dd($snapshot);
     }
 
@@ -1611,4 +1626,10 @@ class Proyectos extends Component
         $this->avividad_vulnerable = false;
         $this->avividad_vulnerable_id = '';
     }
+
+    public function firebase_demo(){
+
+    }
+
+
 }

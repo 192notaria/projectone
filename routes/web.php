@@ -7,6 +7,7 @@ use App\Http\Controllers\ColoniasController;
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\FilesData;
+use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\OcupacionesController;
 use App\Http\Controllers\PaisesController;
@@ -62,4 +63,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/file_system/{filename}', [FilesData::class, 'file_preview'])->name('file-preview');
 
     Route::post('/intefone', [FilesData::class, 'interphone'])->name('interphone-comunication');
+
+    Route::get('/firebase_data', [FirebaseAuthController::class, 'index'])->name('firebase.index');
 });
