@@ -31,7 +31,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
      wssPort: 6001,
      disableStats: true,
      forceTLS: true,
-     enabledTransports: ['ws']
+     enabledTransports: ['ws','wss']
 
      // wsPort: 6001, <-- Should these be commented out?
      // wssPort: 6001, <-- Should these be commented out?
