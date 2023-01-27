@@ -10,13 +10,13 @@ class FirebaseAuthController extends Controller
 {
 
     public function index(){
-        $firebase = (new Factory)
-            ->withServiceAccount(__DIR__."/firebase_credentials.json")
-            ->withDatabaseUri('https://notaria192-158b7-default-rtdb.firebaseio.com');
+        // $firebase = (new Factory)
+        //     ->withServiceAccount(__DIR__."/firebase_credentials.json")
+        //     ->withDatabaseUri('https://notaria192-158b7-default-rtdb.firebaseio.com');
 
-        $database = $firebase->createDatabase();
-        $postRef = $database->getReference('posts')->push("dataaaa");
-        print_r($postRef);
+        // $database = $firebase->createDatabase();
+        // $postRef = $database->getReference('posts')->push("dataaaa");
+        // print_r($postRef);
         // $blog = $database
         //     ->getReference('actos');
 
