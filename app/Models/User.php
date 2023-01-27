@@ -68,6 +68,6 @@ class User extends Authenticatable
     }
 
     public function favorites(){
-        return $this->hasOne(Contactos::class, 'usuario_id');
+        return $this->hasOne(Contactos::class, 'usuario_id')->where("auth_usuario_id",auth()->user()->id);
     }
 }
