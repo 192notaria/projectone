@@ -16,11 +16,11 @@ class Intercomunicador extends Component
     public function render()
     {
         return view('livewire.intercomunicador', [
-            $this->intercomunicadores = Interphone::where("to", auth()->user()->id)->orderBy("created_at", "ASC")->get()
+            $this->intercomunicadores = Interphone::where("to", auth()->user()->id)->orderBy("created_at", "DESC")->get()
         ]);
     }
 
     public function refreshIntercomunicador(){
-        $this->intercomunicadores = Interphone::where("to", auth()->user()->id)->orderBy("created_at", "ASC")->get();
+        $this->intercomunicadores = Interphone::where("to", auth()->user()->id)->orderBy("created_at", "DESC")->get();
     }
 }
