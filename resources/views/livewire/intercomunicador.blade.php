@@ -24,6 +24,7 @@
                         <div class="media-body">
                             <div class="data-info">
                                 <h6>{{$intercomunicador->usuarioFrom->name}} {{$intercomunicador->usuarioFrom->apaterno}}</h6>
+                                <p>{{$intercomunicador->created_at}}</p>
                             </div>
                         </div>
                         <audio src="{{url($intercomunicador->path)}}" id="track" controls></audio>

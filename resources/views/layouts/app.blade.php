@@ -136,7 +136,7 @@
                     //     document.getElementById('logout-form').submit();
                     // }
 
-                    // Livewire.emit('listenNotify')
+                    Livewire.emit('newinterfon')
 
                     var myAudio= document.createElement('audio');
                     myAudio.src = "http://192.168.68.157/storage/" + e.route;
