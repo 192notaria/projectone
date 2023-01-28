@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('curp')->nullable();
             $table->string('rfc')->nullable();
             $table->boolean('representante_inst')->nullable();
+            $table->string("firebase_key")->nullable();
 
             $table->foreign('municipio_nacimiento_id')
                 ->references('id')

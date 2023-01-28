@@ -14,4 +14,13 @@ class Interphone extends Model
         "path",
         "view",
     ];
+
+    public function usuarioTo(){
+        return $this->belongsTo(User::class, "to");
+    }
+
+    public function usuarioFrom(){
+        return $this->belongsTo(User::class, "from");
+    }
+
 }

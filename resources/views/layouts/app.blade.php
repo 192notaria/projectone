@@ -68,6 +68,7 @@
                     }else{
                         $("#notificationDropdownDiv").addClass('show');
                         $("#favoriteContacsDropdownDiv").removeClass('show');
+                        $("#IntercomunicadorDropdownDiv").removeClass('show');
                     }
                 });
 
@@ -76,6 +77,17 @@
                         $("#favoriteContacsDropdownDiv").removeClass('show');
                     }else{
                         $("#favoriteContacsDropdownDiv").addClass('show');
+                        $("#notificationDropdownDiv").removeClass('show');
+                        $("#IntercomunicadorDropdownDiv").removeClass('show');
+                    }
+                });
+
+                $('#IntercomunicadorDropdown').on('click', function (event) {
+                    if($("#IntercomunicadorDropdownDiv").hasClass("show")){
+                        $("#IntercomunicadorDropdownDiv").removeClass('show');
+                    }else{
+                        $("#IntercomunicadorDropdownDiv").addClass('show');
+                        $("#favoriteContacsDropdownDiv").removeClass('show');
                         $("#notificationDropdownDiv").removeClass('show');
                     }
                 });
