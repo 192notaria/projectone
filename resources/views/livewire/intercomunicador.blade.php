@@ -23,7 +23,7 @@
                         <img src="{{url($intercomunicador->usuarioTo->user_image)}}" class="img-fluid me-2" alt="avatar">
                         <div class="media-body">
                             <div class="data-info">
-                                <h6 class="">{{$intercomunicador->usuarioTo->name}} {{$intercomunicador->usuarioTo->apaterno}}</h6>
+                                <h6>{{$intercomunicador->usuarioFrom->name}} {{$intercomunicador->usuarioFrom->apaterno}}</h6>
                             </div>
                         </div>
                         <audio src="{{url($intercomunicador->path)}}" id="track" controls></audio>
