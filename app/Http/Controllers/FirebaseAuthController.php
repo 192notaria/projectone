@@ -63,6 +63,7 @@ class FirebaseAuthController extends Controller
                         "date" => $value->subproceso->created_at,
                     ];
                     array_push($arrayTemp[$value->proceso->nombre], $newdata);
+                    $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
                     unset($arrayTemp[$key]);
                 }
 
