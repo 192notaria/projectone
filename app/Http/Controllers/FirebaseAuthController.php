@@ -67,7 +67,7 @@ class FirebaseAuthController extends Controller
 
                 $escrituraData = [
                     'acto' => $escritura->servicio->nombre,
-                    'abogado' => $escritura->abogado->name,
+                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
                     'date' => $escritura->created_at,
                     'avance' => $arrayTemp
                 ];
