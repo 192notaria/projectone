@@ -14,6 +14,7 @@ use App\Models\Firmas;
 use App\Models\Generales;
 use App\Models\Herederos;
 use App\Models\InformacionDelViajeDelMenor;
+use App\Models\Interphone;
 use App\Models\Mutuos;
 use App\Models\Observaciones;
 use App\Models\Paises;
@@ -1626,10 +1627,5 @@ class Proyectos extends Component
         $this->avividad_vulnerable = false;
         $this->avividad_vulnerable_id = '';
     }
-
-    public function firebase_demo(){
-
-    }
-
 
 }

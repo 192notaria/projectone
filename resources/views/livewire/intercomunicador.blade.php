@@ -8,6 +8,11 @@
             <h6 class="d-flex justify-content-between">
                 <span class="align-self-center">Intercomunicador
                 <i class="fa-solid fa-voicemail"></i>
+                @if(count($intercomunicadores) > 0)
+                    <a style="cursor: pointer;" wire:click='viewIntercomunicador'>
+                        <span class="badge badge-primary">Limpiar</span>
+                    </a>
+                @endif
             </h6>
         </div>
         <style>
@@ -17,27 +22,31 @@
             }
         </style>
         <div class="notification-scroll" id="intercomunicador-Content">
-            @foreach ($intercomunicadores as $intercomunicador)
-                <div class="dropdown-item mb-3">
-                    <div class="media server-log">
-                        <img src="{{url($intercomunicador->usuarioTo->user_image)}}" class="img-fluid me-2" alt="avatar">
-                        <div class="media-body">
-                            <div class="data-info">
-                                <h6>{{$intercomunicador->usuarioFrom->name}} {{$intercomunicador->usuarioFrom->apaterno}}</h6>
-                                <p>{{$intercomunicador->created_at}}</p>
+            @if(count($intercomunicadores) > 0)
+                @foreach ($intercomunicadores as $intercomunicador)
+                    <div class="dropdown-item mb-3">
+                        <div class="media server-log">
+                            <img src="{{url($intercomunicador->usuarioTo->user_image)}}" class="img-fluid me-2" alt="avatar">
+                            <div class="media-body">
+                                <div class="data-info">
+                                    <h6>{{$intercomunicador->usuarioFrom->name}} {{$intercomunicador->usuarioFrom->apaterno}}</h6>
+                                    <p>{{$intercomunicador->created_at}}</p>
+                                </div>
                             </div>
                         </div>
-                        {{-- <audio src="{{url($intercomunicador->path)}}" id="track" controls></audio> --}}
+                        <audio preload="auto" controls>
+                            <source src="{{url($intercomunicador->path)}}">
+                        </audio>
                     </div>
-                    <audio preload="auto" controls>
-                        <source src="{{url($intercomunicador->path)}}">
-                    </audio>
+                @endforeach
+            @else
+                <div class="dropdown-item">
+                    <h6>Sin mensajes</h6>
                 </div>
-            @endforeach
+            @endif
         </div>
     </div>
     <script src="{{url('js/jquery.js')}}"></script>
-
     <script>
         	$(function() {
 				$('audio').audioPlayer();
