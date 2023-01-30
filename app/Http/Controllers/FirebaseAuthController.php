@@ -62,9 +62,7 @@ class FirebaseAuthController extends Controller
                         "registro" => $value->subproceso->nombre,
                         "date" => $value->subproceso->created_at,
                     ];
-                    array_push($arrayTemp[$value->proceso->nombre], $newdata);
-                    $arrayTemp[$value->proceso->nombre][0] = $arrayTemp[$key];
-                    unset($arrayTemp[$value->proceso->nombre][0]);
+                    $arrayTemp[$value->proceso->nombre] = $newdata;
                 }
 
                 $escrituraData = [
