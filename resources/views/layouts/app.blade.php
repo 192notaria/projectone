@@ -29,6 +29,7 @@
 
         <link href="{{ url('v3/src/assets/css/light/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/assets/css/dark/components/modal.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url('css/audioplayer.css') }}" rel="stylesheet" type="text/css" />
 
         @yield('links-content')
         @livewireStyles()
@@ -59,7 +60,8 @@
 
             @livewireScripts()
 
-            <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+            {{-- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> --}}
+            <script src="{{url('js/jquery.js')}}"></script>
 
             <script>
                 $('#notificationDropdown').on('click', function (event) {
@@ -105,6 +107,7 @@
             <script src="{{ asset("js/app.js") }}"></script>
 
             <!-- END GLOBAL MANDATORY SCRIPTS -->
+            <script src="{{ url('js/audioplayer.js') }}"></script>
 
 
             @yield('scripts-content')
