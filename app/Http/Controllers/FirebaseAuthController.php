@@ -67,12 +67,13 @@ class FirebaseAuthController extends Controller
 
                 $escrituraData = [
                     'acto' => $escritura->servicio->nombre,
+                    'abogado' => $escritura->abogado->nombre,
                     'date' => $escritura->created_at,
                     'avance' => $arrayTemp
                 ];
 
                 $database = $firebase->createDatabase();
-                $firebasekey = $database->getReference('clientes/' . $escritura->cliente->firebase_key)->push();
+                $firebasekey = $database->getReference('clientes/' . $escritura->cliente->firebase_key)->push($escrituraData);
                 $escritura_search = Proyectos::find($escritura->id);
                 $escritura_search->firebase_key = $firebasekey->getKey();
                 $escritura_search->save();
