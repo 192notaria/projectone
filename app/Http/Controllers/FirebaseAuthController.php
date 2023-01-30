@@ -21,6 +21,7 @@ class FirebaseAuthController extends Controller
             $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
             $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
             $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
+
             $clienteData = [
                 'nombre' => $cliente->nombre . " " . $cliente->apaterno . " " . $cliente->amaterno,
                 'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
@@ -35,14 +36,45 @@ class FirebaseAuthController extends Controller
             ];
 
             $database = $firebase->createDatabase();
-            $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
+            // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
+            $cliente_firebasekey = $database->getReference('clientes/')->push($clienteData);
 
-            // $updateCliente = Clientes::find($cliente->id);
-            // $updateCliente->firebase_key = $cliente_firebasekey->getKey();
-            // $updateCliente->save();
+            $updateCliente = Clientes::find($cliente->id);
+            $updateCliente->firebase_key = $cliente_firebasekey->getKey();
+            $updateCliente->save();
         }
         // print_r($postRef->getKey());
+        // public function firebase($proyecto_id){
+        //     if($this->hasConnection()){
+        //         $proyecto = ModelsProyectos::find($proyecto_id);
+        //         $arrayTemp = [];
 
+        //         // $reference = $database->getReference('/people');
+        //         // $snapshot = $reference->getSnapshot()->getValue();
+
+        //         foreach ($proyecto->avance as $key => $value) {
+        //             $data = [];
+        //             array_push($arrayTemp, $data);
+        //             $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
+        //             unset($arrayTemp[$key]);
+        //         }
+
+        //         foreach ($proyecto->avance as $key => $value) {
+        //             $newdata = [
+        //                 "subproceso" => $value->subproceso->nombre,
+        //                 "fecha_hora" => $value->subproceso->created_at,
+        //             ];
+        //             array_push($arrayTemp[$value->proceso->nombre], $newdata);
+        //         }
+
+        //         $this->database = app('firebase.database');
+        //         $this->database->getReference("actos/" . $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno . "/" .$proyecto->servicio->nombre . "_" . $proyecto->servicio->id)
+        //         ->set([
+        //             'cliente' => $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno,
+        //             'avance' => $arrayTemp
+        //         ]);
+        //     }
+        // }
 
 
         // $blog = $database
