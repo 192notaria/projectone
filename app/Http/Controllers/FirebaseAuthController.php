@@ -64,7 +64,7 @@ class FirebaseAuthController extends Controller
                     ];
                     array_push($arrayTemp[$value->proceso->nombre], $newdata);
                     $arrayTemp[$value->proceso->nombre][0] = $arrayTemp[$key];
-                    unset($arrayTemp[$key]);
+                    unset($arrayTemp[$value->proceso->nombre][0]);
                 }
 
                 $escrituraData = [
