@@ -5,6 +5,7 @@ use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
 use App\Http\Controllers\ContactosController;
+use App\Http\Controllers\EscriturasApoyo;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\FilesData;
 use App\Http\Controllers\FirebaseAuthController;
@@ -39,7 +40,8 @@ Route::group(['middleware' => ['auth']], function(){
     // ADMINISTRACION
     Route::get('/administracion/roles', [RolController::class, 'index'])->name('admin-roles');
     Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('admin-usuarios');
-    Route::get('/administracion/actos', [ProyectosController::class, 'index'])->name('admin-actos');
+    Route::get('/administracion/escrituras_proceso', [ProyectosController::class, 'index'])->name('escrituras-proceso');
+    Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
 
     // Clientes

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Livewire\Component;
 use App\Models\ActasDestacas;
 use App\Models\ActividadVulnerable;
 use App\Models\Apoderados;
@@ -28,40 +29,17 @@ use App\Models\SubprocesosCatalogos;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
-use Kreait\Firebase\Contract\Database;
-use Kreait\Firebase\Contract;
-use Kreait\Firebase\Factory;
 use Livewire\WithPagination;
 
-class Proyectos extends Component
+class EscriturasApoyoTable extends Component
 {
     use WithFileUploads;
     use WithPagination;
 
     protected $database;
-    public function mount(Database $database){
-        // $factory = (new Factory)->withServiceAccount(env("FIREBASE_CREDENTIALS"));
-        // $this->database = $database;
-        // // $auth_data = $auth;
-        // $userProperties = [
-        //     'email' => 'user@example.com',
-        //     'emailVerified' => false,
-        //     'phoneNumber' => '+15555550100',
-        //     'password' => 'secretPassword',
-        //     'displayName' => 'John Doe',
-        //     'photoUrl' => 'http://www.example.com/12345678/photo.png',
-        //     'disabled' => false,
-        // ];
-
-        // $createdUser = $auth->createUser($userProperties);
-        // // $reference = $database->getReference('/MARCO PEREZ DIAZ');
-        // // $snapshot = $reference->getSnapshot()->numChildren();
-        // dd($snapshot);
-    }
 
     public $proyecto_id;
     public $servicio;
@@ -114,11 +92,10 @@ class Proyectos extends Component
     public $generales_data;
     public $document_id;
 
-
-    public function render(){
-        return view('livewire.proyectos',[
+    public function render()
+    {
+        return view('livewire.escrituras-apoyo-table',[
             "proyectos_escrituras" => Servicios::orderBy("nombre","ASC")->get(),
-            // "proyectos" => ModelsProyectos::orderBy("created_at", "ASC")->paginate($this->cantidadProyectos),
             "compradores" => $this->buscarComprador == "" ? [] : Clientes::where('nombre', 'LIKE', '%' . $this->buscarComprador . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscarComprador . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscarComprador . '%')
@@ -127,50 +104,8 @@ class Proyectos extends Component
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscarCliente . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscarCliente . '%')
                 ->get(),
-
-            "proyectos" =>
-            Auth::user()->hasRole('ADMINISTRADOR') == true || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') == true ?
-                ModelsProyectos::orderBy("numero_escritura", "ASC")
-                // ->where('usuario_id', auth()->user()->id)
-                ->where('status', 0)
-                ->where(function($query){
-                    $query->whereHas('cliente', function($q){
-                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('servicio', function($serv){
-                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                    })
-                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
-                })
-                ->paginate($this->cantidadProyectos)
-            :
-                // ModelsProyectos::orderBy("numero_escritura", "ASC")
-                // // ->with('abogado_apoyo')
-                // ->where('usuario_id', auth()->user()->id)
-                // ->where('status', 0)
-                // ->where(function($query){
-                //     $query->whereHas('cliente', function($q){
-                //         $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                //             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                //             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                //     })
-                //     ->orWhereHas('servicio', function($serv){
-                //         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                //     })
-                //     // ->orWhereHas('abogado_apoyo', function($serv){
-                //     //     $serv->where('abogado_apoyo_id', 3);
-                //     // })
-                //     ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
-                //     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%')
-                // })
-
-                ModelsProyectos::orderBy("numero_escritura", "ASC")
-                    ->where('usuario_id', auth()->user()->id)
-                    ->where('status', 0)
-                    // ->orhas('apoyo')
+            "escrituras" => ModelsProyectos::orderBy("numero_escritura", "ASC")
+                    ->has('apoyo')
                     ->where(function($query){
                         $query->orWhereHas('cliente', function($q){
                             $q->where('nombre', 'LIKE', '%' . $this->search . '%')

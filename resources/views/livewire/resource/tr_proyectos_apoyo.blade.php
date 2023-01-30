@@ -36,16 +36,6 @@
                             </button>
                         </div>
                     </div>
-                    {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
-                    {{-- @if (isset($proyecto->activiadVulnerable->id))
-                        @if ($proyecto->activiadVulnerable->activo == 0)
-                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
-                        @else
-                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-danger"><i class="fa-solid fa-circle-exclamation"></i> Actividad vulnerable</button>
-                        @endif
-                    @else
-                        <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
-                    @endif --}}
                 </p>
             </div>
         </div>
@@ -198,14 +188,6 @@
                         <button wire:click='openModalTimeLine({{$proyecto->servicio->id}}, {{$proyecto->id}})' type="button" class="btn btn-outline-warning"><i class="fa-solid fa-timeline"></i></button>
                     @endcan
                 @endif
-
-                @can('editar-proyectos')
-                    <button wire:click='editarProyecto("{{$proyecto->id}}")' type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                @endcan
-                @can('borrar-proyectos')
-                    <button wire:click='cancelar_id({{$proyecto->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-                @endcan
-
             </div>
         </div>
     </td>
