@@ -58,6 +58,10 @@ class Proyectos extends Model
     }
 
     public function apoyo(){
-        return $this->hasMany(ApoyoProyectos::class, 'proyecto_id');
+        return $this->hasMany(ApoyoProyectos::class, 'proyecto_id')->where("abogado_apoyo_id", auth()->user()->id);
+    }
+
+    public function abogado_apoyo(){
+        return $this->hasOne(ApoyoProyectos::class, 'proyecto_id');
     }
 }

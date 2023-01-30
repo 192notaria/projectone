@@ -121,7 +121,8 @@
                     <tbody>
                         @if (count($proyectos) > 0)
                             @foreach ($proyectos as $proyecto)
-                                @if ($proyecto->status == 0)
+                                @include('livewire.resource.tr_proyectos')
+                                {{-- @if ($proyecto->status == 0)
                                     @if (Auth::user()->hasRole('ABOGADO DE APOYO'))
                                         @foreach ($proyecto->apoyo as $apoyo)
                                             @if ($apoyo->abogado_apoyo_id == auth()->user()->id)
@@ -133,7 +134,7 @@
                                             @include('livewire.resource.tr_proyectos')
                                         @endif
                                     @endif
-                                @endif
+                                @endif --}}
                             @endforeach
 
                             {{-- @if (Auth::user()->hasRole('RECEPCIONISTA'))

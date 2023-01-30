@@ -149,22 +149,41 @@ class Proyectos extends Component
                 })
                 ->paginate($this->cantidadProyectos)
             :
+                // ModelsProyectos::orderBy("numero_escritura", "ASC")
+                // // ->with('abogado_apoyo')
+                // ->where('usuario_id', auth()->user()->id)
+                // ->where('status', 0)
+                // ->where(function($query){
+                //     $query->whereHas('cliente', function($q){
+                //         $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                //             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                //             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                //     })
+                //     ->orWhereHas('servicio', function($serv){
+                //         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                //     })
+                //     // ->orWhereHas('abogado_apoyo', function($serv){
+                //     //     $serv->where('abogado_apoyo_id', 3);
+                //     // })
+                //     ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                //     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%')
+                // })
+
                 ModelsProyectos::orderBy("numero_escritura", "ASC")
-                ->where('usuario_id', auth()->user()->id)
-                ->where('status', 0)
-                ->where(function($query){
-                    $query->whereHas('cliente', function($q){
-                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    ->where('usuario_id', auth()->user()->id)
+                    ->where('status', 0)
+                    ->orhas('apoyo')
+                    ->where(function($query){
+                        $query->orWhereHas('cliente', function($q){
+                            $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                        })->orWhereHas('servicio', function($serv){
+                            $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                        })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('servicio', function($serv){
-                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                    })
-                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
-                })
-                ->paginate($this->cantidadProyectos),
+                    ->paginate($this->cantidadProyectos),
 
             "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
             "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
@@ -1627,5 +1646,4 @@ class Proyectos extends Component
         $this->avividad_vulnerable = false;
         $this->avividad_vulnerable_id = '';
     }
-
 }
