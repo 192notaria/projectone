@@ -1649,9 +1649,10 @@ class Proyectos extends Component
     public function openProcesos($proyecto_id){
         $proyecto = ModelsProyectos::find($proyecto_id);
         $this->procesos_data = $proyecto->servicio->procesos;
-
-        // $buscaravance = AvanceProyecto::where('proyecto_id', $id)->get();
-        // $this->avanceTimeline = $buscaravance;
-        // $this->modalTimeLine = true;
     }
+
+    public function limpiarProcesos(){
+        $this->procesos_data = [];
+    }
+
 }

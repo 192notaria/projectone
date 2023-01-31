@@ -16,6 +16,17 @@
                             <input wire:model='nombreProceso' type="text" class="form-control" placeholder="Proceso...">
                             @error('nombreProceso') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
+                        <div class="col-lg-12">
+                            <label for="">Icono</label>
+                            <select wire:model='icondata' class="form-control">
+                                <option value="" selected disabled>Seleccionar...</option>
+                                @foreach ($icons as $icono)
+                                    <option value="{{$icono->icon}}">
+                                        {{$icono->icon}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

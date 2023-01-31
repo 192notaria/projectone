@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\CatalogosTipo;
 use App\Models\CorrespondientesCatalogos;
+use App\Models\Icons;
 use App\Models\ProcesosServicios as ModelsProcesosServicios;
 use App\Models\Subprocesos;
 use App\Models\SubprocesosCatalogos;
@@ -23,6 +24,7 @@ class ProcesosServicios extends Component
     public $proceso_id, $subproceso_id = "";
     public $nombreProceso = "";
     public $modalTittle;
+    public $icondata;
 
     public function openModalBorrar($id){
         $this->modalBorrar = true;
@@ -114,7 +116,12 @@ class ProcesosServicios extends Component
             "catalogos_subprocesos" => SubprocesosCatalogos::orderBy("nombre", "ASC")->get(),
             "catalogos_correspondiente" => CorrespondientesCatalogos::orderBy("nombre", "ASC")->get(),
             "catalogos_tipo" => CatalogosTipo::orderBy("nombre", "ASC")->get(),
+            "icons" => Icons::all()
         ]);
+    }
+
+    public function selectIcon($icon){
+        dd($icon);
     }
 }
 
