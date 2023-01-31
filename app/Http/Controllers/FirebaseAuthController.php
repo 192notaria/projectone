@@ -80,32 +80,21 @@ class FirebaseAuthController extends Controller
                 $escritura_search->firebase_key = $firebasekey->getKey();
                 $escritura_search->save();
             }
+    }
 
+    public function sendemail(){
+        $mail_data = [
+            "recipient" => 'carlos.avalos0812@gmail.com',
+            "fromEmail" => "notaria192@gmail.com",
+            "fromName" => "Notaria 192 Michoacán",
+            "subject" => "Tu escritura esta lista para su entrega",
+            "body" => "Hola",
+        ];
 
-
-
-
-            // public function firebase($proyecto_id){
-            //     if($this->hasConnection()){
-            //         $proyecto = ModelsProyectos::find($proyecto_id);
-            //         // $reference = $database->getReference('/people');
-            //         // $snapshot = $reference->getSnapshot()->getValue();
-
-            //         $this->database = app('firebase.database');
-            //         $this->database->getReference("actos/" . $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno . "/" .$proyecto->servicio->nombre . "_" . $proyecto->servicio->id)
-            //         ->set([
-            //             'cliente' => $proyecto->cliente->nombre . " " . $proyecto->cliente->apaterno . " " . $proyecto->cliente->amaterno,
-            //             'avance' => $arrayTemp
-            //         ]);
-            //     }
-            // }
-
-
-        // $blog = $database
-        //     ->getReference('actos');
-
-        // // echo '<pre>';
-        // // print_r($blog->getvalue());
-        // // echo '</pre>';
+        \Mail::send('email-template', $mail_data, function($message) use ($mail_data){
+            $message->to($mail_data['recipient'])
+                ->from($mail_data['fromEmail'], $mail_data['fromName'])
+                ->subject($mail_data['subject']);
+        });
     }
 }

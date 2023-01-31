@@ -67,4 +67,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/intefone', [FilesData::class, 'interphone'])->name('interphone-comunication');
 
     Route::get('/firebase_data', [FirebaseAuthController::class, 'index'])->name('firebase.index');
+    Route::get('/email', [FirebaseAuthController::class, 'sendemail'])->name('email.test');
 });
+

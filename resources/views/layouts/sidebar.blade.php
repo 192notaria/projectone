@@ -40,7 +40,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="clientesNav" data-bs-parent="#accordionExample">
                     <li class="{{activeRoute(route('admin-clientes'))}}">
-                        <a href="/administracion/clientes"> Lista de Clientes </a>
+                        <a href="/administracion/clientes"> Clientes </a>
                     </li>
                     <li class="{{activeRoute(route('lista-contactos'))}}">
                         <a href="/contactos/lista_contactos"> Contactos </a>

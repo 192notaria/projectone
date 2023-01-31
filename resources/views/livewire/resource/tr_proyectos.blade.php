@@ -34,18 +34,14 @@
                             <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-file-pen"></i>
                             </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".modal-ajustes">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
+                                Avance
+                            </button>
                         </div>
                     </div>
-                    {{-- <button class="btn btn-danger">Actividad vulnerable <i class="fa-solid fa-triangle-exclamation"></i></button> --}}
-                    {{-- @if (isset($proyecto->activiadVulnerable->id))
-                        @if ($proyecto->activiadVulnerable->activo == 0)
-                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
-                        @else
-                            <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-danger"><i class="fa-solid fa-circle-exclamation"></i> Actividad vulnerable</button>
-                        @endif
-                    @else
-                        <button wire:click='actividadvulnerable({{$proyecto->id}})' class="btn btn-primary">Actividad vulnerable</button>
-                    @endif --}}
                 </p>
             </div>
         </div>
