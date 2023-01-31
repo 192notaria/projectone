@@ -37,7 +37,7 @@
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".modal-ajustes">
                                 <i class="fa-solid fa-gear"></i>
                             </button>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
+                            <button wire:click='openProcesos({{$proyecto->id}})' type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
                                 Avance
                             </button>
                         </div>

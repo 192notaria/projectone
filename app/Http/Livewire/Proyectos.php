@@ -1644,4 +1644,14 @@ class Proyectos extends Component
         $this->avividad_vulnerable = false;
         $this->avividad_vulnerable_id = '';
     }
+
+    public $procesos_data = [];
+    public function openProcesos($proyecto_id){
+        $proyecto = ModelsProyectos::find($proyecto_id);
+        $this->procesos_data = $proyecto->servicio->procesos;
+        // dd($this->procesos_data);
+        // $buscaravance = AvanceProyecto::where('proyecto_id', $id)->get();
+        // $this->avanceTimeline = $buscaravance;
+        // $this->modalTimeLine = true;
+    }
 }

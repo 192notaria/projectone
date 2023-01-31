@@ -25,11 +25,6 @@
 
     <link rel="stylesheet" type="text/css" href="{{url('v3/src/assets/css/dark/components/accordions.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="{{url('v3/src/plugins/src/stepper/bsStepper.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('v3/src/plugins/css/dark/stepper/custom-bsStepper.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('v3/src/plugins/css/light/stepper/custom-bsStepper.css')}}">
-
-
 @endsection
 @section('content')
     <div class="layout-px-spacing">
@@ -62,9 +57,6 @@
 <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/custom-filepond.js')}}"></script>
-
-<script src="{{url('v3/src/plugins/src/stepper/bsStepper.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/stepper/custom-bsStepper.min.js')}}"></script>
 
 {{-- <script src="{{ url("filepond-master/dist/filepond.js") }}"></script> --}}
 {{-- <script>
