@@ -1,11 +1,11 @@
 <li class="nav-item dropdown notification-dropdown">
-    <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="favoriteContacsDropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="javascript:void(0);" class="nav-link" id="favoriteContacsDropdown">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         <span id="notificationsSpan"
         {{-- class="@if(count($notificationsData) > 0) badge badge-success @endif" --}}
         ></span>
     </a>
-    <div class="dropdown-menu position-absolute" id="favoriteContacsDropdownDiv" aria-labelledby="notificationDropdown">
+    <div class="dropdown-menu position-absolute" id="favoriteContacsDropdownDiv" >
         <div class="drodpown-title message">
             <h6 class="d-flex justify-content-between">
                 <span class="align-self-center">Contactos Favoritos <i class="fa-solid fa-star"></i></span>
