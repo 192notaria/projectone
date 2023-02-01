@@ -19,67 +19,67 @@ class FirebaseAuthController extends Controller
             ->withDatabaseUri('https://notaria192-158b7-default-rtdb.firebaseio.com');
 
 //Registrar clientes firebase
-        $clientes = Clientes::all();
-        foreach($clientes as $cliente){
-            $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
-            $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
-            $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
-            $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
+        // $clientes = Clientes::all();
+        // foreach($clientes as $cliente){
+        //     $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
+        //     $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
+        //     $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
+        //     $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
 
-            $clienteData = [
-                'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
-                'fecha_nacimiento' => $cliente->fecha_nacimiento,
-                'email' => $cliente->email,
-                'telefono' => $cliente->telefono,
-                'ocupacion' => $ocupacion,
-                'estado_civil' => $cliente->estado_civil,
-                'genero' => $cliente->genero,
-                'rfc' => $cliente->rfc,
-                'curp' => $cliente->curp
-            ];
+        //     $clienteData = [
+        //         'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
+        //         'fecha_nacimiento' => $cliente->fecha_nacimiento,
+        //         'email' => $cliente->email,
+        //         'telefono' => $cliente->telefono,
+        //         'ocupacion' => $ocupacion,
+        //         'estado_civil' => $cliente->estado_civil,
+        //         'genero' => $cliente->genero,
+        //         'rfc' => $cliente->rfc,
+        //         'curp' => $cliente->curp
+        //     ];
 
-            $database = $firebase->createDatabase();
-            // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
-            $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
+        //     $database = $firebase->createDatabase();
+        //     // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
+        //     $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
 
-            $updateCliente = Clientes::find($cliente->id);
-            $updateCliente->firebase_key = $cliente_firebasekey->getKey();
-            $updateCliente->save();
-        }
+        //     $updateCliente = Clientes::find($cliente->id);
+        //     $updateCliente->firebase_key = $cliente_firebasekey->getKey();
+        //     $updateCliente->save();
+        // }
 
         //Registrar proyectos con su avance
-            // $escrituras = Proyectos::all();
-            // foreach($escrituras as $escritura){
-            //     $arrayTemp = [];
-            //     foreach ($escritura->avance as $key => $value) {
-            //         $data = [];
-            //         array_push($arrayTemp, $data);
-            //         $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
-            //         unset($arrayTemp[$key]);
-            //     }
+            $escrituras = Proyectos::all();
+            foreach($escrituras as $escritura){
+                $arrayTemp = [];
+                foreach ($escritura->avance as $key => $value) {
+                    $data = [];
+                    array_push($arrayTemp, $data);
+                    $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
+                    unset($arrayTemp[$key]);
+                }
 
-            //     foreach ($escritura->avance as $key => $value) {
-            //         $newdata = [
-            //             "registro" => $value->subproceso->nombre,
-            //             "date" => $value->subproceso->created_at,
-            //         ];
-            //         $arrayTemp[$value->proceso->nombre] = $newdata;
-            //     }
+                foreach ($escritura->avance as $key => $value) {
+                    $newdata = [
+                        "registro" => $value->subproceso->nombre,
+                        "date" => $value->subproceso->created_at,
+                    ];
+                    $arrayTemp[$value->proceso->nombre] = $newdata;
+                }
 
-            //     $escrituraData = [
-            //         'acto' => $escritura->servicio->nombre,
-            //         'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-            //         'date' => $escritura->created_at,
-            //         'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
-            //         'avance' => $arrayTemp
-            //     ];
+                $escrituraData = [
+                    'acto' => $escritura->servicio->nombre,
+                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
+                    'date' => $escritura->created_at,
+                    'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
+                    'avance' => $arrayTemp
+                ];
 
-            //     $database = $firebase->createDatabase();
-            //     $firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $escritura->cliente->nombre) . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno)->update($escrituraData);
-            //     $escritura_search = Proyectos::find($escritura->id);
-            //     $escritura_search->firebase_key = $firebasekey->getKey();
-            //     $escritura_search->save();
-            // }
+                $database = $firebase->createDatabase();
+                $firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $escritura->cliente->nombre) . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno . "/" . $escritura->servicio->nombre . $escritura->id)->set($escrituraData);
+                // $escritura_search = Proyectos::find($escritura->id);
+                // $escritura_search->firebase_key = $firebasekey->getKey();
+                // $escritura_search->save();
+            }
 
             // Get data
             // $database = $firebase->createDatabase();
