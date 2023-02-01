@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Clientes;
 use App\Models\Proyectos;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -12,8 +13,14 @@ class EscriturasProceso extends Component
 {
     use WithFileUploads;
     use WithPagination;
+    public $cantidad_escrituras = 5;
+    public $proceso_activo;
+    public $procesos_data = [];
+    public $subprocesos_data = [];
+
+    // Buscadores inputs
     public $search;
-    public $cantidad_escrituras = 10;
+    public $buscar_cliente = [];
 
     public function render()
     {
@@ -49,6 +56,29 @@ class EscriturasProceso extends Component
                         ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                     })
                     ->paginate($this->cantidad_escrituras ),
+            "clientes" => $this->buscar_cliente == "" ? [] : Clientes::orderBy("nombre", "ASC")->get(),
         ]);
+    }
+
+    public function openProcesos($proyecto_id){
+        $proyecto = Proyectos::find($proyecto_id);
+        $this->procesos_data = $proyecto->servicio->procesos;
+        $this->subprocesos_data = $this->procesos_data[0]->subprocesos;
+        $this->proceso_activo = $this->procesos_data[0]->id;
+        return $this->dispatchBrowserEvent('abrir-modal-procesos-escritura');
+    }
+
+    public function closeProcesos(){
+        $this->procesos_data = [];
+        $this->subprocesos_data = [];
+        $this->proceso_activo = "";
+        return $this->dispatchBrowserEvent('cerrar-modal-procesos-escritura');
+    }
+
+    public function subprocesosData($proceso_id){
+        $this->subprocesos_data = [];
+        $this->proceso_activo = $proceso_id;
+        $proceso = ProcesosServicios::find($proceso_id);
+        $this->subprocesos_data = $proceso->subprocesos;
     }
 }

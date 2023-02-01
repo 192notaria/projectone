@@ -129,4 +129,5 @@
             </div>
         </div>
     </div>
+    @include("livewire.escrituras-resoruces.procesos_escritura")
 </div>

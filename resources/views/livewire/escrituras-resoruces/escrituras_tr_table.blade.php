@@ -90,60 +90,57 @@
                 @endcan --}}
             </p>
         @endcan
-        <p class="mt-3 mb-0 text-left">
-            <span class="fw-bold">Fecha de creación:</span>
-            <p>{{$escritura->created_at}} </p>
-        </p>
-        @can('ver-estado-proyecto')
-        @if (isset($escritura->getstatus->proceso->nombre))
-            <span class="mb-0 fw-bold">Ultimo avance:</span>
-        @endif
-        @if (isset($escritura->getstatus->proceso->nombre))
-            <p>
-                <span class="badge badge-info">
-                    <i class="fa-solid fa-pen"></i> {{$escritura->getstatus->proceso->nombre}} - {{$escritura->getstatus->subproceso->nombre}}
-                </span>
+            <p class="mt-3 mb-0 text-left">
+                <span class="fw-bold">Fecha de creación:</span>
+                <p>{{$escritura->created_at}} </p>
             </p>
-
-            <p>
-                <span class="badge badge-info"><i class="fa-solid fa-calendar"></i>
-                    {{$escritura->getstatus->created_at}}
-                </span>
-            </p>
-        @endif
-        <p class="mt-2 mb-0">
-            @if (count($escritura->porcentaje) > 0)
-                @php
-                    $procesosCount = count($escritura->porcentaje);
-                    $newArray = [];
-                    foreach ($escritura->avanceCount as $data){
-                        array_push($newArray, $data->proceso_id);
-                    }
-                    $data = array_unique($newArray);
-                    $porcentaje = round(count($data) * 100 / $procesosCount);
-                    // $porcentaje = round($porcentaje, 0);
-                @endphp
-                @if ($porcentaje <= 20)<span class="badge badge-danger mb-1">Avance: {{$porcentaje}}%</span>@endif
-                @if ($porcentaje > 20 && $porcentaje <= 50)<span class="badge badge-warning mb-1">Avance: {{$porcentaje}}%</span>@endif
-                @if ($porcentaje > 50 && $porcentaje <= 99)<span class="badge badge-info mb-1">Avance: {{$porcentaje}}%</span>@endif
-                @if ($porcentaje == 100)<span class="badge badge-success mb-1">Avance: {{$porcentaje}}%</span>@endif
-                <div class="progress progress-bar-stack br-30" style="width: 100%;">
-                    <div class="progress-bar
-                        @if ($porcentaje <= 20) bg-danger @endif
-                        @if ($porcentaje > 20 && $porcentaje <= 50) bg-warning @endif
-                        @if ($porcentaje > 50 && $porcentaje <= 99) bg-info @endif
-                        @if ($porcentaje == 100) bg-success @endif
-                        progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{$porcentaje}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                </div>
-            @else
-                <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> No hay procesos asignados para este servicio</span>
+            @can('ver-estado-proyecto')
+            @if (isset($escritura->getstatus->proceso->nombre))
+                <span class="mb-0 fw-bold">Ultimo avance:</span>
             @endif
-        </p>
-@endcan
+            @if (isset($escritura->getstatus->proceso->nombre))
+                <p>
+                    <span class="badge badge-info">
+                        <i class="fa-solid fa-pen"></i> {{$escritura->getstatus->proceso->nombre}} - {{$escritura->getstatus->subproceso->nombre}}
+                    </span>
+                </p>
+                <p>
+                    <span class="badge badge-info"><i class="fa-solid fa-calendar"></i>
+                        {{$escritura->getstatus->created_at}}
+                    </span>
+                </p>
+            @endif
+            <p class="mt-2 mb-0">
+                @if (count($escritura->porcentaje) > 0)
+                    @php
+                        $procesosCount = count($escritura->porcentaje);
+                        $newArray = [];
+                        foreach ($escritura->avanceCount as $data){
+                            array_push($newArray, $data->proceso_id);
+                        }
+                        $data = array_unique($newArray);
+                        $porcentaje = round(count($data) * 100 / $procesosCount);
+                        // $porcentaje = round($porcentaje, 0);
+                    @endphp
+                    @if ($porcentaje <= 20)<span class="badge badge-danger mb-1">Avance: {{$porcentaje}}%</span>@endif
+                    @if ($porcentaje > 20 && $porcentaje <= 50)<span class="badge badge-warning mb-1">Avance: {{$porcentaje}}%</span>@endif
+                    @if ($porcentaje > 50 && $porcentaje <= 99)<span class="badge badge-info mb-1">Avance: {{$porcentaje}}%</span>@endif
+                    @if ($porcentaje == 100)<span class="badge badge-success mb-1">Avance: {{$porcentaje}}%</span>@endif
+                    <div class="progress progress-bar-stack br-30" style="width: 100%;">
+                        <div class="progress-bar
+                            @if ($porcentaje <= 20) bg-danger @endif
+                            @if ($porcentaje > 20 && $porcentaje <= 50) bg-warning @endif
+                            @if ($porcentaje > 50 && $porcentaje <= 99) bg-info @endif
+                            @if ($porcentaje == 100) bg-success @endif
+                            progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{$porcentaje}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                @else
+                    <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> No hay procesos asignados para este servicio</span>
+                @endif
+            </p>
+        @endcan
     </td>
-
-
 
     <td class="text-center">
         <div class="action-btns">

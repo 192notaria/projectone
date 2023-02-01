@@ -231,7 +231,6 @@
     @include("livewire.modals-ignore-self.generales-varios")
     @include("livewire.modals-ignore-self.registrar-activiad-vulnerable")
     @include("livewire.modals-ignore-self.ajustes")
-    @include("livewire.modals-ignore-self.procesos_escritura")
 
     {{-- Vista previa --}}
     @include("livewire.modal-subprocesos-edicion.vista-generales-con-documentos")

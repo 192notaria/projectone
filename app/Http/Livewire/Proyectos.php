@@ -1669,6 +1669,5 @@ class Proyectos extends Component
         $this->proceso_activo = $proceso_id;
         $proceso = ProcesosServicios::find($proceso_id);
         $this->subprocesos_data = $proceso->subprocesos;
-
     }
 }

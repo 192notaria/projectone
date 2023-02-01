@@ -6,14 +6,19 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Buscar en lista de clientes...">
+                    <label for="">{{$sub->id}}</label>
+                    <input wire:model='buscar_cliente.{{$sub->id}}' :key='{{$sub->id}}' type="text" class="form-control" placeholder="Buscar en lista de clientes...">
                     <div class="autocomplete-items">
-                        @foreach ($municipiosData as $municipio)
-                            <div>
-                                <a wire:click='selectMunicipio({{$municipio->id}})'>
-                                    <strong>{{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}</strong>
-                                </a>
-                            </div>
+                        @foreach ($buscar_cliente as $key => $buscar)
+                            @if ($key == $sub->id)
+                                 @foreach ($clientes as $cliente)
+                                    <div>
+                                        <a>
+                                            <strong>{{$cliente->nombre}}, {{$cliente->apaterno}}, {{$cliente->amaterno}}</strong>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
                         @endforeach
                     </div>
                 </div>
