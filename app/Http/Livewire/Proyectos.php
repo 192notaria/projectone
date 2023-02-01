@@ -1646,13 +1646,29 @@ class Proyectos extends Component
     }
 
     public $procesos_data = [];
+    public $subprocesos_data = [];
+    public $proceso_activo;
+
     public function openProcesos($proyecto_id){
         $proyecto = ModelsProyectos::find($proyecto_id);
         $this->procesos_data = $proyecto->servicio->procesos;
+        $this->subprocesos_data = $this->procesos_data[0]->subprocesos;
+        $this->proceso_activo = $this->procesos_data[0]->id;
+        return $this->dispatchBrowserEvent('abrir-modal-procesos-escritura');
     }
 
-    public function limpiarProcesos(){
+    public function closeProcesos(){
         $this->procesos_data = [];
+        $this->subprocesos_data = [];
+        $this->proceso_activo = "";
+        return $this->dispatchBrowserEvent('cerrar-modal-procesos-escritura');
     }
 
+    public function subprocesosData($proceso_id){
+        $this->subprocesos_data = [];
+        $this->proceso_activo = $proceso_id;
+        $proceso = ProcesosServicios::find($proceso_id);
+        $this->subprocesos_data = $proceso->subprocesos;
+
+    }
 }

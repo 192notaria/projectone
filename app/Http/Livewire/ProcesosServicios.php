@@ -119,10 +119,6 @@ class ProcesosServicios extends Component
             "icons" => Icons::all()
         ]);
     }
-
-    public function selectIcon($icon){
-        dd($icon);
-    }
 }
 
 

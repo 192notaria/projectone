@@ -11,11 +11,14 @@ use Kreait\Firebase\Factory;
 
 class FirebaseAuthController extends Controller
 {
+    private $ref;
 
     public function index(){
-        $firebase = (new Factory)
+        $this->ref = (new Factory)
             ->withServiceAccount(__DIR__."/firebase_credentials.json")
-            ->withDatabaseUri('https://notaria192-158b7-default-rtdb.firebaseio.com');
+            ->withDatabaseUri('https://notaria192-158b7-default-rtdb.firebaseio.com')
+            ->createDatabase()
+            ->getReference("clientes");
 
 //Registrar clientes firebase
         // $clientes = Clientes::all();
@@ -48,38 +51,49 @@ class FirebaseAuthController extends Controller
         // }
 
         //Registrar proyectos con su avance
-            $escrituras = Proyectos::all();
-            foreach($escrituras as $escritura){
-                $arrayTemp = [];
-                foreach ($escritura->avance as $key => $value) {
-                    $data = [];
-                    array_push($arrayTemp, $data);
-                    $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
-                    unset($arrayTemp[$key]);
-                }
+            // $escrituras = Proyectos::all();
+            // foreach($escrituras as $escritura){
+            //     $arrayTemp = [];
+            //     foreach ($escritura->avance as $key => $value) {
+            //         $data = [];
+            //         array_push($arrayTemp, $data);
+            //         $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
+            //         unset($arrayTemp[$key]);
+            //     }
 
-                foreach ($escritura->avance as $key => $value) {
-                    $newdata = [
-                        "registro" => $value->subproceso->nombre,
-                        "date" => $value->subproceso->created_at,
-                    ];
-                    $arrayTemp[$value->proceso->nombre] = $newdata;
-                }
+            //     foreach ($escritura->avance as $key => $value) {
+            //         $newdata = [
+            //             "registro" => $value->subproceso->nombre,
+            //             "date" => $value->subproceso->created_at,
+            //         ];
+            //         $arrayTemp[$value->proceso->nombre] = $newdata;
+            //     }
 
-                $escrituraData = [
-                    'acto' => $escritura->servicio->nombre,
-                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-                    'date' => $escritura->created_at,
-                    'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
-                    'avance' => $arrayTemp
-                ];
+            //     $escrituraData = [
+            //         'acto' => $escritura->servicio->nombre,
+            //         'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
+            //         'date' => $escritura->created_at,
+            //         'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
+            //         'avance' => $arrayTemp
+            //     ];
 
-                $database = $firebase->createDatabase();
-                $firebasekey = $database->getReference('clientes/' . $escritura->cliente->firebase_key . "/" . $escritura->firebase_key)->update($escrituraData);
-                $escritura_search = Proyectos::find($escritura->id);
-                $escritura_search->firebase_key = $firebasekey->getKey();
-                $escritura_search->save();
-            }
+            //     $database = $firebase->createDatabase();
+            //     $firebasekey = $database->getReference('clientes/' . $escritura->cliente->firebase_key . "/" . $escritura->firebase_key)->update($escrituraData);
+            //     $escritura_search = Proyectos::find($escritura->id);
+            //     $escritura_search->firebase_key = $firebasekey->getKey();
+            //     $escritura_search->save();
+            // }
+
+            // Get data
+            // $database = $firebase->createDatabase();
+            // $values = $database->getReference('clientes')->getSnapshot()->getValue();
+            // $snapshot = $reference->getSnapshot();
+            // foreach($reference as $ref){
+            //     return $ref;
+            // }
+
+            return $this->ref->getValue();
+            // return view("firebase_demo", compact('values'));
     }
 
     public function sendemail(){
