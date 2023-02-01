@@ -40,7 +40,7 @@ class FirebaseAuthController extends Controller
 
             $database = $firebase->createDatabase();
             // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
-            $cliente_firebasekey = $database->getReference('clientes/' . $cliente->nombre . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
+            $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
 
             $updateCliente = Clientes::find($cliente->id);
             $updateCliente->firebase_key = $cliente_firebasekey->getKey();
@@ -75,7 +75,7 @@ class FirebaseAuthController extends Controller
             //     ];
 
             //     $database = $firebase->createDatabase();
-            //     $firebasekey = $database->getReference('clientes/' . $escritura->cliente->firebase_key . "/" . $escritura->firebase_key)->update($escrituraData);
+            //     $firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $escritura->cliente->nombre) . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno)->update($escrituraData);
             //     $escritura_search = Proyectos::find($escritura->id);
             //     $escritura_search->firebase_key = $firebasekey->getKey();
             //     $escritura_search->save();
