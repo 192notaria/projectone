@@ -87,7 +87,7 @@ class Guardias extends Component
 
     public function generarGuardia(){
         $this->limpiarguardia();
-        $this->calcular_fechas();
+        dd($this->calcular_fechas());
         $this->usuarios_db = User::whereHas("roles", function($data){
             $data->where('name', "ABOGADO")
                 ->orWhere('name', "ABOGADO DE APOYO")
@@ -145,7 +145,6 @@ class Guardias extends Component
             }
         }
         // $this->guardia_semanal = $guardias;
-        dd($this->guardia_semanal);
     }
 
     public function guardarGuardia(){
