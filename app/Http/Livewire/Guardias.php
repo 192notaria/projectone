@@ -87,7 +87,8 @@ class Guardias extends Component
 
     public function generarGuardia(){
         $this->limpiarguardia();
-        dd($this->calcular_fechas());
+        $this->calcular_fechas();
+        dd($this->fechas);
         $this->usuarios_db = User::whereHas("roles", function($data){
             $data->where('name', "ABOGADO")
                 ->orWhere('name', "ABOGADO DE APOYO")
