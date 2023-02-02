@@ -88,7 +88,6 @@ class Guardias extends Component
     public function generarGuardia(){
         $this->limpiarguardia();
         $this->calcular_fechas();
-        dd($this->fechas);
         $this->usuarios_db = User::whereHas("roles", function($data){
             $data->where('name', "ABOGADO")
                 ->orWhere('name', "ABOGADO DE APOYO")
@@ -97,6 +96,7 @@ class Guardias extends Component
         })->get();
 
         foreach($this->fechas as $fecha){
+            dd(date("l",strtotime($fecha)));
             if(date("l",strtotime($fecha)) != "Sunday"){
                 foreach($this->usuarios_db as $user){
                     if(date("l",strtotime($fecha)) == "Saturday"){
