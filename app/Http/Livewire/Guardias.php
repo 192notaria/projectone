@@ -96,7 +96,6 @@ class Guardias extends Component
         })->get();
 
         foreach($this->fechas as $fecha){
-            dd(date("l",strtotime($fecha)));
             if(date("l",strtotime($fecha)) != "Sunday"){
                 foreach($this->usuarios_db as $user){
                     if(date("l",strtotime($fecha)) == "Saturday"){
@@ -108,7 +107,8 @@ class Guardias extends Component
                             array_push($this->usuarios_array, $usuariodata);
                         }
                     }else{
-                        if(!in_array($user->name . " " . $user->apaterno . " " . $user->amaterno, $this->usuarios_dia_anterior) && $user->tipo_guardia == "semanal"){
+                        if(!in_array($user->name . " " . $user->apaterno . " " . $user->amaterno, $this->usuarios_dia_anterior) &&
+                         $user->tipo_guardia == "semanal"){
                             $usuariodata = [
                                 "id" => $user->id,
                                 "nombre" => $user->name . " " . $user->apaterno . " " . $user->amaterno,
