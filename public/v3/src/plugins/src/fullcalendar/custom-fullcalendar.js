@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
         locale: 'es',
-        events: "http://projectone.test/usuarios/getGuardias",
+        events: "http://192.168.68.157/usuarios/getGuardias",
         // select: calendarSelect,
         // unselect: function() {
         //     console.log('unselected')
