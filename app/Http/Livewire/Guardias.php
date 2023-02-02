@@ -145,6 +145,7 @@ class Guardias extends Component
             }
         }
         // $this->guardia_semanal = $guardias;
+        dd($this->guardia_semanal);
     }
 
     public function guardarGuardia(){
