@@ -86,7 +86,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">Update changes</button>
-                    <button type="button" class="btn btn-primary btn-add-event">Aceptar</button>
+                    <button type="button" class="btn btn-primary" wire:click='cambiodeguardia'>Aceptar</button>
                 </div>
             </div>
         </div>

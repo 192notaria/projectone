@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    console.log(getDynamicMonth())
-
     var getModalTitleEl = document.querySelector('#event-title');
     var getModalStartDateEl = document.querySelector('#event-start-date');
     var getModalEndDateEl = document.querySelector('#event-end-date');
@@ -111,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: { calendar: 'Important' }
         }
     ]
+    var eventsdata = "http://projectone.test/usuarios/getGuardias"
 
     // Calendar Select fn.
     var calendarSelect = function(info) {
@@ -164,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
         locale: 'es',
-        events: "http://192.168.68.157/usuarios/getGuardias",
+        events: eventsdata,
         // select: calendarSelect,
         // unselect: function() {
         //     console.log('unselected')
@@ -195,24 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // }
     });
 
-    // Add Event
-    getModalAddBtnEl.addEventListener('click', function() {
-        // var getModalCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-        // var getTitleValue = getModalTitleEl.value;
-        // var setModalStartDateValue = getModalStartDateEl.value;
-        // var setModalEndDateValue = getModalEndDateEl.value;
-        // var getModalCheckedRadioBtnValue = (getModalCheckedRadioBtnEl !== null) ? getModalCheckedRadioBtnEl.value : '';
-
-        // calendar.addEvent({
-        //     id: uuidv4(),
-        //     title: getTitleValue,
-        //     start: setModalStartDateValue,
-        //     end: setModalEndDateValue,
-        //     allDay: true,
-        //     extendedProps: { calendar: getModalCheckedRadioBtnValue }
-        // })
-        myModal.hide()
-    })
 
 
 
@@ -233,6 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Calendar Renderation
     calendar.render();
 
+    // Add Event
+    window.addEventListener('solicitud-de-cambio', event => {
+        myModal.hide()
+        calendar.refetchEvents()
+
+    })
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     var modalToggle = document.querySelector('.fc-addEventButton-button ')
 

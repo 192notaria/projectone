@@ -23,8 +23,6 @@
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" type="text/css" href="{{url('v3/src/assets/css/dark/components/accordions.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('v3/src/assets/css/light/components/accordions.css')}}">
 
 @endsection
 @section('content')
