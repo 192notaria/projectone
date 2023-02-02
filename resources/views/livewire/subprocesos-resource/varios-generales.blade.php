@@ -7,19 +7,23 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="">{{$sub->id}}</label>
-                    <input wire:model='buscar_cliente.{{$sub->id}}' :key='{{$sub->id}}' type="text" class="form-control" placeholder="Buscar en lista de clientes...">
+                    <input wire:model='buscar_cliente.{{$sub->id}}' wire:keyup='obtenerClientes({{$sub->id}})' wire:key='{{$sub->id}}' type="text" class="form-control" placeholder="Buscar en lista de clientes...">
                     <div class="autocomplete-items">
-                        @foreach ($buscar_cliente as $key => $buscar)
-                            @if ($key == $sub->id)
-                                 @foreach ($clientes as $cliente)
+                        @if (isset($clientes['data']))
+                            @if ($clientes['input'] == $sub->id)
+                                @foreach ($clientes['data'] as $cliente)
                                     <div>
                                         <a>
-                                            <strong>{{$cliente->nombre}}, {{$cliente->apaterno}}, {{$cliente->amaterno}}</strong>
+                                            <strong>
+                                                @if (isset($cliente->nombre))
+                                                    {{$cliente->nombre}}, {{$cliente->apaterno}}, {{$cliente->amaterno}}
+                                                @endif
+                                            </strong>
                                         </a>
                                     </div>
                                 @endforeach
                             @endif
-                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

@@ -17,6 +17,7 @@ class EscriturasProceso extends Component
     public $proceso_activo;
     public $procesos_data = [];
     public $subprocesos_data = [];
+    public $clientes = [];
 
     // Buscadores inputs
     public $search;
@@ -56,8 +57,30 @@ class EscriturasProceso extends Component
                         ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                     })
                     ->paginate($this->cantidad_escrituras ),
-            "clientes" => $this->buscar_cliente == "" ? [] : Clientes::orderBy("nombre", "ASC")->get(),
         ]);
+    }
+
+    public function obtenerClientes($id){
+        if(!isset($this->buscar_cliente[$id]) || $this->buscar_cliente[$id] == ""){
+            return $this->clientes = [];
+        }
+
+        $clientes = Clientes::orderBy("nombre", "ASC")
+            ->where('nombre', 'LIKE', '%' . $this->buscar_cliente[$id] . '%')
+            ->orWhere('apaterno', 'LIKE', '%' . $this->buscar_cliente[$id] . '%')
+            ->orWhere('amaterno', 'LIKE', '%' . $this->buscar_cliente[$id] . '%')
+            ->get();
+
+        if(count($clientes) == 0){
+            return $this->clientes = [];
+        }
+
+        $data = [
+            "data" => $clientes,
+            "input" => $id
+        ];
+
+        $this->clientes = $data;
     }
 
     public function openProcesos($proyecto_id){

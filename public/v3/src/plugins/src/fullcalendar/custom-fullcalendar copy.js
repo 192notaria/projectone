@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Date variable
     var newDate = new Date();
 
+    /** 
+     * 
+     * @getDynamicMonth() fn. is used to validate 2 digit number and act accordingly 
+     * 
+    */    
     function getDynamicMonth() {
         getMonthValue = newDate.getMonth();
         if (getMonthValue < 10) {
@@ -14,17 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log(getDynamicMonth())
 
+    // Modal Elements
     var getModalTitleEl = document.querySelector('#event-title');
     var getModalStartDateEl = document.querySelector('#event-start-date');
     var getModalEndDateEl = document.querySelector('#event-end-date');
     var getModalAddBtnEl = document.querySelector('.btn-add-event');
     var getModalUpdateBtnEl = document.querySelector('.btn-update-event');
-
     var calendarsEvents = {
         Work: 'primary',
         Personal: 'success',
         Important: 'danger',
-        ChangeGuard: 'warning',
+        Travel: 'warning',
     }
 
     // Calendar Elements and options
@@ -37,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
-
+    
     var calendarHeaderToolbar = {
-        left: 'prev next',
+        left: 'prev next addEventButton',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }
@@ -111,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: { calendar: 'Important' }
         }
     ]
-
+    
     // Calendar Select fn.
     var calendarSelect = function(info) {
         getModalAddBtnEl.style.display = 'block';
@@ -129,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var yyyy = currentDate.getFullYear();
         var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
         getModalAddBtnEl.style.display = 'block';
-        getModalUpdateBtnEl.style.display = 'none';
+        getModalUpdateBtnEl.style.display = 'none';        
         myModal.show();
         getModalStartDateEl.value = combineDate;
     }
@@ -140,41 +145,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (eventObj.url) {
           window.open(eventObj.url);
-          info.jsEvent.preventDefault();
+  
+          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
         } else {
-            // var getModalEventId = eventObj._def.publicId;
-            // var getModalEventLevel = eventObj._def.extendedProps['calendar'];
-            // var getModalCheckedRadioBtnEl = document.querySelector(`input[value="${getModalEventLevel}"]`);
-            // getModalTitleEl.innerHTML = "¿Seguro que desea solicitar un cambio de guardia con <span class='fw-bold'>" + eventObj.title + "</span>?"
-            Livewire.emit('modalcambiodeguardia', eventObj.title, eventObj.id)
-            // getModalCheckedRadioBtnEl.checked = true;
-            // getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
-            // getModalAddBtnEl.style.display = 'none';
-            // getModalUpdateBtnEl.style.display = 'block';
+            var getModalEventId = eventObj._def.publicId; 
+            var getModalEventLevel = eventObj._def.extendedProps['calendar'];
+            var getModalCheckedRadioBtnEl = document.querySelector(`input[value="${getModalEventLevel}"]`);
+
+            getModalTitleEl.value = eventObj.title;
+            getModalCheckedRadioBtnEl.checked = true;
+            getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
+            getModalAddBtnEl.style.display = 'none';
+            getModalUpdateBtnEl.style.display = 'block';
             myModal.show();
         }
     }
+    
 
-
-    // Activate Calender
+    // Activate Calender    
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
-        // height: checkWidowWidth() ? 900 : 1052,
-        // initialView: checkWidowWidth() ? 'listWeek' : 'dayGridMonth',
+        height: checkWidowWidth() ? 900 : 1052,
+        initialView: checkWidowWidth() ? 'listWeek' : 'dayGridMonth',
         initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
-        locale: 'es',
-        events: "http://projectone.test/usuarios/getGuardias",
-        // select: calendarSelect,
-        // unselect: function() {
-        //     console.log('unselected')
-        // },
-        // customButtons: {
-        //     addEventButton: {
-        //         text: 'Add Event',
-        //         click: calendarAddEvent
-        //     },
-        // },
+        events: calendarEventsList,
+        select: calendarSelect,
+        unselect: function() {
+            console.log('unselected')
+        },
+        customButtons: {
+            addEventButton: {
+                text: 'Add Event',
+                click: calendarAddEvent
+            }
+        },
         eventClassNames: function ({ event: calendarEvent }) {
             const getColorValue = calendarsEvents[calendarEvent._def.extendedProps.calendar];
             return [
@@ -182,35 +187,38 @@ document.addEventListener('DOMContentLoaded', function() {
               'event-fc-color fc-bg-' + getColorValue
             ];
         },
-
+        
         eventClick: calendarEventClick,
-        // windowResize: function(arg) {
-        //     if (checkWidowWidth()) {
-        //         calendar.changeView('listWeek');
-        //         calendar.setOption('height', 900);
-        //     } else {
-        //         calendar.changeView('dayGridMonth');
-        //         calendar.setOption('height', 1052);
-        //     }
-        // }
+        windowResize: function(arg) {
+            if (checkWidowWidth()) {
+                calendar.changeView('listWeek');
+                calendar.setOption('height', 900);
+            } else {
+                calendar.changeView('dayGridMonth');
+                calendar.setOption('height', 1052);
+            }
+        }
+
     });
 
     // Add Event
     getModalAddBtnEl.addEventListener('click', function() {
-        // var getModalCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-        // var getTitleValue = getModalTitleEl.value;
-        // var setModalStartDateValue = getModalStartDateEl.value;
-        // var setModalEndDateValue = getModalEndDateEl.value;
-        // var getModalCheckedRadioBtnValue = (getModalCheckedRadioBtnEl !== null) ? getModalCheckedRadioBtnEl.value : '';
 
-        // calendar.addEvent({
-        //     id: uuidv4(),
-        //     title: getTitleValue,
-        //     start: setModalStartDateValue,
-        //     end: setModalEndDateValue,
-        //     allDay: true,
-        //     extendedProps: { calendar: getModalCheckedRadioBtnValue }
-        // })
+        var getModalCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
+        
+        var getTitleValue = getModalTitleEl.value;
+        var setModalStartDateValue = getModalStartDateEl.value;
+        var setModalEndDateValue = getModalEndDateEl.value;
+        var getModalCheckedRadioBtnValue = (getModalCheckedRadioBtnEl !== null) ? getModalCheckedRadioBtnEl.value : '';
+
+        calendar.addEvent({
+            id: uuidv4(),
+            title: getTitleValue,
+            start: setModalStartDateValue,
+            end: setModalEndDateValue,
+            allDay: true,
+            extendedProps: { calendar: getModalCheckedRadioBtnValue }
+        })
         myModal.hide()
     })
 
@@ -224,15 +232,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var getModalUpdatedCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
 
         var getModalUpdatedCheckedRadioBtnValue = (getModalUpdatedCheckedRadioBtnEl !== null) ? getModalUpdatedCheckedRadioBtnEl.value : '';
-
+        
         getEvent.setProp('title', getTitleUpdatedValue);
         getEvent.setExtendedProp('calendar', getModalUpdatedCheckedRadioBtnValue);
         myModal.hide()
     })
-
+    
     // Calendar Renderation
     calendar.render();
-
+    
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     var modalToggle = document.querySelector('.fc-addEventButton-button ')
 

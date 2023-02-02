@@ -9,6 +9,7 @@ use App\Http\Controllers\EscriturasApoyo;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\FilesData;
 use App\Http\Controllers\FirebaseAuthController;
+use App\Http\Controllers\GuardiasController;
 use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\OcupacionesController;
 use App\Http\Controllers\PaisesController;
@@ -69,5 +70,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/firebase_data', [FirebaseAuthController::class, 'index'])->name('firebase.index');
     Route::get('/email', [FirebaseAuthController::class, 'sendemail'])->name('email.test');
+    Route::get('/usuarios/guardias', [GuardiasController::class, 'index'])->name('usuarios.guardias');
+    Route::get('/usuarios/getGuardias', [GuardiasController::class, 'getGuardias'])->name('usuarios.getGuardias');
 });
 
