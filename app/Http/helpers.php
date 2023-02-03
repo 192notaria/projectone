@@ -45,6 +45,6 @@ use Carbon\Carbon;
         $notificacion->channel = "private";
         $notificacion->user_id = $user_guardia_id;
         $notificacion->save();
-        event(new NotificationEvent($user_guardia_id, $mensaje));
+        return event(new NotificationEvent($user_guardia_id, $mensaje));
     }
 ?>

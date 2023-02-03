@@ -40,7 +40,7 @@ class Guardias extends Component
         }
         $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
         $this->nombre_usuario_guardia = "";
-        return $this->notificarCambioGuardia($buscarguardia->user_id, auth()->user()->id, $fecha);
+        return notificarCambioGuardia($buscarguardia->user_id, auth()->user()->id, $fecha);
     }
 
     public function cambiodeguardia(){
