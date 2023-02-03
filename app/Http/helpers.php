@@ -15,29 +15,30 @@ use Carbon\Carbon;
     }
 
     function notifyAdmins($name, $body, $channel, $authId){
-        $administradores = User::whereHas("roles",
-            function($data){
-                $data->where('name', "ADMINISTRADOR");
-        })->get();
+        dd("hola helper");
+        // $administradores = User::whereHas("roles",
+        //     function($data){
+        //         $data->where('name', "ADMINISTRADOR");
+        // })->get();
 
-        foreach ($administradores as $admin) {
-            if($admin->id != $authId){
-                $notificacion = new Notifications;
-                $notificacion->name = $name;
-                $notificacion->body = $body;
-                $notificacion->viewed = false;
-                $notificacion->channel = $channel;
-                $notificacion->user_id = $admin->id;
-                $notificacion->save();
-                event(new NotificationEvent($admin->id, $body));
-            }
-        }
+        // foreach ($administradores as $admin) {
+        //     if($admin->id != $authId){
+        //         $notificacion = new Notifications;
+        //         $notificacion->name = $name;
+        //         $notificacion->body = $body;
+        //         $notificacion->viewed = false;
+        //         $notificacion->channel = $channel;
+        //         $notificacion->user_id = $admin->id;
+        //         $notificacion->save();
+        //         event(new NotificationEvent($admin->id, $body));
+        //     }
+        // }
     }
 
     function notificarCambioGuardia($user_guardia_id, $usuario_solicitante_id, $fecha){
         $usuario_solicitante = User::find($usuario_solicitante_id);
-        $mensaje = $usuario_solicitante->user->name . " " . $usuario_solicitante->user->apaterno .
-            "te solicita hacer un cambio de guardia el dia " . Carbon::create($fecha)->isoFormat('dddd D \d\e MMMM');
+        $mensaje = $usuario_solicitante->name . " " . $usuario_solicitante->apaterno .
+            " te solicita hacer un cambio de guardia el dia " . Carbon::create($fecha)->isoFormat('dddd D \d\e MMMM');
         $notificacion = new Notifications;
         $notificacion->name = "Solicitud de cambio de guardia";
         $notificacion->body = $mensaje;

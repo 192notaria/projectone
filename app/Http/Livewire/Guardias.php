@@ -20,6 +20,7 @@ class Guardias extends Component
     public $mensaje;
     public $nombre_usuario_guardia;
     public $guardia_id;
+    public $fecha_cambio;
 
     protected $listeners = [
         'modalcambiodeguardia' => 'cambiarguardia',
@@ -33,21 +34,22 @@ class Guardias extends Component
 
     public function cambiarguardia($nombre, $id, $fecha){
         $this->guardia_id = $id;
+        $this->fecha_cambio = date("Y-m-d", strtotime($fecha));
         $buscarguardia = ModelsGuardias::find($id);
         if($buscarguardia->user_id != auth()->user()->id){
             $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
             return $this->nombre_usuario_guardia = $nombre;
         }
         $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
-        $this->nombre_usuario_guardia = "";
-        return notificarCambioGuardia($buscarguardia->user_id, auth()->user()->id, $fecha);
+        return $this->nombre_usuario_guardia = "";
     }
 
     public function cambiodeguardia(){
         $buscarguardia = ModelsGuardias::find($this->guardia_id);
         $buscarguardia->solicitud_user_id = auth()->user()->id;
         $buscarguardia->save();
-        return $this->dispatchBrowserEvent("solicitud-de-cambio");
+        $this->dispatchBrowserEvent("solicitud-de-cambio");
+        return notificarCambioGuardia($buscarguardia->user_id, auth()->user()->id, $this->fecha_cambio);
     }
 
     function calcular_fechas(){

@@ -225,9 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var modalToggle = document.querySelector('.fc-addEventButton-button ')
 
     document.getElementById('exampleModal').addEventListener('hidden.bs.modal', function (event) {
-        getModalTitleEl.value = '';
-        getModalStartDateEl.value = '';
-        getModalEndDateEl.value = '';
         var getModalIfCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
         if (getModalIfCheckedRadioBtnEl !== null) { getModalIfCheckedRadioBtnEl.checked = false; }
     })
