@@ -33,7 +33,7 @@ class GuardiasController extends Controller
                     "start" => $guardia->fecha_guardia. " 10:00:00",
                     "end" => $guardia->fecha_guardia . " 12:30:00",
                     "extendedProps" => [
-                        "calendar" => auth()->user()->id == $guardia->solicitud_user_id ? 'Important' or $guardia->solicitud_user_id ? 'ChangeGuard' : 'Work' : "Work"
+                        "calendar" => (auth()->user()->id == $guardia->solicitud_user_id ? "Important" : "Work") ?? $guardia->solicitud_user_id ? "ChangeGuard" : "Work"
                     ]
                 ];
             }else{
@@ -43,7 +43,8 @@ class GuardiasController extends Controller
                     "start" => $guardia->fecha_guardia. " 15:30:00",
                     "end" => $guardia->fecha_guardia . " 17:00:00",
                     "extendedProps" => [
-                        "calendar" => auth()->user()->id == $guardia->solicitud_user_id ? 'Important' or $guardia->solicitud_user_id ? 'ChangeGuard' : 'Work' : "Work"
+                        "calendar" => (auth()->user()->id == $guardia->solicitud_user_id ? "Important" : "Work") ?? $guardia->solicitud_user_id ? "ChangeGuard" : "Work"
+                        // (is_front_page() ) ?  $intro_image ( :   ( ! get_header_image() )   ?   $intro_image :   get_header_image())
                     ]
                 ];
             }
