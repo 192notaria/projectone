@@ -3,6 +3,7 @@
 use App\Events\NotificationEvent;
 use App\Models\Notifications;
 use App\Models\User;
+use Carbon\Carbon;
 
     function activeRoute($route, $isClass = false): string {
         $requesUrl = request()->fullUrl() === $route ? true : false;
@@ -13,11 +14,11 @@ use App\Models\User;
         }
     }
 
-    function notifyAdmins($name, $body, $channel, $bodyAuthUser, $authId){
+    function notifyAdmins($name, $body, $channel, $authId){
         $administradores = User::whereHas("roles",
             function($data){
                 $data->where('name', "ADMINISTRADOR");
-            })->get();
+        })->get();
 
         foreach ($administradores as $admin) {
             if($admin->id != $authId){
@@ -30,11 +31,20 @@ use App\Models\User;
                 $notificacion->save();
                 event(new NotificationEvent($admin->id, $body));
             }
-                event(new NotificationEvent($authId, $bodyAuthUser));
         }
     }
 
-    function bitacora ($usuario, $cliente, $proyecto, $proceso, $subproceso, $tipo){
-
+    function notificarCambioGuardia($user_guardia_id, $usuario_solicitante_id, $fecha){
+        $usuario_solicitante = User::find($usuario_solicitante_id);
+        $mensaje = $usuario_solicitante->user->name . " " . $usuario_solicitante->user->apaterno .
+            "te solicita hacer un cambio de guardia el dia " . Carbon::create($fecha)->isoFormat('dddd D \d\e MMMM');
+        $notificacion = new Notifications;
+        $notificacion->name = "Solicitud de cambio de guardia";
+        $notificacion->body = $mensaje;
+        $notificacion->viewed = false;
+        $notificacion->channel = "private";
+        $notificacion->user_id = $user_guardia_id;
+        $notificacion->save();
+        event(new NotificationEvent($user_guardia_id, $mensaje));
     }
 ?>

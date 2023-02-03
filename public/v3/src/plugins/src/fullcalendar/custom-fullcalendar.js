@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // var getModalEventLevel = eventObj._def.extendedProps['calendar'];
             // var getModalCheckedRadioBtnEl = document.querySelector(`input[value="${getModalEventLevel}"]`);
             // getModalTitleEl.innerHTML = "¿Seguro que desea solicitar un cambio de guardia con <span class='fw-bold'>" + eventObj.title + "</span>?"
-            Livewire.emit('modalcambiodeguardia', eventObj.title, eventObj.id)
+            Livewire.emit('modalcambiodeguardia', eventObj.title, eventObj.id, eventObj.start)
             // getModalCheckedRadioBtnEl.checked = true;
             // getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
             // getModalAddBtnEl.style.display = 'none';

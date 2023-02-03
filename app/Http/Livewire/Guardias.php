@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Guardias as ModelsGuardias;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Guardias extends Component
@@ -30,7 +31,7 @@ class Guardias extends Component
         return view('livewire.guardias');
     }
 
-    public function cambiarguardia($nombre, $id){
+    public function cambiarguardia($nombre, $id, $fecha){
         $this->guardia_id = $id;
         $buscarguardia = ModelsGuardias::find($id);
         if($buscarguardia->user_id != auth()->user()->id){
@@ -38,7 +39,8 @@ class Guardias extends Component
             return $this->nombre_usuario_guardia = $nombre;
         }
         $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
-        return $this->nombre_usuario_guardia = "";
+        $this->nombre_usuario_guardia = "";
+        return $this->notificarCambioGuardia($buscarguardia->user_id, auth()->user()->id, $fecha);
     }
 
     public function cambiodeguardia(){
@@ -148,11 +150,9 @@ class Guardias extends Component
                 $this->usuarios_dia_anterior = [];
             }
         }
-        // $this->guardia_semanal = $guardias;
     }
 
     public function guardarGuardia(){
-
         foreach($this->guardia_semanal as $guardia){
             foreach($guardia['usuarios'] as $usuariosguardia){
                 $nuevaguardia = new ModelsGuardias;
