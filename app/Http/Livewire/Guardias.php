@@ -17,10 +17,14 @@ class Guardias extends Component
     public $guardias = [];
     public $usuarios_db = [];
     public $fechas = [];
+    public $guardias_cumplidas = [];
+    public $usuarios_guardia_semanal = [];
     public $mensaje;
     public $nombre_usuario_guardia;
     public $guardia_id;
     public $fecha_cambio;
+    public $dias_semanales = 0;
+    public $dias_por_persona;
 
     protected $listeners = [
         'modalcambiodeguardia' => 'cambiarguardia',
@@ -40,6 +44,11 @@ class Guardias extends Component
             $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
             return $this->nombre_usuario_guardia = $nombre;
         }
+
+        if($buscarguardia->user_id == auth()->user()->id && $buscarguardia->solicitud_user_id){
+            $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
+        }
+
         $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
         return $this->nombre_usuario_guardia = "";
     }
@@ -62,7 +71,11 @@ class Guardias extends Component
         // dd(intval($dias_diferencia));
         $fecha = $this->_data_first_month_day();
         $cant_dias = intval($dias_diferencia) + 1;
+
         for ($i=0; $i < $cant_dias; $i++) {
+            if(date("l",strtotime($fecha)) != "Saturday" && date("l",strtotime($fecha)) != "Sunday"){
+                $this->dias_semanales++;
+            }
             array_push($this->fechas,$fecha);
             $fecha = date("Y-m-d", strtotime($fecha."+ 1 days"));
         }
@@ -90,78 +103,146 @@ class Guardias extends Component
         $this->guardias = [];
         $this->usuarios_db = [];
         $this->fechas = [];
+        $this->guardias_cumplidas = [];
+        $this->usuarios_guardia_semanal = [];
     }
 
     public function generarGuardia(){
         $this->limpiarguardia();
         $this->calcular_fechas();
-        $this->usuarios_db = User::whereHas("roles", function($data){
+
+        $usuariosTotales = User::inRandomOrder()->whereHas("roles", function($data){
             $data->where('name', "ABOGADO")
                 ->orWhere('name', "ABOGADO DE APOYO")
                 ->orWhere('name', "CONTADOR")
                 ->orWhere('name', "ABOGADO ADMINISTRADOR");
         })->get();
 
+        $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
+            $data->where('name', "ABOGADO")
+                ->orWhere('name', "ABOGADO DE APOYO")
+                ->orWhere('name', "CONTADOR")
+                ->orWhere('name', "ABOGADO ADMINISTRADOR");
+        })->get();
+
+        $usuarios_semanal = count($usuarios_db_semanal);
+        $equipos = count($usuarios_db_semanal) / 2;
+        $team = 1;
+        $fila_usuario = 0;
+
+        $usuarios_fin_semana = count($usuariosTotales);
+        $equipos_fin_semana = count($usuariosTotales) / 2;
+        $fila_usuario_fin = 0;
+        $team_fin = 1;
+
+        $usuarioAnterior = "";
+        $usuarioAnterior_fin = "";
+
+        foreach($usuarios_db_semanal as $usuarios ){
+            if($usuarios->name == "EUNICE" && $usuarioAnterior == "NATALIA" ||
+            $usuarios->name == "NATALIA" && $usuarioAnterior == "EUNICE"){
+                $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
+                    $data->where('name', "ABOGADO")
+                        ->orWhere('name', "ABOGADO DE APOYO")
+                        ->orWhere('name', "CONTADOR")
+                        ->orWhere('name', "ABOGADO ADMINISTRADOR");
+                })->get();
+            }
+            $usuarioAnterior = $usuarios->name;
+        }
+
+        foreach($usuariosTotales as $usuarios ){
+            if($usuarios->name == "EUNICE" && $usuarioAnterior_fin == "NATALIA" ||
+            $usuarios->name == "NATALIA" && $usuarioAnterior_fin == "EUNICE"){
+                $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
+                    $data->where('name', "ABOGADO")
+                        ->orWhere('name', "ABOGADO DE APOYO")
+                        ->orWhere('name', "CONTADOR")
+                        ->orWhere('name', "ABOGADO ADMINISTRADOR");
+                })->get();
+            }
+            $usuarioAnterior_fin = $usuarios->name;
+        }
+
         foreach($this->fechas as $fecha){
-            if(date("l",strtotime($fecha)) != "Sunday"){
-                foreach($this->usuarios_db as $user){
-                    if(date("l",strtotime($fecha)) == "Saturday"){
-                        if(!in_array($user->name . " " . $user->apaterno . " " . $user->amaterno, $this->usuarios_sabado)){
-                            $usuariodata = [
-                                "id" => $user->id,
-                                "nombre" => $user->name . " " . $user->apaterno . " " . $user->amaterno,
-                            ];
-                            array_push($this->usuarios_array, $usuariodata);
-                        }
-                    }else{
-                        if(!in_array($user->name . " " . $user->apaterno . " " . $user->amaterno, $this->usuarios_dia_anterior) &&
-                         $user->tipo_guardia == "semanal"){
-                            $usuariodata = [
-                                "id" => $user->id,
-                                "nombre" => $user->name . " " . $user->apaterno . " " . $user->amaterno,
-                            ];
-                            array_push($this->usuarios_array, $usuariodata);
-                        }
-                    }
+            if(Carbon::create($fecha)->isoFormat('dddd') != 'domingo' && Carbon::create($fecha)->isoFormat('dddd') != 'sábado'){
+                if($fila_usuario >= $usuarios_semanal){
+                    $fila_usuario = 0;
                 }
-                if(count($this->usuarios_array) > 1){
-                    $data = array_rand($this->usuarios_array, 2);
-                    if($this->usuarios_array[$data[0]]['nombre'] == "NATALIA ROSALES MENDOZA" && $this->usuarios_array[$data[1]]['nombre'] == "EUNICE RICO PANIAGUA" ||
-                    $this->usuarios_array[$data[1]]['nombre'] == "NATALIA ROSALES MENDOZA" && $this->usuarios_array[$data[0]]['nombre'] == "EUNICE RICO PANIAGUA"){
-                        $data = array_rand($this->usuarios_array, 2);
-                    }
-
-                    $guardia_data = [
-                        "usuarios" => [
-                            "primero" => $this->usuarios_array[$data[0]],
-                            "segundo" => $this->usuarios_array[$data[1]],
-                        ],
-                        "fecha" => $fecha,
-                        "dia" => date("l",strtotime($fecha))
-                    ];
-
-                    array_push($this->guardia_semanal, $guardia_data);
-                    $this->usuarios_dia_anterior = [$this->usuarios_array[$data[0]]['nombre'], $this->usuarios_array[$data[1]]['nombre']];
-                    if(date("l", strtotime($fecha)) == "Saturday"){
-                        array_push($this->usuarios_sabado, $this->usuarios_array[$data[0]]['nombre']);
-                        array_push($this->usuarios_sabado, $this->usuarios_array[$data[1]]['nombre']);
-                    }
-                    $this->usuarios_array = [];
+                if($team > $equipos){
+                    $team = 1;
                 }
-            }else{
-                $this->usuarios_dia_anterior = [];
+                $fechadata[] = [
+                    "fecha" => $fecha,
+                    "team" => $team,
+                    "dia" => Carbon::create($fecha)->isoFormat('dddd D \d\e MMMM'),
+                    "guardia1" => [
+                        "id" => $usuarios_db_semanal[$fila_usuario]['id'],
+                        "nombre" => $usuarios_db_semanal[$fila_usuario]['name'] . " " . $usuarios_db_semanal[$fila_usuario]['apaterno'],
+                    ],
+                    "guardia2" => [
+                        "id" => $usuarios_db_semanal[$fila_usuario + 1]['id'],
+                        "nombre" => $usuarios_db_semanal[$fila_usuario + 1]['name'] . " " . $usuarios_db_semanal[$fila_usuario]['apaterno'],
+                    ],
+                ];
+                $fila_usuario = $fila_usuario + 2;
+                $team = $team + 1;
             }
         }
+
+        foreach($this->fechas as $fecha){
+            if(Carbon::create($fecha)->isoFormat('dddd') == 'sábado'){
+                if($fila_usuario_fin >= $usuarios_fin_semana){
+                    $fila_usuario_fin = 0;
+                }
+                if($team_fin > $equipos_fin_semana){
+                    $team_fin = 1;
+                }
+
+                $fechadata[] = [
+                    "fecha" => $fecha,
+                    "team" => $team_fin,
+                    "dia" => Carbon::create($fecha)->isoFormat('dddd D \d\e MMMM'),
+                    "guardia1" => [
+                        "id" => $usuariosTotales[$fila_usuario_fin]['id'],
+                        "nombre" => $usuariosTotales[$fila_usuario_fin]['name'] . " " . $usuariosTotales[$fila_usuario_fin]['apaterno'],
+                    ],
+                    "guardia2" => [
+                        "id" => $usuariosTotales[$fila_usuario_fin + 1]['id'],
+                        "nombre" => $usuariosTotales[$fila_usuario_fin + 1]['name'] . " " . $usuariosTotales[$fila_usuario_fin]['apaterno'],
+                    ],
+                ];
+                $fila_usuario_fin = $fila_usuario_fin + 2;
+                $team_fin = $team_fin + 1;
+            }
+        }
+
+        $this->guardia_semanal = $fechadata;
+        // dd(array_count_values($this->guardias_cumplidas),$this->dias_semanales);
+        // dd(count($this->guardias_cumplidas));
+        // dd($fechadata);
     }
 
     public function guardarGuardia(){
         foreach($this->guardia_semanal as $guardia){
-            foreach($guardia['usuarios'] as $usuariosguardia){
-                $nuevaguardia = new ModelsGuardias;
-                $nuevaguardia->fecha_guardia = $guardia['fecha'];
-                $nuevaguardia->user_id = $usuariosguardia['id'];
-                $nuevaguardia->save();
+            $now = Carbon::now();
+
+            $guardias = ModelsGuardias::whereMonth("fecha_guardia", $now->month)->first();
+            if($guardias){
+                return $this->dispatchBrowserEvent("existe-guardia","Ya existe una guarda registrada para este mes");
             }
+
+            $guardia1 = new ModelsGuardias;
+            $guardia1->fecha_guardia = $guardia['fecha'];
+            $guardia1->user_id = $guardia['guardia1']['id'];
+            $guardia1->save();
+
+            $guardia2 = new ModelsGuardias;
+            $guardia2->fecha_guardia = $guardia['fecha'];
+            $guardia2->user_id = $guardia['guardia2']['id'];
+            $guardia2->save();
+
+            return $this->dispatchBrowserEvent("cerrar-modal-guardias","Se ha registrado la guardia con exito");
         }
     }
 }

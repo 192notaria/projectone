@@ -45,7 +45,6 @@ class GuardiasController extends Controller
                     "extendedProps" => [
                         // Unparenthesized `a ? b : c ? d : e` is not supported. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)`
                         "calendar" =>  auth()->user()->id == $guardia->user_id && $guardia->solicitud_user_id ? "Important" : ($guardia->solicitud_user_id ? "ChangeGuard" : "Work")
-                        // (is_front_page() ) ?  $intro_image ( :   ( ! get_header_image() )   ?   $intro_image :   get_header_image())
                     ]
                 ];
             }

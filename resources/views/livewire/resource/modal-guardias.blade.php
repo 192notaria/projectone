@@ -9,14 +9,58 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    @foreach ($guardia_semanal as $key => $guardia)
-                        <div class="col-lg-2 mb-5" wire:key='{{$key}}'>
-                            <span class="badge badge-primary mb-2">{{$guardia['fecha']}}</span>
-                            <p><span class="badge badge-info">{{$guardia['dia']}}</span></p>
-                            <p>{{$guardia['usuarios']['primero']['nombre']}}</p>
-                            <p>{{$guardia['usuarios']['segundo']['nombre']}}</p>
-                        </div>
-                    @endforeach
+                    <div class="col-lg-6 table-responsive">
+                        <h3>Guardia semanal</h3>
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr class="mb-2">
+                                    <th>Equipo</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($guardia_semanal as $key => $guardia)
+                                    @if (Carbon\Carbon::create($guardia['fecha'])->isoFormat('dddd') != 'sábado')
+                                        <tr>
+                                            <td><span class="badge badge-primary">{{$guardia['team']}}</span></td>
+                                            <td>
+                                                <p class="mb-0 fw-bold">{{$guardia['guardia1']['nombre']}}</p>
+                                                <p class="mb-0 fw-bold">{{$guardia['guardia2']['nombre']}}</p>
+                                            </td>
+                                            <td>{{$guardia['dia']}}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 table-responsive">
+                        <h3>Guardia fin de semana</h3>
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Equipo</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($guardia_semanal as $key => $guardia)
+                                    @if (Carbon\Carbon::create($guardia['fecha'])->isoFormat('dddd') == 'sábado')
+                                        <tr>
+                                            <td><span class="badge badge-primary">{{$guardia['team']}}</span></td>
+                                            <td>
+                                                <p class="mb-0 fw-bold">{{$guardia['guardia1']['nombre']}}</p>
+                                                <p class="mb-0 fw-bold">{{$guardia['guardia2']['nombre']}}</p>
+                                            </td>
+                                            <td>{{$guardia['dia']}}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -33,5 +77,32 @@
 
     window.addEventListener('cerrar-modal-guardias', event => {
         $(".modal-guardias").modal("hide")
+        var myAudio= document.createElement('audio')
+        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
+        myAudio.play()
+
+        Snackbar.show({
+            text: event.detail,
+            actionTextColor: '#fff',
+            backgroundColor: '#00ab55',
+            pos: 'top-center',
+            duration: 5000,
+            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
+        })
+    })
+
+    window.addEventListener('existe-guardia', event => {
+        var myAudio= document.createElement('audio')
+        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
+        myAudio.play()
+
+        Snackbar.show({
+            text: event.detail,
+            actionTextColor: '#fff',
+            backgroundColor: '#00ab55',
+            pos: 'top-center',
+            duration: 5000,
+            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
+        })
     })
 </script>

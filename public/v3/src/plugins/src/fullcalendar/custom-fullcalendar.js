@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: { calendar: 'Important' }
         }
     ]
-    // var eventsdata = "http://projectone.test/usuarios/getGuardias"
-    var eventsdata = "http://192.168.68.157/usuarios/getGuardias"
+    var eventsdata = "http://projectone.test/usuarios/getGuardias"
+    // var eventsdata = "http://192.168.0.121/usuarios/getGuardias"
 
     // Calendar Select fn.
     var calendarSelect = function(info) {
@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function() {
             myModal.show();
         }
     }
-
 
     // Activate Calender
     var calendar = new FullCalendar.Calendar(calendarEl, {

@@ -112,7 +112,7 @@
             fd.append("user_id", userid);
 
             $.ajax({
-                url: "http://192.168.68.157/intefone",
+                url: "http://192.168.0.121/intefone",
                 type: 'POST',
                 data: fd,
                 success: function (data) {

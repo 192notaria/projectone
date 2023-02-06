@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date("fecha_guardia");
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("solicitud_user_id");
+            $table->unsignedBigInteger("solicitud_user_id")->nullable();
 
             $table->foreign('user_id')
                 ->references('id')
