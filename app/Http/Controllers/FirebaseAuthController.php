@@ -14,52 +14,57 @@ use Google\Cloud\Firestore\FirestoreClient;
 
 class FirebaseAuthController extends Controller
 {
-    public $firestore;
-    public function __construct(Firestore $firestore)
-    {
-        $this->firestore = $firestore;
-    }
     public function index(){
-        $db = new FirestoreClient([
-            'projectId' => "notaria192-158b7",
-        ]);
-        $docRef = $db->collection('/clientes');
+
 
         // $firestore = new FirestoreClient();
         // $collectionReference = $firestore->collection('clientes');
-        return $docRef;
+
         // $documentReference = $collectionReference->document($userId);
         // $snapshot = $documentReference->snapshot();
 
 
 //Registrar clientes firebase
-        // $clientes = Clientes::all();
-        // foreach($clientes as $cliente){
-        //     $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
-        //     $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
-        //     $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
-        //     $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
+        $clientes = Clientes::all();
+        foreach($clientes as $cliente){
+            $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
+            $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
+            $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
+            $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
 
-        //     $clienteData = [
-        //         'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
-        //         'fecha_nacimiento' => $cliente->fecha_nacimiento,
-        //         'email' => $cliente->email,
-        //         'telefono' => $cliente->telefono,
-        //         'ocupacion' => $ocupacion,
-        //         'estado_civil' => $cliente->estado_civil,
-        //         'genero' => $cliente->genero,
-        //         'rfc' => $cliente->rfc,
-        //         'curp' => $cliente->curp
-        //     ];
+            $firebase = app('firebase.firestore')->database()->collection('clientes')->newDocument();
+            $firebase->set([
+                'id' => $firebase->id,
+                'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
+                'fecha_nacimiento' => $cliente->fecha_nacimiento,
+                'email' => $cliente->email,
+                'telefono' => $cliente->telefono,
+                'ocupacion' => $ocupacion,
+                'estado_civil' => $cliente->estado_civil,
+                'genero' => $cliente->genero,
+                'rfc' => $cliente->rfc,
+                'curp' => $cliente->curp
+            ]);
+            // $clienteData = [
+            //     'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
+            //     'fecha_nacimiento' => $cliente->fecha_nacimiento,
+            //     'email' => $cliente->email,
+            //     'telefono' => $cliente->telefono,
+            //     'ocupacion' => $ocupacion,
+            //     'estado_civil' => $cliente->estado_civil,
+            //     'genero' => $cliente->genero,
+            //     'rfc' => $cliente->rfc,
+            //     'curp' => $cliente->curp
+            // ];
 
-        //     $database = $firebase->createDatabase();
-        //     // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
-        //     $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
+            // $database = $firebase->createDatabase();
+            // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
+            // $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
 
-        //     $updateCliente = Clientes::find($cliente->id);
-        //     $updateCliente->firebase_key = $cliente_firebasekey->getKey();
-        //     $updateCliente->save();
-        // }
+            // $updateCliente = Clientes::find($cliente->id);
+            // $updateCliente->firebase_key = $cliente_firebasekey->getKey();
+            // $updateCliente->save();
+        }
 
         //Registrar proyectos con su avance
             // $escrituras = Proyectos::all();

@@ -33,7 +33,7 @@
                                     </div>
                                 </td>
                                 <td><div class="td-content pricing"><span class="">{{$acto->numero_escritura}}</span></div></td>
-                                @php
+                                {{-- @php
                                     $procesosCount = count($acto->porcentaje);
                                     $newArray = [];
                                     foreach ($acto->avanceCount as $data){
@@ -41,10 +41,12 @@
                                     }
                                     $data = array_unique($newArray);
                                     $porcentaje = round(count($data) * 100 / $procesosCount);
-                                @endphp
+                                @endphp --}}
                                 <td>
                                     <div class="td-content">
-                                        <span class="badge badge-success">{{$porcentaje}}%</span>
+                                        <span class="badge badge-success">
+                                            %
+                                        </span>
                                     </div>
                                 </td>
                             </tr>
