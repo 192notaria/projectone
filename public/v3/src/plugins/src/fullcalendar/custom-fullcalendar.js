@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: { calendar: 'Important' }
         }
     ]
-    var eventsdata = "http://projectone.test/usuarios/getGuardias"
-    // var eventsdata = "http://192.168.0.121/usuarios/getGuardias"
+    // var eventsdata = "http://projectone.test/usuarios/getGuardias"
+    var eventsdata = "http://192.168.0.121/usuarios/getGuardias"
 
     // Calendar Select fn.
     var calendarSelect = function(info) {
