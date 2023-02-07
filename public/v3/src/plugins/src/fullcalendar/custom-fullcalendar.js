@@ -164,16 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
         headerToolbar: calendarHeaderToolbar,
         locale: 'es',
         events: eventsdata,
-        // select: calendarSelect,
-        // unselect: function() {
-        //     console.log('unselected')
-        // },
-        // customButtons: {
-        //     addEventButton: {
-        //         text: 'Add Event',
-        //         click: calendarAddEvent
-        //     },
-        // },
         eventClassNames: function ({ event: calendarEvent }) {
             const getColorValue = calendarsEvents[calendarEvent._def.extendedProps.calendar];
             return [

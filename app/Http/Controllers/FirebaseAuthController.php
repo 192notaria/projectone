@@ -15,90 +15,85 @@ use Google\Cloud\Firestore\FirestoreClient;
 class FirebaseAuthController extends Controller
 {
     public function index(){
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+        $firestore = $factory->createFirestore();
+        $database = $firestore->database();
 
-
-        // $firestore = new FirestoreClient();
-        // $collectionReference = $firestore->collection('clientes');
-
-        // $documentReference = $collectionReference->document($userId);
-        // $snapshot = $documentReference->snapshot();
+        // $testRef = $database->collection('clientes')->document('0173c380e1924ad28e38')->collection('escrituras')->newDocument();
+        // $testRef->set([
+        //     'id' => $testRef->id(),
+        //     'nombre' => "CARLOS",
+        //     'escrituras' => [
+        //         "COMPRAVENTAS_1" => [
+        //             "ENTREGA DE DOCUMENTOS" => [
+        //                 "fecha" => time(),
+        //                 "registro" => "Importar generales del comprado",
+        //             ]
+        //         ]
+        //     ]
+        // ]);
 
 
 //Registrar clientes firebase
-        $clientes = Clientes::all();
-        foreach($clientes as $cliente){
-            $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
-            $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
-            $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
-            $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
+        // $clientes = Clientes::all();
+        // foreach($clientes as $cliente){
+        //     $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
+        //     $estado = isset($cliente->getMunicipio->getEstado->nombre) ? $cliente->getMunicipio->getEstado->nombre : "";
+        //     $pais = isset($cliente->getMunicipio->getEstado->getPais->nombre) ? $cliente->getMunicipio->getEstado->getPais->nombre : "";
+        //     $ocupacion = isset($cliente->getOcupacion->nombre) ? $cliente->getOcupacion->nombre : "";
+        //     $testRef = $database->collection('clientes')->newDocument();
 
-            $firebase = app('firebase.firestore')->database()->collection('clientes')->newDocument();
-            $firebase->set([
-                'id' => $firebase->id,
-                'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
-                'fecha_nacimiento' => $cliente->fecha_nacimiento,
-                'email' => $cliente->email,
-                'telefono' => $cliente->telefono,
-                'ocupacion' => $ocupacion,
-                'estado_civil' => $cliente->estado_civil,
-                'genero' => $cliente->genero,
-                'rfc' => $cliente->rfc,
-                'curp' => $cliente->curp
-            ]);
-            // $clienteData = [
-            //     'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
-            //     'fecha_nacimiento' => $cliente->fecha_nacimiento,
-            //     'email' => $cliente->email,
-            //     'telefono' => $cliente->telefono,
-            //     'ocupacion' => $ocupacion,
-            //     'estado_civil' => $cliente->estado_civil,
-            //     'genero' => $cliente->genero,
-            //     'rfc' => $cliente->rfc,
-            //     'curp' => $cliente->curp
-            // ];
+        //     $testRef->set([
+        //         'id' => $testRef->id(),
+        //         'municipio_nacimiento' => $municipio . " " . $estado . " " .$pais,
+        //         'fecha_nacimiento' => $cliente->fecha_nacimiento,
+        //         'email' => $cliente->email,
+        //         'telefono' => $cliente->telefono,
+        //         'ocupacion' => $ocupacion,
+        //         'estado_civil' => $cliente->estado_civil,
+        //         'genero' => $cliente->genero,
+        //         'rfc' => $cliente->rfc,
+        //         'curp' => $cliente->curp
+        //     ]);
 
-            // $database = $firebase->createDatabase();
-            // $cliente_firebasekey = $database->getReference('clientes/' . $cliente->firebase_key)->update($clienteData);
-            // $cliente_firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $cliente->nombre) . " " . $cliente->apaterno . " " . $cliente->amaterno)->set($clienteData);
-
-            // $updateCliente = Clientes::find($cliente->id);
-            // $updateCliente->firebase_key = $cliente_firebasekey->getKey();
-            // $updateCliente->save();
-        }
+        //     $updateCliente = Clientes::find($cliente->id);
+        //     $updateCliente->firebase_key = $testRef->id();
+        //     $updateCliente->save();
+        // }
 
         //Registrar proyectos con su avance
-            // $escrituras = Proyectos::all();
-            // foreach($escrituras as $escritura){
-            //     $arrayTemp = [];
-            //     foreach ($escritura->avance as $key => $value) {
-            //         $data = [];
-            //         array_push($arrayTemp, $data);
-            //         $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
-            //         unset($arrayTemp[$key]);
-            //     }
+            $escrituras = Proyectos::all();
+            foreach($escrituras as $escritura){
+                $arrayTemp = [];
+                foreach ($escritura->avance as $key => $value) {
+                    $data = [];
+                    array_push($arrayTemp, $data);
+                    $arrayTemp[$value->proceso->nombre] = $arrayTemp[$key];
+                    unset($arrayTemp[$key]);
+                }
 
-            //     foreach ($escritura->avance as $key => $value) {
-            //         $newdata = [
-            //             "registro" => $value->subproceso->nombre,
-            //             "date" => $value->subproceso->created_at,
-            //         ];
-            //         $arrayTemp[$value->proceso->nombre] = $newdata;
-            //     }
+                foreach ($escritura->avance as $key => $value) {
+                    $newdata = [
+                        "registro" => $value->subproceso->nombre,
+                        "date" => $value->subproceso->created_at,
+                    ];
+                    $arrayTemp[$value->proceso->nombre] = $newdata;
+                }
 
-            //     $escrituraData = [
-            //         'acto' => $escritura->servicio->nombre,
-            //         'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-            //         'date' => $escritura->created_at,
-            //         'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
-            //         'avance' => $arrayTemp
-            //     ];
+                $testRef = $database->collection('clientes')->document($escritura->cliente->firebase_key)->collection('escrituras')->newDocument();
+                $testRef->set([
+                    'id' => $testRef->id(),
+                    'acto' => $escritura->servicio->nombre,
+                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
+                    'date' => $escritura->created_at,
+                    'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
+                    'avance' => $arrayTemp
+                ]);
 
-            //     $database = $firebase->createDatabase();
-            //     $firebasekey = $database->getReference('clientes/' . str_replace(".", "_", $escritura->cliente->nombre) . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno . "/" . $escritura->servicio->nombre . $escritura->id)->set($escrituraData);
-                // $escritura_search = Proyectos::find($escritura->id);
-                // $escritura_search->firebase_key = $firebasekey->getKey();
-                // $escritura_search->save();
-            // }
+                $escritura_search = Proyectos::find($escritura->id);
+                $escritura_search->firebase_key = $testRef->id();
+                $escritura_search->save();
+            }
 
             // Get data
             // $database = $firebase->createDatabase();
