@@ -418,7 +418,7 @@
             fd.append("user_id", userid);
 
             $.ajax({
-                url: "http://192.168.0.121/intefone",
+                url: "http://192.168.1.100/intefone",
                 type: 'POST',
                 data: fd,
                 // headers:{

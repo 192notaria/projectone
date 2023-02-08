@@ -142,7 +142,7 @@
                     Livewire.emit('newinterfon')
 
                     var myAudio= document.createElement('audio');
-                    myAudio.src = "http://192.168.0.121/storage/" + e.route;
+                    myAudio.src = "http://192.168.1.100/storage/" + e.route;
                     myAudio.play().then(()=>{
                         console.log("Escuchar")
                     });
