@@ -161,7 +161,8 @@ function createDownloadLink(blob) {
 		    // xhr.open("POST", "http://projectone.test/intefone",true);
 		    // xhr.send(fd);
             $.ajax({
-                url: "http://projectone.test/intefone",
+                // url: "http://projectone.test/intefone",
+                url: "http://192.168.1.100/intefone",
                 type: 'POST',
                 data: fd,
                 // headers:{
