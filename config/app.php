@@ -198,8 +198,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+
+
 
     ],
 

@@ -85,8 +85,10 @@ class Guardias extends Component
 
     function _data_first_month_day() {
         $this->validate([
-            "mes_elejido" => "required"
-        ]);
+                "mes_elejido" => "required"
+            ],
+            ["mes_elejido.required" => "Es necesario seleccionar un mes para generar la guardia"]
+        );
         $month = date('m');
         $year = date('Y');
         // dd($year);
@@ -95,8 +97,10 @@ class Guardias extends Component
 
     function _data_last_month_day() {
         $this->validate([
-            "mes_elejido" => "required"
-        ]);
+                "mes_elejido" => "required"
+            ],
+            ["mes_elejido.required" => "Es necesario seleccionar un mes para generar la guardia"]
+        );
         // $month = date('m');
         // $year = date('Y');
         $day = date("d", mktime(0,0,0,  date('m', strtotime($this->mes_elejido)) + 1, 0, date('Y', strtotime($this->mes_elejido))));

@@ -10,6 +10,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12 mb-2 mt-2">
+                        <label for="">Mes de guardia</label>
                         <input type="month" class="form-control" wire:model='mes_elejido'>
                         @error($mes_elejido)
                             <span class="text-danger">{{$message}}</span>
