@@ -9,6 +9,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-lg-12 mb-2 mt-2">
+                        <input type="month" class="form-control" wire:model='mes_elejido'>
+                        @error($mes_elejido)
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
                     <div class="col-lg-6 table-responsive">
                         <h3>Guardia semanal</h3>
                         <table class="table table-responsive table-striped">

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cobros;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
+// use Barryvdh\DomPDF\Facade as PDF;
 
 class UsuariosController extends Controller
 {
@@ -21,6 +24,19 @@ class UsuariosController extends Controller
     public function index()
     {
         return view('administracion/usuarios');
+    }
+
+    public function generatePdf(Request $request){
+        setlocale(LC_ALL, 'es_ES');
+        $cobros = Cobros::find($request->id);
+        if(!$cobros){
+            return redirect(route('home'));
+        }
+        // view()->share('pdf-templates.recibos_pago', $cobros);
+        // $pdf = PDF::loadView('pdf-templates.recibos_pago', ['recibos' => $cobros]);
+        // return $pdf->stream();
+
+        return view('pdf-templates.recibos_pago', compact('cobros'));
     }
 
     /**

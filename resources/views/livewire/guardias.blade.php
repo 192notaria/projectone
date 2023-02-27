@@ -6,7 +6,6 @@
                 @can('crear-guardi')
                     <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target=".modal-guardias">Generar guardia</button>
                 @endcan
-
                 <div class="calendar"></div>
             </div>
         </div>

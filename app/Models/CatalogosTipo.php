@@ -13,4 +13,5 @@ class CatalogosTipo extends Model
         "nombre",
         "tipo_id",
     ];
+
 }

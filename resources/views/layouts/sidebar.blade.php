@@ -63,10 +63,10 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
                     <li class="{{activeRoute(route('escrituras-proceso'))}} {{activeRoute(route('escrituras-proceso2'))}}">
-                        <a href="/administracion/escrituras_proceso"> Escrituras en proceso</a>
+                        <a href="/administracion/escrituras_proceso"> Proyectos de escritura</a>
                     </li>
                     <li class="{{activeRoute(route('escrituras-apoyo'))}}">
-                        <a href="/administracion/escrituras_apoyo"> Escrituras en apoyo</a>
+                        <a href="/administracion/escrituras_apoyo"> Proyectos asistidos</a>
                     </li>
                     {{-- <li class="{{activeRoute(route('admin-actos'))}}">
                         <a href="/administracion/actos"> Escrituras en terminadas</a>
@@ -156,6 +156,59 @@
                     <li class="{{activeRoute(route('admin-subprocesos'))}}">
                         <a href="/administracion/subprocesos"> Subprocesos</a>
                     </li>
+                </ul>
+            </li>
+            <li class="menu {{activeRoute(route('admin-subprocesos'))}} {{activeRoute(route('admin-procesos_servicios'))}} {{activeRoute(route('admin-ocupaciones'))}} {{activeRoute(route('admin-servicios'))}} {{activeRoute(route('catalogos-paises'))}} {{activeRoute(route('catalogos-estados'))}} {{activeRoute(route('catalogos-municipios'))}} {{activeRoute(route('catalogos-colonias'))}}">
+                <a href="#contabilidad" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        <span>Contabilidad</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="contabilidad" data-bs-parent="#accordionExample">
+                    @can('ver-bancos')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Bancos</a>
+                        </li>
+                    @endcan
+                    @can('ver-categorias-gasto')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Categorias de gastos</a>
+                        </li>
+                    @endcan
+                    @can('ver-conceptos-pago')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Conceptos de pago</a>
+                        </li>
+                    @endcan
+                    @can('ver-cuentas-contables')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Cuentas contables</a>
+                        </li>
+                    @endcan
+                    @can('ver-metodos-pago')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Metodos de pago</a>
+                        </li>
+                    @endcan
+                    @can('ver-tipo-cuentas')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Tipos de cuentas</a>
+                        </li>
+                    @endcan
+                    @can('ver-tipo-impuestos')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Tipos de impuestos</a>
+                        </li>
+                    @endcan
+                    @can('ver-tipo-uso-cuentas')
+                        <li class="{{activeRoute(route('admin-servicios'))}}">
+                            <a href="/administracion/servicios"> Tipos de uso de cuentas</a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
         </ul>

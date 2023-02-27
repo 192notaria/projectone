@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("storage");
             $table->unsignedBigInteger("cliente_id");
             $table->unsignedBigInteger("proyecto_id");
+            $table->unsignedBigInteger("catalogo_id")->nullable();
 
             $table->foreign('cliente_id')
                 ->references('id')
@@ -29,6 +30,11 @@ return new class extends Migration
                 ->references('id')
                 ->on('proyectos')
                 ->onDelete('cascade');
+
+            $table->foreign('catalogo_id')
+                ->references('id')
+                ->on('subprocesos_catalogos')
+                ->onDelete('null');
 
             $table->timestamps();
         });

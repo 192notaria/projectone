@@ -19,7 +19,7 @@
             <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-chart-one">
                     <div class="widget-heading">
-                        <h5 class="">Ingresos Anueales</h5>
+                        <h5 class="">Ingresos Anuales</h5>
                         <div class="task-action">
                             <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" id="renvenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -186,7 +186,7 @@
                 @livewire("bitacora-dashboard")
             @endcan
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-table-one">
                     <div class="widget-heading">
                         <h5 class="">Transacciones</h5>
@@ -331,7 +331,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 
                 <div class="widget widget-wallet-one">
 
@@ -366,7 +366,7 @@
                         <li class="list-group-item ">
                             <div class="media">
                                 <div class="me-3">
-                                    <img alt="avatar" src="{{url('v3/src/assets/img/netflix.svg')}}" class="img-fluid rounded-circle">
+                                    <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" alt="avatar" src="{{url('v3/src/assets/img/netflix.svg')}}" class="img-fluid rounded-circle">
                                 </div>
                                 <div class="media-body">
                                     <h6 class="tx-inverse">Netflix</h6>
@@ -378,7 +378,7 @@
                         <li class="list-group-item">
                             <div class="media">
                                 <div class="me-3">
-                                    <img alt="avatar" src="{{url('v3/src/assets/img/apple-app-store.svg')}}" class="img-fluid rounded-circle">
+                                    <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" alt="avatar" src="{{url('v3/src/assets/img/apple-app-store.svg')}}" class="img-fluid rounded-circle">
                                 </div>
                                 <div class="media-body">
                                     <h6 class="tx-inverse">App Design</h6>
@@ -392,7 +392,7 @@
                     <button class="btn btn-secondary w-100 mt-3">View Transaction History</button>
 
                 </div>
-            </div>
+            </div> --}}
 
             @can('ver-actos-recientes')
                 @livewire('actos-recientes')

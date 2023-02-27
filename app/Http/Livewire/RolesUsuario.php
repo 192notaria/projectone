@@ -93,9 +93,11 @@ class RolesUsuario extends Component
             event(new NotificationEvent($id, "Rol editado con exito"));
         }else{
             $validateData = $this->validate();
+
             $role = Role::create([
                 'name' => mb_strtoupper($validateData['rolName'])
             ]);
+
             $role->syncPermissions($validateData['permisosCheck']);
             $this->closeModal();
             $this->clearIputs();

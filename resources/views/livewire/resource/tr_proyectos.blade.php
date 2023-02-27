@@ -152,14 +152,14 @@
                         </div>
                     </div>
                     @can('ver_observaciones-proyecto')
-                        @if (count($proyecto->observaciones) > 0)
+                        @if (count($proyecto->get_observaciones) > 0)
                             <div class="btn-group mt-2" role="group">
                                 <button id="btndefault" type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Observaciones
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                                 <div class="dropdown-menu" aria-labelledby="btndefault">
                                     <ul class="list-group">
-                                        @foreach ($proyecto->observaciones as $observacion)
+                                        @foreach ($proyecto->get_observaciones as $observacion)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <a class="me-5" wire:click='verObservacion({{$observacion->id}})'>{{$observacion->titulo}}</a>
                                             @can('remover_observaciones-proyecto')

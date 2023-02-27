@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
 
+    Route::get('/recibo/{id}', [UsuariosController::class, 'generatePdf'])->name('recibo-pago');
+
     // Clientes
     Route::get('/administracion/clientes', [ClientesController::class, 'index'])->name('admin-clientes');
     Route::get('/contactos/lista_contactos', [ContactosController::class, 'index'])->name('lista-contactos');

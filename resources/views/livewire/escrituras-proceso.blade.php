@@ -1,22 +1,25 @@
 <div class="card">
     <div class="card-header">
-        <div style="display:flex; align-items:right;">
-            @can("crear-proyectos")
-                {{-- <button type="button" wire:click='openModalNuevoProyecto' class="btn btn-outline-success">
-                    <i class="fa-solid fa-user-plus"></i>
-                </button>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-generales-docs">
-                    <i class="fa-solid fa-user-plus"></i>
-                </button> --}}
-            @endcan
-            <select wire:model='cantidad_escrituras' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-            <input style="width: 30%" wire:model="search" type="text" class="form-control" placeholder="Buscar: Nombre, Apellido, Servicio...">
+        <div style="display:flex; justify-content: space-between;">
+            <div class="flex-item">
+                @can("crear-proyectos")
+                    <button wire:click='modalNuevoProyecto' style="height: 100%;" type="button" class="btn btn-outline-primary me-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                @endcan
+            </div>
+            <div class="flex-item" style="width: 100%;">
+                <div style="display:flex; justify-content:end;">
+                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
+                    <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -66,49 +69,15 @@
                     background-color: #e9e9e9;
                 }
 
-                .autocomplete-items-2 {
-                    position: absolute;
-                    border: 1px solid #d4d4d4;
-                    border-bottom: none;
-                    border-top: none;
-                    z-index: 99;
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                }
-
-                .autocomplete-items-2 .abogadolist {
-                    padding: 10px;
-                    cursor: pointer;
-                    border-bottom: 1px solid #d4d4d4;
-                    background-color: #ffff;
-                }
-
-                .autocomplete-items-2 .abogadolist:hover {
-                    background-color: #e9e9e9;
-                }
-
-                .autocomplete-active {
-                    background-color: DodgerBlue !important;
-                    color: #ffffff;
-                }
-
-                .btn-outline-danger:hover{
-                    background-color: #e7515a !important;
-                    color: #ffffff !important;
-                }
-
-                .btn-outline-primary:hover{
-                    background-color: #4361ee !important;
-                    color: #ffffff !important;
-                }
             </style>
             <div class="col-lg-12 table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Proyecto</th>
+                            <th scope="col">Avance del Proyecto</th>
+                            <th scope="col">Detalles del Proyecto</th>
+                            <th scope="col">Fecha de creacion</th>
                             <th scope="col"></th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
@@ -129,5 +98,10 @@
             </div>
         </div>
     </div>
+    @include("livewire.escrituras-resoruces.subir-documentos")
     @include("livewire.escrituras-resoruces.procesos_escritura")
+    @include("livewire.escrituras-resoruces.subir-recibos-pago")
+    @include("livewire.escrituras-resoruces.modal-nuevo-proyecto")
+    @include("livewire.escrituras-resoruces.modal-registrar-pago")
+
 </div>

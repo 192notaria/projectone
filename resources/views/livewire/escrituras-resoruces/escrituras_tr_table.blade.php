@@ -1,57 +1,19 @@
 <tr>
     <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div class="media">
-            <div class="avatar me-2">
-                <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
+            <div class="avatar avatar-sm me-2">
+                <span class="avatar-title badge bg-primary rounded-circle">{{substr($escritura->cliente->nombre, 0, 2)}}</span>
             </div>
+            {{-- <div class="avatar me-2">
+                <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
+            </div> --}}
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) text-white @endif">{{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
-                <p class="mt-2">
-                    <span class="fw-bold @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) text-white @endif">Acto:</span>
-                    <span class="badge badge-primary">{{$escritura->servicio->nombre}}</span>
-                </p>
-                <p>
-                    <span class="fw-bold @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) text-white @endif">Escritura:</span>
-                    <span class="badge badge-primary">{{$escritura->numero_escritura}}</span>
-                </p>
-                <p>
-                    <span class="fw-bold @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) text-white @endif">Volumen:</span>
-                    <span class="badge badge-primary">{{$escritura->volumen}}</span>
-                </p>
-                {{-- <p>
-                    <button wire:click='generarQr({{$escritura->id}})' class="btn btn-info"><i class="fa-solid fa-qrcode"></i></button>
-                </p> --}}
-                <p class="text-danger">
-                    <div class="action-btns">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            {{-- <button wire:click='generarQr({{$escritura->id}})' type="button" class="btn btn-info">
-                                <i class="fa-solid fa-qrcode"></i>
-                            </button>
-                            <button wire:click='actividadvulnerable({{$escritura->id}})' type="button" class="btn btn-danger">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                            </button>
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa-solid fa-file-pen"></i>
-                            </button> --}}
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".modal-ajustes">
-                                <i class="fa-solid fa-gear"></i>
-                            </button>
-                            <button wire:click='openProcesos({{$escritura->id}})' type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
-                                <i class="fa-solid fa-file-import"></i>
-                            </button>
-                        </div>
-                    </div>
-                </p>
+                <h6 class="mb-0 fw-bold">
+                {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
             </div>
         </div>
     </td>
     <td>
-        <p class="mb-0 text-left">
-            <span class="fw-bold">Abogado asignado:</span>
-            <p>
-                {{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}
-            </p>
-        </p>
         @can('ver_apoyo_proyecto')
             <p class="mt-0 mb-0">
                 @if (count($escritura->apoyo) > 0)
@@ -90,10 +52,6 @@
                 @endcan --}}
             </p>
         @endcan
-            <p class="mt-3 mb-0 text-left">
-                <span class="fw-bold">Fecha de creación:</span>
-                <p>{{$escritura->created_at}} </p>
-            </p>
             @can('ver-estado-proyecto')
             @if (isset($escritura->getstatus->proceso->nombre))
                 <span class="mb-0 fw-bold">Ultimo avance:</span>
@@ -113,13 +71,16 @@
             <p class="mt-2 mb-0">
                 @if (count($escritura->porcentaje) > 0)
                     @php
-                        $procesosCount = count($escritura->porcentaje);
-                        $newArray = [];
-                        foreach ($escritura->avanceCount as $data){
-                            array_push($newArray, $data->proceso_id);
+                        $subprocesoscount = 0;
+                        foreach ($escritura->porcentaje as $key => $value) {
+                            foreach ($value->subprocesosCount as $key => $subproceos) {
+                                $subprocesoscount = $subprocesoscount + 1;
+                            }
                         }
-                        $data = array_unique($newArray);
-                        $porcentaje = round(count($data) * 100 / $procesosCount);
+
+                        $procesos = $escritura->avanceCount->count()  * 100;
+                        $porcentaje = round($procesos / $subprocesoscount);
+                        if($porcentaje > 100) $porcentaje = 100;
                         // $porcentaje = round($porcentaje, 0);
                     @endphp
                     @if ($porcentaje <= 20)<span class="badge badge-danger mb-1">Avance: {{$porcentaje}}%</span>@endif
@@ -131,15 +92,36 @@
                             @if ($porcentaje <= 20) bg-danger @endif
                             @if ($porcentaje > 20 && $porcentaje <= 50) bg-warning @endif
                             @if ($porcentaje > 50 && $porcentaje <= 99) bg-info @endif
-                            @if ($porcentaje == 100) bg-success @endif
+                            @if ($porcentaje >= 100) bg-success @endif
                             progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{$porcentaje}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
+                    {{$escritura->avanceCount->count()}} - {{$subprocesoscount}}
                 @else
                     <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> No hay procesos asignados para este servicio</span>
                 @endif
             </p>
         @endcan
+    </td>
+
+    <td>
+        <p>Acto: <span class="badge badge-primary">Compraventa</span></p>
+        <p class="mb-0 text-left">
+            <span class="fw-bold">Abogado:</span>
+            <p>
+                <span class="mt-2 avatar-chip avatar-dismiss bg-primary me-4 position-relative">
+                    <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{url($escritura->abogado->user_image)}}" alt="Person" width="96" height="96">
+                    <span class="text">{{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}</span>
+                </span>
+            </p>
+        </p>
+    </td>
+
+    <td>
+        <p class="mb-0 text-left">
+            <span class="fw-bold">Fecha de creación:</span>
+            <p>{{$escritura->created_at}} </p>
+        </p>
     </td>
 
     <td class="text-center">
@@ -155,7 +137,9 @@
                 @endif --}}
 
                 @can('editar-proyectos')
-                    <button wire:click='editarProyecto("{{$escritura->id}}")' type="button" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button wire:click='openProcesos({{$escritura->id}})' type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 @endcan
                 @can('borrar-proyectos')
                     <button wire:click='cancelar_id({{$escritura->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>

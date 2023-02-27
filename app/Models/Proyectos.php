@@ -21,6 +21,10 @@ class Proyectos extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
+    public function asistentes(){
+        return $this->hasMany(ApoyoProyectos::class, 'proyecto_id');
+    }
+
     public function servicio(){
         return $this->belongsTo(Servicios::class, 'servicio_id');
     }
@@ -42,7 +46,7 @@ class Proyectos extends Model
     }
 
     public function avanceCount(){
-        return $this->hasMany(AvanceProyecto::class, 'proyecto_id', 'id')->distinct();
+        return $this->hasMany(AvanceProyecto::class, 'proyecto_id', 'id');
     }
 
     public function avance(){
@@ -53,12 +57,21 @@ class Proyectos extends Model
         return $this->hasMany(Servicios_Procesos_Servicio::class, 'servicio_id', 'servicio_id');
     }
 
-    public function observaciones(){
+    public function get_observaciones(){
         return $this->hasMany(Observaciones::class, 'proyecto_id');
     }
 
     public function apoyo(){
         return $this->hasMany(ApoyoProyectos::class, 'proyecto_id')->where("abogado_apoyo_id", auth()->user()->id);
+    }
+
+    public function costos_proyecto(){
+        return $this->hasMany(Costos::class, 'proyecto_id')
+            ->orderBy('concepto_id', 'DESC');
+    }
+
+    public function pagos_recibidos(){
+        return $this->hasMany(Cobros::class, 'proyecto_id');
     }
 
 }

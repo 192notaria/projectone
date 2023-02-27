@@ -33,4 +33,8 @@ class Clientes extends Model
     public function getOcupacion(){
         return $this->hasOne(Ocupaciones::class, 'id', 'ocupacion');
     }
+
+    public function documentosGenerales(){
+        return $this->hasMany(Documentos::class, 'cliente_id')->whereNull('proyecto_id');
+    }
 }

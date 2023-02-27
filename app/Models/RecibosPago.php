@@ -17,4 +17,13 @@ class RecibosPago extends Model
         "proyecto_id",
         "subproceso_id"
     ];
+
+    public function tipoRecibo(){
+        return $this->belongsTo(SubprocesosCatalogos::class, "subproceso_id");
+    }
+
+    public function recibo_guardado($id){
+        return $this->hasOne(AvanceProyecto::class, "proyecto_id", "proyecto_id")
+            ->where('subproceso_id', $id)->get();
+    }
 }

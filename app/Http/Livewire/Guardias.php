@@ -25,6 +25,7 @@ class Guardias extends Component
     public $fecha_cambio;
     public $dias_semanales = 0;
     public $dias_por_persona;
+    public $mes_elejido;
 
     protected $listeners = [
         'modalcambiodeguardia' => 'cambiarguardia',
@@ -64,6 +65,7 @@ class Guardias extends Component
     function calcular_fechas(){
         $timestamp1 = mktime(0,0,0,date("m", strtotime($this->_data_first_month_day())),date("d", strtotime($this->_data_first_month_day())),date("Y", strtotime($this->_data_first_month_day())));
         $timestamp2 = mktime(4,12,0,date("m", strtotime($this->_data_last_month_day())),date("d",strtotime($this->_data_last_month_day())),date("Y",strtotime($this->_data_last_month_day())));
+
         $segundos_diferencia = $timestamp1 - $timestamp2;
         $dias_diferencia = $segundos_diferencia / (60 * 60 * 24);
         $dias_diferencia = abs($dias_diferencia);
@@ -82,16 +84,23 @@ class Guardias extends Component
     }
 
     function _data_first_month_day() {
+        $this->validate([
+            "mes_elejido" => "required"
+        ]);
         $month = date('m');
         $year = date('Y');
-        return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
+        // dd($year);
+        return date('Y-m-d', mktime(0,0,0, date('m', strtotime($this->mes_elejido)), 1, date('Y', strtotime($this->mes_elejido))));
     }
 
     function _data_last_month_day() {
-        $month = date('m');
-        $year = date('Y');
-        $day = date("d", mktime(0,0,0, $month+1, 0, $year));
-        return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+        $this->validate([
+            "mes_elejido" => "required"
+        ]);
+        // $month = date('m');
+        // $year = date('Y');
+        $day = date("d", mktime(0,0,0,  date('m', strtotime($this->mes_elejido)) + 1, 0, date('Y', strtotime($this->mes_elejido))));
+        return date('Y-m-d', mktime(0,0,0,  date('m', strtotime($this->mes_elejido)), $day, date('Y', strtotime($this->mes_elejido))));
     }
 
 

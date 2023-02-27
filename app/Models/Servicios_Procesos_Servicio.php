@@ -13,4 +13,8 @@ class Servicios_Procesos_Servicio extends Model
         "servicio_id",
         "proceso_servicio_id",
     ];
+
+    public function subprocesosCount(){
+        return $this->hasMany(Subprocesos::class, 'proceso_id','proceso_servicio_id');
+    }
 }

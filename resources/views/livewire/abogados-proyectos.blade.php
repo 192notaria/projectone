@@ -17,7 +17,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content product-name">
-                                        <img src="{{$registro->abogado->user_image}}" alt="product">
+                                        <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{$registro->abogado->user_image}}" alt="product">
                                         <div class="align-self-center">
                                             <p class="prd-name">{{$registro->abogado->name}}</p>
                                             <p class="prd-category text-primary">{{$registro->abogado->apaterno}} {{$registro->abogado->amaterno}}</p>

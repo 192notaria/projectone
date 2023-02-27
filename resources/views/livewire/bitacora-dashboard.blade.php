@@ -1,4 +1,4 @@
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
     <div class="widget widget-activity-four">
         <div class="widget-heading">
             <h5 class="">Actividad reciente</h5>

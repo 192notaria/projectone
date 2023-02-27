@@ -51,7 +51,7 @@ class FirebaseAuthController extends Controller
         //     $updateCliente->save();
         // }
 
-//Registrar escrituras
+// Registrar escrituras
             // $escrituras = Proyectos::all();
             // foreach($escrituras as $escritura){
             //     // $testRef = $database->collection('clientes')
@@ -76,33 +76,54 @@ class FirebaseAuthController extends Controller
             //     $escritura_search->save();
             // }
 
+// Registrar qr
+            // $escrituras = Proyectos::all();
+            // foreach($escrituras as $escritura){
+            //     // $testRef = $database->collection('clientes')
+            //     //     ->document($escritura->cliente->firebase_key)
+            //     //     ->collection('escrituras')
+            //     //     ->document($escritura->firebase_key);
+            //     $testRef = $database->collection('qrs')->newDocument();
+
+            //     $testRef->set([
+            //         'id' => $testRef->id(),
+            //         'proyectoFirebaseId' => $escritura->firebase_key,
+            //         'clienteFirebaseId' => $escritura->cliente->firebase_key,
+            //         'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
+            //     ]);
+
+            //     // $escritura_search = Proyectos::find($escritura->id);
+            //     // $escritura_search->firebase_key = $testRef->id();
+            //     // $escritura_search->save();
+            // }
+
 //Registrar avance de escrituras
-            $avances = AvanceProyecto::all();
-            foreach($avances as $avance){
+            // $avances = AvanceProyecto::all();
+            // foreach($avances as $avance){
+            // // $testRef = $database->collection('clientes')
+            // //     ->document($avance->proyecto->cliente->firebase_key)
+            // //     ->collection('escrituras')
+            // //     ->document($avance->proyecto->firebase_key)
+            // //     ->collection('avance')
+            // //     ->document($avance->firebase_key);
             // $testRef = $database->collection('clientes')
             //     ->document($avance->proyecto->cliente->firebase_key)
             //     ->collection('escrituras')
             //     ->document($avance->proyecto->firebase_key)
             //     ->collection('avance')
-            //     ->document($avance->firebase_key);
-            $testRef = $database->collection('clientes')
-                ->document($avance->proyecto->cliente->firebase_key)
-                ->collection('escrituras')
-                ->document($avance->proyecto->firebase_key)
-                ->collection('avance')
-                ->newDocument();
+            //     ->newDocument();
 
-                $testRef->set([
-                    "id" => $testRef->id(),
-                    "proyecto" => $avance->proyecto->servicio->nombre,
-                    "proceso" => $avance->proceso->nombre,
-                    "subproceso" => $avance->subproceso->nombre,
-                    "fecha_registro" => $avance->created_at
-                ]);
-                $avancessearch = AvanceProyecto::find($avance->id);
-                $avancessearch->firebase_key = $testRef->id();
-                $avancessearch->save();
-            }
+            //     $testRef->set([
+            //         "id" => $testRef->id(),
+            //         "proyecto" => $avance->proyecto->servicio->nombre,
+            //         "proceso" => $avance->proceso->nombre,
+            //         "subproceso" => $avance->subproceso->nombre,
+            //         "fecha_registro" => $avance->created_at
+            //     ]);
+            //     $avancessearch = AvanceProyecto::find($avance->id);
+            //     $avancessearch->firebase_key = $testRef->id();
+            //     $avancessearch->save();
+            // }
     }
 
     public function sendemail(){

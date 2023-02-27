@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Catalogos_categoria_gastos;
+use App\Models\Catalogos_conceptos_pago;
 use App\Models\ProcesosServicios;
 use App\Models\Servicios as ModelsServicios;
 use App\Models\Servicios_Procesos_Servicio;
+use Illuminate\Support\Facades\DB;
+use Kreait\Firebase\Database\Query\Sorter\OrderByKey;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,6 +24,8 @@ class Servicios extends Component
     public $modalNuevo = false;
     public $modalborrar = false;
     public $nombre_del_servicio, $modalTittle, $tiempo_firma;
+    public $honorarios;
+    public $conceptos_pago = [];
 
     public function openModalBorrar($id){
         $this->modalborrar = true;
@@ -41,6 +47,13 @@ class Servicios extends Component
             $servicio = ModelsServicios::find($id);
             $this->nombre_del_servicio = $servicio->nombre;
             $this->tiempo_firma = $servicio->tiempo_firma;
+            $this->conceptos_pago = DB::table('servicios_conceptos_pagos')->where('servicios_conceptos_pagos.servicio_id', $id)
+                ->pluck('servicios_conceptos_pagos.concepto_pago_id','servicios_conceptos_pagos.concepto_pago_id')
+                ->all();
+            $this->honorarios = $servicio->honorarios;
+            // $this->permisosCheck = DB::table('role_has_permissions')->where('role_has_permissions.role_id', $id)
+            //     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            //     ->all();
         }
     }
 
@@ -54,6 +67,16 @@ class Servicios extends Component
             $servicio = ModelsServicios::find($this->servicio_id);
             $servicio->nombre = $this->nombre_del_servicio;
             $servicio->tiempo_firma = $this->tiempo_firma;
+            $servicio->honorarios = $this->honorarios;
+            // dd($this->conceptos_pago);
+            foreach($this->conceptos_pago as $key => $concepto){
+                if(!$concepto){
+                    unset($this->conceptos_pago[$key]);
+                }
+            }
+
+            $servicio->conceptos_pago()->sync(array_keys($this->conceptos_pago));
+            $this->clearInput();
             $servicio->save();
             return $this->closeModalNew();
         }
@@ -62,6 +85,15 @@ class Servicios extends Component
         $servicio->nombre = $this->nombre_del_servicio;
         $servicio->tiempo_firma = $this->tiempo_firma;
         $servicio->save();
+
+        foreach($this->conceptos_pago as $key => $concepto){
+            if(!$concepto){
+                unset($this->conceptos_pago[$key]);
+            }
+        }
+
+        $servicio->conceptos_pago()->sync($this->conceptos_pago);
+        $this->clearInput();
         return $this->closeModalNew();
     }
 
@@ -85,6 +117,8 @@ class Servicios extends Component
     public function clearInput(){
         $this->servicio_id = "";
         $this->proceso_servicio_id = "";
+        $this->honorarios;
+        $this->conceptos_pago = [];
     }
 
     public function asignarProceso(){
@@ -113,6 +147,9 @@ class Servicios extends Component
                 ->where('nombre', 'LIKE', '%' . $this->search . '%')
                 ->paginate($this->cantidadServicios),
             "procesos" => ProcesosServicios::orderBy("nombre", "ASC")->get(),
+            "conceptos_pagos" => Catalogos_conceptos_pago::orderBy('categoria_gasto_id','ASC')
+            ->orderBy('descripcion','ASC')
+            ->get()
         ]);
     }
 }

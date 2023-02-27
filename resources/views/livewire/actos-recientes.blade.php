@@ -28,7 +28,7 @@
                                 <td><div class="td-content customer-name"><span>{{$acto->cliente->nombre}} {{$acto->cliente->apaterno}}</span></div></td>
                                 <td>
                                     <div class="td-content customer-name">
-                                        <img src="{{url($acto->abogado->user_image)}}" alt="avatar">
+                                        <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{url($acto->abogado->user_image)}}" alt="avatar">
                                         <span>{{$acto->abogado->name}} {{$acto->abogado->apaterno}}</span>
                                     </div>
                                 </td>
