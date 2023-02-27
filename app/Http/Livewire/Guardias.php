@@ -237,15 +237,12 @@ class Guardias extends Component
     }
 
     public function guardarGuardia(){
+        $now = date('m', strtotime($this->mes_elejido));
+        $guardias = ModelsGuardias::whereMonth("fecha_guardia", $now)->first();
+        // if($guardias){
+        //     return $this->dispatchBrowserEvent("existe-guardia","Ya existe una guarda registrada para este mes");
+        // }
         foreach($this->guardia_semanal as $guardia){
-            // $now = Carbon::now();
-            $now = date('m', strtotime($this->mes_elejido));
-// dd($now->month);
-            $guardias = ModelsGuardias::whereMonth("fecha_guardia", $now)->first();
-            if($guardias){
-                return $this->dispatchBrowserEvent("existe-guardia","Ya existe una guarda registrada para este mes");
-            }
-
             $guardia1 = new ModelsGuardias;
             $guardia1->fecha_guardia = $guardia['fecha'];
             $guardia1->user_id = $guardia['guardia1']['id'];
@@ -256,7 +253,7 @@ class Guardias extends Component
             $guardia2->user_id = $guardia['guardia2']['id'];
             $guardia2->save();
 
-            return $this->dispatchBrowserEvent("cerrar-modal-guardias","Se ha registrado la guardia con exito");
         }
+        return $this->dispatchBrowserEvent("cerrar-modal-guardias","Se ha registrado la guardia con exito");
     }
 }
