@@ -239,9 +239,9 @@ class Guardias extends Component
     public function guardarGuardia(){
         $now = date('m', strtotime($this->mes_elejido));
         $guardias = ModelsGuardias::whereMonth("fecha_guardia", $now)->first();
-        // if($guardias){
-        //     return $this->dispatchBrowserEvent("existe-guardia","Ya existe una guarda registrada para este mes");
-        // }
+        if($guardias){
+            return $this->dispatchBrowserEvent("existe-guardia","Ya existe una guarda registrada para este mes");
+        }
         foreach($this->guardia_semanal as $guardia){
             $guardia1 = new ModelsGuardias;
             $guardia1->fecha_guardia = $guardia['fecha'];

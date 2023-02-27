@@ -23,8 +23,8 @@ class GuardiasController extends Controller
 
 
     public function getGuardias(){
-        $now = Carbon::now();
-        $guardias = Guardias::whereMonth("fecha_guardia", $now->month)->get();
+        // $now = Carbon::now();
+        $guardias = Guardias::all();
         foreach($guardias as $guardia){
             if(date("l",strtotime($guardia->fecha_guardia)) == "Saturday"){
                 $guardiasdata[] = [
