@@ -15,7 +15,7 @@ use Carbon\Carbon;
     }
 
     function notifyAdmins($name, $body, $channel, $authId){
-        dd("hola helper");
+        // dd("hola helper");
         // $administradores = User::whereHas("roles",
         //     function($data){
         //         $data->where('name', "ADMINISTRADOR");
