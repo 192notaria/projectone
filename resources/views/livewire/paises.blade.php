@@ -16,7 +16,7 @@
                         </select>
                     </div>
                     <div class="col-lg-11 mb-0 col-md-11 col-sm-11 filtered-list-search">
-                        <form class="form-inline ">
+                        <form class="form-inline">
                             <div class="w-100">
                                 <input wire:model="buscarPais" type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Pais">
                                 <button class="btn btn-primary" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>

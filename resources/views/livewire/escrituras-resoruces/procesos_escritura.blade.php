@@ -17,26 +17,24 @@
                             <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Facturas</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Comisiones</button>
+                            <button wire:ignore.self class="nav-link" id="comisiones-tab" data-bs-toggle="tab" data-bs-target="#comisiones-tab-pane" type="button" role="tab" aria-controls="comisiones-tab-pane" aria-selected="false">Comisiones</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Bitacora</button>
+                            <button wire:ignore.self class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora-tab-pane" type="button" role="tab" aria-controls="bitacora-tab-pane" aria-selected="false">Bitacora</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Partes</button>
+                            <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Observaciones</button>
+                            <button wire:ignore.self class="nav-link" id="observaciones-tab" data-bs-toggle="tab" data-bs-target="#observaciones-tab-pane" type="button" role="tab" aria-controls="observaciones-tab-pane" aria-selected="false">Observaciones</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Documentos</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Notificaciones</button>
+                            <button wire:ignore.self class="nav-link" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos-tab-pane" type="button" role="tab" aria-controls="documentos-tab-pane" aria-selected="false">Documentos</button>
                         </li>
                     </ul>
                 </div>
             </div>
+
             <style>
                 .mysidenav {
                     height: auto;
@@ -86,16 +84,19 @@
                     .mysidenav a {font-size: 18px;}
                 }
             </style>
+
             <div class="modal-body">
                 <div wire:ignore.self id="mySidenav" class="mysidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa-solid fa-circle-xmark"></i></a>
                     <div class="container">
                         <div class="row">
+                            <div class="col-lg-12 mt-1 mb-2">
+                                <button wire:click='abrirModalNuevoCosto' style="width: 100%;" class="btn btn-info"><i class="fa-solid fa-circle-plus"></i> Agregar costo</button>
+                            </div>
                             <div class="col-lg-12 mt-1 mb-4">
                                 <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="width: 100%;">
                                     <button wire:click='abrirModalPagos({{$total_pago + $total_impuestos}})' type="button" class="btn btn-info"><i class="fa-solid fa-cash-register"></i> Registrar pago</button>
-                                    <button type="button" class="btn btn-info"><i class="fa-solid fa-money-bill-1-wave"></i> Registrar factura</button>
-                                    <button type="button" class="btn btn-info"><i class="fa-solid fa-money-bill-transfer"></i> Descargar reporte de costos</button>
+                                    <button wire:click='abrirModalEgresos' type="button" class="btn btn-info"><i class="fa-solid fa-money-bill-transfer"></i> Registrar egresos</button>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -108,8 +109,18 @@
                                     <span>${{number_format($total_impuestos, 2)}}</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2 mt-2">
+                                    <span>Descuentos: </span>
+                                    <span>${{number_format($proyecto_activo['descuento'] ?? 0, 2)}}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2 mt-2">
                                     <h5 class="text-white">Total:</h5>
-                                    <h5 class="text-white">${{number_format($total_pago + $total_impuestos, 2)}}</h5>
+                                    @php
+                                        $costoTotal = 0;
+                                        if(isset($proyecto_activo['descuento'])){
+                                            $costoTotal = $total_pago + $total_impuestos - $proyecto_activo['descuento'];
+                                        }
+                                    @endphp
+                                    <h5 class="text-white">${{number_format($costoTotal, 2)}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -124,12 +135,13 @@
                                         @foreach ($procesos_data as $key => $proceso)
                                             <button wire:click='subprocesosTimeline({{$proceso->id}})' style="width: 100%; text-align: left !important;" class="mb-1 nav-link @if($proceso->id == $proceso_activo) active bg-primary @endif">
                                                 <span class="badge
-                                                @if($proceso->id == $proceso_activo) active
-                                                    bg-light-info
-                                                @else
-                                                    bg-light-success
-                                                @endif
-                                                ">{{$key + 1}}</span> {{$proceso->nombre}} <i style="font-size: 20px;" class="{{$proceso->icon}}"></i>
+                                                    @if($proceso->id == $proceso_activo) active
+                                                        bg-light-info
+                                                    @else
+                                                        bg-light-success
+                                                    @endif
+                                                    ">{{$key + 1}}
+                                                </span> {{$proceso->nombre}} <i style="font-size: 20px;" class="{{$proceso->icon}}"></i>
                                             {{$proceso->id}}
                                             </button>
                                         @endforeach
@@ -205,6 +217,21 @@
                         </div>
                         <div wire:ignore.self class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                             @include('livewire.subprocesos-resource.facturas')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="comisiones-tab-pane" role="tabpanel" aria-labelledby="comisiones-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.comisiones')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="bitacora-tab-pane" role="tabpanel" aria-labelledby="bitacora-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.bitacora')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="partes-tab-pane" role="tabpanel" aria-labelledby="partes-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.partes')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="observaciones-tab-pane" role="tabpanel" aria-labelledby="observaciones-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.observaciones')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="documentos-tab-pane" role="tabpanel" aria-labelledby="documentos-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.documentos')
                         </div>
                     </div>
                 </div>

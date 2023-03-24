@@ -19,8 +19,7 @@
                                 @endif
                                 @if ($registro->actividad == 'Registro borrado')
                                     timeline-danger
-                                @endif
-                            ">
+                                @endif">
                                 <div class="t-dot" data-original-title="" title="">
                                 </div>
                                 <div class="t-text">

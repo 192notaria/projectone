@@ -13,22 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('costos', function (Blueprint $table) {
+        Schema::create('comisiones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('concepto_id');
-            $table->double('subtotal');
-            $table->double('gestoria');
-            $table->double('impuestos');
-            $table->unsignedBigInteger('proyecto_id');
-
-            $table->foreign('concepto_id')
-                ->references('id')
-                ->on('catalogos_conceptos_pagos')
-                ->cascadeOnDelete();
+            $table->unsignedBigInteger("proyecto_id");
+            $table->unsignedBigInteger("promotor_id");
+            $table->double("cantidad");
+            $table->text("observaciones")->nullable();
 
             $table->foreign('proyecto_id')
                 ->references('id')
                 ->on('proyectos')
+                ->cascadeOnDelete();
+
+            $table->foreign('promotor_id')
+                ->references('id')
+                ->on('promotores')
                 ->cascadeOnDelete();
 
             $table->timestamps();
@@ -42,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('costos');
+        Schema::dropIfExists('comisiones');
     }
 };

@@ -23,7 +23,7 @@
             @if (!$subproceso_activo->avance($proyecto_id, $proceso_activo))
                 <div class="col-lg-12 mb-3">
                     <div class="form-group">
-                        <label for="">Conceptop</label>
+                        <label for="">Concepto</label>
                         <input wire:model='concepto_pago' type="text" class="form-control" placeholder="Concepto">
                     </div>
                 </div>

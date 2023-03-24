@@ -11,13 +11,19 @@ use App\Models\Catalogos_tipo_cuenta;
 use App\Models\Catalogos_uso_de_cuentas;
 use App\Models\Clientes;
 use App\Models\Cobros;
+use App\Models\Comisiones;
 use App\Models\Costos;
 use App\Models\CostosCobrados;
 use App\Models\Cuentas_bancarias;
 use App\Models\Documentos;
+use App\Models\Egresos;
+use App\Models\Facturas;
 use App\Models\Firmas;
 use App\Models\Generales;
+use App\Models\ObservacionesProyectos;
+use App\Models\Partes;
 use App\Models\ProcesosServicios;
+use App\Models\Promotores;
 use App\Models\Proyectos;
 use App\Models\RecibosPago;
 use App\Models\RegistroFirmas;
@@ -66,6 +72,8 @@ class EscriturasProceso extends Component
 
     public $buscar_abogado;
     public $pagos_checkbox = [];
+
+    public $vistaComisiones = 0;
 
     public function render()
     {
@@ -149,8 +157,90 @@ class EscriturasProceso extends Component
             "tipo_cuentas" => Catalogos_tipo_cuenta::orderBy("nombre", "ASC")->get(),
             "metodos_pago" => CatalogoMetodosPago::orderBy("nombre", "ASC")->get(),
             "cuentas_bancarias" => Cuentas_bancarias::orderBy("banco_id", "ASC")->get(),
+            "catalogo_conceptos" => Catalogos_conceptos_pago::orderBy("descripcion", "ASC")->get(),
+            "cliente_partes" => $this->buscarClienteParte != '' ? Clientes::orderBy("nombre", "ASC")
+                ->where("nombre", "LIKE", "%" . $this->buscarClienteParte . "%")
+                ->orwhere("apaterno", "LIKE", "%" . $this->buscarClienteParte . "%")
+                ->orwhere("amaterno", "LIKE", "%" . $this->buscarClienteParte . "%")
+                ->get()
+            : [],
         ]);
     }
+
+// Partes
+public $vistaPartes = 0;
+public $clienteParte;
+public $buscarClienteParte;
+public $copropietario_parte = false;
+public $persona_moral = false;
+public $nombre_parte;
+public $paterno_parte;
+public $materno_parte;
+public $curp_parte;
+public $rfc_parte;
+public $tipo_parte = "";
+public $porcentaje_copropietario;
+
+
+public function cambiarVistaPartes($vista){
+    $this->vistaPartes = $vista;
+}
+
+public function asignarCliente($cliente){
+    $this->clienteParte = $cliente;
+    $this->nombre_parte = $cliente['nombre'];
+    $this->paterno_parte = $cliente['apaterno'];
+    $this->materno_parte = $cliente['amaterno'];
+    $this->curp_parte = $cliente['curp'];
+    $this->rfc_parte = $cliente['rfc'];
+    $this->buscarClienteParte = "";
+}
+
+public function limpiarVariablesPartes(){
+    $this->nombre_parte = '';
+    $this->paterno_parte = '';
+    $this->materno_parte = '';
+    $this->curp_parte = '';
+    $this->rfc_parte = '';
+    $this->tipo_parte = '';
+    $this->porcentaje_copropietario = '';
+    $this->persona_moral = false;
+    $this->copropietario_parte = false;
+    $this->clienteParte = '';
+}
+
+public function registrarParte(){
+    $this->validate([
+        "nombre_parte" => "required",
+        "paterno_parte" => !$this->persona_moral ? "required" : "",
+        "rfc_parte" => $this->persona_moral ? "required" : "",
+        "porcentaje_copropietario" => $this->copropietario_parte ? "required" : "",
+        "tipo_parte" => "required"
+    ]);
+
+    $parte = new Partes;
+    $parte->nombre = $this->nombre_parte;
+    $parte->apaterno = $this->paterno_parte;
+    $parte->amaterno = $this->materno_parte;
+    $parte->tipo_persona = !$this->persona_moral ? "Persona Fisica" : "Persona Moral";
+    $parte->curp = $this->curp_parte;
+    $parte->rfc = $this->rfc_parte;
+    $parte->tipo = $this->tipo_parte;
+    $parte->porcentaje = $this->porcentaje_copropietario ?? 0;
+    $parte->proyecto_id = $this->proyecto_activo['id'];
+    $parte->cliente_id = $this->clienteParte['id'];
+    $parte->save();
+
+    $this->limpiarVariablesPartes();
+    $this->resetProyect();
+    $this->dispatchBrowserEvent('success-event', 'Parte agregada');
+    return $this->cambiarVistaPartes(0);
+}
+
+public function removerParte($id){
+    Partes::find($id)->delete();
+    return $this->resetProyect();
+}
 
 //================================================== PAGOS ==================================================
     public $total_pago = 0.0;
@@ -162,6 +252,184 @@ class EscriturasProceso extends Component
     public $factura_id = '';
     public $cuenta_id = '';
     public $observaciones_cobro;
+    public $costos_a_egresar = [];
+
+    public $concepto_factura = "";
+    public $monto_factura;
+    public $folio_factura;
+    public $rfc_factura;
+    public $fecha_factura;
+    public $origen_factura = "";
+    public $comentarios_factura;
+    public $xml_factura;
+    public $pdf_factura;
+
+    public $observaciones_proyecto;
+
+    public $nombre_promotor;
+    public $apaterno_promotor;
+    public $amaterno_promotor;
+    public $telefono_promotor;
+    public $email_promotor;
+    public $promotores = [];
+    public $promotor_asignado;
+    public $buscarPromotor;
+
+    public $cantidad_comision;
+    public $observaciones_comision;
+
+    public function updatingBuscarPromotor(){
+        $this->promotores = $this->buscarPromotor ? Promotores::orderBy("nombre", "asc")
+            ->where('nombre', 'like', '%' . $this->buscarPromotor . '%')
+            ->orwhere('apaterno', 'like', '%' . $this->buscarPromotor . '%')
+            ->orwhere('amaterno', 'like', '%' . $this->buscarPromotor . '%')
+            ->get() : [];
+    }
+
+    public function asignarPromotor($promotor){
+        $this->promotor_asignado = $promotor;
+        $this->buscarPromotor = "";
+    }
+
+    public function registrarComision(){
+        $this->validate([
+            "promotor_asignado" => "required",
+            "cantidad_comision" => "required",
+        ]);
+
+        $comision = new Comisiones;
+        $comision->promotor_id = $this->promotor_asignado['id'];
+        $comision->proyecto_id = $this->proyecto_activo['id'];
+        $comision->cantidad = $this->cantidad_comision;
+        $comision->observaciones = $this->observaciones_comision ?? "";
+        $comision->save();
+
+        $this->promotor_asignado = '';
+        $this->observaciones_comision = '';
+        $this->cantidad_comision = '';
+        $this->dispatchBrowserEvent('success-event', 'Comisión registrada');
+        $this->resetProyect();
+        return $this->cambiarVistaComision(0);
+    }
+
+    public function editarComision($id){
+        $comision = Comisiones::find($id);
+        $this->promotor_asignado = $comision->promotor;
+        $this->observaciones_comision = $comision->observaciones;
+        $this->cantidad_comision = $comision->cantidad;
+        return $this->cambiarVistaComision(1);
+    }
+
+    public function removerPromotor(){
+        $this->promotor_asignado = "";
+    }
+
+    public function cambiarVistaComision($vista){
+        if($vista == 0){
+            $this->promotor_asignado = '';
+            $this->observaciones_comision = '';
+            $this->cantidad_comision = '';
+        }
+
+        return $this->vistaComisiones = $vista;
+    }
+
+    public function open_modal_registrar_factura(){
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-facturas");
+    }
+
+    public function open_modal_observaciones(){
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-observaciones");
+    }
+
+    public function registrarPromotor(){
+        $this->validate([
+            "nombre_promotor" => "required",
+            "apaterno_promotor" => "required",
+            "email_promotor" => $this->email_promotor ? "email" : ""
+        ]);
+
+        $promotor = new Promotores;
+        $promotor->nombre = $this->nombre_promotor;
+        $promotor->apaterno = $this->apaterno_promotor;
+        $promotor->amaterno = $this->amaterno_promotor ?? "";
+        $promotor->telefono = $this->telefono_promotor ?? "";
+        $promotor->email = $this->email_promotor ?? "";
+        $promotor->save();
+
+        $this->nombre_promotor = '';
+        $this->apaterno_promotor = '';
+        $this->amaterno_promotor = '';
+        $this->telefono_promotor = '';
+        $this->email_promotor = '';
+        $this->dispatchBrowserEvent('success-event', 'Promotor registrado');
+        return $this->cambiarVistaComision(1);
+    }
+
+    public function registrar_observaciones(){
+        $this->validate([
+            "observaciones_proyecto" => "required",
+        ]);
+        $new_observacion = new ObservacionesProyectos;
+        $new_observacion->comentarios = $this->observaciones_proyecto;
+        $new_observacion->user_id = Auth::user()->id;
+        $new_observacion->proyecto_id = $this->proyecto_activo['id'];
+        $new_observacion->save();
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("cerrar-modal-registrar-observaciones", "Observaciones registradas");
+    }
+
+    public function registrar_factura(){
+        $this->validate([
+            "concepto_factura" => "required",
+            "monto_factura" => "required",
+            "folio_factura" => "required",
+            "rfc_factura" => "required",
+            "fecha_factura" => "required",
+            "origen_factura" => "required",
+            'xml_factura' => $this->xml_factura != "" ? 'mimes:xml' : "",
+            'pdf_factura' => $this->pdf_factura != "" ? 'mimes:pdf' : "",
+        ]);
+
+        $fatura = new Facturas;
+        $fatura->monto = $this->monto_factura;
+        $fatura->folio_factura = $this->folio_factura;
+        $fatura->rfc_receptor = $this->rfc_factura;
+        $fatura->fecha = $this->fecha_factura;
+        $fatura->origen = $this->origen_factura;
+        $fatura->concepto_pago_id = $this->concepto_factura;
+        $fatura->observaciones = $this->comentarios_factura ?? "";
+
+        if($this->xml_factura){
+            $path_xml = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->apaterno) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->amaterno) . "/documentos/facturas";
+            $store_xml = $this->xml_factura->storeAs(mb_strtolower($path_xml), $this->concepto_factura . "_" . time() . "." . $this->xml_factura->extension(), 'public');
+            $fatura->xml = $store_xml;
+        }
+
+        if($this->pdf_factura){
+            $path_pdf = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->apaterno) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->amaterno) . "/documentos/facturas";
+            $store_pdf = $this->pdf_factura->storeAs(mb_strtolower($path_pdf), $this->concepto_factura . "_" . time() . "." . $this->pdf_factura->extension(), 'public');
+            $fatura->pdf = $store_pdf;
+        }
+
+        $fatura->proyecto_id = $this->proyecto_activo['id'];
+        $fatura->proyecto_id = $this->proyecto_activo['id'];
+        $fatura->usuario_id = Auth::user()->id;
+        $fatura->save();
+
+        $this->concepto_factura = "";
+        $this->monto_factura = "";
+        $this->folio_factura = "";
+        $this->rfc_factura = "";
+        $this->fecha_factura = "";
+        $this->origen_factura = "";
+        $this->comentarios_factura = "";
+        $this->xml_factura = "";
+        $this->pdf_factura = "";
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("cerrar-modal-registrar-facturas", "Factura registrada");
+    }
+
 
     public function calcularTotalPago(){
         $this->total_pago = 0.0;
@@ -237,6 +505,104 @@ class EscriturasProceso extends Component
         $this->proyecto_activo = $proyecto;
     }
 
+    public $costo_id;
+    public $concepto_costo_id = '';
+    public $monto_costo;
+    public $gestoria_costo;
+    public $impuestos_costo;
+
+    public function clearCostosForm(){
+        $this->costo_id = '';
+        $this->concepto_costo_id = '';
+        $this->monto_costo = '';
+        $this->gestoria_costo = '';
+        $this->impuestos_costo = '';
+    }
+
+    public function abrirModalNuevoCosto(){
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-costo");
+    }
+
+    public function editarCosto($id){
+        $costo = Costos::find($id);
+        $this->costo_id = $costo->id;
+        $this->concepto_costo_id = $costo->concepto_id;
+        $this->monto_costo = $costo->subtotal;
+        $this->gestoria_costo = $costo->gestoria;
+        $this->impuestos_costo = $costo->impuestos;
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-costo");
+    }
+
+    public function agregarCosto(){
+        $this->validate([
+            "concepto_costo_id" => "required",
+            "monto_costo" => "required",
+        ]);
+
+        if($this->costo_id != ""){
+            $costo = Costos::find($this->costo_id);
+            $costo->concepto_id = $this->concepto_costo_id;
+            $costo->subtotal = doubleval($this->monto_costo);
+            $costo->gestoria = doubleval($this->gestoria_costo);
+            $costo->impuestos = doubleval($this->impuestos_costo);
+            $costo->save();
+            $this->clearCostosForm();
+            $this->resetProyect();
+            return $this->dispatchBrowserEvent('cerrar-modal-registrar-costo', 'Costo editado');
+        }
+
+        $costo = new Costos;
+        $costo->concepto_id = $this->concepto_costo_id;
+        $costo->subtotal = doubleval($this->monto_costo);
+        $costo->gestoria = doubleval($this->gestoria_costo ?? 0);
+        $costo->impuestos = doubleval($this->impuestos_costo ?? 0);
+        $costo->proyecto_id = $this->proyecto_activo['id'];
+        $costo->save();
+        $this->resetProyect();
+        $this->clearCostosForm();
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-costo', 'Costo agregado');
+    }
+
+    public function clearEgresos(){
+        $this->costos_a_egresar = [];
+    }
+
+    public $metodo_pago_egreso = '';
+    public $fecha_egreso;
+    public $comentarios_egreso;
+
+    public function registrarEgreso(){
+        $this->validate([
+            'metodo_pago_egreso' => 'required',
+            'fecha_egreso' => 'required',
+        ]);
+
+        foreach ($this->costos_a_egresar as $key => $value) {
+            $nuevoEgreso = new Egresos;
+            $nuevoEgreso->costo_id = $value['id'];
+            $nuevoEgreso->proyecto_id = $this->proyecto_activo['id'];
+            $nuevoEgreso->monto = $value['subtotal'];
+            $nuevoEgreso->gestoria = $value['gestoria'];
+            $nuevoEgreso->impuestos = $value['subtotal'] * $value['impuestos'] / 100;
+            $nuevoEgreso->fecha_egreso = $this->fecha_egreso;
+            $nuevoEgreso->comentarios = $this->comentarios_egreso;
+            $nuevoEgreso->save();
+        }
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent('cerrar-modal-registrar-egresos');
+    }
+
+    public function abrirModalEgresos(){
+        $this->costos_a_egresar = [];
+        foreach($this->pagos_checkbox as $key => $concepto){
+            if($concepto){
+                $buscarConcepto = Costos::find($key);
+                array_push($this->costos_a_egresar, $buscarConcepto);
+            }
+        }
+        return $this->dispatchBrowserEvent('abrir-modal-registrar-egresos');
+    }
+
 //================================================== NUEVO PROYECTO ==================================================
     public $proyecto_abogado;
     public $proyecto_asistentes = [];
@@ -295,6 +661,28 @@ class EscriturasProceso extends Component
         return $this->dispatchBrowserEvent("abrir-modal-nuevo-proyecto");
     }
 
+    public function modalAgregarConcepto(){
+        return $this->dispatchBrowserEvent("abrir-modal-agregar-concepto-pago");
+    }
+
+    public function agregarConcepto(){
+        $this->validate([
+            "concepto_costo_id" => "required"
+        ]);
+        $buscarConcepto = Catalogos_conceptos_pago::find($this->concepto_costo_id);
+        $array_temp = [];
+        if($buscarConcepto){
+            foreach ($this->conceptos_pago as $value) {
+                array_push($array_temp, $value);
+            }
+            array_push($array_temp, $buscarConcepto);
+        }
+        $this->conceptos_pago = $array_temp;
+
+        $this->concepto_costo_id = "";
+        return $this->dispatchBrowserEvent("cerrar-modal-agregar-concepto-pago", "Concepto de pago agregado");
+    }
+
     public function crear_proyecto(){
         $this->validate([
             "acto_honorarios" => "required",
@@ -302,10 +690,6 @@ class EscriturasProceso extends Component
             "proyecto_cliente" => "required",
             "proyecto_abogado" => "required"
         ]);
-
-        $this->acto_honorarios;
-        $this->acto_descuento;
-        $this->conceptos_pago;
 
         $nuevo_proyecto = new Proyectos;
         $nuevo_proyecto->servicio_id = $this->acto_juridico_id;
@@ -334,6 +718,7 @@ class EscriturasProceso extends Component
             $nuevo_costo->subtotal = $this->acto_honorarios;
             $nuevo_costo->impuestos = $findConcepto->impuestos;
             $nuevo_costo->proyecto_id = $nuevo_proyecto->id;
+            $nuevo_costo->gestoria = 0.0;
             $nuevo_costo->save();
         }
 
@@ -346,6 +731,7 @@ class EscriturasProceso extends Component
                     $nuevo_costo->subtotal = $costo;
                     $nuevo_costo->impuestos = $findConcepto->impuestos;
                     $nuevo_costo->proyecto_id = $nuevo_proyecto->id;
+                    $nuevo_costo->gestoria = 0.0;
                     $nuevo_costo->save();
                 }
             }
@@ -353,10 +739,6 @@ class EscriturasProceso extends Component
 
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto', 'Nuevo proyecto creado exitosamente');
     }
-
-
-
-
 
 //================================================== REGISTROS DE GENERALES ==================================================
     public function registrarGeneral($id){
@@ -728,6 +1110,7 @@ class EscriturasProceso extends Component
         }
         return $this->dispatchBrowserEvent('alert-error', "Ningun registro para el avance");
     }
+
 //================================================== PROCESOS Y SUBPROCESOS ==================================================
     public $active_sub = 1;
     public $proyecto_activo = [];
@@ -778,5 +1161,4 @@ class EscriturasProceso extends Component
         $this->subprocesos_info = SubprocesosCatalogos::find($this->subproceso_activo->catalogosSubprocesos->id);
         $this->tipo_subproceso = $this->subprocesos_info->tipo_id;
     }
-
 }

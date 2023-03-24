@@ -47,9 +47,12 @@ class Clientes extends Component
     public $modalBorrarCliente = false;
     public $modalNuevoProyecto = false;
 
+    public $tipo_cliente = "";
+    public $razon_social;
+
     public $proyectos_escrituras = [];
     public function render(){
-        return view('livewire.clientes',[
+        return view('livewire.clientes', [
             "clientes" => ModelClientes::orderBy('nombre', 'ASC')->where('nombre', 'LIKE', '%' . $this->search . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%')
@@ -64,6 +67,7 @@ class Clientes extends Component
         ]);
     }
 
+
     public function closeModalBorrarCliente(){
         $this->modalBorrarCliente = false;
     }
@@ -77,17 +81,27 @@ class Clientes extends Component
     }
 
     protected function rules(){
+        if($this->tipo_cliente == "Persona Fisica"){
+            return [
+                'nombre' => 'required|min:3',
+                'apaterno' => 'required|min:3',
+                'amaterno' => $this->amaterno != '' ? 'min:3' : '',
+                'municipio_nacimiento_id' => '',
+                'fecha_nacimiento' => '',
+                'email' => $this->email != "" ? 'email' : "",
+                'telefono' => $this->telefono != "" ? 'min:10' : "",
+                'ocupacion' => '',
+                'estado_civil' => '',
+                'genero' => '',
+                'tipo_cliente' => 'required',
+            ];
+        }
+
         return [
-            'nombre' => 'required|min:3',
-            'apaterno' => 'required|min:3',
-            'amaterno' => $this->amaterno != '' ? 'min:3' : '',
-            'municipio_nacimiento_id' => '',
-            'fecha_nacimiento' => '',
             'email' => $this->email != "" ? 'email' : "",
             'telefono' => $this->telefono != "" ? 'min:10' : "",
-            'ocupacion' => '',
-            'estado_civil' => '',
-            'genero' => '',
+            'tipo_cliente' => 'required',
+            'razon_social' => 'required',
         ];
     }
 
@@ -119,6 +133,8 @@ class Clientes extends Component
         $this->estado_civil = "";
         $this->genero = "";
         $this->id_cliente = "";
+        $this->tipo_cliente = "";
+        $this->razon_social = "";
     }
 
     public function selectMunicipio($id){
@@ -146,6 +162,8 @@ class Clientes extends Component
         $this->genero = $cliente->genero ?? "";
         $this->curp = $cliente->curp ?? "";
         $this->rfc = $cliente->rfc ?? "";
+        $this->tipo_cliente = $cliente->tipo_cliente ?? "";
+        $this->razon_social = $cliente->razon_social ?? "";
     }
 
     public function borrarCliente(){
@@ -162,10 +180,10 @@ class Clientes extends Component
     public function save(){
         $validatedData = $this->validate();
         if($this->id_cliente == ""){
-            $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $validatedData['nombre'] . '%')
-                ->where('apaterno', 'LIKE', '%' . $validatedData['apaterno'] . '%')
-                ->where('amaterno', 'LIKE', '%' . $validatedData['amaterno'] . '%')
-                ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
+            $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $this->nombre . '%')
+                ->where('apaterno', 'LIKE', '%' . $this->apaterno . '%')
+                ->where('amaterno', 'LIKE', '%' . $this->amaterno . '%')
+                ->where('fecha_nacimiento', $this->fecha_nacimiento)
                 ->get();
 
             if(count($buscarCliente) > 0){
@@ -190,6 +208,8 @@ class Clientes extends Component
             $cliente->genero = $this->genero ?? "";
             $cliente->curp = $this->curp ?? "";
             $cliente->rfc = $this->rfc ?? "";
+            $cliente->tipo_cliente = $this->tipo_cliente;
+            $cliente->razon_social = $this->razon_social;
             $cliente->save();
 
             $this->clearInputs();
@@ -224,6 +244,8 @@ class Clientes extends Component
         $cliente->genero = $this->genero;
         $cliente->curp = $this->curp;
         $cliente->rfc = $this->rfc;
+        $cliente->tipo_cliente = $this->tipo_cliente;
+        $cliente->razon_social = $this->razon_social;
         $cliente->save();
         $this->clearInputs();
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");

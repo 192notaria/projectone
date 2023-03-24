@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NotificationEvent;
+use App\Models\LoginLog;
 use App\Models\Notifications;
 use App\Models\User;
 use Carbon\Carbon;
@@ -48,4 +49,5 @@ use Carbon\Carbon;
         $notificacion->save();
         return event(new NotificationEvent($user_guardia_id, $mensaje));
     }
+
 ?>

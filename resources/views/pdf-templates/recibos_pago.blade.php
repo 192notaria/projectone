@@ -104,10 +104,10 @@
                                                                 <span>{{$key + 1}}</span>
                                                             </div>
                                                         </td>
-                                                        <td class="pl0">{{$cobro->costos_data->concepto_pago->descripcion}}</td>
-                                                        <td class="text-center">${{number_format($cobro->costos_data->subtotal, 2)}}</td>
-                                                        <td class="text-center">${{number_format($cobro->costos_data->subtotal * $cobro->costos_data->impuestos / 100, 2)}}</td>
-                                                        <td class="text-end">${{number_format($cobro->monto, 2)}}</td>
+                                                        <td class="pl0">{{$cobro->costos_data->concepto_pago->descripcion ?? ""}}</td>
+                                                        <td class="text-center">${{number_format($cobro->costos_data->subtotal ?? 0, 2)}}</td>
+                                                        <td class="text-center">${{number_format($cobro->costos_data->subtotal ?? 0 * $cobro->costos_data->impuestos ?? 0 / 100, 2)}}</td>
+                                                        <td class="text-end">${{number_format($cobro->monto ?? "", 2)}}</td>
                                                         @php
                                                             $total = $total + $cobro->monto;
                                                         @endphp

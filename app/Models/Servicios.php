@@ -22,4 +22,8 @@ class Servicios extends Model
         ->orderBy('categoria_gasto_id', 'ASC')
         ->orderBy('descripcion', 'ASC');
     }
+
+    public function partes(){
+        return $this->hasMany(CatalogoPartes::class, "servicio_id");
+    }
 }

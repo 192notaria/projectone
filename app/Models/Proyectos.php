@@ -74,4 +74,31 @@ class Proyectos extends Model
         return $this->hasMany(Cobros::class, 'proyecto_id');
     }
 
+    public function egresos_data(){
+        return $this->hasMany(Egresos::class, 'proyecto_id');
+    }
+
+    public function facturas(){
+        return $this->hasMany(Facturas::class, 'proyecto_id');
+    }
+
+    public function bitacora(){
+        return $this->hasMany(AvanceProyecto::class, 'proyecto_id');
+    }
+
+    public function observaciones_data(){
+        return $this->hasMany(ObservacionesProyectos::class, 'proyecto_id');
+    }
+
+    public function documentos(){
+        return $this->hasMany(Documentos::class, 'proyecto_id');
+    }
+
+    public function comisiones(){
+        return $this->hasMany(Comisiones::class, 'proyecto_id');
+    }
+
+    public function partes(){
+        return $this->hasMany(Partes::class, 'proyecto_id');
+    }
 }

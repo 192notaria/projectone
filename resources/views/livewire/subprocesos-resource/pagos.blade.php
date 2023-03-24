@@ -13,12 +13,14 @@
                         <tr>
                             <th class="text-center"><i class="fa-solid fa-circle-info"></i></th>
                             <th>Concepto</th>
+                            <th>Gestoria</th>
                             <th>Subtotal</th>
                             <th>Impuestos</th>
                             <th>Costo total</th>
                             <th>Egresos</th>
                             <th>Facturado</th>
                             <th>Cobrado</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,9 +33,10 @@
                                         </div>
                                     </td>
                                     <td>{{$costo->concepto_pago->descripcion}}</td>
+                                    <td>${{number_format($costo->gestoria, 2)}}</td>
                                     <td>${{number_format($costo->subtotal, 2)}}</td>
                                     <td>${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}</td>
-                                    <td>${{number_format($costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}</td>
+                                    <td>${{number_format($costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}</td>
                                     <td>
                                         @if ($costo->concepto_pago->categoria_gasto_id == 3)
                                             -
@@ -63,6 +66,11 @@
                                             @endif">
                                             ${{number_format($suma, 2)}}
                                         </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" wire:click='editarCosto({{$costo->id}})'>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -125,14 +133,28 @@
                             <th>Concepto</th>
                             <th>Monto</th>
                             <th>Gastos de gestoria</th>
+                            <th>Impuestos</th>
                             <th>fecha</th>
                             <th>Comentarios</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center" colspan="5">Sin registros...</td>
-                        </tr>
+                        @if ($proyecto_activo)
+                            @forelse ($proyecto_activo->egresos_data as $egreso)
+                                <tr>
+                                    <td>{{$egreso->costos->concepto_pago->descripcion}}</td>
+                                    <td>${{number_format($egreso->monto, 2)}}</td>
+                                    <td>${{number_format($egreso->gestoria, 2)}}</td>
+                                    <td>${{number_format($egreso->impuestos, 2)}}</td>
+                                    <td>{{$egreso->fecha_egreso}}</td>
+                                    <td>{{$egreso->comentarios}}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6">Sin registros</td>
+                                </tr>
+                            @endforelse
+                        @endif
                     </tbody>
                 </table>
             </div>

@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('login_logs', function (Blueprint $table) {
+        Schema::create('catalogo_partes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id');
-            $table->string('local_ip');
-            $table->string('firebase_key');
+            $table->string("descripcion");
+            $table->unsignedBigInteger("servicio_id");
 
-            $table->foreign('usuario_id')
+            $table->foreign('servicio_id')
                 ->references('id')
-                ->on('users')
+                ->on('servicios')
                 ->cascadeOnDelete();
 
             $table->timestamps();
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('login_logs');
+        Schema::dropIfExists('catalogo_partes');
     }
 };

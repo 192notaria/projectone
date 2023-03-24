@@ -13,17 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('costos', function (Blueprint $table) {
+        Schema::create('egresos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('concepto_id');
-            $table->double('subtotal');
-            $table->double('gestoria');
-            $table->double('impuestos');
-            $table->unsignedBigInteger('proyecto_id');
+            $table->unsignedBigInteger("costo_id");
+            $table->unsignedBigInteger("proyecto_id");
+            $table->double("monto");
+            $table->double("gestoria");
+            $table->double("impuestos");
+            $table->timestamp("fecha_egreso");
+            $table->string("comentarios");
+            $table->text("path")->nullable();
 
-            $table->foreign('concepto_id')
+            $table->foreign('costo_id')
                 ->references('id')
-                ->on('catalogos_conceptos_pagos')
+                ->on('costos')
                 ->cascadeOnDelete();
 
             $table->foreign('proyecto_id')
@@ -42,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('costos');
+        Schema::dropIfExists('egresos');
     }
 };

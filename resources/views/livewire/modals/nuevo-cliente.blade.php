@@ -13,32 +13,23 @@
                         <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
                     @enderror
                     <div class="col-lg-12 mb-4">
-                        <div class="form-check form-switch form-check-inline">
-                            <input wire:model='cliente_institucion' class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Institución pública o privada</label>
-                        </div>
+                        <label for="">Tipo de cliente</label>
+                        <select class="form-select" wire:model='tipo_cliente'>
+                            <option value="" selected disabled>Seleccionar</option>
+                            <option value="Persona Fisica">Persona Fisica</option>
+                            <option value="Persona Moral">Persona Moral</option>
+                        </select>
                     </div>
 
-                    <div class="
-                    @if ($cliente_institucion)
-                        col-lg-6
-                    @else
-                        col-lg-4
-                    @endif
-                    ">
-                        <div class="form-group mb-3">
-                            <label for="">Nombre</label>
-                            <input type="hidden" wire:model="id_cliente" class="form-control">
-                            <input wire:model="nombre" type="text" class="form-control was-validated"
-                            @if ($cliente_institucion)
-                                placeholder="Infonativ"
-                            @else
-                                placeholder="Juan"
-                            @endif>
-                            @error('nombre') <span class="text-danger">{{ $message }}</span>@enderror
+                    @if ($tipo_cliente == "Persona Fisica")
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="">Nombre</label>
+                                <input type="hidden" wire:model="id_cliente" class="form-control">
+                                <input wire:model="nombre" type="text" class="form-control was-validated" placeholder="Juan">
+                                @error('nombre') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
                         </div>
-                    </div>
-                    @if (!$cliente_institucion)
                         <div class="col-lg-4">
                             <div class="form-group mb-3">
                                 <label for="">Apellido Paterno</label>
@@ -77,9 +68,6 @@
                                 @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
-                    @endif
-
-                    @if (!$cliente_institucion)
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
                                 <label for="">Curp</label>
@@ -125,20 +113,16 @@
                                 @error('email') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
-                    @endif
-
-                    <div class="col-lg-6">
-                        <div class="form-group mb-3">
-                            <label for="">Telefono</label>
-                            <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
-                            @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Telefono</label>
+                                <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
+                                @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
                         </div>
-                    </div>
-                    @if (!$cliente_institucion)
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label for="">Ocupacion</label>
-                                {{-- <input wire:model="ocupacion" type="text" class="form-control" placeholder="Abogado, Medico, Ingeniero"> --}}
                                 <select wire:model="ocupacion"  class="form-select">
                                     <option value="" selected disabled>Seleccionar...</option>
                                     @foreach ($ocupaciones as $ocupacion)
@@ -148,10 +132,42 @@
                                 @error('ocupacion') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
+                        @error('existeCliente')
+                            <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
+                        @enderror
                     @endif
-                    @error('existeCliente')
-                        <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
-                    @enderror
+
+                    @if ($tipo_cliente == "Persona Moral")
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Razón social</label>
+                                <input wire:model="razon_social" type="text" class="form-control was-validated" placeholder="Empresa S.A. de C.V.">
+                                @error('razon_social') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Rfc</label>
+                                <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
+                                @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Correo</label>
+                                <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
+                                @error('email') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="">Telefono</label>
+                                <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
+                                @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
             <div class="modal-footer">

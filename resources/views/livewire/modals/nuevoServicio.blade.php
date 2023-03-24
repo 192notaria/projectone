@@ -42,26 +42,65 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($conceptos_pagos as $key => $concepto)
-                                        <tr>
-                                            <td class="text-center">
-                                                <div class="switch form-switch-custom switch-inline form-switch-primary">
-                                                    <input class="switch-input" type="checkbox" role="switch" aria-controls="profile-tab-pane" aria-selected="false" id="form-custom-switch-default{{$key}}" wire:model='conceptos_pago.{{$concepto->id}}'>
-                                                </div>
-                                                {{-- <input class="form-check-input" type="checkbox" id="form-check-default{{$key}}" wire:model='conceptos_pago.{{$concepto->id}}'> --}}
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <span class="badge badge-primary">
-                                                        {{$concepto->descripcion}}
-                                                    </span>
-                                                </p>
-                                                {{$concepto->categoria->nombre}}
-                                            </td>
-                                            <td><span class="badge badge-success">${{number_format($concepto->precio_sugerido,2)}}</span></td>
-                                            <td><span class="badge badge-danger">{{$concepto->impuestos}}%</span></td>
-                                            <td>{{$concepto->impuesto->nombre}}</td>
-                                        </tr>
+                                        @if ($concepto->descripcion != "Honorarios")
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div class="switch form-switch-custom switch-inline form-switch-primary">
+                                                        <input class="switch-input" type="checkbox" role="switch" aria-controls="profile-tab-pane" aria-selected="false" id="form-custom-switch-default{{$key}}" wire:model='conceptos_pago.{{$concepto->id}}'>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span class="badge badge-primary">
+                                                            {{$concepto->descripcion}}
+                                                        </span>
+                                                    </p>
+                                                    {{$concepto->categoria->nombre}}
+                                                </td>
+                                                <td><span class="badge badge-success">${{number_format($concepto->precio_sugerido,2)}}</span></td>
+                                                <td><span class="badge badge-danger">{{$concepto->impuestos}}%</span></td>
+                                                <td>{{$concepto->impuesto->nombre}}</td>
+                                            </tr>
+                                        @endif
                                     @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12 mt-4">
+                            <h4>Partes</h4>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <div class="d-flex justify-content-between">
+                                <input wire:model='descripcion_parte' type="text" class="form-control me-2" placeholder="Ejem: VENDEDOR">
+                                <button wire:click='asignarParte' class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                        @error('descripcion_parte')
+                            <div class="col-lg-12">
+                                <span class="text-danger">{{$message}}</span>
+                            </div>
+                        @enderror
+                        <div class="col-lg-12 mt-2 table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Descripcón</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($partes_array as $key => $parte)
+                                        <tr>
+                                            <td>{{$parte['descripcion']}}</td>
+                                            <td class="text-end">
+                                                <button wire:click='removerParte({{$key}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">Sin partes asignadas</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

@@ -21,6 +21,10 @@ return new class extends Migration
             $table->integer("numero_escritura");
             $table->integer("status");
             $table->integer("volumen");
+            $table->double("honorarios")->nullable();
+            $table->double("descuento")->nullable();
+            $table->text("observaciones")->nullable();
+            $table->string("firebase_key")->nullable();
 
             $table->foreign('servicio_id')
                 ->references('id')

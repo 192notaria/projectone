@@ -121,26 +121,30 @@
                                 <tr>
                                     <td>
                                         <div class="media">
-                                            <div class="avatar me-2">
-                                                <img alt="avatar" src="
-                                                @if ($cliente->genero == "Masculino")
-                                                    {{url('v3/src/assets/img/male-avatar.svg')}}
+                                            <div class="avatar avatar-sm me-2">
+                                                @if ($cliente->tipo_cliente == "Persona Moral")
+                                                    <span class="avatar-title badge bg-success rounded-circle">{{substr(strtoupper($cliente->razon_social), 0, 2)}}</span>
+                                                @else
+                                                    <span class="avatar-title badge bg-primary rounded-circle">{{substr(strtoupper($cliente->nombre), 0, 2)}}</span>
                                                 @endif
-                                                @if ($cliente->genero == "Femenino")
-                                                    {{url('v3/src/assets/img/female-avatar.svg')}}
-                                                @endif
-                                                @if (!$cliente->genero)
-                                                    {{url('v3/src/assets/img/no-gender.png')}}
-                                                @endif
-                                                " class="rounded-circle" />
                                             </div>
                                             <div class="media-body align-self-center">
+                                                @if ($cliente->tipo_cliente = "Persona Moral")
+                                                    <h6 class="mb-0">{{$cliente->razon_social}}</h6>
+                                                @endif
                                                 <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
                                                 @can("crear-proyectos")
-                                                    @if (isset($cliente->domicilio->id) || $cliente->representante_inst)
+                                                    @if ($cliente->tipo_cliente == "Persona Moral")
                                                         <button wire:click='nuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4">
                                                             <i class="fa-solid fa-circle-plus"></i>
                                                         </button>
+
+                                                    @else
+                                                        @if (isset($cliente->domicilio->id))
+                                                            <button wire:click='nuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4">
+                                                                <i class="fa-solid fa-circle-plus"></i>
+                                                            </button>
+                                                        @endif
                                                     @endif
                                                 @endcan
                                                 <p class="mb-0">
@@ -172,7 +176,7 @@
                                                 @if (isset($cliente->getMunicipio->getEstado->nombre))
                                                     <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
                                                 @else
-                                                    <span class="fw-bold">Lugar de nacimiento: </span><br> <span class="text-danger">Sin registro</span>
+                                                    <span class="fw-bold">Lugar de nacimiento: </span><br> <span>Sin registro</span>
                                                 @endif
                                             </p>
                                             <p class="mb-0">
@@ -186,26 +190,22 @@
                                     </td>
                                     <td>
                                         @if ($cliente->representante_inst)
-                                            <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono}}
+                                            <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono ?? "Sin registro"}}
                                         @else
                                             <p class="mb-0">
-                                                <span class="fw-bold">CURP:</span><br>{{$cliente->curp}}
+                                                <span class="fw-bold">CURP:</span><br>{{$cliente->curp ?? "Sin registro"}}
                                             </p>
                                             <p class="mb-0">
-                                                <span class="fw-bold">RFC:</span><br>{{$cliente->rfc}}
+                                                <span class="fw-bold">RFC:</span><br>{{$cliente->rfc ?? "Sin registro"}}
                                             </p>
                                             <p class="mb-0">
-                                                <span class="fw-bold">Correo:</span><br>{{$cliente->email}}
+                                                <span class="fw-bold">Correo:</span><br>{{$cliente->email ?? "Sin registro"}}
                                             </p>
                                             <p class="mb-0">
-                                                <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono}}
+                                                <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono ?? "Sin registro"}}
                                             </p>
                                             <p class="mb-0">
-                                                @if (isset($cliente->getOcupacion->nombre))
-                                                    <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre}}
-                                                @else
-                                                    <span class="fw-bold">Ocupacion:</span><br><span class="text-danger">Sin ocupacion registrada</span>
-                                                @endif
+                                                <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre ?? "Sin registro"}}
                                             </p>
                                         @endif
                                     </td>

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('xml')->nullable();
             $table->text('pdf')->nullable();
             $table->unsignedBigInteger('proyecto_id');
+            $table->unsignedBigInteger('usuario_id')->nullable();
 
             $table->foreign('concepto_pago_id')
                 ->references('id')
@@ -35,6 +36,11 @@ return new class extends Migration
                 ->references('id')
                 ->on('proyectos')
                 ->cascadeOnDelete();
+
+            $table->foreign('usuario_id')
+                ->references('id')
+                ->on('users')
+                ->nullOnDelete();
 
             $table->timestamps();
         });

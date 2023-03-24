@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\CatalogoPartes;
 use App\Models\Catalogos_categoria_gastos;
 use App\Models\Catalogos_conceptos_pago;
 use App\Models\ProcesosServicios;
@@ -26,6 +27,24 @@ class Servicios extends Component
     public $nombre_del_servicio, $modalTittle, $tiempo_firma;
     public $honorarios;
     public $conceptos_pago = [];
+    public $partes_array = [];
+    public $descripcion_parte;
+
+    public function asignarParte(){
+        $this->validate([
+            "descripcion_parte" => "required"
+        ]);
+
+        $parte = [
+            "descripcion" => $this->descripcion_parte,
+        ];
+        array_push($this->partes_array, $parte);
+        return $this->descripcion_parte = '';
+    }
+
+    public function removerParte($id){
+        unset($this->partes_array[$id]);
+    }
 
     public function openModalBorrar($id){
         $this->modalborrar = true;
@@ -54,6 +73,13 @@ class Servicios extends Component
             // $this->permisosCheck = DB::table('role_has_permissions')->where('role_has_permissions.role_id', $id)
             //     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             //     ->all();
+            $partes = CatalogoPartes::where("servicio_id", $id)->get();
+            foreach ($partes as $value) {
+                $parte = [
+                    "descripcion" => $value->descripcion
+                ];
+                array_push($this->partes_array, $parte);
+            }
         }
     }
 
@@ -76,8 +102,19 @@ class Servicios extends Component
             }
 
             $servicio->conceptos_pago()->sync(array_keys($this->conceptos_pago));
-            $this->clearInput();
             $servicio->save();
+
+            if(count($this->partes_array) > 0){
+                DB::table('catalogo_partes')->where('servicio_id', $this->servicio_id)->delete();
+                foreach ($this->partes_array as $value) {
+                    $parte = new CatalogoPartes;
+                    $parte->descripcion = $value['descripcion'];
+                    $parte->servicio_id = $this->servicio_id;
+                    $parte->save();
+                }
+            }
+
+            $this->clearInput();
             return $this->closeModalNew();
         }
 
@@ -93,6 +130,16 @@ class Servicios extends Component
         }
 
         $servicio->conceptos_pago()->sync($this->conceptos_pago);
+
+        if(count($this->partes_array) > 0){
+            foreach ($this->partes_array as $value) {
+                $parte = new CatalogoPartes;
+                $parte->descripcion = $value['descripcion'];
+                $parte->servicio_id = $servicio->id;
+                $parte->save();
+            }
+        }
+
         $this->clearInput();
         return $this->closeModalNew();
     }
@@ -119,6 +166,7 @@ class Servicios extends Component
         $this->proceso_servicio_id = "";
         $this->honorarios;
         $this->conceptos_pago = [];
+        $this->partes_array = [];
     }
 
     public function asignarProceso(){

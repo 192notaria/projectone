@@ -8,8 +8,7 @@
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold">
-                {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
+                <h6 class="mb-0 fw-bold">{{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
             </div>
         </div>
     </td>
@@ -52,7 +51,7 @@
                 @endcan --}}
             </p>
         @endcan
-            @can('ver-estado-proyecto')
+        @can('ver-estado-proyecto')
             @if (isset($escritura->getstatus->proceso->nombre))
                 <span class="mb-0 fw-bold">Ultimo avance:</span>
             @endif
@@ -105,7 +104,7 @@
     </td>
 
     <td>
-        <p>Acto: <span class="badge badge-primary">Compraventa</span></p>
+        <p>Acto: <span class="badge badge-primary">{{$escritura->servicio->nombre}}</span></p>
         <p class="mb-0 text-left">
             <span class="fw-bold">Abogado:</span>
             <p>

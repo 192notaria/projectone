@@ -167,15 +167,15 @@
                                                 <h6>Impuestos y derechos</h6>
                                             </div>
                                             <div class="col-lg-12 mb-3">
-                                                <button wire:click='guardarCostos' class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Agregar concepto</button>
+                                                <button wire:click='modalAgregarConcepto' class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Agregar concepto</button>
                                             </div>
                                             @foreach ($conceptos_pago as $concepto)
                                                 <div class="mb-1 mt-1 col-lg-6 d-xl-flex d-block justify-content-between">
                                                     <div>
-                                                        <label>{{$concepto->descripcion}}</label>
+                                                        <label>{{$concepto['descripcion']}}</label>
                                                     </div>
                                                     <div>
-                                                        <input wire:model='costos_proyecto.{{$concepto->id}}' type="number" class="form-control" placeholder="$0.0">
+                                                        <input wire:model='costos_proyecto.{{$concepto['id']}}' type="number" class="form-control" placeholder="$0.0">
                                                     </div>
                                                 </div>
                                             @endforeach

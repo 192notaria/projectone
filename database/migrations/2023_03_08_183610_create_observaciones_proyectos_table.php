@@ -13,15 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('login_logs', function (Blueprint $table) {
+        Schema::create('observaciones_proyectos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id');
-            $table->string('local_ip');
-            $table->string('firebase_key');
+            $table->text("comentarios");
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("proyecto_id");
 
-            $table->foreign('usuario_id')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->cascadeOnDelete();
+
+            $table->foreign('proyecto_id')
+                ->references('id')
+                ->on('proyectos')
                 ->cascadeOnDelete();
 
             $table->timestamps();
@@ -35,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('login_logs');
+        Schema::dropIfExists('observaciones_proyectos');
     }
 };
