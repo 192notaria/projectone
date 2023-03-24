@@ -17,7 +17,7 @@
                                     {{$document_data->nombre}}
                                 </a>
                             </td>
-                            <td>{{$document_data->tipoDoc->nombre}}</td>
+                            <td>{{$document_data->tipoDoc->nombre ?? ""}}</td>
                             <td>{{$document_data->created_at}}</td>
                         </tr>
                     @empty
