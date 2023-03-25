@@ -97,7 +97,7 @@ class EscriturasProceso extends Component
                 ->where('id', '!=', $this->proyecto_abogado['id'] ?? "")
                 ->get(),
             "escrituras" => Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
-                Proyectos::orderBy("numero_escritura", "ASC")
+                Proyectos::orderBy("id", "ASC")
                 ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
