@@ -34,6 +34,7 @@
                                             <td>
                                                 <p class="mb-0 fw-bold">{{$guardia['guardia1']['nombre']}}</p>
                                                 <p class="mb-0 fw-bold">{{$guardia['guardia2']['nombre']}}</p>
+                                                {{-- <p class="mb-0 fw-bold">{{$guardia['guardia3']['nombre']}}</p> --}}
                                             </td>
                                             <td>{{$guardia['dia']}}</td>
                                         </tr>

@@ -139,12 +139,12 @@ class Guardias extends Component
         })->get();
 
         $usuarios_semanal = count($usuarios_db_semanal);
-        $equipos = count($usuarios_db_semanal) / 2;
+        $equipos = round(count($usuarios_db_semanal) / 2);
         $team = 1;
         $fila_usuario = 0;
 
         $usuarios_fin_semana = count($usuariosTotales);
-        $equipos_fin_semana = count($usuariosTotales) / 2;
+        $equipos_fin_semana = round(count($usuariosTotales) / 2);
         $fila_usuario_fin = 0;
         $team_fin = 1;
 
@@ -185,6 +185,9 @@ class Guardias extends Component
                 if($team > $equipos){
                     $team = 1;
                 }
+
+                $usuarioAleatorio = $this->usuario_aleatorio($usuarios_db_semanal, $fila_usuario + 1);
+
                 $fechadata[] = [
                     "fecha" => $fecha,
                     "team" => $team,
@@ -194,8 +197,8 @@ class Guardias extends Component
                         "nombre" => $usuarios_db_semanal[$fila_usuario]['name'] . " " . $usuarios_db_semanal[$fila_usuario]['apaterno'],
                     ],
                     "guardia2" => [
-                        "id" => $usuarios_db_semanal[$fila_usuario + 1]['id'],
-                        "nombre" => $usuarios_db_semanal[$fila_usuario + 1]['name'] . " " . $usuarios_db_semanal[$fila_usuario]['apaterno'],
+                        "id" => isset($usuarios_db_semanal[$fila_usuario + 1]['id']) ? $usuarios_db_semanal[$fila_usuario + 1]['id'] : $usuarios_db_semanal[$usuarioAleatorio]['id'],
+                        "nombre" => isset($usuarios_db_semanal[$fila_usuario + 1]['name']) ? $usuarios_db_semanal[$fila_usuario + 1]['name'] . " " . $usuarios_db_semanal[$fila_usuario + 1]['apaterno'] : $usuarios_db_semanal[$usuarioAleatorio]['name'] . " " . $usuarios_db_semanal[$usuarioAleatorio]['apaterno'],
                     ],
                 ];
                 $fila_usuario = $fila_usuario + 2;
@@ -208,6 +211,7 @@ class Guardias extends Component
                 if($fila_usuario_fin >= $usuarios_fin_semana){
                     $fila_usuario_fin = 0;
                 }
+
                 if($team_fin > $equipos_fin_semana){
                     $team_fin = 1;
                 }
@@ -221,10 +225,11 @@ class Guardias extends Component
                         "nombre" => $usuariosTotales[$fila_usuario_fin]['name'] . " " . $usuariosTotales[$fila_usuario_fin]['apaterno'],
                     ],
                     "guardia2" => [
-                        "id" => $usuariosTotales[$fila_usuario_fin + 1]['id'],
-                        "nombre" => $usuariosTotales[$fila_usuario_fin + 1]['name'] . " " . $usuariosTotales[$fila_usuario_fin]['apaterno'],
+                        "id" => isset($usuariosTotales[$fila_usuario_fin + 1]['id']) ? $usuariosTotales[$fila_usuario_fin + 1]['id'] : "Pendiente",
+                        "nombre" => isset($usuariosTotales[$fila_usuario_fin + 1]['name']) ? $usuariosTotales[$fila_usuario_fin + 1]['name'] . " " . $usuariosTotales[$fila_usuario_fin + 1]['apaterno'] : "Pendiente...",
                     ],
                 ];
+
                 $fila_usuario_fin = $fila_usuario_fin + 2;
                 $team_fin = $team_fin + 1;
             }
@@ -234,6 +239,21 @@ class Guardias extends Component
         // dd(array_count_values($this->guardias_cumplidas),$this->dias_semanales);
         // dd(count($this->guardias_cumplidas));
         // dd($fechadata);
+    }
+
+    public function usuario_aleatorio($array, $usuario){
+        if(rand(count($array), 1) == 0) {
+            if(rand(count($array), 1) == $usuario){
+                return rand(count($array), 1) + 1;
+            }
+            return rand(count($array), 1);
+        }
+
+        if(rand(count($array), 1) == $usuario){
+            return rand(count($array), 1) - 1;
+        }
+
+        return rand(count($array), 1) - 1;
     }
 
     public function guardarGuardia(){
