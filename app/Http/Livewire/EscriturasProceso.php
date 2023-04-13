@@ -31,11 +31,16 @@ use App\Models\Servicios;
 use App\Models\Subprocesos;
 use App\Models\SubprocesosCatalogos;
 use App\Models\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Luecano\NumeroALetras\NumeroALetras;
+use NumberFormatter;
+use PhpOffice\PhpWord\TemplateProcessor;
+
 
 class EscriturasProceso extends Component
 {
@@ -458,8 +463,9 @@ public function removerParte($id){
         ]);
 
         $monto_pago = $this->total_pago + $this->total_impuestos;
-        if($this->monto_cobro != $monto_pago){
-            return$this->addError('monto-no-valido', 'El monto del pago debe ser de $' . number_format($monto_pago, 2));
+
+        if($monto_pago > $this->monto_cobro){
+            return $this->addError('monto-no-valido', 'El monto del pago no debe ser mayor de $' . number_format($this->monto_cobro, 2));
         }
 
         $nuevo_cobro = new Cobros;
@@ -468,7 +474,7 @@ public function removerParte($id){
         $nuevo_cobro->monto = $this->monto_cobro;
         $nuevo_cobro->metodo_pago_id = $this->metodo_pago_id;
         // $nuevo_cobro->factura_id = $this->factura_id;
-        $nuevo_cobro->cuenta_id = $this->cuenta_id;
+        $nuevo_cobro->cuenta_id = $this->cuenta_id == '' ? null : $this->cuenta_id;
         $nuevo_cobro->proyecto_id = $this->proyecto_activo['id'];
         $nuevo_cobro->observaciones = $this->observaciones_cobro;
         $nuevo_cobro->usuario_id = auth()->user()->id;
@@ -478,7 +484,6 @@ public function removerParte($id){
             if($value){
                 $costo = Costos::find($key);
                 $impuesto = $value * $costo->impuestos / 100;
-
                 $new_costo_cobrado = new CostosCobrados;
                 $new_costo_cobrado->monto = $value + $impuesto;
                 $new_costo_cobrado->costo_id = $key;
@@ -1160,5 +1165,43 @@ public function removerParte($id){
         $this->subproceso_activo = Subprocesos::find($id);
         $this->subprocesos_info = SubprocesosCatalogos::find($this->subproceso_activo->catalogosSubprocesos->id);
         $this->tipo_subproceso = $this->subprocesos_info->tipo_id;
+    }
+
+    public function crear_recibo($id){
+        $pago = Cobros::find($id);
+        // $fecha_escrita = Carbon::parse($pago->fecha)->isoFormat('dddd D \d\e MMMM \d\e\l Y \a \l\a\s h:m A');
+        $fecha_escrita = Carbon::parse($pago->fecha)->isoFormat('dddd D \d\e MMMM');
+        $cliente = $pago->proyecto->cliente->nombre . " " . $pago->proyecto->cliente->apaterno . " " . $pago->proyecto->cliente->amaterno;
+        $cantidad = number_format($pago->monto, 2);
+        $cantidad_escrita = new NumeroALetras();
+        $cantidad_esc = $cantidad_escrita->toWords($pago->monto);
+        $acto = $pago->proyecto->servicio->nombre;
+
+        $dia = date("d", strtotime($pago->fecha));
+        $mes = date("m", strtotime($pago->fecha));
+        $year = date("Y", strtotime($pago->fecha));
+
+        $dia_escrito = Carbon::parse($pago->fecha)->isoFormat('dddd');
+        $mes_escrito = Carbon::parse($pago->fecha)->isoFormat('MMMM');
+
+        $new_year = new NumeroALetras();
+        $year_escrito = $new_year->toWords($year);
+
+        $templateprocessor = new TemplateProcessor('word-template/recibo_pago.docx');
+        $templateprocessor->setValue('fecha_escrita', $fecha_escrita);
+        $templateprocessor->setValue('nombre', $cliente);
+        $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('cantidad', $cantidad);
+        $templateprocessor->setValue('cantidad_escrita', $cantidad_esc);
+        $templateprocessor->setValue('dia', $dia);
+        $templateprocessor->setValue('dia_escrito', $dia_escrito);
+        $templateprocessor->setValue('mes', $mes);
+        $templateprocessor->setValue('mes_escrito', $mes_escrito);
+        $templateprocessor->setValue('year', $year);
+        $templateprocessor->setValue('year_escrito', $year_escrito);
+
+        $filename = "Recibo de pago " . $cliente;
+        $templateprocessor->saveAs($filename . '.docx');
+        return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
 }

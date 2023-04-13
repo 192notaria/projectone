@@ -4,6 +4,7 @@ use App\Events\NotificationEvent;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ColoniasController;
+use App\Http\Controllers\Contabilidad;
 use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\EscriturasApoyo;
 use App\Http\Controllers\EstadosController;
@@ -74,5 +75,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/email', [FirebaseAuthController::class, 'sendemail'])->name('email.test');
     Route::get('/usuarios/guardias', [GuardiasController::class, 'index'])->name('usuarios.guardias');
     Route::get('/usuarios/getGuardias', [GuardiasController::class, 'getGuardias'])->name('usuarios.getGuardias');
+
+    Route::get('/contabilidad', [Contabilidad::class, 'index'])->name('contabilidad.index');
 });
 

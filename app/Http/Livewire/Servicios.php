@@ -148,6 +148,7 @@ class Servicios extends Component
         $this->modalNuevo = false;
         $this->nombre_del_servicio = "";
         $this->tiempo_firma = "";
+        $this->partes_array = [];
     }
 
     public function openModalProcesos($id){

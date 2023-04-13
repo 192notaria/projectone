@@ -109,7 +109,6 @@
             <!-- END GLOBAL MANDATORY SCRIPTS -->
             <script src="{{ url('js/audioplayer.js') }}"></script>
 
-
             @yield('scripts-content')
             <script>
                 Echo.private('notification.{{auth()->id()}}').listen('.send.notification', (e) => {
@@ -155,6 +154,22 @@
                         duration: 5000,
                         actionText: '<i class="fa-solid fa-circle-xmark"></i>'
                     });
+                })
+
+
+                window.addEventListener('success-notify', event => {
+                    var myAudio= document.createElement('audio')
+                    myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
+                    myAudio.play()
+
+                    Snackbar.show({
+                        text: event.detail,
+                        actionTextColor: '#fff',
+                        backgroundColor: '#00ab55',
+                        pos: 'top-center',
+                        duration: 5000,
+                        actionText: '<i class="fa-solid fa-circle-xmark"></i>'
+                    })
                 })
             </script>
         </body>

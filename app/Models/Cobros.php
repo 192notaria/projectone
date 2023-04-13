@@ -36,4 +36,8 @@ class Cobros extends Model
     public function metodo_pago(){
         return $this->belongsTo(CatalogoMetodosPago::class, 'metodo_pago_id');
     }
+
+    public function proyecto(){
+        return $this->belongsTo(Proyectos::class, 'proyecto_id');
+    }
 }

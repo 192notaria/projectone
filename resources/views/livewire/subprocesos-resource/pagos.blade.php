@@ -5,6 +5,51 @@
     <div class="col-lg-12 mb-2 mt-2">
         <div class="card">
             <div class="card-header">
+                <h5>Detalle de la cuenta</h5>
+            </div>
+            <div class="card-body">
+                @php
+                    $costoTotal = 0;
+                    if($proyecto_activo){
+                        foreach ($proyecto_activo->costos_proyecto as $costo) {
+                            $costoTotal = $costoTotal + $costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100;
+                        }
+                    }
+                @endphp
+                @if (isset($proyecto_activo['descuento']))
+                    <div class="d-flex justify-content-between">
+                        <h4>Costo Total:</h4>
+                        <h4>${{number_format($costoTotal, 2)}}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h4>Descuento:</h4>
+                        <h4>${{number_format($proyecto_activo['descuento'], 2) ?? ""}}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h4>Cobrado:</h4>
+                        @php
+                            $cantidad_cobrada = 0;
+                            if($proyecto_activo){
+                                foreach ($proyecto_activo->pagos_recibidos as $recibido) {
+                                    $cantidad_cobrada = $cantidad_cobrada + $recibido->monto;
+                                }
+                            }
+                        @endphp
+                        <h4>${{number_format($cantidad_cobrada, 2) ?? ""}}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h2>Total a cobrar:</h2>
+                        <h3>
+                            ${{number_format($costoTotal - $proyecto_activo['descuento'] - $cantidad_cobrada, 2)}}
+                        </h3>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mb-2 mt-2">
+        <div class="card">
+            <div class="card-header">
                 <h5>Costos</h5>
             </div>
             <div class="card-body table-responsive">
@@ -32,11 +77,21 @@
                                             <input wire:change='calcularTotalPago' class="form-check-input" type="checkbox" aria-selected="false" id="form-custom-switch-default-{{$key}}" wire:model='pagos_checkbox.{{$costo->id}}' value="{{$costo->subtotal, 2}}">
                                         </div>
                                     </td>
-                                    <td>{{$costo->concepto_pago->descripcion}}</td>
-                                    <td>${{number_format($costo->gestoria, 2)}}</td>
-                                    <td>${{number_format($costo->subtotal, 2)}}</td>
-                                    <td>${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}</td>
-                                    <td>${{number_format($costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}</td>
+                                    <td>
+                                        {{$costo->concepto_pago->descripcion}}
+                                    </td>
+                                    <td>
+                                        ${{number_format($costo->gestoria, 2)}}
+                                    </td>
+                                    <td>
+                                        ${{number_format($costo->subtotal, 2)}}
+                                    </td>
+                                    <td>
+                                        ${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}
+                                    </td>
+                                    <td>
+                                        ${{number_format($costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}
+                                    </td>
                                     <td>
                                         @if ($costo->concepto_pago->categoria_gasto_id == 3)
                                             -
@@ -103,12 +158,18 @@
                             @foreach ($proyecto_activo->pagos_recibidos as $pago)
                                 <tr>
                                     <td>
-                                        <a class="btn btn-danger" target="_blank" href="/recibo/{{$pago->id}}">
+                                        <button class="btn btn-danger" wire:click='crear_recibo({{$pago->id}})'>
                                             <i class="fa-solid fa-file-pdf"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                     <td>{{$pago->fecha}}</td>
-                                    <td>{{$pago->cuenta->banco->nombre}}: {{$pago->cuenta->numero_cuenta}}</td>
+                                    <td>
+                                        @if (isset($pago->cuenta->banco->nombre))
+                                            {{$pago->cuenta->banco->nombre}} : {{$pago->cuenta->numero_cuenta}}
+                                        @else
+                                            <span>Sin cuenta</span>
+                                        @endif
+                                    </td>
                                     <td>{{$pago->metodo_pago->nombre}}</td>
                                     <td>${{number_format($pago->monto, 2)}}</td>
                                     <td>{{$pago->observaciones}}</td>
