@@ -216,6 +216,8 @@ class Guardias extends Component
                     $team_fin = 1;
                 }
 
+                $usuarioAleatorio = $this->usuario_aleatorio($usuarios_db_semanal, $fila_usuario + 1);
+
                 $fechadata[] = [
                     "fecha" => $fecha,
                     "team" => $team_fin,
@@ -225,8 +227,8 @@ class Guardias extends Component
                         "nombre" => $usuariosTotales[$fila_usuario_fin]['name'] . " " . $usuariosTotales[$fila_usuario_fin]['apaterno'],
                     ],
                     "guardia2" => [
-                        "id" => isset($usuariosTotales[$fila_usuario_fin + 1]['id']) ? $usuariosTotales[$fila_usuario_fin + 1]['id'] : "Pendiente",
-                        "nombre" => isset($usuariosTotales[$fila_usuario_fin + 1]['name']) ? $usuariosTotales[$fila_usuario_fin + 1]['name'] . " " . $usuariosTotales[$fila_usuario_fin + 1]['apaterno'] : "Pendiente...",
+                        "id" => isset($usuariosTotales[$fila_usuario_fin + 1]['id']) ? $usuariosTotales[$fila_usuario_fin + 1]['id'] : $usuariosTotales[$usuarioAleatorio]['id'],
+                        "nombre" => isset($usuariosTotales[$fila_usuario_fin + 1]['name']) ? $usuariosTotales[$fila_usuario_fin + 1]['name'] . " " . $usuariosTotales[$fila_usuario_fin + 1]['apaterno'] : $usuariosTotales[$usuarioAleatorio]['name'] . " " . $usuariosTotales[$usuarioAleatorio]['apaterno'],
                     ],
                 ];
 
