@@ -120,6 +120,7 @@ class Guardias extends Component
         $this->usuarios_guardia_semanal = [];
     }
 
+    public $usuariosaleaotrios = [];
     public function generarGuardia(){
         $this->limpiarguardia();
         $this->calcular_fechas();
@@ -148,45 +149,49 @@ class Guardias extends Component
         $fila_usuario_fin = 0;
         $team_fin = 1;
 
-        $usuarioAnterior = "";
-        $usuarioAnterior_fin = "";
-
-        foreach($usuarios_db_semanal as $usuarios ){
-            if($usuarios->name == "EUNICE" && $usuarioAnterior == "NATALIA" ||
-            $usuarios->name == "NATALIA" && $usuarioAnterior == "EUNICE"){
-                $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
-                    $data->where('name', "ABOGADO")
-                        ->orWhere('name', "ABOGADO DE APOYO")
-                        ->orWhere('name', "CONTADOR")
-                        ->orWhere('name', "ABOGADO ADMINISTRADOR");
-                })->get();
-            }
-            $usuarioAnterior = $usuarios->name;
-        }
-
-        foreach($usuariosTotales as $usuarios ){
-            if($usuarios->name == "EUNICE" && $usuarioAnterior_fin == "NATALIA" ||
-            $usuarios->name == "NATALIA" && $usuarioAnterior_fin == "EUNICE"){
-                $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
-                    $data->where('name', "ABOGADO")
-                        ->orWhere('name', "ABOGADO DE APOYO")
-                        ->orWhere('name', "CONTADOR")
-                        ->orWhere('name', "ABOGADO ADMINISTRADOR");
-                })->get();
-            }
-            $usuarioAnterior_fin = $usuarios->name;
-        }
-
         foreach($this->fechas as $fecha){
             if(Carbon::create($fecha)->isoFormat('dddd') != 'domingo' && Carbon::create($fecha)->isoFormat('dddd') != 'sábado'){
                 if($fila_usuario >= $usuarios_semanal){
                     $fila_usuario = 0;
                 }
+
                 if($team > $equipos){
                     $team = 1;
+                    $this->usuariosaleaotrios = [];
+                    $usuarios_db_semanal = User::inRandomOrder()->where('tipo_guardia', 'semanal')->whereHas("roles", function($data){
+                        $data->where('name', "ABOGADO")
+                            ->orWhere('name', "ABOGADO DE APOYO")
+                            ->orWhere('name', "CONTADOR")
+                            ->orWhere('name', "ABOGADO ADMINISTRADOR");
+                    })->get();
                 }
 
-                $usuarioAleatorio = $this->usuario_aleatorio($usuarios_db_semanal, $fila_usuario + 1);
+                if(isset($fechadata) && $team == 1){
+                    if($usuarios_db_semanal[0]['id'] == $fechadata[count($fechadata) - 1]['guardia1']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[0]['id'] == $fechadata[count($fechadata) - 2]['guardia1']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[1]['id'] == $fechadata[count($fechadata) - 1]['guardia1']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[1]['id'] == $fechadata[count($fechadata) - 2]['guardia1']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[0]['id'] == $fechadata[count($fechadata) - 1]['guardia2']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[0]['id'] == $fechadata[count($fechadata) - 2]['guardia2']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[1]['id'] == $fechadata[count($fechadata) - 1]['guardia2']['id']){
+                        return $this->generarGuardia();
+                    }
+                    if($usuarios_db_semanal[1]['id'] == $fechadata[count($fechadata) - 2]['guardia2']['id']){
+                        return $this->generarGuardia();
+                    }
+                }
 
                 $fechadata[] = [
                     "fecha" => $fecha,
@@ -197,10 +202,11 @@ class Guardias extends Component
                         "nombre" => $usuarios_db_semanal[$fila_usuario]['name'] . " " . $usuarios_db_semanal[$fila_usuario]['apaterno'],
                     ],
                     "guardia2" => [
-                        "id" => isset($usuarios_db_semanal[$fila_usuario + 1]['id']) ? $usuarios_db_semanal[$fila_usuario + 1]['id'] : $usuarios_db_semanal[$usuarioAleatorio]['id'],
-                        "nombre" => isset($usuarios_db_semanal[$fila_usuario + 1]['name']) ? $usuarios_db_semanal[$fila_usuario + 1]['name'] . " " . $usuarios_db_semanal[$fila_usuario + 1]['apaterno'] : $usuarios_db_semanal[$usuarioAleatorio]['name'] . " " . $usuarios_db_semanal[$usuarioAleatorio]['apaterno'],
+                        "id" => isset($usuarios_db_semanal[$fila_usuario + 1]['id']) ? $usuarios_db_semanal[$fila_usuario + 1]['id'] : $usuarios_db_semanal[0]['id'],
+                        "nombre" => isset($usuarios_db_semanal[$fila_usuario + 1]['name']) ? $usuarios_db_semanal[$fila_usuario + 1]['name'] . " " . $usuarios_db_semanal[$fila_usuario + 1]['apaterno'] : $usuarios_db_semanal[0]['name'] . " " . $usuarios_db_semanal[0]['apaterno'],
                     ],
                 ];
+
                 $fila_usuario = $fila_usuario + 2;
                 $team = $team + 1;
             }
@@ -217,6 +223,10 @@ class Guardias extends Component
                 }
 
                 $usuarioAleatorio = $this->usuario_aleatorio($usuarios_db_semanal, $fila_usuario + 1);
+
+                if($usuarioAleatorio == $usuariosTotales[$fila_usuario_fin]['id']){
+                    return $this->generarGuardia();
+                }
 
                 $fechadata[] = [
                     "fecha" => $fecha,
