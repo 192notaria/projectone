@@ -16,7 +16,7 @@
                         }
                     }
                 @endphp
-                @if (isset($proyecto_activo['descuento']))
+                @if ($proyecto_activo)
                     <div class="d-flex justify-content-between">
                         <h4>Costo Total:</h4>
                         <h4>${{number_format($costoTotal, 2)}}</h4>
