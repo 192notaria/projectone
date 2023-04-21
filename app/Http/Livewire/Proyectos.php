@@ -44,6 +44,7 @@ class Proyectos extends Component
 
     protected $database;
     public function mount(Database $database){
+        set_time_limit(300);
         // $factory = (new Factory)->withServiceAccount(env("FIREBASE_CREDENTIALS"));
         // $this->database = $database;
         // // $auth_data = $auth;
