@@ -95,7 +95,7 @@
                             progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{$porcentaje}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
-                    {{$escritura->avanceCount->count()}} - {{$subprocesoscount}}
+                    {{-- {{$escritura->avanceCount->count()}} - {{$subprocesoscount}} --}}
                 @else
                     <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> No hay procesos asignados para este servicio</span>
                 @endif

@@ -263,7 +263,6 @@
         $(".modal-procesos-escritura").modal("hide")
     })
 
-
     window.addEventListener('remover-registro-generales', event => {
         var myAudio= document.createElement('audio')
         myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
