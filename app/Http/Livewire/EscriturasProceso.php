@@ -590,7 +590,7 @@ public function removerParte($id){
             $nuevoEgreso->gestoria = $value['gestoria'];
             $nuevoEgreso->impuestos = $value['subtotal'] * $value['impuestos'] / 100;
             $nuevoEgreso->fecha_egreso = $this->fecha_egreso;
-            $nuevoEgreso->comentarios = $this->comentarios_egreso;
+            $nuevoEgreso->comentarios = $this->comentarios_egreso ?? null;
             $nuevoEgreso->save();
         }
         $this->resetProyect();
