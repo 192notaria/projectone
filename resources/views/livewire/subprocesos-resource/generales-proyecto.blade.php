@@ -1,6 +1,7 @@
 <div id="timelineBasic" class="col-lg-12 layout-spacing">
     {{-- <div class="statbox widget box box-shadow">
        <div class="widget-content widget-content-area pb-1"> --}}
+        @if ($vista_general == "general")
             <ol class="timeline">
                 <li class="timeline-item extra-space">
                     <span class="timeline-item-icon filled-icon">
@@ -15,6 +16,16 @@
                         <div class="timeline-item-wrapper">
                             <span class="align-self-center">
                                 Volumen: <span class="badge bg-light-primary">{{$proyecto_activo->volumen}}</span>
+                            </span>
+                        </div>
+                        <div class="timeline-item-wrapper mt-1">
+                            <span class="align-self-center">
+                                Folios: <span class="badge bg-light-primary">{{$proyecto_activo->folio_inicio}} - {{$proyecto_activo->folio_fin}}</span>
+                            </span>
+                        </div>
+                        <div class="timeline-item-wrapper">
+                            <span class="align-self-center">
+                                <a wire:click='cambiar_info_proyecto({{$proyecto_activo["id"]}})' style="font-size: 11px;" class="text-warning" href="#">Asignar o  cambiar el numero de escritura y volumen</a>
                             </span>
                         </div>
                     </div>
@@ -72,7 +83,6 @@
                                 <div class="avatar--group ms-3">
                                     @foreach ($proyecto_activo->asistentes as $asistente)
                                         <div class="avatar avatar-sm">
-                                            <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" title="{{$asistente->abogado_apoyo->name}} {{$asistente->abogado_apoyo->apaterno}} {{$asistente->abogado_apoyo->amaterno}}" alt="avatar" src="{{url($asistente->abogado_apoyo->user_image)}}" class="rounded-circle">
                                         </div>
                                     @endforeach
 
@@ -91,6 +101,43 @@
                     </div>
                 </li>
             </ol>
+        @endif
+        @if ($vista_general == "editar_escritura_volumen")
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-start">
+                        <button wire:click='vista_general_modal("general")' class="btn btn-danger me-2">Cancelar</button>
+                        <button wire:click='guardar_escritura_volumen' class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-2">
+                    <label for="">Numero de escritura</label>
+                    <input type="text" class="form-control" wire:model='numero_escritura_general'>
+                    @error('numero_escritura_general')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col-lg-6 mt-2">
+                    <label for="">Volumen</label>
+                    <input type="text" class="form-control" wire:model='volumen_general'>
+                    @error('volumen_general')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col-lg-12 mt-4">
+                    <h4>Folios</h4>
+                </div>
+                <div class="col-lg-6 mt-2">
+                    <label for="">Inicio</label>
+                    <input type="number" class="form-control" wire:model='folio_inicio_general'>
+                </div>
+                <div class="col-lg-6 mt-2">
+                    <label for="">Fin</label>
+                    <input type="number" class="form-control" wire:model='folio_fin_general'>
+                </div>
+            </div>
+        @endif
+
        </div>
    {{-- </div>
 </div> --}}

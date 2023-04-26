@@ -98,14 +98,14 @@
             </div>
         </div>
     </div>
-    @include("livewire.escrituras-resoruces.subir-documentos")
     @include("livewire.escrituras-resoruces.procesos_escritura")
-    @include("livewire.escrituras-resoruces.subir-recibos-pago")
-    @include("livewire.escrituras-resoruces.modal-nuevo-proyecto")
     @include("livewire.escrituras-resoruces.modal-registrar-pago")
     @include("livewire.escrituras-resoruces.modal-registrar-costo")
     @include("livewire.escrituras-resoruces.modal-registrar-egresos")
     @include("livewire.escrituras-resoruces.modal-registrar-factura")
+    @include("livewire.escrituras-resoruces.subir-documentos")
+    @include("livewire.escrituras-resoruces.subir-recibos-pago")
+    @include("livewire.escrituras-resoruces.modal-nuevo-proyecto")
     @include("livewire.escrituras-resoruces.modal-registrar-observacion")
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
 

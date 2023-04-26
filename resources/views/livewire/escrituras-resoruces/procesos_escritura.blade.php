@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade modal-procesos-escritura"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
+<div wire:ignore.self class="modal fade modal-procesos-escritura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -240,10 +240,14 @@
                 <button wire:click='closeProcesos' class="btn btn-outline-danger" data-bs-dismiss="modal">
                     <i class="flaticon-cancel-12"></i> Cerrar
                 </button>
+                <button wire:click='terminarProyecto' class="btn btn-outline-success">
+                    <i class="fa-solid fa-circle-check"></i> Terminar Proyecto
+                </button>
             </div>
         </div>
     </div>
 </div>
+
 <style>
     .snackbar-container{
         z-index: 100000;

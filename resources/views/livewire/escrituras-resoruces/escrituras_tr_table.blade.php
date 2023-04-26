@@ -2,13 +2,13 @@
     <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div class="media">
             <div class="avatar avatar-sm me-2">
-                <span class="avatar-title badge bg-primary rounded-circle">{{substr($escritura->cliente->nombre, 0, 2)}}</span>
+                <span class="avatar-title badge bg-primary rounded-circle">{{$escritura->numero_escritura ?? "S/N"}}</span>
             </div>
             {{-- <div class="avatar me-2">
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold">{{$escritura->id}} {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
+                <h6 class="mb-0 fw-bold">{{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}</h6>
             </div>
         </div>
     </td>
@@ -109,7 +109,6 @@
             <span class="fw-bold">Abogado:</span>
             <p>
                 <span class="mt-2 avatar-chip avatar-dismiss bg-primary me-4 position-relative">
-                    <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{url($escritura->abogado->user_image)}}" alt="Person" width="96" height="96">
                     <span class="text">{{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}</span>
                 </span>
             </p>

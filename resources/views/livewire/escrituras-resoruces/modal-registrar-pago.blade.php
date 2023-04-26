@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade modal-registrar-pagos"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
+<div wire:ignore.self class="modal fade modal-registrar-pagos" style="z-index: 1000000;" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

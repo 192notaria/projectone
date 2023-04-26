@@ -20,4 +20,8 @@ class ProyectosController extends Controller
     public function index2(){
         return view("administracion.escrituras-proceso");
     }
+
+    public function escrituras(){
+        return view("administracion.escrituras");
+    }
 }

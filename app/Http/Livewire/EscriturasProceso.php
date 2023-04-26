@@ -1204,4 +1204,159 @@ public function removerParte($id){
         $templateprocessor->saveAs($filename . '.docx');
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
+
+
+    public $check_cliente = true;
+    public $nombre_quien_recibe;
+    public function crear_recibo_entrega(){
+        if(!$this->check_cliente){
+            $this->validate([
+                    "nombre_quien_recibe" => "required"
+                ],
+                ['nombre_quien_recibe.required' => "Es necesario el nombre de la persona que recibe la escritura"]
+            );
+        }
+
+        $fecha_escrita = Carbon::parse(now())->isoFormat('dddd D \d\e MMMM');
+
+        if($this->check_cliente){
+            $cliente = $this->proyecto_activo['cliente']['nombre'] . " " . $this->proyecto_activo['cliente']['apaterno'] . " " . $this->proyecto_activo['cliente']['amaterno'];
+        }else{
+            $cliente = $this->nombre_quien_recibe;
+        }
+
+        $acto = $this->proyecto_activo['servicio']['nombre'];
+        $dia = date("d", strtotime(now()));
+        $mes = date("m", strtotime(now()));
+        $year = date("Y", strtotime(now()));
+
+        $dia_escrito = Carbon::parse(now())->isoFormat('dddd');
+        $mes_escrito = Carbon::parse(now())->isoFormat('MMMM');
+
+        $new_year = new NumeroALetras();
+        $year_escrito = $new_year->toWords($year);
+
+        $templateprocessor = new TemplateProcessor('word-template/recibo_entrega.docx');
+        $templateprocessor->setValue('fecha_escrita', $fecha_escrita);
+        $templateprocessor->setValue('nombre', $cliente);
+        $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('dia', $dia);
+        $templateprocessor->setValue('dia_escrito', $dia_escrito);
+        $templateprocessor->setValue('mes', $mes);
+        $templateprocessor->setValue('mes_escrito', $mes_escrito);
+        $templateprocessor->setValue('year', $year);
+        $templateprocessor->setValue('year_escrito', $year_escrito);
+
+        $filename = "Recibo de entrega " . $cliente;
+        $templateprocessor->saveAs($filename . '.docx');
+        return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+    }
+
+    public $vista_general = "general";
+
+    public function vista_general_modal($vista){
+        $this->vista_general = $vista;
+    }
+
+    public $proyecto_id_general;
+    public $numero_escritura_general;
+    public $volumen_general;
+    public $folio_inicio_general;
+    public $folio_fin_general;
+
+    public function cambiar_info_proyecto($id){
+        $proyecto = Proyectos::find($id);
+        $this->proyecto_id_general = $proyecto->id;
+        $this->numero_escritura_general = $proyecto->numero_escritura;
+        $this->volumen_general = $proyecto->volumen;
+        $this->folio_inicio_general = $proyecto->folio_inicio;
+        $this->folio_fin_general = $proyecto->folio_fin;
+        return $this->vista_general_modal("editar_escritura_volumen");
+    }
+
+    public function guardar_escritura_volumen(){
+        $this->validate([
+                "numero_escritura_general" => 'required|unique:proyectos,numero_escritura,' . $this->proyecto_id_general,
+                "volumen_general" => "required",
+            ],
+            [
+                "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
+                "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
+                "volumen_general.required" => "Es necesario el volumen para continuar",
+            ]
+        );
+
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $proyecto->numero_escritura = $this->numero_escritura_general;
+        $proyecto->numero_escritura = $this->numero_escritura_general;
+        $proyecto->volumen = $this->volumen_general;
+        $proyecto->folio_inicio = $this->folio_inicio_general;
+        $proyecto->folio_fin = $this->folio_fin_general;
+        $proyecto->save();
+
+        $this->numero_escritura_general = "";
+        $this->volumen_general = "";
+        $this->folio_inicio_general = "";
+        $this->folio_fin_general = "";
+
+        $this->resetProyect();
+        $this->vista_general_modal("general");
+        return $this->dispatchBrowserEvent("alert-success", "Informacion del proyecto registrada");
+    }
+
+    public function terminarProyecto(){
+        if($this->proyecto_activo['numero_escritura'] == '' || !$this->proyecto_activo['numero_escritura']){
+            return $this->dispatchBrowserEvent("dangert-notify", "El proyecto necesita tener numero de escritura");
+        }
+
+        if($this->proyecto_activo['volumen'] == '' || !$this->proyecto_activo['volumen']){
+            return $this->dispatchBrowserEvent("dangert-notify", "El proyecto necesita tener volumen asignado");
+        }
+
+        if(!$this->proyecto_activo['folio_inicio'] || !$this->proyecto_activo['folio_inicio']){
+            return $this->dispatchBrowserEvent("dangert-notify", "El proyecto necesita tener los folios registrados");
+        }
+
+        $subprocesos = 0;
+        foreach ($this->proyecto_activo['servicio']['procesos'] as $key => $value) {
+            $subprocesos = $subprocesos + count($value['subprocesos']);
+        }
+
+        if(count($this->proyecto_activo['avance']) < $subprocesos){
+            return $this->dispatchBrowserEvent("dangert-notify", "Se debe terminar el avance del proyecto al 100%");
+        }
+
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $proyecto->status = 1;
+        $proyecto->save();
+
+        return $this->dispatchBrowserEvent("success-notify", "Exito al terminar proyecto, ahora lo puede ver en el apartado de escrituras");
+    }
+
+    public $egreso_id;
+    public $td_egreso = "info";
+    public $file_egreso;
+
+    public function open_egreso_modal_doc($id){
+        $this->egreso_id = $id;
+        $this->td_egreso = "upload";
+    }
+
+    public function save_egreso_modal_doc(){
+        $this->validate([
+            "file_egreso" => "required|mimes:docx,doc,pdf"
+        ],[
+            "file_egreso.required" => "Es necesario cargar un archivo",
+            "file_egreso.mimes" => "El archivo no es valido, porfavor ingrese un archivo doc, docx o pdf",
+        ]);
+        $egreso = Egresos::find($this->egreso_id);
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos";
+        $store_xml = $this->file_egreso->storeAs(mb_strtolower($path), "egreso_" . $egreso->id . "_" . time() . "." . $this->file_egreso->extension(), 'public');
+        $egreso->path = "storage/" . $store_xml;
+        $egreso->save();
+        $this->td_egreso = "info";
+        $this->egreso_id = "";
+        $this->file_egreso = "";
+        return $this->resetProyect();
+    }
 }

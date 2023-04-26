@@ -188,36 +188,62 @@
                 <h5>Pagos ejercidos</h5>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>Monto</th>
-                            <th>Gastos de gestoria</th>
-                            <th>Impuestos</th>
-                            <th>fecha</th>
-                            <th>Comentarios</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if ($proyecto_activo)
-                            @forelse ($proyecto_activo->egresos_data as $egreso)
-                                <tr>
-                                    <td>{{$egreso->costos->concepto_pago->descripcion}}</td>
-                                    <td>${{number_format($egreso->monto, 2)}}</td>
-                                    <td>${{number_format($egreso->gestoria, 2)}}</td>
-                                    <td>${{number_format($egreso->impuestos, 2)}}</td>
-                                    <td>{{$egreso->fecha_egreso}}</td>
-                                    <td>{{$egreso->comentarios}}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6">Sin registros</td>
-                                </tr>
-                            @endforelse
-                        @endif
-                    </tbody>
-                </table>
+                @if ($td_egreso == "info")
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Monto</th>
+                                <th>Gastos de gestoria</th>
+                                <th>Impuestos</th>
+                                <th>Fecha</th>
+                                <th>Comentarios</th>
+                                <th>Documentos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($proyecto_activo)
+                                @forelse ($proyecto_activo->egresos_data as $egreso)
+                                    <tr>
+                                        <td>{{$egreso->costos->concepto_pago->descripcion}}</td>
+                                        <td>${{number_format($egreso->monto, 2)}}</td>
+                                        <td>${{number_format($egreso->gestoria, 2)}}</td>
+                                        <td>${{number_format($egreso->impuestos, 2)}}</td>
+                                        <td>{{$egreso->fecha_egreso}}</td>
+                                        <td>{{$egreso->comentarios}}</td>
+                                        <td class="text-center">
+                                            @if ($egreso->path)
+                                                <a href="{{url($egreso->path)}}" target="_blank" class="btn btn-primary">
+                                                    <i class="fa-solid fa-file"></i>
+                                                </a>
+                                            @endif
+                                            @if (!$egreso->path)
+                                                <button class="btn btn-danger" wire:click="open_egreso_modal_doc({{$egreso->id}})">
+                                                    <i class="fa-solid fa-file-arrow-up"></i>
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6">Sin registros</td>
+                                    </tr>
+                                @endforelse
+                            @endif
+                        </tbody>
+                    </table>
+                @endif
+                @if ($td_egreso == "upload")
+                    <div class="col-lg-12">
+                        <x-file-pond wire:model='file_egreso' accept="application/pdf,.doc,.docx"></x-file-pond>
+                        @error("file_egreso")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 mt-4">
+                        <button class="btn btn-success" wire:click='save_egreso_modal_doc'>Guardar</button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

@@ -148,4 +148,35 @@ class Contabilidad extends Component
         return $this->cambiar_vista("concepto-pago-form");
     }
 
+    public function guardar_concepto_pago(){
+        $this->validate([
+            "concepto_pago_nombre" => "required",
+            "concepto_pago_categoria_id" => "required",
+            "concepto_pago_precio" => "required",
+            "concepto_pago_impuesto" => "required",
+            "concepto_pago_impuesto_id" => "required",
+        ]);
+
+        if($this->concepto_pago_id){
+            $concepto = Catalogos_conceptos_pago::find($this->concepto_pago_id);
+            $concepto->descripcion = $this->concepto_pago_nombre;
+            $concepto->categoria_gasto_id = $this->concepto_pago_categoria_id;
+            $concepto->precio_sugerido = $this->concepto_pago_precio;
+            $concepto->impuestos = $this->concepto_pago_impuesto;
+            $concepto->tipo_impuesto_id = $this->concepto_pago_impuesto_id;
+            $concepto->save();
+            $this->clearAndReturnToHome();
+            $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
+        }
+
+        $concepto = new Catalogos_conceptos_pago;
+        $concepto->descripcion = $this->concepto_pago_nombre;
+        $concepto->categoria_gasto_id = $this->concepto_pago_categoria_id;
+        $concepto->precio_sugerido = $this->concepto_pago_precio;
+        $concepto->impuestos = $this->concepto_pago_impuesto;
+        $concepto->tipo_impuesto_id = $this->concepto_pago_impuesto_id;
+        $concepto->save();
+        $this->clearAndReturnToHome();
+        $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
+    }
 }

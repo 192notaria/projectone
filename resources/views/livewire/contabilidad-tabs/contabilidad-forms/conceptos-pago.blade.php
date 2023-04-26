@@ -7,7 +7,7 @@
     <div class="card-header">
         <h4>{{$concepto_pago_id ? "Editar Concepto de Pago" : "Registrar Concepto de Pago"}}</h4>
         <button class="btn btn-danger" wire:click='clearAndReturnToHome'>Cancelar</button>
-        <button class="btn btn-success">Guardar</button>
+        <button class="btn btn-success" wire:click='guardar_concepto_pago'>Guardar</button>
     </div>
     <div class="card-body">
         <div class="row">
@@ -26,14 +26,23 @@
                         <option value="{{$cat->id}}">{{$cat->nombre}}</option>
                     @endforeach
                 </select>
+                @error("concepto_pago_categoria_id")
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="col-lg-3 mt-2">
                 <label for="">Precio Sugerido</label>
                 <input type="number" class="form-control" wire:model='concepto_pago_precio'>
+                @error("concepto_pago_precio")
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="col-lg-3 mt-2">
                 <label for="">% Impuesto</label>
                 <input type="number" class="form-control" wire:model='concepto_pago_impuesto'>
+                @error("concepto_pago_impuesto")
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="col-lg-3 mt-2">
                 <label for="">Tipo de impuesto</label>
@@ -43,6 +52,9 @@
                         <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
                     @endforeach
                 </select>
+                @error("concepto_pago_impuesto_id")
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
         </div>
     </div>

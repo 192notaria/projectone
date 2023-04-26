@@ -133,20 +133,6 @@
                                                     <h6 class="mb-0">{{$cliente->razon_social}}</h6>
                                                 @endif
                                                 <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
-                                                @can("crear-proyectos")
-                                                    @if ($cliente->tipo_cliente == "Persona Moral")
-                                                        <button wire:click='nuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4">
-                                                            <i class="fa-solid fa-circle-plus"></i>
-                                                        </button>
-
-                                                    @else
-                                                        @if (isset($cliente->domicilio->id))
-                                                            <button wire:click='nuevoProyecto({{$cliente->id}})' class="btn btn-outline-success mb-2 me-4">
-                                                                <i class="fa-solid fa-circle-plus"></i>
-                                                            </button>
-                                                        @endif
-                                                    @endif
-                                                @endcan
                                                 <p class="mb-0">
                                                     <h5>
                                                         @if ($cliente->genero == "Masculino")
