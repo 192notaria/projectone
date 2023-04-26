@@ -696,6 +696,10 @@ public function removerParte($id){
             "proyecto_abogado" => "required"
         ]);
 
+        if($this->acto_descuento > $this->acto_honorarios){
+            return $this->addError("acto_descuento", "El descuento no puede ser mayor a los honorarios");
+        }
+
         $nuevo_proyecto = new Proyectos;
         $nuevo_proyecto->servicio_id = $this->acto_juridico_id;
         $nuevo_proyecto->cliente_id = $this->proyecto_cliente['id'];
