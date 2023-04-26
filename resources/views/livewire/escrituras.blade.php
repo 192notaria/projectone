@@ -1,4 +1,21 @@
 <div class="card">
+    <style>
+        .modal{
+            backdrop-filter: blur(5px);
+            background-color: #01223770;
+            -webkit-animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <select class="form-select" style="width: 8%;">
@@ -62,7 +79,7 @@
                                     <div class="action-btns">
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             @can('editar-proyectos')
-                                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
+                                                <button wire:click='abrir_escritura({{$escritura->id}})' type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-procesos-escritura">
                                                     <i class="fa-solid fa-magnifying-glass"></i>
                                                 </button>
                                             @endcan
@@ -80,4 +97,5 @@
             </div>
         </div>
     </div>
+    @include("livewire.escritura_resources.escritura-detalles")
 </div>

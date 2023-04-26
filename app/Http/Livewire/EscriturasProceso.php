@@ -1344,11 +1344,12 @@ public function removerParte($id){
 
     public function save_egreso_modal_doc(){
         $this->validate([
-            "file_egreso" => "required|mimes:docx,doc,pdf"
-        ],[
-            "file_egreso.required" => "Es necesario cargar un archivo",
-            "file_egreso.mimes" => "El archivo no es valido, porfavor ingrese un archivo doc, docx o pdf",
+                "file_egreso" => "required|mimes:docx,doc,pdf"
+            ],[
+                "file_egreso.required" => "Es necesario cargar un archivo",
+                "file_egreso.mimes" => "El archivo no es valido, porfavor ingrese un archivo doc, docx o pdf",
         ]);
+
         $egreso = Egresos::find($this->egreso_id);
         $path = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos";
         $store_xml = $this->file_egreso->storeAs(mb_strtolower($path), "egreso_" . $egreso->id . "_" . time() . "." . $this->file_egreso->extension(), 'public');

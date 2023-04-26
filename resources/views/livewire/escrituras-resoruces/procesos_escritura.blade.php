@@ -385,21 +385,6 @@
         })
     })
 
-    window.addEventListener('alert-success', event => {
-        var myAudio= document.createElement('audio')
-        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
-        myAudio.play()
-
-        Snackbar.show({
-            text: event.detail,
-            actionTextColor: '#fff',
-            backgroundColor: '#4261ee',
-            pos: 'bottom-right',
-            duration: 5000,
-            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
-        })
-    })
-
     window.addEventListener('open-side-box', event => {
         document.getElementById("mySidenav").style.width = "250px";
     })
@@ -408,7 +393,6 @@
         document.getElementById("mySidenav").style.width = "250px";
     }
 
-            /* Set the width of the side navigation to 0 */
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
