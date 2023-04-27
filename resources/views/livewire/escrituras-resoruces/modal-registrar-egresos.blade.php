@@ -43,6 +43,26 @@
                         <label for="">Monto Total: </label>
                         <span class="badge badge-success">${{number_format($monto_total, 2)}}</span>
                     </div>
+                    @php
+                        $cantidad_cobrada = 0;
+                        $egresos = 0;
+                        if($proyecto_activo){
+                            foreach ($proyecto_activo->pagos_recibidos as $recibido) {
+                                $cantidad_cobrada = $cantidad_cobrada + $recibido->monto;
+                            }
+                            foreach ($proyecto_activo->egresos_data as $egr) {
+                                $egresos = $egresos + $egr->monto + $egr->gestoria;
+                            }
+                            $cantidad_disponible = $cantidad_cobrada - $egresos;
+                        }
+                    @endphp
+                    @if($proyecto_activo)
+                        @if ($monto_total > $cantidad_disponible)
+                            <span class="text-danger">
+                                No cuenta con el monto total del egreso, esta seguro de continuar??
+                            </span>
+                        @endif
+                    @endif
                     <div class="col-lg-6 mb-2 mt-2">
                         <label for="">Fecha de egreso</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha_egreso'>

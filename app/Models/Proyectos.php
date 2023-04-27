@@ -101,4 +101,5 @@ class Proyectos extends Model
     public function partes(){
         return $this->hasMany(Partes::class, 'proyecto_id');
     }
+
 }

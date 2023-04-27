@@ -43,6 +43,26 @@
                             ${{number_format($costoTotal - $proyecto_activo['descuento'] - $cantidad_cobrada, 2)}}
                         </h3>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <h4>Disponible para egresos:</h4>
+                        <h2>
+                            @php
+                                $egresos = 0;
+                                if($proyecto_activo){
+                                    foreach ($proyecto_activo->egresos_data as $egr) {
+                                        $egresos = $egresos + $egr->monto + $egr->gestoria + $egr->impuestos;
+                                    }
+                                }
+                                $cantidad_disponible = $cantidad_cobrada - $egresos;
+                            @endphp
+                            @if($cantidad_disponible > 0)
+                                <span class="badge badge-success">${{number_format($cantidad_disponible, 2)}}</span>
+                            @endif
+                            @if($cantidad_disponible < 0)
+                                <span class="badge badge-danger">${{number_format($cantidad_disponible, 2)}}</span>
+                            @endif
+                        </h2>
+                    </div>
                 @endif
             </div>
         </div>
@@ -63,7 +83,6 @@
                             <th>Impuestos</th>
                             <th>Costo total</th>
                             <th>Egresos</th>
-                            <th>Facturado</th>
                             <th>Cobrado</th>
                             <th></th>
                         </tr>
@@ -90,21 +109,22 @@
                                         ${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}
                                     </td>
                                     <td>
-                                        ${{number_format($costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}
+                                        <span class="badge badge-primary">${{number_format($costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100, 2)}}</span>
                                     </td>
                                     <td>
-                                        @if ($costo->concepto_pago->categoria_gasto_id == 3)
-                                            -
-                                        @else
-                                            $0.0
+                                        @if (isset($costo->egreso->id))
+                                            ${{number_format($costo->egreso->monto, 2)}}
+                                        @endif
+
+                                        @if (!isset($costo->egreso->id))
+                                            <span class="text-danger">$0.0</span>
                                         @endif
                                     </td>
-                                    <td>$0.0</td>
-                                    @php
+                                    {{-- @php
                                         $suma=0;
-                                    @endphp
+                                    @endphp --}}
                                     <td>
-                                        @foreach ($costo->pagados as $pago)
+                                        {{-- @foreach ($costo->pagados as $pago)
                                             @php
                                                 $suma += $pago->monto;
                                             @endphp
@@ -120,7 +140,14 @@
                                                 text-warning
                                             @endif">
                                             ${{number_format($suma, 2)}}
-                                        </span>
+                                        </span> --}}
+                                        @if (isset($costo->egreso->id))
+                                            <span class="text-success">${{number_format($costo->egreso->monto, 2)}}</span>
+                                        @endif
+
+                                        @if (!isset($costo->egreso->id))
+                                            <span class="text-danger">$0.0</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <button class="btn btn-primary" wire:click='editarCosto({{$costo->id}})'>

@@ -24,4 +24,11 @@ class Costos extends Model
         return $this->hasMany(CostosCobrados::class, 'costo_id');
     }
 
+    public function proyecto(){
+        return $this->belongsTo(Proyectos::class, 'proyecto_id');
+    }
+
+    public function egreso(){
+        return $this->hasOne(Egresos::class, 'costo_id');
+    }
 }

@@ -593,15 +593,21 @@ public function removerParte($id){
             $nuevoEgreso->comentarios = $this->comentarios_egreso ?? null;
             $nuevoEgreso->save();
         }
+
         $this->resetProyect();
         return $this->dispatchBrowserEvent('cerrar-modal-registrar-egresos');
     }
 
     public function abrirModalEgresos(){
         $this->costos_a_egresar = [];
+
+
         foreach($this->pagos_checkbox as $key => $concepto){
             if($concepto){
                 $buscarConcepto = Costos::find($key);
+                if(isset($buscarConcepto->egreso->id)){
+                    return $this->dispatchBrowserEvent('dangert-notify', "Ya existe egreso de un costo seleccionado, porfavor verifique");
+                }
                 array_push($this->costos_a_egresar, $buscarConcepto);
             }
         }
