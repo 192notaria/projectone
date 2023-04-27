@@ -231,7 +231,7 @@ public function registrarParte(){
     $parte->curp = $this->curp_parte;
     $parte->rfc = $this->rfc_parte;
     $parte->tipo = $this->tipo_parte;
-    $parte->porcentaje = $this->porcentaje_copropietario ?? 0;
+    $parte->porcentaje = $this->porcentaje_copropietario == '' ? 0 : $this->porcentaje_copropietario;
     $parte->proyecto_id = $this->proyecto_activo['id'];
     $parte->cliente_id = $this->clienteParte['id'];
     $parte->save();
@@ -723,7 +723,7 @@ public function removerParte($id){
         if($this->acto_honorarios && $this->acto_honorarios > 0){
             $findConcepto = Catalogos_conceptos_pago::find(22);
             $nuevo_costo = new Costos;
-            $nuevo_costo->concepto_id = 22;
+            $nuevo_costo->concepto_id = 35;
             $nuevo_costo->subtotal = $this->acto_honorarios;
             $nuevo_costo->impuestos = $findConcepto->impuestos;
             $nuevo_costo->proyecto_id = $nuevo_proyecto->id;

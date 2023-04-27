@@ -161,7 +161,6 @@
                     </li>
                 </ul>
             </li>
-
             <li class="menu {{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
                 <a href="#contabilidad" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
