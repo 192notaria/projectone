@@ -78,8 +78,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-outline-success">Guardar</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
