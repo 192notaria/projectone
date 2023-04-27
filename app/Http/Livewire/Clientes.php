@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Clientes as ModelClientes;
 use App\Models\Colonias;
+use App\Models\DocumentosClientes;
 use App\Models\DomiciliosClientes;
 use App\Models\Municipios;
 use App\Models\Ocupaciones;
@@ -12,10 +13,11 @@ use App\Models\Servicios;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class Clientes extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $cliente_institucion = false;
     public $search;
@@ -63,7 +65,8 @@ class Clientes extends Component
             "abogados" => $this->buscarAbogado == "" ? [] : User::where('name', 'LIKE', '%' . $this->buscarAbogado . '%')
                 ->whereHas("roles", function($data){
                     $data->where('name', "ABOGADO");
-                })->get()
+                })->get(),
+            "cliente_activo" => $this->id_cliente ? ModelClientes::find($this->id_cliente) : "",
         ]);
     }
 
@@ -452,5 +455,47 @@ class Clientes extends Component
         $this->proyectos_escrituras = Servicios::orderBy("nombre","ASC")->get();
         return $this->dispatchBrowserEvent('abrir-modal-nuevo-proyecto-clientes');
     }
+
+    public function open_upload_docs($id){
+        $this->id_cliente = $id;
+        return $this->dispatchBrowserEvent('open-upload-general-docs');
+    }
+
+    public $vista = "table";
+    public $cliente_doc;
+    public $tipo_doc = '';
+    public function upload_doc_view($view){
+        $this->vista = $view;
+    }
+
+    public function upload_doc(){
+        $this->validate([
+                "tipo_doc" => "required",
+                "cliente_doc" => "required",
+            ],
+            [
+                "tipo_doc.required" => "Es necesario seleccionar el tipo de documento",
+                "cliente_doc.required" => "Es necesario importar el documento",
+            ]
+        );
+
+        $doc = new DocumentosClientes;
+
+        $cliente_activo = ModelClientes::find($this->id_cliente);
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $cliente_activo->nombre) . "_" . str_replace(" ", "_", $cliente_activo->apaterno) . "_" . str_replace(" ", "_", $cliente_activo->amaterno) . "/documentos";
+        $store = $this->cliente_doc->storeAs(mb_strtolower($path), $this->tipo_doc . "_" . time() . "." . $this->cliente_doc->extension(), 'public');
+        $doc->nombre = $this->cliente_doc->getClientOriginalName();
+        $doc->tipo = $this->tipo_doc;
+        $doc->path = "storage/" . $store;
+        $doc->cliente_id = $this->id_cliente;
+        $doc->save();
+
+        $this->vista = "table";
+        $this->cliente_doc = "";
+        $this->tipo_doc = "";
+        return $this->dispatchBrowserEvent("success-notify", "Documento importado con exito");
+
+    }
+
 
 }

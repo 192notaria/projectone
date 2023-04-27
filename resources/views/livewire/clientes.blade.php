@@ -267,6 +267,11 @@
                                                 @can('borrar-clientes')
                                                     <button wire:click='SelectBorrarCliente({{$cliente->id}})' data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                                 @endcan
+                                                @can('subir-documentos-clientes')
+                                                    <button  type="button" class="btn btn-outline-primary" wire:click='open_upload_docs({{$cliente->id}})'>
+                                                        <i class="fa-solid fa-file"></i>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>
@@ -283,6 +288,7 @@
             </div>
 
             @include('livewire.modals.nuevoCliente')
+            @include('livewire.modals-ignore-self.upload-generales-documents')
             @include('livewire.modals.nuevo-cliente')
             @include('livewire.modals.domicilioCliente')
             {{-- @include('livewire.modals.nuevProyectoCliente') --}}

@@ -34,7 +34,7 @@ class Clientes extends Model
         return $this->hasOne(Ocupaciones::class, 'id', 'ocupacion');
     }
 
-    public function documentosGenerales(){
-        return $this->hasMany(Documentos::class, 'cliente_id')->whereNull('proyecto_id');
+    public function documentos(){
+        return $this->hasMany(DocumentosClientes::class, 'cliente_id');
     }
 }
