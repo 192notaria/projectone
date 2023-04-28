@@ -9,7 +9,7 @@
             </div>
             <div class="modal-footer">
                 <button wire:click='borrar_costo' class="btn btn-outline-primary">Continuar</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button wire:click='clear_inputs' class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>

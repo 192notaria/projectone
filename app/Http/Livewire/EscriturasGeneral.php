@@ -146,6 +146,14 @@ class EscriturasGeneral extends Component
         $this->monto_costo = '';
         $this->gestoria_costo = '';
         $this->impuestos_costo = '';
+        $this->cobro_id = '';
+        $this->fecha_cobro = '';
+        $this->nombre_cliente_cobro = '';
+        $this->monto_cobro = '';
+        $this->metodo_pago_id = '';
+        $this->cuenta_id = '';
+        $this->observaciones_cobro = '';
+
     }
 
     public function registrar_costo(){

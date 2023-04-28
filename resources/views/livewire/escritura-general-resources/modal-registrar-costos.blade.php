@@ -34,7 +34,7 @@
             </div>
             <div class="modal-footer">
                 <button wire:click='registrar_costo' class="btn btn-outline-success">Guardar</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button wire:click='clear_inputs' class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

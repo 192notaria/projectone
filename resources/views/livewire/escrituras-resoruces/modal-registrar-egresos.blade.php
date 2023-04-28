@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-lg-12 mb-2 mt-2">
                         <label for="">Monto Total: </label>
-                        <span class="badge badge-success">${{number_format($monto_total, 2)}}</span>
+                        <span class="badge badge-success">${{number_format($monto_total ?? 0, 2)}}</span>
                     </div>
                     @php
                         $cantidad_cobrada = 0;
@@ -53,7 +53,7 @@
                             $cantidad_disponible = $cantidad_cobrada - $egresos;
                         }
                     @endphp
-                    @if($proyecto_activo)
+                    @if($proyecto_activo && isset($monto_total))
                         @if ($monto_total > $cantidad_disponible)
                             <span class="text-danger">
                                 No cuenta con el monto total del egreso, esta seguro de continuar??
