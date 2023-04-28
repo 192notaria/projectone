@@ -17,6 +17,7 @@ use Livewire\WithPagination;
 class EscriturasGeneral extends Component
 {
     use WithPagination;
+    public $cantidad_escrituras = 10;
 
     public $escritura_id;
     public $egreso_data = "";
@@ -45,7 +46,7 @@ class EscriturasGeneral extends Component
     public function render()
     {
         return view('livewire.escrituras-general', [
-            "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")->paginate(10),
+            "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")->paginate($this->cantidad_escrituras),
             "escritura_activa" => $this->escritura_id != '' ? Proyectos::find($this->escritura_id) : "",
             "metodos_pago" => CatalogoMetodosPago::orderBy("nombre", "ASC")->get(),
             "abogados" => User::orderBy("name", "ASC")
