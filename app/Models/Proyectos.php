@@ -66,8 +66,7 @@ class Proyectos extends Model
     }
 
     public function costos_proyecto(){
-        return $this->hasMany(Costos::class, 'proyecto_id')
-            ->orderBy('concepto_id', 'DESC');
+        return $this->hasMany(Costos::class, 'proyecto_id');
     }
 
     public function pagos_recibidos(){
@@ -100,6 +99,40 @@ class Proyectos extends Model
 
     public function partes(){
         return $this->hasMany(Partes::class, 'proyecto_id');
+    }
+
+    public function costo_total($id){
+        $total = 0;
+        $costos =  Costos::where("proyecto_id", $id)->get();
+        foreach ($costos as $key => $value) {
+            $subtotal = $value->subtotal;
+            $gestoria = $value->gestoria;
+            $impuesto = $value->subtotal * $value->impuestos / 100;
+            $total = $total + $subtotal + $gestoria + $impuesto;
+        }
+        return $total;
+    }
+
+    public function pagos_recibidos_total($id){
+        $total = 0;
+        $costos =  Cobros::where("proyecto_id", $id)->get();
+        foreach ($costos as $key => $value) {
+            $monto = $value->monto;
+            $total = $total + $monto;
+        }
+        return $total;
+    }
+
+    public function egresos_registrados($id){
+        $total = 0;
+        $costos =  Egresos::where("proyecto_id", $id)->get();
+        foreach ($costos as $key => $value) {
+            $monto = $value->monto;
+            $gestoria = $value->gestoria;
+            $impuestos = $value->impuestos;
+            $total = $total + $monto + $gestoria + $impuestos;
+        }
+        return $total;
     }
 
 }

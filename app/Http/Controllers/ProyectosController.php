@@ -24,4 +24,8 @@ class ProyectosController extends Controller
     public function escrituras(){
         return view("administracion.escrituras");
     }
+
+    public function escrituras_general(){
+        return view("administracion.escrituras-general");
+    }
 }

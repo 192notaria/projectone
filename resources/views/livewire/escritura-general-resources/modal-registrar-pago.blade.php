@@ -6,44 +6,6 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-12 mb-2 mt-2 text-center">
-                        @php
-                            $costoTotal = 0;
-                            if($proyecto_activo){
-                                foreach ($proyecto_activo->costos_proyecto as $costo) {
-                                    $costoTotal = $costoTotal + $costo->gestoria + $costo->subtotal + $costo->subtotal * $costo->impuestos / 100;
-                                }
-                            }
-                        @endphp
-                        @if (isset($proyecto_activo['descuento']))
-                            <div class="d-flex justify-content-between">
-                                <h4>Costo Total:</h4>
-                                <h4>${{number_format($costoTotal, 2)}}</h4>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <h4>Comisión:</h4>
-                                <h4>${{number_format($proyecto_activo['descuento'], 2) ?? ""}}</h4>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <h4>Cobrado:</h4>
-                                @php
-                                    $cantidad_cobrada = 0;
-                                    if($proyecto_activo){
-                                        foreach ($proyecto_activo->pagos_recibidos as $recibido) {
-                                            $cantidad_cobrada = $cantidad_cobrada + $recibido->monto;
-                                        }
-                                    }
-                                @endphp
-                                <h4>${{number_format($cantidad_cobrada, 2) ?? ""}}</h4>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <h2>Total a cobrar:</h2>
-                                <h3>
-                                    ${{number_format($costoTotal - $proyecto_activo['descuento'] - $cantidad_cobrada, 2)}}
-                                </h3>
-                            </div>
-                        @endif
-                    </div>
                     <div class="col-lg-12 mb-2 mt-2">
                         <label for="">Fecha de pago</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha_cobro'>
@@ -55,7 +17,7 @@
                     <div class="col-lg-6 mb-2 mt-2">
                         <label for="">Monto</label>
                         <input type="number" class="form-control" placeholder="0.0" wire:model='monto_cobro'>
-                        @error('monto-no-valido')
+                        @error('monto_mayor')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
@@ -84,7 +46,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='registrarPago' class="btn btn-outline-success">Guardar</button>
+                <button wire:click='registrar_pago' class="btn btn-outline-success">Guardar</button>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>

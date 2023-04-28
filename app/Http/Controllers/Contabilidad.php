@@ -9,4 +9,8 @@ class Contabilidad extends Controller
     public function index(){
         return view("contabilidad.general");
     }
+
+    public function pagos(){
+        return view("contabilidad.pagos");
+    }
 }

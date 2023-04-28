@@ -18,9 +18,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $monto_total = 0;
-                                @endphp
                                 @forelse ($costos_a_egresar as $costos)
                                     <tr wire:ignore.self>
                                         <td>{{$costos['concepto_pago']['descripcion']}}</td>

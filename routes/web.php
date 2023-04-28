@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Route::get('/administracion/escrituras_proceso', [ProyectosController::class, 'index'])->name('escrituras-proceso');
     Route::get('/administracion/escrituras_proceso', [ProyectosController::class, 'index2'])->name('escrituras-proceso');
     Route::get('/administracion/escrituras', [ProyectosController::class, 'escrituras'])->name('escrituras-escrituras');
+    Route::get('/administracion/escrituras_general', [ProyectosController::class, 'escrituras_general'])->name('escrituras-general');
 
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
@@ -79,5 +80,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/usuarios/getGuardias', [GuardiasController::class, 'getGuardias'])->name('usuarios.getGuardias');
 
     Route::get('/contabilidad', [Contabilidad::class, 'index'])->name('contabilidad.index');
+    Route::get('/contabilidad/pagos', [Contabilidad::class, 'pagos'])->name('contabilidad.pagos');
 });
 
