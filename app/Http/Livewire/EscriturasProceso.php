@@ -1370,4 +1370,19 @@ public function removerParte($id){
         $this->file_egreso = "";
         return $this->resetProyect();
     }
+
+    public function open_modal_borrar($id){
+        $this->proyecto_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-borrar-proyecto");
+    }
+
+    public function borrar_proyecto(){
+        $apoyos = ApoyoProyectos::where("proyecto_id", $this->proyecto_id)->get();
+        foreach ($apoyos as $key => $value) {
+            $value->delete();
+        }
+        Proyectos::find($this->proyecto_id)->delete();
+        $this->proyecto_id = "";
+        return $this->dispatchBrowserEvent("cerrar-modal-borrar-proyecto");
+    }
 }
