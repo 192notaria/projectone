@@ -139,7 +139,7 @@ class Contabilidad extends Component
 
     public function editarConceptoPago($id){
         $concepto = Catalogos_conceptos_pago::find($id);
-        $this->concepto_pago_id = $concepto->id;
+        $this->concepto_pago_id = $id;
         $this->concepto_pago_nombre = $concepto->descripcion;
         $this->concepto_pago_categoria_id = $concepto->categoria_gasto_id;
         $this->concepto_pago_precio = $concepto->precio_sugerido;
@@ -165,8 +165,9 @@ class Contabilidad extends Component
             $concepto->impuestos = $this->concepto_pago_impuesto;
             $concepto->tipo_impuesto_id = $this->concepto_pago_impuesto_id;
             $concepto->save();
+
             $this->clearAndReturnToHome();
-            $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
+            return $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
         }
 
         $concepto = new Catalogos_conceptos_pago;
@@ -177,6 +178,6 @@ class Contabilidad extends Component
         $concepto->tipo_impuesto_id = $this->concepto_pago_impuesto_id;
         $concepto->save();
         $this->clearAndReturnToHome();
-        $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
+        return $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
     }
 }
