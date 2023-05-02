@@ -320,8 +320,10 @@ class Guardias extends Component
         $guardia->user_id = $this->usuario_id;
         $guardia->solicitud_user_id = null;
         $guardia->save();
-
         $this->calendario = true;
+
+        $this->date_guardia = '';
+        $this->usuario_id = '';
         // return redirect(request()->header('Referer'));
         return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
