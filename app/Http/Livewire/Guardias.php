@@ -27,6 +27,8 @@ class Guardias extends Component
     public $dias_por_persona;
     public $mes_elejido;
 
+    public $calendario = true;
+
     protected $listeners = [
         'modalcambiodeguardia' => 'cambiarguardia',
         'cambiodeguardia' => 'cambiodeguardia',
@@ -311,14 +313,17 @@ class Guardias extends Component
             "date_guardia.required" => "Es necesario la fecha de la guardia",
             "usuario_id.required" => "Es necesario el usuario que dara la guardia",
         ]);
+        $this->calendario = false;
 
         $guardia = new ModelsGuardias;
         $guardia->fecha_guardia = $this->date_guardia;
         $guardia->user_id = $this->usuario_id;
         $guardia->solicitud_user_id = null;
         $guardia->save();
-        return redirect(request()->header('Referer'));
-        // return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
+
+        $this->calendario = true;
+        // return redirect(request()->header('Referer'));
+        return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
 
 }
