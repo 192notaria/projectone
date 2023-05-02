@@ -15,7 +15,7 @@
         <div class="row">
             @if (!$subproceso_activo->avance($proyecto_id, $proceso_activo))
                 <div class="col-lg-12 mt-2">
-                    <x-file-pond wire:loading.attr="disabled" multiple wire:model='documents_to_upload' name='documents_to_upload' accept='application/pdf, application/msword'
+                    <x-file-pond wire:loading.attr="disabled" multiple wire:model='documents_to_upload' name='documents_to_upload'
                         :options="['labelIdle' => 'Cargar archivos... o arrastra y suelta']">
                     </x-file-pond>
                 </div>
