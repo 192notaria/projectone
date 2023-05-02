@@ -30,11 +30,14 @@ class Guardias extends Component
     protected $listeners = [
         'modalcambiodeguardia' => 'cambiarguardia',
         'cambiodeguardia' => 'cambiodeguardia',
+        'registrar_guardia_event' => 'abrir_registrar_guardia',
     ];
 
     public function render()
     {
-        return view('livewire.guardias');
+        return view('livewire.guardias',[
+            "usuarios" => User::orderBy("name", "ASC")->get()
+        ]);
     }
 
     public function cambiarguardia($nombre, $id, $fecha){
@@ -288,4 +291,31 @@ class Guardias extends Component
         }
         return $this->dispatchBrowserEvent("cerrar-modal-guardias","Se ha registrado la guardia con exito");
     }
+
+    public $date_guardia;
+    public $usuario_id = '';
+
+    public function abrir_registrar_guardia($date){
+        $date = date("Y-m-d", strtotime($date['start']));
+        $this->date_guardia = $date;
+        return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
+    }
+
+    public function registrar_guardia(){
+        $this->validate([
+            "date_guardia" => "required",
+            "usuario_id" => "required",
+        ],[
+            "date_guardia.required" => "Es necesario la fecha de la guardia",
+            "usuario_id.required" => "Es necesario el usuario que dara la guardia",
+        ]);
+
+        $guardia = new ModelsGuardias;
+        $guardia->fecha_guardia = $this->date_guardia;
+        $guardia->user_id = $this->usuario_id;
+        $guardia->solicitud_user_id = null;
+        $guardia->save();
+        return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
+    }
+
 }

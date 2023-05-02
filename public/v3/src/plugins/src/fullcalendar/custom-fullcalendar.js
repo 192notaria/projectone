@@ -171,8 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
               'event-fc-color fc-bg-' + getColorValue
             ];
         },
-
         eventClick: calendarEventClick,
+        select: function (start, end, jsEvent, view) {
+            console.log(start)
+            Livewire.emit("registrar_guardia_event", start)
+        }
         // windowResize: function(arg) {
         //     if (checkWidowWidth()) {
         //         calendar.changeView('listWeek');
@@ -185,15 +188,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
-
     // Update Event
     getModalUpdateBtnEl.addEventListener('click', function() {
         var getPublicID = this.dataset.fcEventPublicId;
         var getTitleUpdatedValue = getModalTitleEl.value;
         var getEvent = calendar.getEventById(getPublicID);
         var getModalUpdatedCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-
         var getModalUpdatedCheckedRadioBtnValue = (getModalUpdatedCheckedRadioBtnEl !== null) ? getModalUpdatedCheckedRadioBtnEl.value : '';
 
         getEvent.setProp('title', getTitleUpdatedValue);

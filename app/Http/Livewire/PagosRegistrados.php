@@ -12,7 +12,7 @@ class PagosRegistrados extends Component
     public function render()
     {
         return view('livewire.pagos-registrados',[
-            "pagos_registrados" => Cobros::orderBy("fecha", "ASC")->paginate(10)
+            "pagos_registrados" => Cobros::orderBy("fecha", "DESC")->paginate(10)
         ]);
     }
 }

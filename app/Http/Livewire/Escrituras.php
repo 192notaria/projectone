@@ -274,4 +274,12 @@ class Escrituras extends Component
         $this->pdf_factura = "";
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-facturas", "Factura registrada");
     }
+
+    public $text_file;
+    public function preview_escritura(){
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load("word-template/doc.docx", 'Word2007');
+        dd($phpWord);
+        $this->text_file = $phpWord;
+        return $this->dispatchBrowserEvent("abrir-modal-preview-escritura");
+    }
 }

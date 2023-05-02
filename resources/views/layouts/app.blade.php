@@ -30,6 +30,7 @@
         <link href="{{ url('v3/src/assets/css/light/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/assets/css/dark/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('css/audioplayer.css') }}" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/decoupled-document/ckeditor.js"></script>
 
         @yield('links-content')
         @livewireStyles()
@@ -94,6 +95,7 @@
                     }
                 });
             </script>
+
             <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
             <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
@@ -108,6 +110,7 @@
 
             <!-- END GLOBAL MANDATORY SCRIPTS -->
             <script src="{{ url('js/audioplayer.js') }}"></script>
+
 
             @yield('scripts-content')
             <script>

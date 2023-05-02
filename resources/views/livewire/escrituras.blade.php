@@ -86,6 +86,9 @@
                                             @can('borrar-proyectos')
                                                 <button data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                             @endcan
+                                            <button wire:click='preview_escritura' type="button" class="btn btn-outline-warning">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -98,4 +101,5 @@
         </div>
     </div>
     @include("livewire.escritura_resources.escritura-detalles")
+    @include("livewire.escritura_resources.preview_escritura_modal")
 </div>

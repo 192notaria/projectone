@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Date variable
     var newDate = new Date();
 
-    /** 
-     * 
-     * @getDynamicMonth() fn. is used to validate 2 digit number and act accordingly 
-     * 
-    */    
+    /**
+     *
+     * @getDynamicMonth() fn. is used to validate 2 digit number and act accordingly
+     *
+    */
     function getDynamicMonth() {
         getMonthValue = newDate.getMonth();
         if (getMonthValue < 10) {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
-    
+
     var calendarHeaderToolbar = {
         left: 'prev next addEventButton',
         center: 'title',
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: { calendar: 'Important' }
         }
     ]
-    
+
     // Calendar Select fn.
     var calendarSelect = function(info) {
         getModalAddBtnEl.style.display = 'block';
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var yyyy = currentDate.getFullYear();
         var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
         getModalAddBtnEl.style.display = 'block';
-        getModalUpdateBtnEl.style.display = 'none';        
+        getModalUpdateBtnEl.style.display = 'none';
         myModal.show();
         getModalStartDateEl.value = combineDate;
     }
@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (eventObj.url) {
           window.open(eventObj.url);
-  
+
           info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
         } else {
-            var getModalEventId = eventObj._def.publicId; 
+            var getModalEventId = eventObj._def.publicId;
             var getModalEventLevel = eventObj._def.extendedProps['calendar'];
             var getModalCheckedRadioBtnEl = document.querySelector(`input[value="${getModalEventLevel}"]`);
 
@@ -160,9 +160,9 @@ document.addEventListener('DOMContentLoaded', function() {
             myModal.show();
         }
     }
-    
 
-    // Activate Calender    
+
+    // Activate Calender
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         height: checkWidowWidth() ? 900 : 1052,
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
               'event-fc-color fc-bg-' + getColorValue
             ];
         },
-        
+
         eventClick: calendarEventClick,
         windowResize: function(arg) {
             if (checkWidowWidth()) {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     getModalAddBtnEl.addEventListener('click', function() {
 
         var getModalCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
-        
+
         var getTitleValue = getModalTitleEl.value;
         var setModalStartDateValue = getModalStartDateEl.value;
         var setModalEndDateValue = getModalEndDateEl.value;
@@ -232,15 +232,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var getModalUpdatedCheckedRadioBtnEl = document.querySelector('input[name="event-level"]:checked');
 
         var getModalUpdatedCheckedRadioBtnValue = (getModalUpdatedCheckedRadioBtnEl !== null) ? getModalUpdatedCheckedRadioBtnEl.value : '';
-        
+
         getEvent.setProp('title', getTitleUpdatedValue);
         getEvent.setExtendedProp('calendar', getModalUpdatedCheckedRadioBtnValue);
         myModal.hide()
     })
-    
+
     // Calendar Renderation
     calendar.render();
-    
+
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
     var modalToggle = document.querySelector('.fc-addEventButton-button ')
 

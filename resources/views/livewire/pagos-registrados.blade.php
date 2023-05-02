@@ -35,7 +35,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Fecha de pago</th>
-                            <th scope="col">No. Acta</th>
+                            <th scope="col">No. Escritura</th>
                             <th scope="col">Forma de pago</th>
                             <th scope="col">Subtotal</th>
                             <th scope="col">IVA</th>
@@ -54,20 +54,36 @@
                     <tbody>
                         @forelse ($pagos_registrados as $pago)
                             <tr>
-                                <td>{{$pago->fecha}}</td>
+                                <td>
+                                    {{$pago->fecha}}
+                                </td>
+                                <td>
+                                    {{$pago->proyecto->numero_escritura ?? "S/N"}}
+                                </td>
+                                <td>
+                                    {{$pago->metodo_pago->nombre ?? "S/n"}}
+                                </td>
+                                <td>
+                                    ${{number_format($pago->monto, 2) ?? "0"}}
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                                <td>
+                                    {{$pago->proyecto->servicio->nombre ?? ""}}
+                                </td>
+                                <td>
+                                    {{$pago->proyecto->cliente->nombre ?? ""}} {{$pago->proyecto->cliente->apaterno ?? ""}} {{$pago->proyecto->cliente->amaterno ?? ""}}
+                                </td>
+                                <td>
+                                    N/A
+                                </td>
+                                <td>
+                                    {{$pago->proyecto->cliente->rfc ?? ""}}
+                                </td>
                             </tr>
                             @empty
                             <tr>

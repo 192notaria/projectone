@@ -94,5 +94,5 @@
             </div>
         </div>
     </div>
-
+    @include("livewire.guardias-resources.modal-new-guardia")
 </div>
