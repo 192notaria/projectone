@@ -43,20 +43,24 @@ class Guardias extends Component
     }
 
     public function cambiarguardia($nombre, $id, $fecha){
-        $this->guardia_id = $id;
-        $this->fecha_cambio = date("Y-m-d", strtotime($fecha));
-        $buscarguardia = ModelsGuardias::find($id);
-        if($buscarguardia->user_id != auth()->user()->id){
-            $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
-            return $this->nombre_usuario_guardia = $nombre;
-        }
+        // $this->guardia_id = $id;
+        // $this->fecha_cambio = date("Y-m-d", strtotime($fecha));
+        $guardia = ModelsGuardias::find($id);
+        $this->guardia_id = $guardia->id;
+        $this->date_guardia = $guardia->fecha_guardia;
+        $this->usuario_id = $guardia->user_id;
 
-        if($buscarguardia->user_id == auth()->user()->id && $buscarguardia->solicitud_user_id){
-            $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
-        }
+        // if($buscarguardia->user_id != auth()->user()->id){
+        //     $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
+        //     return $this->nombre_usuario_guardia = $nombre;
+        // }
 
-        $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
-        return $this->nombre_usuario_guardia = "";
+        // if($buscarguardia->user_id == auth()->user()->id && $buscarguardia->solicitud_user_id){
+        //     $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
+        // }
+
+        // $this->mensaje = "No hay ninguna solicitud para cambio de guardia";
+        // return $this->nombre_usuario_guardia = "";
     }
 
     public function cambiodeguardia(){

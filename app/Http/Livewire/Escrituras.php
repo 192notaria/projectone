@@ -277,9 +277,7 @@ class Escrituras extends Component
 
     public $text_file;
     public function preview_escritura(){
-        $phpWord = \PhpOffice\PhpWord\IOFactory::load("word-template/doc.docx", 'Word2007');
-        dd($phpWord);
-        $this->text_file = $phpWord;
-        return $this->dispatchBrowserEvent("abrir-modal-preview-escritura");
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load("word-template/doc.docx");
+        dd($phpWord->getDocInfo()->getTitle());
     }
 }
