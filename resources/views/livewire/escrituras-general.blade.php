@@ -72,10 +72,18 @@
                             <th scope="col">Acto</th>
                             <th scope="col">Cliente/Abogado</th>
                             <th scope="col">Fecha de creacion</th>
-                            <th scope="col">Costo total</th>
-                            <th scope="col">Pagado</th>
-                            <th scope="col">Egresos</th>
-                            <th scope="col">Pendiente de pago</th>
+                            @can('ver-costo-total')
+                                <th scope="col">Costo total</th>
+                            @endcan
+                            @can('ver-pagos-recibidos')
+                                <th scope="col">Pagado</th>
+                            @endcan
+                            @can('ver-egresos-registrados')
+                                <th scope="col">Egresos</th>
+                            @endcan
+                            @can('ver-pendiente-pago')
+                                <th scope="col">Pendiente de pago</th>
+                            @endcan
                             <th scope="col"></th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
@@ -128,7 +136,7 @@
                                         </span>
                                     </td>
                                 @endcan
-                                @can('ver-costo-total')
+                                @can('ver-pendiente-pago')
                                     <td>
                                         <span class="badge badge-danger">
                                             ${{number_format($escritura->costo_total($escritura->id) - $escritura->pagos_recibidos_total($escritura->id), 2)}}
