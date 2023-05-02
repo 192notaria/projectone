@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }
+
     var calendarEventsList = [
         {
             id: 1,
