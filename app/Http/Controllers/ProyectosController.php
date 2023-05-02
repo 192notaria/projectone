@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class ProyectosController extends Controller
 {
     function __construct(){
+        $this->middleware('permission:ver-pagos-escritura-page',['only'=>['escrituras_general']]);
         $this->middleware('permission:ver-proyectos|crear-proyectos|editar-proyectos|borrar-proyectos',['only'=>['index']]);
         $this->middleware('permission:crear-proyectos',['only' => ['create', 'store']]);
         $this->middleware('permission:editar-proyectos',['only' => ['edit', 'update']]);

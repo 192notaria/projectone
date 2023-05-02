@@ -62,9 +62,11 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
-                    <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
-                        <a href="{{route("escrituras-general")}}"> Pagos de Escrituras</a>
-                    </li>
+                    @can('ver-pagos-escritura-page')
+                        <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
+                            <a href="{{route("escrituras-general")}}"> Pagos de Escrituras</a>
+                        </li>
+                    @endcan
                     <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
                         <a href="{{route("escrituras-escrituras")}}"> Escrituras terminadas</a>
                     </li>
