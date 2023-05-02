@@ -1,17 +1,10 @@
 <div class="card">
     <div class="card-header">
         <div style="display:flex; justify-content: space-between;">
-            <div class="flex-item">
-                @can("crear-proyectos")
-                    <button wire:click='modalNuevoProyecto' style="height: 100%;" type="button" class="btn btn-outline-primary me-2">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                @endcan
-            </div>
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:end;">
-                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-                    <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
+                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
+                    <select style="width: 10%;" wire:model='cantidadEscrituras' class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -24,6 +17,7 @@
     </div>
     <div class="card-body">
         <div class="row">
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -70,6 +64,7 @@
                 }
 
             </style>
+
             <div class="col-lg-12 table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -95,7 +90,11 @@
                                         </div>
                                         <div class="media-body align-self-center">
                                             <h6 class="mb-0 fw-bold">
-                                                <a href="#" wire:click='open_modal({{$escritura->id}})'>
+                                                <a href="#"
+                                                @can('ver-detalles-pago-escritura')
+                                                    wire:click='open_modal({{$escritura->id}})'
+                                                @endcan
+                                                >
                                                     {{$escritura->servicio->nombre}}
                                                 </a>
                                             </h6>
@@ -108,31 +107,41 @@
                                     <span class="fw-bold">Abogado: </span> {{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}
                                 </td>
                                 <td>{{$escritura->created_at}}</td>
-                                <td>
-                                    <span class="badge badge-primary">
-                                        ${{number_format($escritura->costo_total($escritura->id), 2)}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">
-                                        ${{number_format($escritura->pagos_recibidos_total($escritura->id), 2)}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-warning">
-                                        ${{number_format($escritura->egresos_registrados($escritura->id), 2)}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-danger">
-                                        ${{number_format($escritura->costo_total($escritura->id) - $escritura->pagos_recibidos_total($escritura->id), 2)}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary" wire:click='open_modal({{$escritura->id}})'>
-                                        <i class="fa-solid fa-magnifying-glass-dollar"></i>
-                                    </button>
-                                </td>
+                                @can('ver-costo-total')
+                                    <td>
+                                        <span class="badge badge-primary">
+                                            ${{number_format($escritura->costo_total($escritura->id), 2)}}
+                                        </span>
+                                    </td>
+                                @endcan
+                                @can('ver-pagos-recibidos')
+                                    <td>
+                                        <span class="badge badge-success">
+                                            ${{number_format($escritura->pagos_recibidos_total($escritura->id), 2)}}
+                                        </span>
+                                    </td>
+                                @endcan
+                                @can('ver-egresos-registrados')
+                                    <td>
+                                        <span class="badge badge-warning">
+                                            ${{number_format($escritura->egresos_registrados($escritura->id), 2)}}
+                                        </span>
+                                    </td>
+                                @endcan
+                                @can('ver-costo-total')
+                                    <td>
+                                        <span class="badge badge-danger">
+                                            ${{number_format($escritura->costo_total($escritura->id) - $escritura->pagos_recibidos_total($escritura->id), 2)}}
+                                        </span>
+                                    </td>
+                                @endcan
+                                @can('ver-detalles-pago-escritura')
+                                    <td>
+                                        <button class="btn btn-primary" wire:click='open_modal({{$escritura->id}})'>
+                                            <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                                        </button>
+                                    </td>
+                                @endcan
                             </tr>
                         @empty
                             <tr>
@@ -151,6 +160,8 @@
     @include("livewire.escritura-general-resources.modal-registrar-egreso")
     @include("livewire.escritura-general-resources.modal-registrar-costos")
     @include("livewire.escritura-general-resources.modal-borrar-costo")
+    @include("livewire.escritura-general-resources.modal-borrar-egreso")
     @include("livewire.escritura-general-resources.modal-borrar-pago")
     @include("livewire.escritura-general-resources.modal-registrar-pago")
+    @include("livewire.escritura-general-resources.modal-recibo-pago-egreso")
 </div>

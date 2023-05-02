@@ -13,19 +13,26 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class EscriturasGeneral extends Component
 {
-    use WithPagination;
-    public $cantidad_escrituras = 10;
+    use WithPagination, WithFileUploads;
+    public $cantidadEscrituras = 10;
+    public $searchEscritura;
+    public $search;
 
     public $escritura_id;
     public $egreso_data = "";
 
     // EGRESO
+    public $egreso_id;
     public $responsable_pago = "";
     public $fecha_egreso;
     public $comentarios_egreso;
+
+    public $fecha_pago_egreso;
+    public $recibo_egreso;
 
     // COSTOS
     public $costo_id = '';
@@ -46,7 +53,24 @@ class EscriturasGeneral extends Component
     public function render()
     {
         return view('livewire.escrituras-general', [
-            "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")->paginate($this->cantidad_escrituras),
+            "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
+                // ->where("numero_escritura", "LIKE", "%" . $this->searchEscritura . "&")
+                ->where(function($query){
+                    $query->whereHas('cliente', function($q){
+                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('servicio', function($serv){
+                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('abogado', function($serv){
+                        $serv->where('name', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
+                })
+                ->paginate($this->cantidadEscrituras),
             "escritura_activa" => $this->escritura_id != '' ? Proyectos::find($this->escritura_id) : "",
             "metodos_pago" => CatalogoMetodosPago::orderBy("nombre", "ASC")->get(),
             "abogados" => User::orderBy("name", "ASC")
@@ -61,6 +85,14 @@ class EscriturasGeneral extends Component
         ]);
     }
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
+    public function updatingCantidadEscrituras(){
+        $this->resetPage();
+    }
+
     public function open_modal($id){
         $this->escritura_id = $id;
         return $this->dispatchBrowserEvent("open-modal-pagos");
@@ -71,11 +103,28 @@ class EscriturasGeneral extends Component
         return $this->dispatchBrowserEvent("abrir-modal-registrar-egresos");
     }
 
+    public function abrir_modal_recibo_egreso($id){
+        $this->egreso_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-recibo-egreso");
+    }
+
     public function clearEgresos(){
         $this->egreso_data = "";
         $this->responsable_pago = "";
         $this->fecha_egreso = "";
         $this->comentarios_egreso = "";
+        $this->recibo_egreso = '';
+        $this->fecha_pago_egreso = '';
+    }
+
+
+    public function editar_egresos($id){
+        $this->egreso_id = $id;
+        $egreso = Egresos::find($id);
+        $this->responsable_pago = $egreso->usuario_id;
+        $this->fecha_egreso = $egreso->fecha_egreso;
+        $this->comentarios_egreso = $egreso->comentarios;
+        return $this->abrir_registrar_egreso($egreso->costo_id);
     }
 
     public function registrar_egreso(){
@@ -96,6 +145,17 @@ class EscriturasGeneral extends Component
             return $this->addError("sin_saldo", "No es posible generar un egreso, porque no hay saldo suficiente para pagarlo. Solicite al cliente el pago total de la escritura o un abono para continuar el proceso.");
         }
 
+        if($this->egreso_id){
+            $egreso = Egresos::find($this->egreso_id);
+            $egreso->fecha_egreso = $this->fecha_egreso;
+            $egreso->comentarios = $this->comentarios_egreso;
+            $egreso->usuario_id = $this->responsable_pago;
+            $egreso->save();
+            $this->clear_inputs();
+            $this->clearEgresos();
+            return $this->dispatchBrowserEvent("cerrar-modal-registrar-egresos");
+        }
+
         $egreso = new Egresos;
         $egreso->costo_id = $this->egreso_data['id'];
         $egreso->proyecto_id = $this->escritura_id;
@@ -109,7 +169,45 @@ class EscriturasGeneral extends Component
         $egreso->usuario_id = $this->responsable_pago;
         $egreso->save();
         $this->clear_inputs();
+        $this->clearEgresos();
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-egresos");
+    }
+
+    public function abrir_modal_borrar_egreso($id){
+        $this->egreso_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-borrar-egreso");
+    }
+
+    public function borrar_egreso(){
+        Egresos::find($this->egreso_id)->delete();
+        $this->dispatchBrowserEvent("cerrar-modal-borrar-egreso");
+        return $this->dispatchBrowserEvent("success-notify", "Egreso borrado");
+    }
+
+    public function registrar_recibo_pago_egreso(){
+        $this->validate([
+            "recibo_egreso" => "required|mimes:pdf",
+            "fecha_pago_egreso" => "required",
+        ],[
+            "recibo_egreso.mimes" => "Es necesario el recibo de pago en PDF",
+            "recibo_egreso.required" => "Es necesario el recibo de pago",
+            "fecha_pago_egreso.required" => "Es necesario la fecha de pago",
+        ]);
+
+        $escritura = Proyectos::find($this->escritura_id);
+        $egreso = Egresos::find($this->egreso_id);
+
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $escritura->cliente->nombre) . "_" . str_replace(" ", "_", $escritura->cliente->apaterno) . "_" . str_replace(" ", "_", $escritura->cliente->amaterno) . "/documentos";
+        $store_file_egreso = $this->recibo_egreso->storeAs(mb_strtolower($path), "egreso_" . $this->egreso_id . "_" . time() . "." . $this->recibo_egreso->extension(), 'public');
+
+        $egreso->path = "storage/" . $store_file_egreso;
+        $egreso->fecha_pago = $this->fecha_pago_egreso;
+        $egreso->status = 1;
+        $egreso->save();
+
+        $this->clearEgresos();
+        $this->dispatchBrowserEvent("cerrar-modal-registrar-recibo-egreso");
+        return $this->dispatchBrowserEvent("success-notify", "Recibo registrado con exito");
     }
 
     public function abrir_registro_costos(){
@@ -195,6 +293,7 @@ class EscriturasGeneral extends Component
         $this->cobro_id = $id;
         return $this->dispatchBrowserEvent("abrir-modal-borrar-pago");
     }
+
 
     public function borrar_pago(){
         Cobros::find($this->cobro_id)->delete();

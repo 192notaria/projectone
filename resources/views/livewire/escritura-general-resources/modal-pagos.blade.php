@@ -213,7 +213,7 @@
                                                 <th>Monto</th>
                                                 <th>Gestoria</th>
                                                 <th>Impuesto</th>
-                                                <th>Fecha</th>
+                                                <th>Fecha de egreso</th>
                                                 <th>Observaciones</th>
                                                 <th>Status</th>
                                                 <th class="text-center">Acciones</th>
@@ -232,15 +232,26 @@
                                                         <td class="text-center">{{$egreso->fecha_egreso}}</td>
                                                         <td class="text-center">{{$egreso->comentarios}}</td>
                                                         <td>
-                                                            <span class="badge badge-danger">En espera de pago...</span>
+                                                            @if ($egreso->status == 0 || !$egreso->status)
+                                                                <span class="badge badge-danger">En espera de pago...</span>
+                                                            @endif
+                                                            @if ($egreso->status == 1)
+                                                                <span class="badge badge-success">Pagado: {{$egreso->fecha_pago}}</span>
+                                                            @endif
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-danger"><i class="fa-solid fa-file-arrow-up"></i></button>
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <button wire:click='editar_egresos({{$egreso->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                <button wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                @if (!$egreso->status || $egreso->status == 0)
+                                                                    <button wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
+                                                                @endif
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td>Sin registros...</td>
+                                                        <td colspan="9" class="text-center">Sin registros...</td>
                                                     </tr>
                                                 @endforelse
                                             @endif
