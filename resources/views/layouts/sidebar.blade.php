@@ -160,34 +160,38 @@
                             <a href="/administracion/procesos_servicios"> Procesos</a>
                         </li>
                     @endcan
-                    <li class="{{Route::currentRouteName() == "admin-subprocesos" ? "active" : ""}}">
-                        <a href="/administracion/subprocesos"> Subprocesos</a>
-                    </li>
+                    @can('ver-subprocesos')
+                        <li class="{{Route::currentRouteName() == "admin-subprocesos" ? "active" : ""}}">
+                            <a href="/administracion/subprocesos"> Subprocesos</a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
-            <li class="menu {{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
-                <a href="#contabilidad" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        <span>Contabilidad</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="contabilidad" data-bs-parent="#accordionExample">
-                    @can('ver-bancos')
+            @if ( Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('CONTADOR'))
+                <li class="menu {{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
+                    <a href="#contabilidad" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            <span>Contabilidad</span>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <ul class="collapse submenu list-unstyled" id="contabilidad" data-bs-parent="#accordionExample">
+                        @can('ver-bancos')
                         <li class="{{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
                             <a href="{{route('contabilidad.index')}}"> General</a>
                         </li>
-                    @endcan
-                    @can('ver-pagos')
+                        @endcan
+                        @can('ver-pagos')
                         <li class="{{Route::currentRouteName() == "contabilidad.pagos" ? "active" : ""}}">
                             <a href="{{route('contabilidad.pagos')}}"> Pagos</a>
                         </li>
-                    @endcan
-                </ul>
-            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endif
         </ul>
     </nav>
 </div>
