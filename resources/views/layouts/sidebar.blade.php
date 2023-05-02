@@ -179,15 +179,15 @@
                         </div>
                     </a>
                     <ul class="collapse submenu list-unstyled" id="contabilidad" data-bs-parent="#accordionExample">
-                        @can('ver-bancos')
-                        <li class="{{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
-                            <a href="{{route('contabilidad.index')}}"> General</a>
-                        </li>
+                        @can('ver-contabilidad-general')
+                            <li class="{{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
+                                <a href="{{route('contabilidad.index')}}"> General</a>
+                            </li>
                         @endcan
-                        @can('ver-pagos')
-                        <li class="{{Route::currentRouteName() == "contabilidad.pagos" ? "active" : ""}}">
-                            <a href="{{route('contabilidad.pagos')}}"> Pagos</a>
-                        </li>
+                        @can('ver-detalle-pagos')
+                            <li class="{{Route::currentRouteName() == "contabilidad.pagos" ? "active" : ""}}">
+                                <a href="{{route('contabilidad.pagos')}}"> Pagos</a>
+                            </li>
                         @endcan
                     </ul>
                 </li>
