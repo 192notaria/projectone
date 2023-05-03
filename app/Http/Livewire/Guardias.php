@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Guardias as ModelsGuardias;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Guardias extends Component
@@ -45,11 +46,13 @@ class Guardias extends Component
     public function cambiarguardia($nombre, $id, $fecha){
         // $this->guardia_id = $id;
         // $this->fecha_cambio = date("Y-m-d", strtotime($fecha));
-        $guardia = ModelsGuardias::find($id);
-        $this->guardia_id = $guardia->id;
-        $this->date_guardia = $guardia->fecha_guardia;
-        $this->usuario_id = $guardia->user_id;
-        return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
+        if(Auth::user()->can('editar-guardia')){
+            $guardia = ModelsGuardias::find($id);
+            $this->guardia_id = $guardia->id;
+            $this->date_guardia = $guardia->fecha_guardia;
+            $this->usuario_id = $guardia->user_id;
+            return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
+        }
 
         // if($buscarguardia->user_id != auth()->user()->id){
         //     $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
@@ -311,38 +314,40 @@ class Guardias extends Component
     }
 
     public function registrar_guardia(){
-        $this->validate([
-            "date_guardia" => "required",
-            "usuario_id" => "required",
-        ],[
-            "date_guardia.required" => "Es necesario la fecha de la guardia",
-            "usuario_id.required" => "Es necesario el usuario que dara la guardia",
-        ]);
+        if(Auth::user()->can('crear-guardia')){
+            $this->validate([
+                "date_guardia" => "required",
+                "usuario_id" => "required",
+            ],[
+                "date_guardia.required" => "Es necesario la fecha de la guardia",
+                "usuario_id.required" => "Es necesario el usuario que dara la guardia",
+            ]);
 
-        if($this->guardia_id){
-            $guardia = ModelsGuardias::find($this->guardia_id);
+            if($this->guardia_id){
+                $guardia = ModelsGuardias::find($this->guardia_id);
+                $guardia->fecha_guardia = $this->date_guardia;
+                $guardia->user_id = $this->usuario_id;
+                $guardia->save();
+
+                $this->guardia_id = '';
+                $this->date_guardia = '';
+                $this->usuario_id = '';
+                $this->dispatchBrowserEvent("update-calendar");
+                return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia editada");
+            }
+
+            $guardia = new ModelsGuardias;
             $guardia->fecha_guardia = $this->date_guardia;
             $guardia->user_id = $this->usuario_id;
+            $guardia->solicitud_user_id = null;
             $guardia->save();
 
-            $this->guardia_id = '';
             $this->date_guardia = '';
             $this->usuario_id = '';
+            // return redirect(request()->header('Referer'));
             $this->dispatchBrowserEvent("update-calendar");
-            return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia editada");
+            return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
         }
-
-        $guardia = new ModelsGuardias;
-        $guardia->fecha_guardia = $this->date_guardia;
-        $guardia->user_id = $this->usuario_id;
-        $guardia->solicitud_user_id = null;
-        $guardia->save();
-
-        $this->date_guardia = '';
-        $this->usuario_id = '';
-        // return redirect(request()->header('Referer'));
-        $this->dispatchBrowserEvent("update-calendar");
-        return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
 
     public function clear_inputs(){
@@ -352,14 +357,15 @@ class Guardias extends Component
     }
 
     public function borrar_guardia(){
-        ModelsGuardias::find($this->guardia_id)->delete();
+        if(Auth::user()->can('borrar-guardia')){
+            ModelsGuardias::find($this->guardia_id)->delete();
+            $this->guardia_id = '';
+            $this->date_guardia = '';
+            $this->usuario_id = '';
 
-        $this->guardia_id = '';
-        $this->date_guardia = '';
-        $this->usuario_id = '';
-
-        $this->dispatchBrowserEvent("update-calendar");
-        return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
+            $this->dispatchBrowserEvent("update-calendar");
+            return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
+        }
     }
 
 }

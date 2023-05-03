@@ -3,7 +3,7 @@
     <div wire:ignore class="row layout-top-spacing layout-spacing" id="cancel-row">
         <div class="col-xl-12 col-lg-12 col-md-12">
             <div class="calendar-container">
-                @can('crear-guardi')
+                @can('crear-guardia')
                     <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target=".modal-guardias">Generar guardia</button>
                 @endcan
                 <div class="calendar"></div>
