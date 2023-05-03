@@ -28,6 +28,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                @if ($guardia_id)
+                    <button wire:click='borrar_guardia' class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                @endif
                 <button wire:click='registrar_guardia' class="btn btn-outline-success">Guardar</button>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>

@@ -325,6 +325,7 @@ class Guardias extends Component
             $guardia->user_id = $this->usuario_id;
             $guardia->save();
 
+            $this->guardia_id = '';
             $this->date_guardia = '';
             $this->usuario_id = '';
             $this->dispatchBrowserEvent("update-calendar");
@@ -340,6 +341,17 @@ class Guardias extends Component
         $this->date_guardia = '';
         $this->usuario_id = '';
         // return redirect(request()->header('Referer'));
+        $this->dispatchBrowserEvent("update-calendar");
+        return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
+    }
+
+    public function borrar_guardia(){
+        ModelsGuardias::find($this->guardia_id)->delete();
+
+        $this->guardia_id = '';
+        $this->date_guardia = '';
+        $this->usuario_id = '';
+
         $this->dispatchBrowserEvent("update-calendar");
         return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
