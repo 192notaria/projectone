@@ -42,6 +42,5 @@
 
     window.addEventListener('cerrar-modal-new-guardia', event => {
         $(".modal-new-guardia").modal("hide")
-        console.log($(".calendarEl").fullCalendar())
     })
 </script>
