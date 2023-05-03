@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // getModalUpdateBtnEl.setAttribute('data-fc-event-public-id', getModalEventId)
             // getModalAddBtnEl.style.display = 'none';
             // getModalUpdateBtnEl.style.display = 'block';
-            myModal.show();
+            // myModal.show();
         }
     }
 

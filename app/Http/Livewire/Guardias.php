@@ -49,6 +49,7 @@ class Guardias extends Component
         $this->guardia_id = $guardia->id;
         $this->date_guardia = $guardia->fecha_guardia;
         $this->usuario_id = $guardia->user_id;
+        return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
 
         // if($buscarguardia->user_id != auth()->user()->id){
         //     $this->mensaje = "Seguro que desea solicitar un cambio de guardia con";
@@ -317,14 +318,23 @@ class Guardias extends Component
             "date_guardia.required" => "Es necesario la fecha de la guardia",
             "usuario_id.required" => "Es necesario el usuario que dara la guardia",
         ]);
-        $this->calendario = false;
+
+        if($this->guardia_id){
+            $guardia = ModelsGuardias::find($this->guardia_id);
+            $guardia->fecha_guardia = $this->date_guardia;
+            $guardia->user_id = $this->usuario_id;
+            $guardia->save();
+
+            $this->date_guardia = '';
+            $this->usuario_id = '';
+            return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia editada");
+        }
 
         $guardia = new ModelsGuardias;
         $guardia->fecha_guardia = $this->date_guardia;
         $guardia->user_id = $this->usuario_id;
         $guardia->solicitud_user_id = null;
         $guardia->save();
-        $this->calendario = true;
 
         $this->date_guardia = '';
         $this->usuario_id = '';

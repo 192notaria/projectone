@@ -14,7 +14,6 @@ use App\Models\Firmas;
 use App\Models\Generales;
 use App\Models\Herederos;
 use App\Models\InformacionDelViajeDelMenor;
-use App\Models\Interphone;
 use App\Models\Mutuos;
 use App\Models\Observaciones;
 use App\Models\Paises;
