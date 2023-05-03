@@ -277,7 +277,13 @@ class Escrituras extends Component
 
     public $text_file;
     public function preview_escritura(){
-        $phpWord = \PhpOffice\PhpWord\IOFactory::load("word-template/doc.docx");
-        dd($phpWord->getDocInfo()->getTitle());
+        $contents = \PhpOffice\PhpWord\IOFactory::load('word-template/proyectoesc.docx');
+        foreach($contents->getSections() as $section) {
+            foreach($section->getElements() as $element) {
+                if(method_exists($element, 'getText')) {
+                    $this->text_file = $element->getText();
+                }
+            }
+        }
     }
 }

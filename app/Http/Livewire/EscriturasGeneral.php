@@ -327,10 +327,6 @@ class EscriturasGeneral extends Component
         $escritura_activa = Proyectos::find($this->escritura_id);
         $pendiente_pago = $escritura_activa->costo_total($escritura_activa->id) - $escritura_activa->pagos_recibidos_total($this->escritura_id);
 
-        if($this->monto_cobro > $pendiente_pago){
-            return $this->addError("monto_mayor", "No es posible recibir un pago mayor al pendiente de pago");
-        }
-
         if($this->cobro_id){
             $pago = Cobros::find($this->cobro_id);
             $pago->fecha = $this->fecha_cobro;
