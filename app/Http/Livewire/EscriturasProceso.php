@@ -627,6 +627,9 @@ public function removerParte($id){
     public $conceptos_pago;
     public $acto_descuento;
 
+    public $numero_escritura;
+    public $volumen_escritura;
+
     public function buscarHonorarios(){
         $actos = Servicios::find($this->acto_juridico_id);
         $this->conceptos_pago = $actos->conceptos_pago;
@@ -699,7 +702,16 @@ public function removerParte($id){
             "acto_honorarios" => "required",
             "acto_juridico_id" => "required",
             "proyecto_cliente" => "required",
-            "proyecto_abogado" => "required"
+            "proyecto_abogado" => "required",
+            "numero_escritura" => "required",
+            "volumen_escritura" => "required",
+        ],[
+            "acto_honorarios.required" => "Es necesario colocar los honorarios",
+            "acto_juridico_id.required" => "Es necesario seleccionar el acto juridico",
+            "proyecto_cliente.required" => "Es necesario seleccionar el cliente",
+            "proyecto_abogado.required" => "Es necesario seleccionar el abogado",
+            "numero_escritura.required" => "Es necesario el número de escritura",
+            "volumen_escritura.required" => "Es necesario el volumen de la escritura",
         ]);
 
         if($this->acto_descuento > $this->acto_honorarios){
@@ -714,6 +726,8 @@ public function removerParte($id){
         $nuevo_proyecto->descuento = $this->acto_descuento ?? 0;
         $nuevo_proyecto->observaciones = $this->proyecto_descripcion;
         $nuevo_proyecto->status = 0;
+        $nuevo_proyecto->numero_escritura = $this->numero_escritura;
+        $nuevo_proyecto->volumen = $this->volumen_escritura;
         $nuevo_proyecto->save();
 
         if(count($this->proyecto_asistentes) > 0){
@@ -1061,6 +1075,21 @@ public function removerParte($id){
         $avance->subproceso_id = $this->subproceso_activo->subproceso_id;
         $avance->save();
         return $this->dispatchBrowserEvent('registrar-avance', "Avance registrado");
+    }
+
+    public function open_moda_omitir(){
+        return $this->dispatchBrowserEvent('abrir-modal-omitir-subproceso');
+    }
+
+    public function omitir_subproceso(){
+        $avance = new AvanceProyecto;
+        $avance->proyecto_id = $this->proyecto_id;
+        $avance->proceso_id = $this->proceso_activo;
+        $avance->subproceso_id = $this->subproceso_activo->subproceso_id;
+        $avance->omitido = 1;
+        $avance->save();
+        $this->dispatchBrowserEvent('cerrar-modal-omitir-subproceso');
+        return $this->dispatchBrowserEvent('registrar-avance', "Subproceso omitido");
     }
 
     public function guardarAvanceDocumentos(){

@@ -23,6 +23,7 @@ class Subprocesos extends Model
             ->where("proceso_id", $proceso)->first();
     }
 
+
     public function firmaAgendada($proyecto){
         return $this->hasOne(Firmas::class, 'proceso_id', 'proceso_id')->where('proyecto_id', $proyecto)->first();
     }

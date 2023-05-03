@@ -101,6 +101,7 @@
     @include("livewire.escrituras-resoruces.procesos_escritura")
     @include("livewire.escrituras-resoruces.modal-registrar-pago")
     @include("livewire.escrituras-resoruces.modal-borrar-proyecto")
+    @include("livewire.escrituras-resoruces.modal-omitir-subproceso")
     @include("livewire.escrituras-resoruces.modal-registrar-costo")
     @include("livewire.escrituras-resoruces.modal-registrar-egresos")
     @include("livewire.escrituras-resoruces.modal-registrar-factura")

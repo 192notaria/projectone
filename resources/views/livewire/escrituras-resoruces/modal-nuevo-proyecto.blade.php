@@ -18,20 +18,40 @@
                 <p>
                     <ul>
                         @error('acto_honorarios')
-                            <li class="text-danger">Es necesario colocar la cantidad de honorarios</li>
+                            <li class="text-danger">{{$message}}</li>
                         @enderror
                         @error('acto_juridico_id')
-                            <li class="text-danger">Es necesario seleccionar un acto juridico</li>
+                            <li class="text-danger">{{$message}}</li>
                         @enderror
                         @error('proyecto_cliente')
-                            <li class="text-danger">Es necesario asignar un cliente al proyecto</li>
+                            <li class="text-danger">{{$message}}</li>
                         @enderror
                         @error('proyecto_abogado')
-                            <li class="text-danger">Es necesario asignar un abogado al proyecto</li>
+                            <li class="text-danger">{{$message}}</li>
+                        @enderror
+                        @error("numero_escritura")
+                            <li class="text-danger">{{$message}}</li>
+                        @enderror
+                        @error("volumen_escritura")
+                            <li class="text-danger">{{$message}}</li>
                         @enderror
                     </ul>
                 </p>
                 <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <label for="">Número de escritura</label>
+                        <input type="text" class="form-control" placeholder="198" wire:model='numero_escritura'>
+                        @error("numero_escritura")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <label for="">Volumen</label>
+                        <input type="text" class="form-control" placeholder="3" wire:model='volumen_escritura'>
+                        @error("volumen_escritura")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
                     <div class="col-lg-12">
                         <div class="form-group autocomplete">
                             <label for="">Abogado</label>
@@ -50,6 +70,9 @@
                                 </div>
                             @endif
                         </div>
+                        @error("proyecto_abogado")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     @if ($proyecto_abogado)
                         <div class="col-lg-12 mb-2">
@@ -116,6 +139,9 @@
                                 </div>
                             @endif
                         </div>
+                        @error("proyecto_cliente")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     @if ($proyecto_cliente)
                         <div class="col-lg-12">
@@ -136,6 +162,9 @@
                                 <option value="{{$acto->id}}">{{$acto->nombre}}</option>
                             @endforeach
                         </select>
+                        @error("acto_juridico_id")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
 
                     <div class="col-lg-6 mt-4">
@@ -143,7 +172,7 @@
                             <label for="">Honorarios</label>
                             <input type="number" class="form-control" placeholder="$0.0" wire:model='acto_honorarios'>
                             @error('acto_honorarios')
-                                <span class="text-danger">Es necesario colocar la cantidad de honorarios</span>
+                                <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                     </div>

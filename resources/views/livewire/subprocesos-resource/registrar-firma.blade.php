@@ -2,8 +2,8 @@
     <div class="card-header">
         <h5>
             {{$subprocesos_info->nombre}}
-            {{$subprocesos_info->tipo_id}}
-            - {{$subproceso_activo->id}}
+            {{-- {{$subprocesos_info->tipo_id}}
+            - {{$subproceso_activo->id}} --}}
             @if ($subproceso_activo->avance($proyecto_id, $proceso_activo))
                 <i class="fa-solid fa-circle-check text-success"></i>
             @endif
