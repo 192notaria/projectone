@@ -204,6 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Calendar Renderation
     calendar.render();
+    window.addEventListener('update-calendar', event => {
+        console.log("Refresh calendar");
+        calendar.refetchEvents()
+    })
+
 
     // Add Event
     window.addEventListener('solicitud-de-cambio', event => {

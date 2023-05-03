@@ -327,6 +327,7 @@ class Guardias extends Component
 
             $this->date_guardia = '';
             $this->usuario_id = '';
+            $this->dispatchBrowserEvent("update-calendar");
             return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia editada");
         }
 
@@ -339,6 +340,7 @@ class Guardias extends Component
         $this->date_guardia = '';
         $this->usuario_id = '';
         // return redirect(request()->header('Referer'));
+        $this->dispatchBrowserEvent("update-calendar");
         return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
 
