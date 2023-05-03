@@ -345,6 +345,12 @@ class Guardias extends Component
         return $this->dispatchBrowserEvent("cerrar-modal-new-guardia", "Guardia registrada");
     }
 
+    public function clear_inputs(){
+        $this->guardia_id = '';
+        $this->date_guardia = '';
+        $this->usuario_id = '';
+    }
+
     public function borrar_guardia(){
         ModelsGuardias::find($this->guardia_id)->delete();
 
