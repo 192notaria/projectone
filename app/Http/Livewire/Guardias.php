@@ -360,6 +360,7 @@ class Guardias extends Component
         if(Auth::user()->can('borrar-guardia')){
             ModelsGuardias::find($this->guardia_id)->delete();
             $this->guardia_id = '';
+
             $this->date_guardia = '';
             $this->usuario_id = '';
 
