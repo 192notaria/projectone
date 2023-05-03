@@ -308,9 +308,11 @@ class Guardias extends Component
     public $usuario_id = '';
 
     public function abrir_registrar_guardia($date){
-        $date = date("Y-m-d", strtotime($date['start']));
-        $this->date_guardia = $date;
-        return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
+        if(Auth::user()->can('crear-guardia')){
+            $date = date("Y-m-d", strtotime($date['start']));
+            $this->date_guardia = $date;
+            return $this->dispatchBrowserEvent("abrir-modal-new-guardia");
+        }
     }
 
     public function registrar_guardia(){
