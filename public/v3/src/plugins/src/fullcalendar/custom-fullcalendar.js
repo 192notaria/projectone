@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var eventObj = info.event;
 
         if (eventObj.url) {
-          window.open(eventObj.url);
-          info.jsEvent.preventDefault();
+        //   window.open(eventObj.url);
+        //   info.jsEvent.preventDefault();
         } else {
             // var getModalEventId = eventObj._def.publicId;
             // var getModalEventLevel = eventObj._def.extendedProps['calendar'];
