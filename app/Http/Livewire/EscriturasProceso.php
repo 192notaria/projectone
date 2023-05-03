@@ -1340,6 +1340,7 @@ public function removerParte($id){
         $proyecto->status = 1;
         $proyecto->save();
 
+        $this->dispatchBrowserEvent("cerrar-modal-procesos-escritura");
         return $this->dispatchBrowserEvent("success-notify", "Exito al terminar proyecto, ahora lo puede ver en el apartado de escrituras");
     }
 
