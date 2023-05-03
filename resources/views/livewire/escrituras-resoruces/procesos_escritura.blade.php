@@ -2,6 +2,14 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between">
+                        <ul>
+                            <li>{{$escritura_activa->cliente->nombre ?? ""}} {{$escritura_activa->cliente->apaterno ?? ""}} {{$escritura_activa->cliente->amaterno ?? ""}}</li>
+                            <li>{{$escritura_activa->numero_escritura ?? ""}}</li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="simple-tab">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         @can('ver-avance-proyecto')
