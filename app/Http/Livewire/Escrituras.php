@@ -14,8 +14,8 @@ class Escrituras extends Component
 {
     use WithPagination, WithFileUploads;
     public $search;
+    public $cantidadEscrituras = 10;
 
-    public $cantidad_escrituras = 10;
     public $escritura_id;
 
     // Pagos
@@ -65,7 +65,7 @@ class Escrituras extends Component
                         })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                     })
-                    ->paginate($this->cantidad_escrituras)
+                    ->paginate($this->cantidadEscrituras)
             : Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("status", 1)
                 ->where('usuario_id', auth()->user()->id)
@@ -79,7 +79,7 @@ class Escrituras extends Component
                     })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
                     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
-                ->paginate($this->cantidad_escrituras),
+                ->paginate($this->cantidadEscrituras),
         ]);
     }
 

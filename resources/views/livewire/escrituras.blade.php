@@ -18,7 +18,7 @@
     </style>
     <div class="card-header">
         <div class="d-flex justify-content-between">
-            <select class="form-select" style="width: 8%;">
+            <select class="form-select" style="width: 8%;" wire:model='cantidadEscrituras'>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
