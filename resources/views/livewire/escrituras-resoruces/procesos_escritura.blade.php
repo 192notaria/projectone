@@ -2,62 +2,68 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                {{-- <div class="container-fluid">
-                    <div class="d-flex justify-content-between">
-                        <ul>
-                            <li>{{$escritura_activa->cliente->nombre ?? ""}} {{$escritura_activa->cliente->apaterno ?? ""}} {{$escritura_activa->cliente->amaterno ?? ""}}</li>
-                            <li>{{$escritura_activa->numero_escritura ?? ""}}</li>
-                        </ul>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-center">
+                            <h3>Escritura</h3>
+                            <ul>
+                                <li>Escritura</li>
+                                <li>Escritura</li>
+                                <li>Escritura</li>
+                            </ul>
+                        </div>
                     </div>
-                </div> --}}
-                <div class="simple-tab">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        @can('ver-avance-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Avance</button>
-                            </li>
-                        @endcan
-                        @can('ver-general-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
-                            </li>
-                        @endcan
-                        @can('ver-pagos-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Pagos</button>
-                            </li>
-                        @endcan
-                        @can('ver-facturas-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Facturas</button>
-                            </li>
-                        @endcan
-                        @can('ver-comisiones-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="comisiones-tab" data-bs-toggle="tab" data-bs-target="#comisiones-tab-pane" type="button" role="tab" aria-controls="comisiones-tab-pane" aria-selected="false">Comisiones</button>
-                            </li>
-                        @endcan
-                        @can('ver-bitacora-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora-tab-pane" type="button" role="tab" aria-controls="bitacora-tab-pane" aria-selected="false">Bitacora</button>
-                            </li>
-                        @endcan
-                        @can('ver-partes-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
-                            </li>
-                        @endcan
-                        @can('ver-observaciones-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="observaciones-tab" data-bs-toggle="tab" data-bs-target="#observaciones-tab-pane" type="button" role="tab" aria-controls="observaciones-tab-pane" aria-selected="false">Observaciones</button>
-                            </li>
-                        @endcan
-                        @can('ver-documentos-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos-tab-pane" type="button" role="tab" aria-controls="documentos-tab-pane" aria-selected="false">Documentos</button>
-                            </li>
-                        @endcan
-                    </ul>
+                    <div class="col-lg-2 mt-4">
+                        <div class="simple-tab">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                @can('ver-avance-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Avance</button>
+                                    </li>
+                                @endcan
+                                @can('ver-general-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
+                                    </li>
+                                @endcan
+                                @can('ver-pagos-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Pagos</button>
+                                    </li>
+                                @endcan
+                                @can('ver-facturas-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Facturas</button>
+                                    </li>
+                                @endcan
+                                @can('ver-comisiones-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="comisiones-tab" data-bs-toggle="tab" data-bs-target="#comisiones-tab-pane" type="button" role="tab" aria-controls="comisiones-tab-pane" aria-selected="false">Comisiones</button>
+                                    </li>
+                                @endcan
+                                @can('ver-bitacora-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora-tab-pane" type="button" role="tab" aria-controls="bitacora-tab-pane" aria-selected="false">Bitacora</button>
+                                    </li>
+                                @endcan
+                                @can('ver-partes-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
+                                    </li>
+                                @endcan
+                                @can('ver-observaciones-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="observaciones-tab" data-bs-toggle="tab" data-bs-target="#observaciones-tab-pane" type="button" role="tab" aria-controls="observaciones-tab-pane" aria-selected="false">Observaciones</button>
+                                    </li>
+                                @endcan
+                                @can('ver-documentos-proyecto')
+                                    <li class="nav-item" role="presentation">
+                                        <button wire:ignore.self class="nav-link" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos-tab-pane" type="button" role="tab" aria-controls="documentos-tab-pane" aria-selected="false">Documentos</button>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
