@@ -69,9 +69,12 @@
                     background-color: #e9e9e9;
                 }
 
+                .active_drag{
+                    cursor: grabbing;
+                }
             </style>
-            <div class="col-lg-12 table-responsive">
-                <table class="table table-striped">
+            <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
+                <table class="table table-striped" id="my_table">
                     <thead>
                         <tr>
                             <th scope="col">Cliente</th>
@@ -112,6 +115,26 @@
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
 
     <script>
+        var mx = 0;
+
+        $(".drag").on({
+        mousemove: function(e) {
+            var mx2 = e.pageX - this.offsetLeft;
+            if(mx) this.scrollLeft = this.sx + mx - mx2;
+        },
+
+        mousedown: function(e) {
+            this.sx = this.scrollLeft;
+            mx = e.pageX - this.offsetLeft;
+            document.getElementById("my_table").classList.add("active_drag")
+        }
+        });
+
+        $(document).on("mouseup", function(){
+            mx = 0;
+            document.getElementById("my_table").classList.remove("active_drag")
+        });
+
         window.addEventListener('success-event', event => {
             var myAudio= document.createElement('audio')
             myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}"
