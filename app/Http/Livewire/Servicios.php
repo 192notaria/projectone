@@ -127,7 +127,7 @@ class Servicios extends Component
         $servicio = new ModelsServicios();
         $servicio->nombre = $this->nombre_del_servicio;
         $servicio->tiempo_firma = $this->tiempo_firma;
-        $servicio->tipo_id = $this->tipo_did;
+        $servicio->tipo_id = $this->tipo_id;
 
         $servicio->save();
 
