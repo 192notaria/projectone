@@ -21,9 +21,8 @@
     <link href="{{url('v3/src/assets/css/light/components/media_object.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css" />
-
-
 @endsection
+
 @section('content')
     <div class="layout-px-spacing">
         <div class="middle-content container-xxl p-0">

@@ -64,18 +64,18 @@
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
                     @can('ver-pagos-escritura-page')
                         <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
-                            <a href="{{route("escrituras-general")}}"> Pagos de Escrituras</a>
+                            <a href="{{route("escrituras-general")}}"> Pagos </a>
                         </li>
                     @endcan
-                    <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
-                        <a href="{{route("escrituras-escrituras")}}"> Escrituras terminadas</a>
-                    </li>
                     <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
-                        <a href="{{route("escrituras-proceso")}}"> Proyectos de escritura</a>
+                        <a href="{{route("escrituras-proceso")}}"> Proyectos </a>
                     </li>
-                    <li class="{{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}}">
+                    <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
+                        <a href="{{route("escrituras-escrituras")}}"> Finalizadas </a>
+                    </li>
+                    {{-- <li class="{{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}}">
                         <a href="/administracion/escrituras_apoyo"> Proyectos asistidos</a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="{{activeRoute(route('admin-actos'))}}">
                         <a href="/administracion/actos"> Escrituras en terminadas</a>
                     </li> --}}
