@@ -733,15 +733,15 @@ public function removerParte($id){
         $nuevo_proyecto->volumen = $this->volumen_escritura;
         $nuevo_proyecto->save();
 
-        if(count($this->proyecto_asistentes) > 0){
-            foreach ($this->proyecto_asistentes as $value) {
-                $asistentes = new ApoyoProyectos;
-                $asistentes->abogado_id = $this->proyecto_abogado['id'];
-                $asistentes->abogado_apoyo_id = $value['id'];
-                $asistentes->proyecto_id = $nuevo_proyecto->id;
-                $asistentes->save();
-            }
-        }
+        // if(count($this->proyecto_asistentes) > 0){
+        //     foreach ($this->proyecto_asistentes as $value) {
+        //         $asistentes = new ApoyoProyectos;
+        //         $asistentes->abogado_id = $this->proyecto_abogado['id'];
+        //         $asistentes->abogado_apoyo_id = $value['id'];
+        //         $asistentes->proyecto_id = $nuevo_proyecto->id;
+        //         $asistentes->save();
+        //     }
+        // }
 
         if($this->acto_honorarios && $this->acto_honorarios > 0){
             $findConcepto = Catalogos_conceptos_pago::find(22);
@@ -777,6 +777,7 @@ public function removerParte($id){
         $this->proyecto_descripcion = '';
         $this->numero_escritura = '';
         $this->volumen_escritura = '';
+        $this->costos_proyecto = [];
 
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto', 'Nuevo proyecto creado exitosamente');
     }

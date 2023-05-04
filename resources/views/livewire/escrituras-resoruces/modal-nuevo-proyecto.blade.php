@@ -85,7 +85,7 @@
                             </span>
                         </div>
                     @endif
-                    <div class="col-lg-12 mt-4">
+                    {{-- <div class="col-lg-12 mt-4">
                         <div class="form-group autocomplete">
                             <label for="">Asistentes</label>
                             @if ($proyecto_abogado)
@@ -109,7 +109,7 @@
                                 <span class="mt-2 badge badge-danger">Sin asistentes</span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12 mt-2">
                         @foreach ($proyecto_asistentes as $key => $asistente_data)
                             <span class="mt-2 avatar-chip avatar-dismiss bg-primary me-4 position-relative">
