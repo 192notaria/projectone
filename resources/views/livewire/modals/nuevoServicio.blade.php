@@ -28,6 +28,15 @@
                             <label for="">Honorarios</label>
                             <input type="text" class="form-control" placeholder="0.0" wire:model='honorarios'>
                         </div>
+                        <div class="col-lg-12 mt-4 mb-4">
+                            <label for="">Tipo de acto</label>
+                            <select class="form-select" wire:model='tipo_id'>
+                                <option value="" selected disabled>Seleccionar...</option>
+                                @foreach ($tipo_actos as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="col-lg-12 mt-2 mb-2 table-responsive">
                             <label for="">Conceptos de Pago</label>
                             <table class="table table-responsive">

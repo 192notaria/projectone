@@ -101,7 +101,8 @@ class EscriturasProceso extends Component
                 })
                 ->where('id', '!=', $this->proyecto_abogado['id'] ?? "")
                 ->get(),
-            "escrituras" => Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
+            "escrituras" =>
+            // Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->where('status', 0)
                 ->where(function($query){
@@ -116,22 +117,22 @@ class EscriturasProceso extends Component
                     ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
                     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
-                ->paginate($this->cantidad_escrituras )
-            :
-                Proyectos::orderBy("numero_escritura", "ASC")
-                    ->where('usuario_id', auth()->user()->id)
-                    ->where('status', 0)
-                    ->where(function($query){
-                        $query->orWhereHas('cliente', function($q){
-                            $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                                ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                                ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                        })->orWhereHas('servicio', function($serv){
-                            $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-                        })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
-                    })
-                    ->paginate($this->cantidad_escrituras ),
+                ->paginate($this->cantidad_escrituras ),
+            // :
+            //     Proyectos::orderBy("numero_escritura", "ASC")
+            //         ->where('usuario_id', auth()->user()->id)
+            //         ->where('status', 0)
+            //         ->where(function($query){
+            //             $query->orWhereHas('cliente', function($q){
+            //                 $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+            //                     ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+            //                     ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+            //             })->orWhereHas('servicio', function($serv){
+            //                 $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+            //             })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+            //             ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
+            //         })
+            //         ->paginate($this->cantidad_escrituras ),
             "generales" => Generales::where("proyecto_id", $this->proyecto_id)
                 // ->where(function($query){
                 //     $query->where('tipo', 'Generales del comprador')

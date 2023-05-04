@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\CatalogoPartes;
 use App\Models\Catalogos_categoria_gastos;
 use App\Models\Catalogos_conceptos_pago;
+use App\Models\CatalogoTipoActos;
 use App\Models\ProcesosServicios;
 use App\Models\Servicios as ModelsServicios;
 use App\Models\Servicios_Procesos_Servicio;
@@ -29,10 +30,11 @@ class Servicios extends Component
     public $conceptos_pago = [];
     public $partes_array = [];
     public $descripcion_parte;
+    public $tipo_id = '';
 
     public function asignarParte(){
         $this->validate([
-            "descripcion_parte" => "required"
+            "descripcion_parte" => "required",
         ]);
 
         $parte = [
@@ -70,6 +72,8 @@ class Servicios extends Component
                 ->pluck('servicios_conceptos_pagos.concepto_pago_id','servicios_conceptos_pagos.concepto_pago_id')
                 ->all();
             $this->honorarios = $servicio->honorarios;
+            $this->tipo_id = $servicio->tipo_id;
+
             // $this->permisosCheck = DB::table('role_has_permissions')->where('role_has_permissions.role_id', $id)
             //     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             //     ->all();
@@ -94,6 +98,8 @@ class Servicios extends Component
             $servicio->nombre = $this->nombre_del_servicio;
             $servicio->tiempo_firma = $this->tiempo_firma;
             $servicio->honorarios = $this->honorarios;
+            $servicio->tipo_id = $this->tipo_did;
+
             // dd($this->conceptos_pago);
             foreach($this->conceptos_pago as $key => $concepto){
                 if(!$concepto){
@@ -121,6 +127,8 @@ class Servicios extends Component
         $servicio = new ModelsServicios();
         $servicio->nombre = $this->nombre_del_servicio;
         $servicio->tiempo_firma = $this->tiempo_firma;
+        $servicio->tipo_id = $this->tipo_did;
+
         $servicio->save();
 
         foreach($this->conceptos_pago as $key => $concepto){
@@ -198,7 +206,8 @@ class Servicios extends Component
             "procesos" => ProcesosServicios::orderBy("nombre", "ASC")->get(),
             "conceptos_pagos" => Catalogos_conceptos_pago::orderBy('categoria_gasto_id','ASC')
             ->orderBy('descripcion','ASC')
-            ->get()
+            ->get(),
+            "tipo_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get(),
         ]);
     }
 }
