@@ -769,6 +769,15 @@ public function removerParte($id){
             }
         }
 
+        $this->acto_juridico_id = '';
+        $this->proyecto_cliente = '';
+        $this->proyecto_abogado = '';
+        $this->acto_honorarios = '';
+        $this->acto_descuento = '';
+        $this->proyecto_descripcion = '';
+        $this->numero_escritura = '';
+        $this->volumen_escritura = '';
+
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto', 'Nuevo proyecto creado exitosamente');
     }
 
