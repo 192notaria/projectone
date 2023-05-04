@@ -704,14 +704,16 @@ public function removerParte($id){
             "acto_juridico_id" => "required",
             "proyecto_cliente" => "required",
             "proyecto_abogado" => "required",
-            "numero_escritura" => "required",
+            "numero_escritura" => "required|unique:proyectos,numero_escritura,' . $this->proyecto_id_general",
             "volumen_escritura" => "required",
+
         ],[
             "acto_honorarios.required" => "Es necesario colocar los honorarios",
             "acto_juridico_id.required" => "Es necesario seleccionar el acto juridico",
             "proyecto_cliente.required" => "Es necesario seleccionar el cliente",
             "proyecto_abogado.required" => "Es necesario seleccionar el abogado",
             "numero_escritura.required" => "Es necesario el número de escritura",
+            "numero_escritura.unique" => "Ya existe una escritura con este número",
             "volumen_escritura.required" => "Es necesario el volumen de la escritura",
         ]);
 
