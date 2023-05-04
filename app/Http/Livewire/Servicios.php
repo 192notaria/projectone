@@ -98,7 +98,7 @@ class Servicios extends Component
             $servicio->nombre = $this->nombre_del_servicio;
             $servicio->tiempo_firma = $this->tiempo_firma;
             $servicio->honorarios = $this->honorarios;
-            $servicio->tipo_id = $this->tipo_did;
+            $servicio->tipo_id = $this->tipo_id;
 
             // dd($this->conceptos_pago);
             foreach($this->conceptos_pago as $key => $concepto){
