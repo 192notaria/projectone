@@ -626,7 +626,6 @@ public function removerParte($id){
     public $acto_honorarios;
     public $costos_proyecto = [];
     public $conceptos_pago;
-    public $acto_descuento;
 
     public $numero_escritura;
     public $volumen_escritura;
@@ -717,16 +716,11 @@ public function removerParte($id){
             "volumen_escritura.required" => "Es necesario el volumen de la escritura",
         ]);
 
-        if($this->acto_descuento > $this->acto_honorarios){
-            return $this->addError("acto_descuento", "El descuento no puede ser mayor a los honorarios");
-        }
-
         $nuevo_proyecto = new Proyectos;
         $nuevo_proyecto->servicio_id = $this->acto_juridico_id;
         $nuevo_proyecto->cliente_id = $this->proyecto_cliente['id'];
         $nuevo_proyecto->usuario_id = $this->proyecto_abogado['id'];
         $nuevo_proyecto->honorarios = $this->acto_honorarios;
-        $nuevo_proyecto->descuento = $this->acto_descuento ?? 0;
         $nuevo_proyecto->observaciones = $this->proyecto_descripcion;
         $nuevo_proyecto->status = 0;
         $nuevo_proyecto->numero_escritura = $this->numero_escritura;
@@ -773,7 +767,6 @@ public function removerParte($id){
         $this->proyecto_cliente = '';
         $this->proyecto_abogado = '';
         $this->acto_honorarios = '';
-        $this->acto_descuento = '';
         $this->proyecto_descripcion = '';
         $this->numero_escritura = '';
         $this->volumen_escritura = '';
