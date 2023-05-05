@@ -106,7 +106,7 @@
                                                     {{$escritura->servicio->nombre}}
                                                 </a>
                                                 <p>
-                                                    {{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}
+                                                    <span class="badge badge-primary">{{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}</span>
                                                 </p>
                                             </h6>
                                         </div>
