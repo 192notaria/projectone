@@ -105,6 +105,9 @@
                                                 >
                                                     {{$escritura->servicio->nombre}}
                                                 </a>
+                                                <p>
+                                                    {{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}
+                                                </p>
                                             </h6>
                                         </div>
                                     </div>

@@ -10,7 +10,10 @@ class Servicios extends Model
     use HasFactory;
 
     protected $fillable = [
-        "nombre"
+        "nombre",
+        "tiempo_firma",
+        "honorarios",
+        "tipo_id",
     ];
 
     public function procesos(){
@@ -25,5 +28,9 @@ class Servicios extends Model
 
     public function partes(){
         return $this->hasMany(CatalogoPartes::class, "servicio_id");
+    }
+
+    public function tipo_acto(){
+        return $this->belongsTo(CatalogoTipoActos::class, "tipo_id");
     }
 }
