@@ -4,6 +4,12 @@
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:end;">
                     <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
+                    <select style="width: 30%;" wire:model='tipo_acto_id' class="form-select me-2">
+                        <option value="">Todos...</option>
+                        @foreach ($catalogo_tipos_actos as $tipo_actos)
+                            <option value="{{$tipo_actos->id}}">{{$tipo_actos->nombre}}</option>
+                        @endforeach
+                    </select>
                     <select style="width: 10%;" wire:model='cantidadEscrituras' class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>

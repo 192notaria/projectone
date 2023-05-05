@@ -4,12 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\CatalogoMetodosPago;
 use App\Models\Catalogos_conceptos_pago;
+use App\Models\CatalogoTipoActos;
 use App\Models\Cobros;
 use App\Models\Costos;
 use App\Models\Cuentas_bancarias;
 use App\Models\Egresos;
 use App\Models\Proyectos;
 use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,6 +23,7 @@ class EscriturasGeneral extends Component
     public $cantidadEscrituras = 10;
     public $searchEscritura;
     public $search;
+    public $tipo_acto_id = '';
 
     public $escritura_id;
     public $egreso_data = "";
@@ -54,6 +57,9 @@ class EscriturasGeneral extends Component
     {
         return view('livewire.escrituras-general', [
             "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
+                ->whereHas('servicio.tipo_acto', function(Builder $serv){
+                    $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                })
                 // ->where("numero_escritura", "LIKE", "%" . $this->searchEscritura . "&")
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
@@ -61,7 +67,7 @@ class EscriturasGeneral extends Component
                             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('servicio', function($serv){
+                    ->orWhereHas('servicio', function(Builder $serv){
                         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
                     })
                     ->orWhereHas('abogado', function($serv){
@@ -81,7 +87,8 @@ class EscriturasGeneral extends Component
                 })
             ->get(),
             "catalogo_conceptos" => Catalogos_conceptos_pago::orderBy("descripcion", "ASC")->get(),
-            "cuentas_bancarias" => Cuentas_bancarias::all()
+            "cuentas_bancarias" => Cuentas_bancarias::all(),
+            "catalogo_tipos_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get()
         ]);
     }
 
