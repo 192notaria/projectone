@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Registrar pago</h5>
+                <h5>Registrar anticipo</h5>
             </div>
             <div class="modal-body">
                 <div class="row">

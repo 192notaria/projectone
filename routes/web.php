@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
+    Route::get('/administracion/cotizaciones', [ProyectosController::class, 'cotizaciones'])->name('admin-cotizaciones');
 
     Route::get('/recibo/{id}', [UsuariosController::class, 'generatePdf'])->name('recibo-pago');
 

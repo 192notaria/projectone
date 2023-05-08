@@ -8,6 +8,7 @@ class ProyectosController extends Controller
 {
     function __construct(){
         $this->middleware('permission:ver-pagos-escritura-page',['only'=>['escrituras_general']]);
+        $this->middleware('permission:ver-cotizaciones',['only'=>['cotizaciones']]);
         $this->middleware('permission:ver-proyectos|crear-proyectos|editar-proyectos|borrar-proyectos',['only'=>['index']]);
         $this->middleware('permission:crear-proyectos',['only' => ['create', 'store']]);
         $this->middleware('permission:editar-proyectos',['only' => ['edit', 'update']]);
@@ -28,5 +29,9 @@ class ProyectosController extends Controller
 
     public function escrituras_general(){
         return view("administracion.escrituras-general");
+    }
+
+    public function cotizaciones(){
+        return view("administracion.cotizaciones");
     }
 }

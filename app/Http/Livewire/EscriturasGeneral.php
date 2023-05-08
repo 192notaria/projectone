@@ -358,4 +358,26 @@ class EscriturasGeneral extends Component
         $pago->save();
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-pagos");
     }
+
+    public $costo_total_escritura;
+    public function abrir_modal_registrar_total($id){
+        $escritura = Proyectos::find($id);
+        $this->costo_total_escritura = $escritura->total ?? 0;
+        $this->escritura_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-total");
+    }
+
+    public function registrar_costo_total(){
+        $this->validate([
+            "costo_total_escritura" => "required",
+        ],[
+            "costo_total_escritura.required" => "Es necesario la cantidad del costo total",
+        ]);
+
+        $escritura = Proyectos::find($this->escritura_id);
+        $escritura->total = $this->costo_total_escritura;
+        $escritura->save();
+        $this->costo_total_escritura = '';
+        return $this->dispatchBrowserEvent("cerrar-modal-registrar-total");
+    }
 }

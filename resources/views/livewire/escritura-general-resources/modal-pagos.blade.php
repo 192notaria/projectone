@@ -14,57 +14,59 @@
             </div>
             <div class="modal-body">
                 <div class="row layout-top-spacing">
-                    <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                        <div class="card bg-primary">
-                            <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">Costo total</h5>
-                                <h1 class="text-white">
-                                    @if ($escritura_activa)
-                                        ${{number_format($escritura_activa->costo_total($escritura_activa->id), 2)}}
-                                    @endif
-                                </h1>
+                    @if ($escritura_activa)
+                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                            <div class="card bg-primary">
+                                <div class="card-body pt-3">
+                                    <h5 class="card-title mb-3">Costo total</h5>
+                                    <h1 class="text-white">
+                                        @if ($escritura_activa)
+                                            ${{number_format($escritura_activa->total, 2)}}
+                                        @endif
+                                    </h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                        <div class="card bg-success">
-                            <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">Pagado</h5>
-                                <h1 class="text-white">
-                                    @if ($escritura_activa)
+                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                            <div class="card bg-success">
+                                <div class="card-body pt-3">
+                                    <h5 class="card-title mb-3">Anticipos</h5>
+                                    <h1 class="text-white">
                                         ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id), 2)}}
-                                    @endif
-                                </h1>
+                                    </h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                        <div class="card bg-warning">
-                            <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">Egresos</h5>
-                                <h1 class="text-white">
-                                    @if ($escritura_activa)
+                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                            <div class="card bg-warning">
+                                <div class="card-body pt-3">
+                                    <h5 class="card-title mb-3">Egresos</h5>
+                                    <h1 class="text-white">
                                         ${{number_format($escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
-                                    @endif
-                                </h1>
+                                    </h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                        <div class="card bg-danger">
+                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                            <div class="card
+                                @if ($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id) < 0)
+                                    bg-danger
+                                @else
+                                    bg-info
+                                @endif
+                            ">
                             <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">Pendiente de pago</h5>
-                                <h1 class="text-white">
-                                    @if ($escritura_activa)
-                                        ${{number_format($escritura_activa->costo_total($escritura_activa->id) - $escritura_activa->pagos_recibidos_total($escritura_activa->id), 2)}}
-                                    @endif
-                                </h1>
+                                <h5 class="card-title mb-3">Faltante</h5>
+                                    <h1 class="text-white">
+                                        ${{number_format($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id), 2)}}
+                                    </h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="col-lg-12 col-md-12 layout-spacing">
                         <div class="statbox widget box box-shadow">
@@ -141,8 +143,8 @@
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                         <div class="d-flex justify-content-between">
-                                            <h4>Pagos recibidos</h4>
-                                            <button wire:click='abrir_modal_pago' class="btn btn-primary">Registrar pago</button>
+                                            <h4>Anticipos recibidos</h4>
+                                            <button wire:click='abrir_modal_pago' class="btn btn-primary">Registrar anticipo</button>
                                         </div>
                                     </div>
                                 </div>

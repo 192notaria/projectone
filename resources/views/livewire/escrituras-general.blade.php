@@ -82,13 +82,13 @@
                                 <th scope="col">Costo total</th>
                             @endcan
                             @can('ver-pagos-recibidos')
-                                <th scope="col">Pagado</th>
+                                <th scope="col">Anticipos</th>
                             @endcan
                             @can('ver-egresos-registrados')
                                 <th scope="col">Egresos</th>
                             @endcan
                             @can('ver-pendiente-pago')
-                                <th scope="col">Pendiente de pago</th>
+                                <th scope="col">Faltante</th>
                             @endcan
                             <th scope="col"></th>
                         </tr>
@@ -127,7 +127,7 @@
                                 @can('ver-costo-total')
                                     <td>
                                         <span class="badge badge-primary">
-                                            ${{number_format($escritura->costo_total($escritura->id), 2)}}
+                                            ${{number_format($escritura->total ?? 0, 2)}}
                                         </span>
                                     </td>
                                 @endcan
@@ -147,14 +147,23 @@
                                 @endcan
                                 @can('ver-pendiente-pago')
                                     <td>
-                                        <span class="badge badge-danger">
-                                            ${{number_format($escritura->costo_total($escritura->id) - $escritura->pagos_recibidos_total($escritura->id), 2)}}
+                                        <span class="badge
+                                        @if ($escritura->total - $escritura->costo_total($escritura->id) < 0)
+                                            badge-danger
+                                        @else
+                                            badge-info
+                                        @endif
+                                        ">
+                                            ${{number_format($escritura->total - $escritura->costo_total($escritura->id), 2)}}
                                         </span>
                                     </td>
                                 @endcan
                                 @can('ver-detalles-pago-escritura')
                                     <td>
-                                        <button class="btn btn-primary" wire:click='open_modal({{$escritura->id}})'>
+                                        <button class="btn btn-primary" wire:click='abrir_modal_registrar_total({{$escritura->id}})'>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        <button class="btn btn-success" wire:click='open_modal({{$escritura->id}})'>
                                             <i class="fa-solid fa-magnifying-glass-dollar"></i>
                                         </button>
                                     </td>
@@ -181,4 +190,5 @@
     @include("livewire.escritura-general-resources.modal-borrar-pago")
     @include("livewire.escritura-general-resources.modal-registrar-pago")
     @include("livewire.escritura-general-resources.modal-recibo-pago-egreso")
+    @include("livewire.escritura-general-resources.modal-registrar-total")
 </div>
