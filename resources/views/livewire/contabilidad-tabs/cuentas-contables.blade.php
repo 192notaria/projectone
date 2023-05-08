@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <h3>Conceptos contables</h3>
+        <h3>Cuentas Contables</h3>
         <div style="display:flex; align-items:right;">
-            <button type="button" class="btn btn-outline-success me-2">
+            <button wire:click='cambiar_vista("cuentas-contables-form")' type="button" class="btn btn-outline-success me-2">
                 <i class="fa-solid fa-plus"></i>
             </button>
             <input wire:model="search" type="text" class="form-control" placeholder="Buscar...">
@@ -27,17 +27,17 @@
                     <tbody>
                         @forelse ($cuentas_contables as $c_contable)
                             <tr>
-                                <td>{{$c_contable->uso->nombre}}</td>
-                                <td>{{$c_contable->tipo->nombre}}</td>
-                                <td>{{$c_contable->banco->nombre}}</td>
+                                <td>{{$c_contable->uso->nombre ?? "Sin uso asignado"}}</td>
+                                <td>{{$c_contable->tipo->nombre ?? "Sin tipo asignado"}}</td>
+                                <td>{{$c_contable->banco->nombre ?? "Sin banco asignado"}}</td>
                                 <td>{{$c_contable->titular}}</td>
                                 <td>{{$c_contable->numero_cuenta}}</td>
                                 <td>{{$c_contable->clabe_interbancaria}}</td>
                                 <td>{{$c_contable->observaciones}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button wire:click='editar_cuenta({{$c_contable->id}})' type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button wire:click='borrar_cuenta({{$c_contable->id}})' type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>

@@ -2,7 +2,7 @@
     <div class="card-header">
         <h3>Tipo de cuentas</h3>
         <div style="display:flex; align-items:right;">
-            <button type="button" class="btn btn-outline-success me-2">
+            <button type="button" class="btn btn-outline-success me-2" wire:click='cambiar_vista("form-tipo-cuentas")'>
                 <i class="fa-solid fa-plus"></i>
             </button>
             <input wire:model="search" type="text" class="form-control" placeholder="Buscar...">
@@ -26,8 +26,8 @@
                                 <td>{{$tipo->observaciones ?? "Sin descripcion"}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button wire:click='editar_tipo_cuenta({{$tipo->id}})' type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button wire:click='borrar_tipo_cuenta({{$tipo->id}})' type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>

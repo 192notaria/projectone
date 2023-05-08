@@ -180,4 +180,265 @@ class Contabilidad extends Component
         $this->clearAndReturnToHome();
         return $this->dispatchBrowserEvent("success-notify", "Concepto de pago registrado");
     }
+
+    public $cuenta_id = '';
+    public $uso_cuenta_id = '';
+    public $tipo_cuenta_id = '';
+    public $banco_cuenta_id = '';
+    public $titular_cuenta;
+    public $numero_cuenta;
+    public $clabe_cuenta;
+    public $observaciones_cuenta;
+
+    public function clearInputsCuenta(){
+        $this->cuenta_id = '';
+        $this->uso_cuenta_id = '';
+        $this->tipo_cuenta_id = '';
+        $this->banco_cuenta_id = '';
+        $this->titular_cuenta = '';
+        $this->numero_cuenta = '';
+        $this->clabe_cuenta = '';
+        $this->observaciones_cuenta = '';
+    }
+
+    public function editar_cuenta($id){
+        $cuenta = Cuentas_bancarias::find($id);
+        $this->cuenta_id = $id;
+        $this->uso_cuenta_id = $cuenta->uso_id;
+        $this->tipo_cuenta_id = $cuenta->tipo_cuenta_id;
+        $this->banco_cuenta_id = $cuenta->banco_id;
+        $this->titular_cuenta = $cuenta->titular;
+        $this->numero_cuenta = $cuenta->numero_cuenta;
+        $this->clabe_cuenta = $cuenta->clabe_interbancaria;
+        $this->observaciones_cuenta = $cuenta->observaciones;
+        return $this->cambiar_vista("cuentas-contables-form");
+    }
+
+    public function borrar_cuenta($id){
+        return Cuentas_bancarias::find($id)->delete();
+    }
+
+    public function registrar_cuenta(){
+        $this->validate([
+            "uso_cuenta_id" => "required",
+            "tipo_cuenta_id" => "required",
+            "banco_cuenta_id" => "required",
+            "titular_cuenta" => "required",
+        ],[
+            "uso_cuenta_id.required" => "Es necesario seleccionar el uso de la cuenta",
+            "tipo_cuenta_id.required" => "Es necesario seleccionar el tipo de cuenta",
+            "banco_cuenta_id.required" => "Es necesario seleccionar el banco",
+            "titular_cuenta.required" => "Es necesario el titular",
+        ]);
+
+        if($this->cuenta_id){
+            $cuenta = Cuentas_bancarias::find($this->cuenta_id);
+            $cuenta->uso_id = $this->uso_cuenta_id;
+            $cuenta->tipo_cuenta_id = $this->tipo_cuenta_id;
+            $cuenta->banco_id = $this->banco_cuenta_id;
+            $cuenta->titular = $this->titular_cuenta;
+            $cuenta->numero_cuenta = $this->numero_cuenta;
+            $cuenta->clabe_interbancaria = $this->clabe_cuenta;
+            $cuenta->observaciones = $this->observaciones_cuenta;
+            $cuenta->save();
+            $this->clearInputsCuenta();
+            return $this->cambiar_vista("home");
+        }
+
+        $cuenta = new Cuentas_bancarias;
+        $cuenta->uso_id = $this->uso_cuenta_id;
+        $cuenta->tipo_cuenta_id = $this->tipo_cuenta_id;
+        $cuenta->banco_id = $this->banco_cuenta_id;
+        $cuenta->titular = $this->titular_cuenta;
+        $cuenta->numero_cuenta = $this->numero_cuenta;
+        $cuenta->clabe_interbancaria = $this->clabe_cuenta;
+        $cuenta->observaciones = $this->observaciones_cuenta;
+        $cuenta->save();
+        $this->clearInputsCuenta();
+        return $this->cambiar_vista("home");
+    }
+
+    public $cuenta_tipo_id;
+    public $nombre_tipo_cuenta;
+    public $descripcion_tipo_cuenta;
+
+    public function clear_inputs_tipo_cuentas(){
+        $this->cuenta_tipo_id = '';
+        $this->nombre_tipo_cuenta = '';
+        $this->descripcion_tipo_cuenta = '';
+    }
+
+    public function editar_tipo_cuenta($id){
+        $cat_tipo_cuenta = Catalogos_tipo_cuenta::find($id);
+        $this->cuenta_tipo_id = $id;
+        $this->nombre_tipo_cuenta = $cat_tipo_cuenta->nombre;
+        $this->descripcion_tipo_cuenta = $cat_tipo_cuenta->observaciones;
+        $this->cambiar_vista("form-tipo-cuentas");
+    }
+
+    public function borrar_tipo_cuenta($id){
+        return Catalogos_tipo_cuenta::find($id)->delete();
+    }
+
+    public function registrar_tipo_cuenta(){
+        $this->validate([
+            "nombre_tipo_cuenta" => "required",
+        ],[
+            "nombre_tipo_cuenta.required" => "Es necesario el nombre del tipo de cuenta",
+        ]);
+
+        if($this->cuenta_tipo_id){
+            $cat_tipo_cuenta = Catalogos_tipo_cuenta::find($this->cuenta_tipo_id);
+            $cat_tipo_cuenta->nombre = $this->nombre_tipo_cuenta;
+            $cat_tipo_cuenta->observaciones = $this->descripcion_tipo_cuenta;
+            $cat_tipo_cuenta->save();
+            $this->clear_inputs_tipo_cuentas();
+            return $this->clearAndReturnToHome();
+        }
+
+        $cat_tipo_cuenta = new Catalogos_tipo_cuenta;
+        $cat_tipo_cuenta->nombre = $this->nombre_tipo_cuenta;
+        $cat_tipo_cuenta->observaciones = $this->descripcion_tipo_cuenta;
+        $cat_tipo_cuenta->save();
+        $this->clear_inputs_tipo_cuentas();
+        return $this->clearAndReturnToHome();
+    }
+
+    public $metodo_pago_id;
+    public $nombre_metodo_pago;
+    public $observaciones_metodo_pago;
+
+    public function clear_inputs_metodo_pago(){
+        $this->cuenta_tipo_id = '';
+        $this->nombre_tipo_cuenta = '';
+        $this->descripcion_tipo_cuenta = '';
+    }
+
+    public function editar_metodo_pago($id){
+        $metodo_pago = CatalogoMetodosPago::find($id);
+        $this->metodo_pago_id = $id;
+        $this->nombre_metodo_pago = $metodo_pago->nombre;
+        $this->observaciones_metodo_pago = $metodo_pago->observaciones;
+        $this->cambiar_vista("metodos-pago-form");
+    }
+
+    public function borrar_metodo_pago($id){
+        return CatalogoMetodosPago::find($id)->delete();
+    }
+
+    public function registrar_metodo_pago(){
+        $this->validate([
+            "nombre_metodo_pago" => "required",
+        ],[
+            "nombre_metodo_pago.required" => "Es necesario el nombre del metodo de pago",
+        ]);
+
+        if($this->metodo_pago_id){
+            $metodo_pago = CatalogoMetodosPago::find($this->metodo_pago_id);
+            $metodo_pago->nombre = $this->nombre_metodo_pago;
+            $metodo_pago->observaciones = $this->observaciones_metodo_pago;
+            $metodo_pago->save();
+            $this->clear_inputs_metodo_pago();
+            return $this->clearAndReturnToHome();
+        }
+
+        $metodo_pago = new CatalogoMetodosPago;
+        $metodo_pago->nombre = $this->nombre_metodo_pago;
+        $metodo_pago->observaciones = $this->observaciones_metodo_pago;
+        $metodo_pago->save();
+        $this->clear_inputs_metodo_pago();
+        return $this->clearAndReturnToHome();
+    }
+
+    public $impuesto_id;
+    public $nombre_impuesto;
+    public $observaciones_impuesto;
+
+    public function clear_inputs_impuesto(){
+        $this->impuesto_id = '';
+        $this->nombre_impuesto = '';
+        $this->observaciones_impuesto = '';
+    }
+
+    public function editar_impuesto($id){
+        $impuesto = CatalogosTipoImpuestos::find($id);
+        $this->impuesto_id = $id;
+        $this->nombre_impuesto = $impuesto->nombre;
+        $this->observaciones_impuesto = $impuesto->descripcion;
+        $this->cambiar_vista("impuesto-form");
+    }
+
+    public function borrar_impuesto($id){
+        return CatalogosTipoImpuestos::find($id)->delete();
+    }
+
+    public function registrar_impuesto(){
+        $this->validate([
+            "nombre_impuesto" => "required",
+        ],[
+            "nombre_impuesto.required" => "Es necesario el nombre del impuesto",
+        ]);
+
+        if($this->impuesto_id){
+            $impuesto = CatalogosTipoImpuestos::find($this->impuesto_id);
+            $impuesto->nombre = $this->nombre_impuesto;
+            $impuesto->descripcion = $this->observaciones_impuesto;
+            $impuesto->save();
+            $this->clear_inputs_impuesto();
+            return $this->clearAndReturnToHome();
+        }
+
+        $impuesto = new CatalogosTipoImpuestos;
+        $impuesto->nombre = $this->nombre_impuesto;
+        $impuesto->descripcion = $this->observaciones_impuesto;
+        $impuesto->save();
+        $this->clear_inputs_impuesto();
+        return $this->clearAndReturnToHome();
+    }
+
+    public $tipo_uso_cuenta_id;
+    public $nombre_tuc;
+    public $observaciones_tuc;
+
+    public function clear_inputs_tuc(){
+        $this->impuesto_id = '';
+        $this->nombre_tuc = '';
+        $this->observaciones_tuc = '';
+    }
+
+    public function editar_tuc($id){
+        $tuc = Catalogos_uso_de_cuentas::find($id);
+        $this->tipo_uso_cuenta_id = $id;
+        $this->nombre_tuc = $tuc->nombre;
+        $this->observaciones_tuc = $tuc->observaciones;
+        $this->cambiar_vista("tipo_uso_cuenta");
+    }
+
+    public function borrar_tuc($id){
+        return Catalogos_uso_de_cuentas::find($id)->delete();
+    }
+
+    public function registrar_tuc(){
+        $this->validate([
+            "nombre_tuc" => "required",
+        ],[
+            "nombre_tuc.required" => "Es necesario el nombre del impuesto",
+        ]);
+
+        if($this->tipo_uso_cuenta_id){
+            $impuesto = Catalogos_uso_de_cuentas::find($this->tipo_uso_cuenta_id);
+            $impuesto->nombre = $this->nombre_tuc;
+            $impuesto->observaciones = $this->observaciones_tuc;
+            $impuesto->save();
+            $this->clear_inputs_tuc();
+            return $this->clearAndReturnToHome();
+        }
+
+        $impuesto = new Catalogos_uso_de_cuentas;
+        $impuesto->nombre = $this->nombre_tuc;
+        $impuesto->observaciones = $this->observaciones_tuc;
+        $impuesto->save();
+        $this->clear_inputs_tuc();
+        return $this->clearAndReturnToHome();
+    }
 }

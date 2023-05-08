@@ -2,7 +2,7 @@
     <div class="card-header">
         <h3>Metodos de pago</h3>
         <div style="display:flex; align-items:right;">
-            <button type="button" class="btn btn-outline-success me-2">
+            <button type="button" class="btn btn-outline-success me-2" wire:click='cambiar_vista("metodos-pago-form")'>
                 <i class="fa-solid fa-plus"></i>
             </button>
             <input wire:model="search" type="text" class="form-control" placeholder="Buscar...">
@@ -26,8 +26,8 @@
                                 <td>{{$metodo->observaciones ?? "Sin descripcion"}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button wire:click='editar_metodo_pago({{$metodo->id}})' type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button wire:click='borrar_metodo_pago({{$metodo->id}})' type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
