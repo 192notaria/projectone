@@ -14,264 +14,294 @@
             </div>
             <div class="modal-body">
                 <div class="row layout-top-spacing">
-                    @if ($escritura_activa)
-                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                            <div class="card bg-primary">
-                                <div class="card-body pt-3">
-                                    <h5 class="card-title mb-3">Costo total</h5>
-                                    <h1 class="text-white">
-                                        @if ($escritura_activa)
-                                            ${{number_format($escritura_activa->total, 2)}}
-                                        @endif
-                                    </h1>
+                    @can("ver-detalles-pagos")
+                        @if ($escritura_activa)
+                            <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                                <div class="card bg-primary">
+                                    <div class="card-body pt-3">
+                                        <h5 class="card-title mb-3">Costo total</h5>
+                                        <h1 class="text-white">
+                                            @if ($escritura_activa)
+                                                ${{number_format($escritura_activa->total, 2)}}
+                                            @endif
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                            <div class="card bg-success">
-                                <div class="card-body pt-3">
-                                    <h5 class="card-title mb-3">Anticipos</h5>
-                                    <h1 class="text-white">
-                                        ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id), 2)}}
-                                    </h1>
+                            <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                                <div class="card bg-success">
+                                    <div class="card-body pt-3">
+                                        <h5 class="card-title mb-3">Anticipos</h5>
+                                        <h1 class="text-white">
+                                            ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id), 2)}}
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                            <div class="card bg-warning">
-                                <div class="card-body pt-3">
-                                    <h5 class="card-title mb-3">Egresos</h5>
-                                    <h1 class="text-white">
-                                        ${{number_format($escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
-                                    </h1>
+                            <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                                <div class="card bg-warning">
+                                    <div class="card-body pt-3">
+                                        <h5 class="card-title mb-3">Egresos</h5>
+                                        <h1 class="text-white">
+                                            ${{number_format($escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
-                            <div class="card
-                                @if ($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) < 0)
-                                    bg-danger
-                                @else
-                                    bg-info
-                                @endif
-                            ">
-                            <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">
+                            <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                                <div class="card
                                     @if ($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) < 0)
-                                        Faltante
+                                        bg-danger
                                     @else
-                                        Sobrante
+                                        bg-info
                                     @endif
-                                </h5>
-                                    <h1 class="text-white">
-                                        ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="col-lg-12 col-md-12 layout-spacing">
-                        <div class="statbox widget box box-shadow">
-                            <div class="widget-header">
-                                <div class="row">
-                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <div class="d-flex justify-content-between">
-                                            <h4>Costos</h4>
-                                            <button class="btn btn-primary" wire:click='abrir_registro_costos'>Registrar costo</button>
-                                        </div>
+                                ">
+                                <div class="card-body pt-3">
+                                    <h5 class="card-title mb-3">
+                                        @if ($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) < 0)
+                                            Faltante
+                                        @else
+                                            Sobrante
+                                        @endif
+                                    </h5>
+                                        <h1 class="text-white">
+                                            ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
+                                        </h1>
                                     </div>
                                 </div>
                             </div>
-                            <div class="widget-content widget-content-area">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered mb-4">
-                                        <thead>
-                                            <tr>
-                                                <th>Concepto</th>
-                                                <th>Costo</th>
-                                                <th>Gestoria</th>
-                                                <th>Impuestos</th>
-                                                <th>Total</th>
-                                                <th>Pagado</th>
-                                                <th>Egresos</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
-                                            <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($escritura_activa)
-                                                @forelse ($escritura_activa->costos_proyecto as $costo)
-                                                    <tr>
-                                                        <td>{{$costo->concepto_pago->descripcion}}</td>
-                                                        <td class="text-center">${{number_format($costo->subtotal, 2)}}</td>
-                                                        <td class="text-center">${{number_format($costo->gestoria, 2)}}</td>
-                                                        <td class="text-center">
-                                                            ${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}
-                                                            <span class="text-primary">({{$costo->impuestos}}%)</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
-                                                        </td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                                <button wire:click='abrir_modal_borrar_costo({{$costo->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                                @if ($costo->concepto_pago->descripcion != "Honorarios")
-                                                                    @if (!isset($costo->egreso->monto) && $costo->concepto_pago->categoria_gasto_id != 2)
-                                                                        <button wire:click='abrir_registrar_egreso({{$costo->id}})' type="button" class="btn btn-success"><i class="fa-solid fa-money-bill-1-wave"></i></button>
+                        @endif
+                    @endcan
+
+                    @can("ver-costos")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <h4>Costos</h4>
+                                                @can("crear-costo")
+                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>Registrar costo</button>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Concepto</th>
+                                                    <th>Costo</th>
+                                                    <th>Gestoria</th>
+                                                    <th>Impuestos</th>
+                                                    <th>Total</th>
+                                                    <th>Pagado</th>
+                                                    <th>Egresos</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                                <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->costos_proyecto as $costo)
+                                                        <tr>
+                                                            <td>{{$costo->concepto_pago->descripcion}}</td>
+                                                            <td class="text-center">${{number_format($costo->subtotal, 2)}}</td>
+                                                            <td class="text-center">${{number_format($costo->gestoria, 2)}}</td>
+                                                            <td class="text-center">
+                                                                ${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}
+                                                                <span class="text-primary">({{$costo->impuestos}}%)</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
+                                                            </td>
+                                                            <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                            <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                            <td class="text-center">
+                                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                                    @can("editar-costo")
+                                                                        <button wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                    @endcan
+                                                                    @can("borrar-costo")
+                                                                        <button wire:click='abrir_modal_borrar_costo({{$costo->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                    @endcan
+                                                                    @if ($costo->concepto_pago->descripcion != "Honorarios")
+                                                                        @if (!isset($costo->egreso->monto) && $costo->concepto_pago->categoria_gasto_id == 3)
+                                                                        @can("crear-egreso")
+                                                                            <button wire:click='abrir_registrar_egreso({{$costo->id}})' type="button" class="btn btn-success"><i class="fa-solid fa-money-bill-1-wave"></i></button>
+                                                                        @endcan
+                                                                        @endif
                                                                     @endif
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td>Sin registros...</td>
-                                                    </tr>
-                                                @endforelse
-                                            @endif
-                                        </tbody>
-                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td>Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endcan
 
-                    <div class="col-lg-12 col-md-12 layout-spacing">
-                        <div class="statbox widget box box-shadow">
-                            <div class="widget-header">
-                                <div class="row">
-                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <div class="d-flex justify-content-between">
-                                            <h4>Anticipos recibidos</h4>
-                                            <button wire:click='abrir_modal_pago' class="btn btn-primary">Registrar anticipo</button>
+                    @can("ver-anticipos")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <h4>Anticipos recibidos</h4>
+                                                @can("registrar-anticipo")
+                                                    <button wire:click='abrir_modal_pago' class="btn btn-primary">Registrar anticipo</button>
+                                                @endcan
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="widget-content widget-content-area">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered mb-4">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Recibido de:</th>
-                                                <th>Monto</th>
-                                                <th>Metodo de pago</th>
-                                                <th>Cuenta</th>
-                                                <th>Observaciones</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
-                                            <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($escritura_activa)
-                                                @forelse ($escritura_activa->pagos_recibidos as $pago)
-                                                    <tr>
-                                                        <td>{{$pago->fecha}}</td>
-                                                        <td>{{$pago->cliente ?? $escritura_activa->cliente->nombre . " " . $escritura_activa->cliente->apaterno}}</td>
-                                                        <td>${{number_format($pago->monto, 2)}}</td>
-                                                        <td>{{$pago->metodo_pago->nombre}}</td>
-                                                        <td>{{$pago->cuenta->numero_cuenta ?? "N/A"}}</td>
-                                                        <td class="text-center">
-                                                            {{$pago->observaciones}}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button wire:click='editar_pago({{$pago->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                                <button wire:click='abrir_modal_borrar_pago({{$pago->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="7" class="text-center">Sin registros...</td>
-                                                    </tr>
-                                                @endforelse
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 layout-spacing">
-                        <div class="statbox widget box box-shadow">
-                            <div class="widget-header">
-                                <div class="row">
-                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Egresos</h4>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Recibido de:</th>
+                                                    <th>Monto</th>
+                                                    <th>Metodo de pago</th>
+                                                    <th>Cuenta</th>
+                                                    <th>Observaciones</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                                <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->pagos_recibidos as $pago)
+                                                        <tr>
+                                                            <td>{{$pago->fecha}}</td>
+                                                            <td>{{$pago->cliente ?? $escritura_activa->cliente->nombre . " " . $escritura_activa->cliente->apaterno}}</td>
+                                                            <td>${{number_format($pago->monto, 2)}}</td>
+                                                            <td>{{$pago->metodo_pago->nombre}}</td>
+                                                            <td>{{$pago->cuenta->numero_cuenta ?? "N/A"}}</td>
+                                                            <td class="text-center">
+                                                                {{$pago->observaciones}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                                    @can("editar-pago")
+                                                                        <button wire:click='editar_pago({{$pago->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                    @endcan
+                                                                    @can("borrar-pago")
+                                                                        <button wire:click='abrir_modal_borrar_pago({{$pago->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                    @endcan
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="widget-content widget-content-area">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered mb-4">
-                                        <thead>
-                                            <tr>
-                                                <th>Concepto</th>
-                                                <th>Responsable de pago</th>
-                                                <th>Monto</th>
-                                                <th>Gestoria</th>
-                                                <th>Impuesto</th>
-                                                <th>Fecha de egreso</th>
-                                                <th>Observaciones</th>
-                                                <th>Status</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
-                                            <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($escritura_activa)
-                                                @forelse ($escritura_activa->egresos_data as $egreso)
-                                                    <tr>
-                                                        <td>{{$egreso->costos->concepto_pago->descripcion}}</td>
-                                                        <td>{{$egreso->responsable->name ?? "N/A"}} {{$egreso->responsable->apaterno ?? ""}}</td>
-                                                        <td class="text-center">${{number_format($egreso->monto, 2)}}</td>
-                                                        <td class="text-center">${{number_format($egreso->gestoria, 2)}}</td>
-                                                        <td class="text-center">${{number_format($egreso->impuestos, 2)}}</td>
-                                                        <td class="text-center">{{$egreso->fecha_egreso}}</td>
-                                                        <td class="text-center">{{$egreso->comentarios}}</td>
-                                                        <td>
-                                                            @if ($egreso->status == 0 || !$egreso->status)
-                                                                <span class="badge badge-danger">En espera de pago...</span>
-                                                            @endif
-                                                            @if ($egreso->status == 1)
-                                                                <span class="badge badge-success">Pagado: {{$egreso->fecha_pago}}</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button wire:click='editar_egresos({{$egreso->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                                <button wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                                @if (!$egreso->status || $egreso->status == 0)
-                                                                    <button wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
-                                                                @else
-                                                                    <a target="_blank" href="{{url($egreso->path)}}" class="btn btn-success"><i class="fa-solid fa-file"></i></a>
+                        </div>
+                    @endcan
+
+                    @can("ver-egresos")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Egresos</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Concepto</th>
+                                                    <th>Responsable de pago</th>
+                                                    <th>Monto</th>
+                                                    <th>Gestoria</th>
+                                                    <th>Impuesto</th>
+                                                    <th>Fecha de egreso</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Status</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                                <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->egresos_data as $egreso)
+                                                        <tr>
+                                                            <td>{{$egreso->costos->concepto_pago->descripcion}}</td>
+                                                            <td>{{$egreso->responsable->name ?? "N/A"}} {{$egreso->responsable->apaterno ?? ""}}</td>
+                                                            <td class="text-center">${{number_format($egreso->monto, 2)}}</td>
+                                                            <td class="text-center">${{number_format($egreso->gestoria, 2)}}</td>
+                                                            <td class="text-center">${{number_format($egreso->impuestos, 2)}}</td>
+                                                            <td class="text-center">{{$egreso->fecha_egreso}}</td>
+                                                            <td class="text-center">{{$egreso->comentarios}}</td>
+                                                            <td>
+                                                                @if ($egreso->status == 0 || !$egreso->status)
+                                                                    <span class="badge badge-danger">En espera de pago...</span>
                                                                 @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="9" class="text-center">Sin registros...</td>
-                                                    </tr>
-                                                @endforelse
-                                            @endif
-                                        </tbody>
-                                    </table>
+                                                                @if ($egreso->status == 1)
+                                                                    <span class="badge badge-success">Pagado: {{$egreso->fecha_pago}}</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                                    @can("editar-egresos")
+                                                                        <button wire:click='editar_egresos({{$egreso->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                    @endcan
+
+                                                                    @can("borrar-egreso")
+                                                                        <button wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                    @endcan
+                                                                    @if (!$egreso->status || $egreso->status == 0)
+                                                                        @can("registrar-recibo-egreso")
+                                                                            <button wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
+                                                                        @endcan
+                                                                    @else
+                                                                        @can("ver-recibo-egreso")
+                                                                            <a target="_blank" href="{{url($egreso->path)}}" class="btn btn-success"><i class="fa-solid fa-file"></i></a>
+                                                                        @endcan
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="9" class="text-center">Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    @endcan
                 </div>
             </div>
             <div class="modal-footer">
