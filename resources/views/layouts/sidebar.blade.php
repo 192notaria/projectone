@@ -62,20 +62,26 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
-                    <li class="{{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
-                        <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
-                    </li>
-                    <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
-                        <a href="{{route("escrituras-escrituras")}}"> Finalizadas </a>
-                    </li>
+                    @can("ver-cotizaciones")
+                        <li class="{{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
+                            <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
+                        </li>
+                    @endcan
+                    @can("ver-escrituras-finalizadas")
+                        <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
+                            <a href="{{route("escrituras-escrituras")}}"> Finalizadas </a>
+                        </li>
+                    @endcan
                     @can('ver-pagos-escritura-page')
                         <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
                             <a href="{{route("escrituras-general")}}"> Pagos </a>
                         </li>
                     @endcan
-                    <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
-                        <a href="{{route("escrituras-proceso")}}"> Proyectos </a>
-                    </li>
+                    @can("ver-proyectos")
+                        <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
+                            <a href="{{route("escrituras-proceso")}}"> Proyectos </a>
+                        </li>
+                    @endcan
                     {{-- <li class="{{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}}">
                         <a href="/administracion/escrituras_apoyo"> Proyectos asistidos</a>
                     </li> --}}
