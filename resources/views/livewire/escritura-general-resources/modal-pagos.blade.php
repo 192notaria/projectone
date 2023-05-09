@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <div class="row layout-top-spacing">
-                    @can("ver-detalles-pagos")
+                    @can("ver-tarjetas-detalles-pagos")
                         @if ($escritura_activa)
                             <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
                                 <div class="card bg-primary">
