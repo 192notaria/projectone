@@ -200,10 +200,11 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-                                                        {{-- {{$tipo_subproceso}} --}}
-                                                        {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $tipo_subproceso)}}
+                                                        {{-- {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $tipo_subproceso)}} --}}
                                                         @if ($tipo_subproceso == 3)
+                                                            @can("omitir-subproceso")
                                                                 <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.autorizacion-catastro')
                                                         @endif
                                                         @if ($tipo_subproceso == 5)
