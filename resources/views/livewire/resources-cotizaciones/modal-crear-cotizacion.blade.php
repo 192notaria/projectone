@@ -135,10 +135,20 @@
                             </tbody>
                         </table>
                     </div>
+                    @error("error_cotizacion")
+                        <div class="col-lg-12 text-center">
+                            <span class="text-danger">{{$message}}</span>
+                        </div>
+                    @enderror
+                    @error("costos_array")
+                        <div class="col-lg-12 text-center">
+                            <span class="text-danger">{{$message}}</span>
+                        </div>
+                    @enderror
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='crear_proyecto' class="btn btn-outline-success">
+                <button wire:click='registrar_cotizacion' class="btn btn-outline-success">
                     Guardar
                 </button>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">

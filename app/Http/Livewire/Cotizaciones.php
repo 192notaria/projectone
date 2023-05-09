@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Catalogos_conceptos_pago;
 use App\Models\Clientes;
+use App\Models\CostosCotizaciones;
 use App\Models\Cotizaciones as ModelsCotizaciones;
 use App\Models\Servicios;
 use Livewire\Component;
@@ -25,6 +26,8 @@ class Cotizaciones extends Component
     public $observaciones_concepto;
     public $buscar_cliente;
     public $proyecto_cliente;
+
+    public $cotizacion_id;
 
     public function render()
     {
@@ -136,14 +139,12 @@ class Cotizaciones extends Component
     public function registrar_cotizacion(){
         $this->validate([
             "acto_id" => "required",
-            "proyecto_cliente" => "required",
         ],[
             "acto_id.required" => "Es necesario seleccionar un acto",
-            "proyecto_cliente.required" => "Es necesario el cliente para la cotizacion",
         ]);
 
-        if(count($this->costos_array) == 0){
-            return $this->addError("costos_array", "Es necesario agregar los costos de la cotizacion");
+        if(!$this->proyecto_cliente){
+            return $this->addError("proyecto_cliente", "Es necesario el cliente para la cotizacion");
         }
 
         $total_sum = 0;
@@ -152,11 +153,87 @@ class Cotizaciones extends Component
             $total_sum = $total_sum + $total;
         }
 
-        $cotizacion = new Cotizaciones;
+        if(count($this->costos_array) == 0){
+            return $this->addError("costos_array", "Es necesario agregar los costos de la cotizacion");
+        }
+
+        if($total_sum == 0){
+            return $this->addError("error_cotizacion", "La cotización no puede ser de $0.00");
+        }
+
+        if($this->cotizacion_id){
+            $cotizacion = ModelsCotizaciones::find($this->cotizacion_id);
+            $cotizacion->total = $total_sum;
+
+            $version = $cotizacion->version + 1;
+
+            $cotizacion->version = $version;
+            $cotizacion->save();
+
+
+            foreach ($this->costos_array as $valor) {
+                $costo = new CostosCotizaciones;
+                $costo->subtotal = $valor['monto'];
+                $costo->gestoria = $valor['gestoria'];
+                $costo->impuesto = $valor['impuesto'];
+                $costo->version = $version;
+                $costo->cotizaciones_id = $cotizacion->id;
+                $costo->concepto_id = $valor['concepto_id'];
+                $costo->observaciones = $valor['observaciones'] ?? "Sin observaciones";
+                $costo->save();
+            }
+            $this->cotizacion_id = "";
+            $this->acto_id = "";
+            $this->proyecto_cliente = "";
+            $this->costos_array = [];
+            return $this->dispatchBrowserEvent("cerrar-modal-crear-cotizacion");
+        }
+
+
+        $cotizacion = new ModelsCotizaciones;
         $cotizacion->cliente_id = $this->proyecto_cliente['id'];
         $cotizacion->acto_id = $this->acto_id;
         $cotizacion->total = $total_sum;
+        $cotizacion->version = 1;
         $cotizacion->save();
-        return $this->dispatchBrowserEvent("cerrar-modal-registro-costo");
+
+        foreach ($this->costos_array as $valor) {
+            $costo = new CostosCotizaciones;
+            $costo->subtotal = $valor['monto'];
+            $costo->gestoria = $valor['gestoria'];
+            $costo->impuesto = $valor['impuesto'];
+            $costo->version = 1;
+            $costo->cotizaciones_id = $cotizacion->id;
+            $costo->concepto_id = $valor['concepto_id'];
+            $costo->observaciones = $valor['observaciones'] ?? "Sin observaciones";
+            $costo->save();
+        }
+
+        $this->cotizacion_id = "";
+        $this->acto_id = "";
+        $this->proyecto_cliente = "";
+        $this->costos_array = [];
+        return $this->dispatchBrowserEvent("cerrar-modal-crear-cotizacion");
+    }
+
+    public function editar_cotizacion($id){
+        $this->cotizacion_id = $id;
+        $cotizacion = ModelsCotizaciones::find($id);
+        $this->proyecto_cliente = $cotizacion->cliente;
+        $this->acto_id = $cotizacion->acto_id;
+        $costos = CostosCotizaciones::where("cotizaciones_id", $id)->where("version", $cotizacion->version)->get();
+        foreach ($costos as $key => $costo) {
+            $data = [
+                "concepto_id" => $costo->concepto_id,
+                "concepto" => $costo->concepto->descripcion,
+                "monto" => $costo->subtotal,
+                "gestoria" => $costo->gestoria,
+                "impuesto" => $costo->impuesto,
+                "observaciones" => $costo->observaciones,
+            ];
+            array_push($this->costos_array, $data);
+        }
+
+        return $this->dispatchBrowserEvent("abrir-modal-crear-cotizacion");
     }
 }

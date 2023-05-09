@@ -42,8 +42,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Cliente</th>
                             <th>Acto</th>
+                            <th>Total</th>
                             <th>Fecha</th>
                             <th></th>
                         </tr>
@@ -51,10 +53,21 @@
                     <tbody>
                         @forelse ($cotizaciones as $cotizacion)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    {{$cotizacion->id}} - {{$cotizacion->version}}
+                                </td>
+                                <td>
+                                    {{$cotizacion->cliente->nombre}}
+                                    {{$cotizacion->cliente->apaterno}}
+                                    {{$cotizacion->cliente->amaterno}}
+                                </td>
+                                <td>{{$cotizacion->acto->nombre}}</td>
+                                <td><span class="badge badge-primary">${{number_format($cotizacion->total, 2)}}</span></td>
+                                <td>{{$cotizacion->created_at}}</td>
+                                <td>
+                                    <button wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                </td>
                             </tr>
                         @empty
                             <tr>
