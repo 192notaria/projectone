@@ -116,14 +116,14 @@
                                                         <td class="text-center">
                                                             ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
                                                         </td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
                                                         <td class="text-center">
                                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                                 <button wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                                                 <button wire:click='abrir_modal_borrar_costo({{$costo->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                                 @if ($costo->concepto_pago->descripcion != "Honorarios")
-                                                                    @if (!isset($costo->egreso->monto))
+                                                                    @if (!isset($costo->egreso->monto) && $costo->concepto_pago->categoria_gasto_id != 2)
                                                                         <button wire:click='abrir_registrar_egreso({{$costo->id}})' type="button" class="btn btn-success"><i class="fa-solid fa-money-bill-1-wave"></i></button>
                                                                     @endif
                                                                 @endif
@@ -253,6 +253,8 @@
                                                                 <button wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                                 @if (!$egreso->status || $egreso->status == 0)
                                                                     <button wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
+                                                                @else
+                                                                    <a target="_blank" href="{{url($egreso->path)}}" class="btn btn-success"><i class="fa-solid fa-file"></i></a>
                                                                 @endif
                                                             </div>
                                                         </td>
