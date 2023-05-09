@@ -9,6 +9,7 @@ use App\Models\Cotizaciones as ModelsCotizaciones;
 use App\Models\Servicios;
 use Livewire\Component;
 use Livewire\WithPagination;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class Cotizaciones extends Component
 {
@@ -189,7 +190,6 @@ class Cotizaciones extends Component
             return $this->dispatchBrowserEvent("cerrar-modal-crear-cotizacion");
         }
 
-
         $cotizacion = new ModelsCotizaciones;
         $cotizacion->cliente_id = $this->proyecto_cliente['id'];
         $cotizacion->acto_id = $this->acto_id;
@@ -233,7 +233,49 @@ class Cotizaciones extends Component
             ];
             array_push($this->costos_array, $data);
         }
-
         return $this->dispatchBrowserEvent("abrir-modal-crear-cotizacion");
     }
+
+    public $historial_cotizaciones = [];
+    public function ver_cotizaciones($id){
+        $costos = CostosCotizaciones::where("cotizaciones_id", $id)->distinct('version')->get();
+        $versiones = $costos->unique("version");
+        foreach ($versiones as $value) {
+            $cotizacion = CostosCotizaciones::where("cotizaciones_id", $id)->where("version", $value->version)->get();
+            array_push($this->historial_cotizaciones, $cotizacion);
+        }
+        return $this->dispatchBrowserEvent("abrir-modal-historial-cotizacion");
+    }
+
+    public function cerrar_historail_cotizacion(){
+        $this->historial_cotizaciones = [];
+        return $this->dispatchBrowserEvent("cerrar-modal-historial-cotizacion");
+    }
+
+    public function descargar_cotizacion($version, $cotizacion_id){
+        $cotizacion = CostosCotizaciones::where("cotizaciones_id", $cotizacion_id)->where("version", $version)->get();
+        $total_sum = 0;
+        foreach ($cotizacion as $costo_sum) {
+            $total_sum = $total_sum + $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
+        }
+
+        $nombre = $cotizacion[0]->cotizacion->cliente->nombre . " " . $cotizacion[0]->cotizacion->cliente->apaterno . " " . $cotizacion[0]->cotizacion->cliente->amaterno;
+        $acto = $cotizacion[0]->cotizacion->acto->nombre;
+        $day = date("d", strtotime($cotizacion[0]->cotizacion->created_at));
+        $month = date("m", strtotime($cotizacion[0]->cotizacion->created_at));
+        $year = date("Y", strtotime($cotizacion[0]->cotizacion->created_at));
+
+        $templateprocessor = new TemplateProcessor('word-template/cotizacion.docx');
+        $templateprocessor->setValue('nombre', mb_strtoupper($nombre));
+        $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('costo', "$" . number_format($total_sum, 2));
+        $templateprocessor->setValue('dia', $day);
+        $templateprocessor->setValue('mes', $month);
+        $templateprocessor->setValue('year', $year);
+        $filename = "Cotización " . $acto . " " . $nombre;
+
+        $templateprocessor->saveAs("cotizaciones/" . $filename . '.docx');
+        return response()->download("cotizaciones/" . $filename . '.docx')->deleteFileAfterSend(true);
+    }
 }
+

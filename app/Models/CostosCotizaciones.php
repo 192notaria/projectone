@@ -21,4 +21,8 @@ class CostosCotizaciones extends Model
     public function concepto(){
         return $this->belongsTo(Catalogos_conceptos_pago::class);
     }
+
+    public function cotizacion(){
+        return $this->belongsTo(Cotizaciones::class, "cotizaciones_id");
+    }
 }

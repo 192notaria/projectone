@@ -65,6 +65,9 @@
                                 <td><span class="badge badge-primary">${{number_format($cotizacion->total, 2)}}</span></td>
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>
+                                    <button wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
+                                        <i class="fa-solid fa-bars"></i>
+                                    </button>
                                     <button wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                 </td>
@@ -82,4 +85,5 @@
     </div>
     @include("livewire.resources-cotizaciones.modal-crear-cotizacion")
     @include("livewire.resources-cotizaciones.modal-costo")
+    @include("livewire.resources-cotizaciones.modal-historail-cotizaciones")
 </div>

@@ -59,7 +59,13 @@
                                 @endif
                             ">
                             <div class="card-body pt-3">
-                                <h5 class="card-title mb-3">Faltante</h5>
+                                <h5 class="card-title mb-3">
+                                    @if ($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id) < 0)
+                                        Faltante
+                                    @else
+                                        Sobrante
+                                    @endif
+                                </h5>
                                     <h1 class="text-white">
                                         ${{number_format($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id), 2)}}
                                     </h1>
