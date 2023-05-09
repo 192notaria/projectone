@@ -6,7 +6,6 @@
                     <h5>Historial de cotización</h5>
                 </div>
             </div>
-
             <style>
                    .autocomplete {
                     position: relative;
@@ -44,7 +43,10 @@
                                 <div class="card-header">
                                     <div class="d-flex justify-content-between">
                                         <h3># {{$historial[0]['version']}}</h3>
-                                        <button class="btn btn-outline-primary" wire:click='descargar_cotizacion({{$historial[0]['version']}}, {{$historial[0]['cotizaciones_id']}})'><i class="fa-solid fa-file-arrow-down"></i> Descargar Cotización</button>
+                                        <div>
+                                            <button class="btn btn-outline-primary" wire:click='descargar_cotizacion({{$historial[0]['version']}}, {{$historial[0]['cotizaciones_id']}})'><i class="fa-solid fa-file-arrow-down"></i> Descargar Cotización</button>
+                                            <button class="btn btn-outline-success" wire:click='abrir_proyecto_modal({{$historial[0]['version']}}, {{$historial[0]['cotizaciones_id']}})'><i class="fa-solid fa-diagram-project"></i> Crear Proyecto</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body table-responsive">

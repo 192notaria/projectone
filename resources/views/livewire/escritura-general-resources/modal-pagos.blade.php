@@ -52,7 +52,7 @@
 
                         <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
                             <div class="card
-                                @if ($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id) < 0)
+                                @if ($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) < 0)
                                     bg-danger
                                 @else
                                     bg-info
@@ -60,14 +60,14 @@
                             ">
                             <div class="card-body pt-3">
                                 <h5 class="card-title mb-3">
-                                    @if ($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id) < 0)
+                                    @if ($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) < 0)
                                         Faltante
                                     @else
                                         Sobrante
                                     @endif
                                 </h5>
                                     <h1 class="text-white">
-                                        ${{number_format($escritura_activa->total - $escritura_activa->costo_total($escritura_activa->id), 2)}}
+                                        ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
                                     </h1>
                                 </div>
                             </div>
@@ -116,8 +116,8 @@
                                                         <td class="text-center">
                                                             ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
                                                         </td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
-                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                        <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos, 2) : '<span class="text-danger">$0.0</span>' !!}</td>
                                                         <td class="text-center">
                                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                                 <button wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>

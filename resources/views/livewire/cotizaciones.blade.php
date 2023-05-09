@@ -86,4 +86,5 @@
     @include("livewire.resources-cotizaciones.modal-crear-cotizacion")
     @include("livewire.resources-cotizaciones.modal-costo")
     @include("livewire.resources-cotizaciones.modal-historail-cotizaciones")
+    @include("livewire.resources-cotizaciones.moda-crear-proyecto")
 </div>

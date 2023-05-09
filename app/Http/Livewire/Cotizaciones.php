@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Catalogos_conceptos_pago;
 use App\Models\Clientes;
+use App\Models\Costos;
 use App\Models\CostosCotizaciones;
 use App\Models\Cotizaciones as ModelsCotizaciones;
+use App\Models\Proyectos;
 use App\Models\Servicios;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -41,6 +44,9 @@ class Cotizaciones extends Component
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->get(),
+            "abogados" => User::whereHas("roles", function($data){
+                    $data->where('name', "ABOGADO")->orWhere("name", "ABOGADO ADMINISTRADOR");
+                })->get(),
         ]);
     }
 
@@ -276,6 +282,72 @@ class Cotizaciones extends Component
 
         $templateprocessor->saveAs("cotizaciones/" . $filename . '.docx');
         return response()->download("cotizaciones/" . $filename . '.docx')->deleteFileAfterSend(true);
+    }
+
+
+    public $servicio_id;
+    public $cliente_id;
+    public $usuario_id = '';
+    public $numero_escritura;
+    public $status;
+    public $volumen_escritura;
+    public $total_escritura;
+    public $costos_escritura;
+
+    public function abrir_proyecto_modal($version, $cotizacion_id){
+        $cotizacion = ModelsCotizaciones::find($cotizacion_id);
+        $costos_escritura = CostosCotizaciones::where("cotizaciones_id", $cotizacion_id)->where("version", $version)->get();
+        $this->costos_escritura = $costos_escritura;
+
+        $total_sum = 0;
+        foreach ($this->costos_escritura as $costo_sum) {
+            $total_sum = $total_sum + $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
+        }
+
+        $this->total_escritura = $total_sum;
+        $this->servicio_id = $cotizacion->acto->id;
+        $this->cliente_id = $cotizacion->cliente->id;
+        return $this->dispatchBrowserEvent("abrir-modal-crear-proyecto");
+    }
+
+    public function crear_proyecto(){
+        $this->validate([
+            "servicio_id" => "required",
+            "cliente_id" => "required",
+            "usuario_id" => "required",
+            "numero_escritura" => "required",
+            "volumen_escritura" => "required",
+            "total_escritura" => "required",
+        ],[
+            "servicio_id" => "Es necesario asignar un acto",
+            "cliente_id" => "Es necesario asignar el cliente",
+            "usuario_id" => "Es necesario seleccionar el abogado",
+            "numero_escritura" => "Es necesario el número de escritura",
+            "volumen_escritura" => "Es necesario el volumen",
+            "total_escritura" => "Es necesario el costo total de la escritura",
+        ]);
+
+        $proyecto = new Proyectos;
+        $proyecto->servicio_id = $this->servicio_id;
+        $proyecto->cliente_id = $this->cliente_id;
+        $proyecto->usuario_id = $this->usuario_id;
+        $proyecto->numero_escritura = $this->numero_escritura;
+        $proyecto->status = 0;
+        $proyecto->volumen = $this->volumen_escritura;
+        $proyecto->total = $this->total_escritura;
+        $proyecto->save();
+
+        foreach ($this->costos_escritura as $value) {
+            $costo = new Costos;
+            $costo->concepto_id = $value->concepto_id;
+            $costo->subtotal = $value->subtotal;
+            $costo->gestoria = $value->gestoria;
+            $costo->impuestos = $value->impuesto;
+            $costo->proyecto_id = $proyecto->id;
+            $costo->save();
+        }
+
+        return $this->dispatchBrowserEvent("cerrar-modal-crear-proyecto");
     }
 }
 

@@ -168,7 +168,7 @@ class EscriturasGeneral extends Component
         $egreso->proyecto_id = $this->escritura_id;
         $egreso->monto = $this->egreso_data['subtotal'];
         $egreso->gestoria = $this->egreso_data['gestoria'];
-        $egreso->impuestos = $this->egreso_data['impuestos'];
+        $egreso->impuestos = $this->egreso_data['subtotal'] * $this->egreso_data['impuestos'] / 100;
         $egreso->fecha_egreso = $this->fecha_egreso;
         $egreso->comentarios = $this->comentarios_egreso;
         $egreso->path = null;
@@ -187,6 +187,9 @@ class EscriturasGeneral extends Component
 
     public function borrar_egreso(){
         Egresos::find($this->egreso_id)->delete();
+        $this->egreso_data = '';
+        $this->fecha_egreso = '';
+        $this->comentarios_egreso = '';
         $this->dispatchBrowserEvent("cerrar-modal-borrar-egreso");
         return $this->dispatchBrowserEvent("success-notify", "Egreso borrado");
     }
