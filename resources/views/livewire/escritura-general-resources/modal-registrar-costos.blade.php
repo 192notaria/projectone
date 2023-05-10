@@ -30,7 +30,8 @@
                         <label for="">Impuestos en %</label>
                         <input type="number" class="form-control" placeholder="0%" wire:model='impuestos_costo'>
                     </div>
-                    @if ($concepto_costo_id == 10)
+                    {{-- @if ($concepto_costo_id == 10) --}}
+                    @if ($concepto_costo_id == 12)
                         <div class="col-lg-12 mb-2 mt-2">
                             <label for="">Pago realizado</label>
                             <select class="form-select" wire:model='pago_realizado_costo'>
