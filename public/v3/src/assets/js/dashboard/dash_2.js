@@ -1196,7 +1196,7 @@ $(document).ready(function(){
         width: 2,
         lineCap: 'square'
     },
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayu', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    // labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayu', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
     xaxis: {
         categories: [],
         axisBorder: {
