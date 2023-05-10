@@ -148,7 +148,7 @@
                                 @can('ver-pendiente-pago')
                                     <td>
                                         <span class="badge
-                                        @if ($escritura->total - $escritura->costo_total($escritura->id) < 0)
+                                        @if ($escritura->pagos_recibidos_total($escritura->id) - $escritura->egresos_registrados($escritura->id) < 0)
                                             badge-danger
                                         @else
                                             badge-info
