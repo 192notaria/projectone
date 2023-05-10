@@ -28,4 +28,9 @@ class Egresos extends Model
     public function responsable(){
         return $this->belongsTo(User::class, "usuario_id");
     }
+
+    public function proyecto(){
+        return $this->belongsTo(Proyectos::class, "proyecto_id");
+    }
+
 }
