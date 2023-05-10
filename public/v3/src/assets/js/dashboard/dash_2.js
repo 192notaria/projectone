@@ -1413,8 +1413,8 @@ var chart2 = new ApexCharts(
 
 chart2.render();
 
-// const urldonut = "http://192.168.1.100/chartsData/dounut"
-const urldonut = "http://projectone.test/chartsData/dounut"
+const urldonut = "http://192.168.1.100/chartsData/dounut"
+// const urldonut = "http://projectone.test/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
     chart2.updateOptions({
