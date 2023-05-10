@@ -208,23 +208,33 @@
                                                             @include('livewire.subprocesos-resource.autorizacion-catastro')
                                                         @endif
                                                         @if ($tipo_subproceso == 5)
-                                                            <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @can("omitir-subproceso")
+                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.agendar-firma')
                                                         @endif
                                                         @if ($tipo_subproceso == 6)
-                                                            <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @can("omitir-subproceso")
+                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.documentos-subprocesos')
                                                         @endif
                                                         @if ($tipo_subproceso == 8)
-                                                            <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @can("omitir-subproceso")
+                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.registrar-firma')
                                                         @endif
                                                         @if ($tipo_subproceso == 10)
-                                                            <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @can("omitir-subproceso")
+                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.recibos-pago')
                                                         @endif
                                                         @if ($tipo_subproceso == 19)
-                                                            <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @can("omitir-subproceso")
+                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                            @endcan
                                                             @include('livewire.subprocesos-resource.varios-generales')
                                                         @endif
                                                     </div>
