@@ -74,7 +74,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">Sin registros</td>
+                                <td colspan="6" class="text-center">Sin registros</td>
                             </tr>
                         @endforelse
                     </tbody>
