@@ -1221,7 +1221,7 @@ $(document).ready(function(){
     yaxis: {
         labels: {
         formatter: function(value, index) {
-            return (value / 1000) + 'K'
+            return value
         },
         offsetX: -15,
         offsetY: 0,
