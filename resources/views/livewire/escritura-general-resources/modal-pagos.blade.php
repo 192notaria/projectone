@@ -120,6 +120,7 @@
                                                                 <span class="text-primary">({{$costo->impuestos}}%)</span>
                                                             </td>
                                                             <td class="text-center">
+
                                                                 ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
                                                             </td>
                                                             <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
