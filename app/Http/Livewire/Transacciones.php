@@ -19,7 +19,7 @@ class Transacciones extends Component
     public function render()
     {
         return view('livewire.transacciones',[
-            "transacciones" => $this->ingresos->concat($this->egresos)->sortBy('created_at')->take(6),
+            "transacciones" => $this->ingresos->concat($this->egresos)->sortByDesc('created_at')->take(6),
         ]);
     }
 }
