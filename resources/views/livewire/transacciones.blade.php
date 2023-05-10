@@ -25,10 +25,10 @@
                     <div class="t-name">
                         <h4>
                             @if ($tran->fecha_egreso)
-                                {{$tran->proyecto->cliente->nombre ?? ""}} {{$tran->proyecto->cliente->apaterno ?? ""}} {{$tran->proyecto->cliente->amaterno ?? ""}} - {{$tran->proyecto->servicio->nombre ?? ""}}
+                                {{$tran->proyecto->cliente->nombre ?? ""}} {{$tran->proyecto->cliente->apaterno ?? ""}} {{$tran->proyecto->cliente->amaterno ?? ""}} - {{$tran->proyecto->servicio->nombre ?? ""}}({{$tran->proyecto->numero_escritura ?? ""}})
                             @endif
                             @if ($tran->fecha)
-                                {{$tran->proyecto->cliente->nombre ?? "as"}} {{$tran->proyecto->cliente->apaterno ?? ""}} {{$tran->proyecto->cliente->amaterno ?? ""}} - {{$tran->proyecto->servicio->nombre ?? ""}}
+                                {{$tran->proyecto->cliente->nombre ?? "as"}} {{$tran->proyecto->cliente->apaterno ?? ""}} {{$tran->proyecto->cliente->amaterno ?? ""}} - {{$tran->proyecto->servicio->nombre ?? ""}}({{$tran->proyecto->numero_escritura ?? ""}})
                             @endif
                         </h4>
                         <p class="meta-date">{{$tran->created_at}}</p>
