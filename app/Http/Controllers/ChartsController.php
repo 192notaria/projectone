@@ -33,29 +33,29 @@ class ChartsController extends Controller
             if((int)$key == 11) $mes = "Noviembre";
             if((int)$key == 12) $mes = "Diciembre";
 
-            $data = ["x" => $mes, "y" => count($value)];
-            array_push($proyectosArray, $data);
+            $dataarray = ["x" => $mes, "y" => count($value)];
+            array_push($proyectosArray, $dataarray);
             // $proyectosArray[(int)$key] = count($value);
         }
         return json_encode($proyectosArray);
 
-        // $data = [
-        //     ["x" => "Enero", "y" => "120000"],
-        //     ["x" => "Febrero", "y" => "190000"],
-        //     ["x" => "Marzo", "y" => "12000"],
-        //     ["x" => "Abril", "y" => "120000"],
-        //     ["x" => "Mayo", "y" => "13900"],
-        //     ["x" => "Junio", "y" => "190000"],
-        //     ["x" => "Julio", "y" => "12200"],
-        //     ["x" => "Agosto", "y" => "120000"],
-        //     ["x" => "Septiembre", "y" => "13200"],
-        //     ["x" => "Octubre", "y" => "15000"],
-        //     ["x" => "Noviembre", "y" => "220000"],
-        //     ["x" => "Diciembre", "y" => "1200"],
-        // ];
+        $data = [
+            ["x" => "Enero", "y" => "120000"],
+            ["x" => "Febrero", "y" => "190000"],
+            ["x" => "Marzo", "y" => "12000"],
+            ["x" => "Abril", "y" => "120000"],
+            ["x" => "Mayo", "y" => "13900"],
+            ["x" => "Junio", "y" => "190000"],
+            ["x" => "Julio", "y" => "12200"],
+            ["x" => "Agosto", "y" => "120000"],
+            ["x" => "Septiembre", "y" => "13200"],
+            ["x" => "Octubre", "y" => "15000"],
+            ["x" => "Noviembre", "y" => "220000"],
+            ["x" => "Diciembre", "y" => "1200"],
+        ];
 
         $datareturn = [
-            "data" => $proyectosArray,
+            "data" => $data,
             "type" => $request->type
         ];
 
