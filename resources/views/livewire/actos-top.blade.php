@@ -27,10 +27,6 @@
                                 <td><div class="td-content"><span class="pricing">{{$acto->cantidad}}</span></div></td>
                             </tr>
                         @endforeach
-
-
-
-
                     </tbody>
                 </table>
             </div>
