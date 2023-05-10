@@ -7,7 +7,9 @@
                         <div class="col-lg-12 mb-2">
                             <h2>
                                 Colonias
-                                <button wire:click='openModal("")' class="btn btn-outline-success mb-2 me-4"><i class="fa-solid fa-circle-plus"></i></button>
+                                @can("crear-colonias")
+                                    <button wire:click='openModal("")' class="btn btn-outline-success mb-2 me-4"><i class="fa-solid fa-circle-plus"></i></button>
+                                @endcan
                             </h2>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1 mb-2">
@@ -55,8 +57,12 @@
                                     <td>{{$colonia->codigo_postal}}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button wire:click='openModal({{$colonia->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <button wire:click='openBorrarColonia({{$colonia->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            @can("editar-colonias")
+                                                <button wire:click='openModal({{$colonia->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            @endcan
+                                            @can("borrar-colonias")
+                                                <button wire:click='openBorrarColonia({{$colonia->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

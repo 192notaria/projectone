@@ -3,9 +3,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-header" style="display:flex; align-items:right;">
-                    <button type="button" wire:click='openModal("")' class="btn btn-outline-success">
-                        <i class="fa-solid fa-user-plus"></i>
-                    </button>
+                    @can("crear-municipios")
+                        <button type="button" wire:click='openModal("")' class="btn btn-outline-success">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </button>
+                    @endcan
                     <select wire:model='cantidadMunicipios' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -42,8 +44,12 @@
                                 @endif
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button wire:click='openModal({{$municipio->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button wire:click='openModalBorrar({{$municipio->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @can("editar-municipios")
+                                            <button wire:click='openModal({{$municipio->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        @endcan
+                                        @can("borrar-municipios")
+                                            <button wire:click='openModalBorrar({{$municipio->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

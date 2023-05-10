@@ -4,7 +4,12 @@
             <div class="card-header">
                 <div class="row ">
                     <div class="col-lg-12 mb-2">
-                        <h3>Paises <button wire:click='openModal' class="btn btn-outline-success"><i class="fa-solid fa-circle-plus"></i></button></h3>
+                        <h3>
+                            Paises
+                            @can("crear-paises")
+                                <button wire:click='openModal' class="btn btn-outline-success"><i class="fa-solid fa-circle-plus"></i></button>
+                            @endcan
+                        </h3>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 mb-2">
                         <select wire:model='cantidadPaises' class="form-control">
@@ -39,8 +44,12 @@
                                 <td>{{mb_strtoupper($pais->nombre)}}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions Buttons">
-                                        <button wire:click='edit({{$pais->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button wire:click='delete({{$pais->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @can("editar-paises")
+                                            <button wire:click='edit({{$pais->id}})' type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        @endcan
+                                        @can("borrar-paises")
+                                            <button wire:click='delete({{$pais->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
