@@ -30,7 +30,6 @@
         <link href="{{ url('v3/src/assets/css/light/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/assets/css/dark/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('css/audioplayer.css') }}" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/decoupled-document/ckeditor.js"></script>
 
         @yield('links-content')
         @livewireStyles()

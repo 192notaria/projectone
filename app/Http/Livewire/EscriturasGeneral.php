@@ -231,6 +231,9 @@ class EscriturasGeneral extends Component
         $this->monto_costo = $costo->subtotal;
         $this->impuestos_costo = $costo->impuestos;
         $this->gestoria_costo = $costo->gestoria;
+        $this->pago_realizado_costo = $costo->pago;
+        $this->metodo_pago_costo = $costo->metodo_pago;
+        $this->observaciones_costo = $costo->observaciones;
         return $this->dispatchBrowserEvent("abrir-modal-registrar-costo");
     }
 
@@ -261,8 +264,14 @@ class EscriturasGeneral extends Component
         $this->metodo_pago_id = '';
         $this->cuenta_id = '';
         $this->observaciones_cobro = '';
-
+        $this->pago_realizado_costo = '';
+        $this->metodo_pago_costo = '';
+        $this->observaciones_costo = '';
     }
+
+    public $observaciones_costo;
+    public $pago_realizado_costo = '';
+    public $metodo_pago_costo = '';
 
     public function registrar_costo(){
         $this->validate([
@@ -277,6 +286,11 @@ class EscriturasGeneral extends Component
             $costo->subtotal = $this->monto_costo;
             $costo->impuestos = $this->impuestos_costo == '' ? 0 : $this->impuestos_costo;
             $costo->gestoria = $this->gestoria_costo == '' ? 0 : $this->gestoria_costo;
+
+            $costo->pago = $this->pago_realizado_costo ?? null;
+            $costo->metodo_pago = $this->metodo_pago_costo ?? null;
+            $costo->observaciones = $this->observaciones_costo ?? null;
+
             $costo->save();
             $this->clear_inputs();
             $this->dispatchBrowserEvent("success-notify", "Costo editado");
@@ -289,6 +303,10 @@ class EscriturasGeneral extends Component
         $costo->impuestos = $this->impuestos_costo == '' ? 0 : $this->impuestos_costo;
         $costo->gestoria = $this->gestoria_costo == '' ? 0 : $this->gestoria_costo;
         $costo->proyecto_id = $this->escritura_id;
+        $costo->pago = $this->pago_realizado_costo ?? null;
+        $costo->metodo_pago = $this->metodo_pago_costo ?? null;
+        $costo->observaciones = $this->observaciones_costo ?? null;
+
         $costo->save();
         $this->clear_inputs();
         $this->dispatchBrowserEvent("success-notify", "Costo registrado");

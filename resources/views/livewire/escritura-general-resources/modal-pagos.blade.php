@@ -103,6 +103,7 @@
                                                     <th>Total</th>
                                                     <th>Pagado</th>
                                                     <th>Egresos</th>
+                                                    <th>Observaciones</th>
                                                     <th class="text-center">Acciones</th>
                                                 </tr>
                                                 <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
@@ -123,6 +124,7 @@
                                                             </td>
                                                             <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
                                                             <td class="text-center">{!! isset($costo->egreso->monto) ? "$" . number_format($costo->egreso->monto + $costo->egreso->gestoria + $costo->egreso->impuestos , 2) : '<span class="text-danger">$0.0</span>' !!}</td>
+                                                            <td>{{$costo->observaciones ?? "Sin observaciones"}}</td>
                                                             <td class="text-center">
                                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                                     @can("editar-costo")

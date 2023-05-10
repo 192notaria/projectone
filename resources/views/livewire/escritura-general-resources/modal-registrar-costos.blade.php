@@ -30,6 +30,28 @@
                         <label for="">Impuestos en %</label>
                         <input type="number" class="form-control" placeholder="0%" wire:model='impuestos_costo'>
                     </div>
+                    @if ($concepto_costo_id == 10)
+                        <div class="col-lg-12 mb-2 mt-2">
+                            <label for="">Pago realizado</label>
+                            <select class="form-select" wire:model='pago_realizado_costo'>
+                                <option value="" selected>Ninguno</option>
+                                <option value="Cliente">Cliente</option>
+                                <option value="Notaria">Notaria</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 mb-2 mt-2">
+                            <label for="">Metodo de pago</label>
+                            <select class="form-select" wire:model='metodo_pago_costo'>
+                                <option value="" selected>Ningno</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Transferencia">Transferencia</option>
+                            </select>
+                        </div>
+                    @endif
+                    <div class="col-lg-12 mt-2">
+                        <label for="">Observaciones</label>
+                        <textarea class="form-control" cols="30" rows="5" wire:model='observaciones_costo'></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
