@@ -104,7 +104,7 @@
     </td>
 
     <td>
-        <p>Acto: <span class="badge badge-primary">{{$escritura->servicio->nombre}}</span></p>
+        <p>Acto: <span class="badge badge-primary">{{$escritura->servicio->nombre ?? ""}}</span></p>
         <p class="mb-0 text-left">
             <span class="fw-bold">Abogado:</span>
             <p>
