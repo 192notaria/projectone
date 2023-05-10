@@ -20,7 +20,7 @@
                                 <td>
                                     <div class="product-name">
                                         <div class="align-items-start">
-                                            <p class="prd-category text-primary">{{$acto->servicio->nombre}}</p>
+                                            <p class="prd-category text-primary">{{$acto->servicio->nombre ?? ""}}</p>
                                         </div>
                                     </div>
                                 </td>
