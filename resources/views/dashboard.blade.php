@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+            {{-- <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-chart-two">
                     <div class="widget-heading">
                         <h5 class="">Actos por categoria</h5>
@@ -161,9 +161,9 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                 <div class="widget-one widget">
                     <div class="widget-content">
                         <div class="w-numeric-value">
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             @can('ver-actividad-reciente')
                 @livewire("bitacora-dashboard")
@@ -271,14 +271,6 @@
 
                 </div>
             </div> --}}
-
-            @can('ver-actos-recientes')
-                @livewire('actos-recientes')
-            @endcan
-
-            @can('ver-actos-mas-requeridos')
-                @livewire('actos-top')
-            @endcan
 
             @can('ver-actos-abogados')
                 @livewire('abogados-proyectos')
