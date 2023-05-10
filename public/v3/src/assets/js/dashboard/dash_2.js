@@ -1299,7 +1299,7 @@ var url = "http://192.168.1.100/chartsData/area"
 $.getJSON(url, function(response) {
     // console.log(response.data);
     chart.updateSeries([{
-            name: 'Actos',
+            name: 'Proyectos',
             // data: response.data
             data: response.data
 
