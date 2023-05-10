@@ -88,7 +88,7 @@
                                 <th scope="col">Egresos</th>
                             @endcan
                             @can('ver-pendiente-pago')
-                                <th scope="col">Faltante</th>
+                                <th scope="col">Sobrante</th>
                             @endcan
                             <th scope="col"></th>
                         </tr>
@@ -154,7 +154,7 @@
                                             badge-info
                                         @endif
                                         ">
-                                            ${{number_format($escritura->total - $escritura->costo_total($escritura->id), 2)}}
+                                            ${{number_format($escritura->pagos_recibidos_total($escritura->id) - $escritura->egresos_registrados($escritura->id), 2)}}
                                         </span>
                                     </td>
                                 @endcan
