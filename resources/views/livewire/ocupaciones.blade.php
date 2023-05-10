@@ -2,9 +2,11 @@
     <div class="col-lg-12 mb-3">
         <div class="card">
             <div class="card-header" style="display:flex; align-items:right;">
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-new-ocupacion">
-                    <i class="fa-solid fa-circle-plus"></i>
-                </button>
+                @can("agregar-ocupaciones")
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-new-ocupacion">
+                        <i class="fa-solid fa-circle-plus"></i>
+                    </button>
+                @endcan
                 <select wire:model='cantidadOcupaciones' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -28,8 +30,12 @@
                                 <td>{{mb_strtoupper($ocupacion->nombre)}}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions Buttons">
-                                        <button wire:click='editar({{$ocupacion->id}})' type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target=".modal-new-ocupacion"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @can("editar-ocupaciones")
+                                            <button wire:click='editar({{$ocupacion->id}})' type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target=".modal-new-ocupacion"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        @endcan
+                                        @can("remover-ocupaciones")
+                                            <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
