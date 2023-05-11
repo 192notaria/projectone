@@ -3,7 +3,7 @@
         <div class="navbar-nav theme-brand flex-row  text-center">
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
-                    <a href="./index.html">
+                    <a href="./dashboard">
                         <img src="{{ url('v3/src/assets/img/rounded-logo-notaria.svg') }}"  alt="logo">
                     </a>
                 </div>
