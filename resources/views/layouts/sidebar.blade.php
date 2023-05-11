@@ -8,7 +8,7 @@
                     </a>
                 </div>
                 <div class="nav-item theme-text">
-                    <a href="./index.html" class="nav-link"> Notaria 192 </a>
+                    <a href="./dashboard" class="nav-link"> Notaria 192 </a>
                 </div>
             </div>
             <div class="nav-item sidebar-toggle">
