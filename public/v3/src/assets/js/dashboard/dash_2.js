@@ -1351,7 +1351,7 @@ $.getJSON(url, function(response) {
                     show: true,
                     fontSize: '26px',
                     fontFamily: 'Nunito, sans-serif',
-                    color: '#0e1726',
+                    // color: '#0e1726',
                     offsetY: 16,
                     formatter: function (val) {
                       return val
