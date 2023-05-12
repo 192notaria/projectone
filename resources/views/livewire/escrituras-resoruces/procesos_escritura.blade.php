@@ -200,41 +200,55 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-                                                        {{-- {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $tipo_subproceso)}} --}}
+                                                        {{-- {{$proyecto_activo->id}} - {{$proceso_activo}} - {{$subproceso_activo->id}}
+                                                        <br>
+                                                        {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id)}} --}}
                                                         @if ($tipo_subproceso == 3)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.autorizacion-catastro')
                                                         @endif
                                                         @if ($tipo_subproceso == 5)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.agendar-firma')
                                                         @endif
                                                         @if ($tipo_subproceso == 6)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.documentos-subprocesos')
                                                         @endif
                                                         @if ($tipo_subproceso == 8)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.registrar-firma')
                                                         @endif
                                                         @if ($tipo_subproceso == 10)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.recibos-pago')
                                                         @endif
                                                         @if ($tipo_subproceso == 19)
-                                                            @can("omitir-subproceso")
-                                                                <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
-                                                            @endcan
+                                                            @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+                                                                @can("omitir-subproceso")
+                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                @endcan
+                                                            @endif
                                                             @include('livewire.subprocesos-resource.varios-generales')
                                                         @endif
                                                     </div>

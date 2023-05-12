@@ -135,10 +135,10 @@ class Proyectos extends Model
         return $total;
     }
 
-    public function omitido($proyecto, $proceso, $subproceso){
-        $omitido = AvanceProyecto::where("proyecto_id", $proyecto)
-            ->where("proceso_id", $proceso)
-            ->where("subproceso_id", $subproceso)
+    public function omitido($proyecto_id, $proceso_id, $subproceso_id){
+        $omitido = AvanceProyecto::where("proyecto_id", $proyecto_id)
+            ->where("proceso_id", $proceso_id)
+            ->where("subproceso_id", $subproceso_id)
             ->where("omitido", 1)
             ->first();
         return $omitido;

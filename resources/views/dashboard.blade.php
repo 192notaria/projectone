@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('links-content')
 

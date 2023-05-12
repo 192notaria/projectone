@@ -1079,6 +1079,7 @@ public function removerParte($id){
         $avance->proyecto_id = $this->proyecto_id;
         $avance->proceso_id = $this->proceso_activo;
         $avance->subproceso_id = $this->subproceso_activo->subproceso_id;
+        $avance->usuario_id = Auth::user()->id;
         $avance->save();
         return $this->dispatchBrowserEvent('registrar-avance', "Avance registrado");
     }
@@ -1093,6 +1094,7 @@ public function removerParte($id){
         $avance->proceso_id = $this->proceso_activo;
         $avance->subproceso_id = $this->subproceso_activo->subproceso_id;
         $avance->omitido = 1;
+        $avance->usuario_id = Auth::user()->id;
         $avance->save();
         $this->dispatchBrowserEvent('cerrar-modal-omitir-subproceso');
         return $this->dispatchBrowserEvent('registrar-avance', "Subproceso omitido");
@@ -1114,6 +1116,7 @@ public function removerParte($id){
                             $avance->proyecto_id = $this->proyecto_id;
                             $avance->proceso_id = $data->proceso_id;
                             $avance->subproceso_id = $data->subproceso_id;
+                            $avance->usuario_id = Auth::user()->id;
                             $avance->save();
                             $guardardo = true;
                         }
@@ -1146,6 +1149,7 @@ public function removerParte($id){
                             $avance->proyecto_id = $this->proyecto_id;
                             $avance->proceso_id = $data->proceso_id;
                             $avance->subproceso_id = $data->subproceso_id;
+                            $avance->usuario_id = Auth::user()->id;
                             $avance->save();
                             $guardardo = true;
                         }
