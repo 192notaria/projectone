@@ -407,13 +407,13 @@ public function removerParte($id){
         $fatura->observaciones = $this->comentarios_factura ?? "";
 
         if($this->xml_factura){
-            $path_xml = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->apaterno) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->amaterno) . "/documentos/facturas";
+            $path_xml = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos/facturas";
             $store_xml = $this->xml_factura->storeAs(mb_strtolower($path_xml), $this->concepto_factura . "_" . time() . "." . $this->xml_factura->extension(), 'public');
             $fatura->xml = $store_xml;
         }
 
         if($this->pdf_factura){
-            $path_pdf = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->apaterno) . "_" . str_replace(" ", "_", $this->proyecto_activo->cliente->amaterno) . "/documentos/facturas";
+            $path_pdf = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos/facturas";
             $store_pdf = $this->pdf_factura->storeAs(mb_strtolower($path_pdf), $this->concepto_factura . "_" . time() . "." . $this->pdf_factura->extension(), 'public');
             $fatura->pdf = $store_pdf;
         }

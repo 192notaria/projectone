@@ -1,4 +1,5 @@
 <div class="card">
+
     <style>
         .modal{
             backdrop-filter: blur(5px);
@@ -16,6 +17,7 @@
             100% { opacity: 0; }
         }
     </style>
+
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <select class="form-select" style="width: 8%;" wire:model='cantidadEscrituras'>
@@ -38,7 +40,7 @@
                             <th scope="col">Volumen</th>
                             <th scope="col">Acto</th>
                             <th scope="col">Abogado</th>
-                            <th scope="col">Fecha de creacion</th>
+                            <th scope="col">Fecha de creación</th>
                             <th scope="col"></th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
