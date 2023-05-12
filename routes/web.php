@@ -82,5 +82,6 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/contabilidad', [Contabilidad::class, 'index'])->name('contabilidad.index');
     Route::get('/contabilidad/pagos', [Contabilidad::class, 'pagos'])->name('contabilidad.pagos');
+    Route::get('/contabilidad/facturas', [Contabilidad::class, 'facturas'])->name('contabilidad.facturas');
 });
 

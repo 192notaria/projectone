@@ -194,8 +194,8 @@
                             </li>
                         @endcan
                         @can('ver-detalle-pagos')
-                            <li class="{{Route::currentRouteName() == "contabilidad.pagos" ? "active" : ""}}">
-                                <a href="{{route('contabilidad.pagos')}}"> Pagos</a>
+                            <li class="{{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}}">
+                                <a href="{{route('contabilidad.facturas')}}"> Facturas</a>
                             </li>
                         @endcan
                     </ul>
