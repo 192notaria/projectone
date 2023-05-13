@@ -90,9 +90,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='crear_proyecto' class="btn btn-outline-success">
+                <button wire:loading.remove wire:click='crear_proyecto' class="btn btn-outline-success">
                     Guardar
                 </button>
+                <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">
                     Cerrar
                 </button>

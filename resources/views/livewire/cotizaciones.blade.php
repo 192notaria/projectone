@@ -65,11 +65,12 @@
                                 <td><span class="badge badge-primary">${{number_format($cotizacion->total, 2)}}</span></td>
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>
-                                    <button wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
+                                    <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
+                                    <button wire:loading:remove wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
                                         <i class="fa-solid fa-bars"></i>
                                     </button>
-                                    <button wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    <button wire:loading:remove wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button wire:loading:remove class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty

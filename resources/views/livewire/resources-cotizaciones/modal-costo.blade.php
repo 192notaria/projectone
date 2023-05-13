@@ -42,10 +42,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='agregar_costo' class="btn btn-outline-success">
+                <button wire:loading.remove wire:click='agregar_costo' class="btn btn-outline-success">
                     Guardar
                 </button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">
+                <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
+                <button wire:loading.remove class="btn btn-outline-danger" data-bs-dismiss="modal">
                     Cerrar
                 </button>
             </div>
