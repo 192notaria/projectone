@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex justify-content-between" style="width: 100%;">
-                    <h5>Nueva Cotización</h5>
+                    <h5>Cotización</h5>
                 </div>
             </div>
 
@@ -108,8 +108,9 @@
                                         <td class="text-end">${{number_format($costo['monto'] + $costo['gestoria'] + $costo['monto'] * $costo['impuesto'] / 100, 2)}}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <button wire:click='editar_concepto({{$key}})' class="btn btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                <button wire:click='remover_concepto({{$key}})' class="btn btn-danger"><i class="fa-solid fa-circle-minus"></i></button>
+                                                <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
+                                                <button wire:loading.remove wire:click='editar_concepto({{$key}})' class="btn btn-primary me-2"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                <button wire:loading.remove wire:click='remover_concepto({{$key}})' class="btn btn-danger"><i class="fa-solid fa-circle-minus"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -148,11 +149,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:loading:remove wire:click='registrar_cotizacion' class="btn btn-outline-success">
+                <button wire:loading.remove wire:click='registrar_cotizacion' class="btn btn-outline-success">
                     Guardar
                 </button>
                 <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
-                <button wire:loading:remove class="btn btn-outline-danger" data-bs-dismiss="modal">
+                <button wire:loading.remove class="btn btn-outline-danger" data-bs-dismiss="modal">
                     Cerrar
                 </button>
             </div>

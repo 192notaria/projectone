@@ -94,7 +94,7 @@
                     Guardar
                 </button>
                 <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">
+                <button wire:loading.remove class="btn btn-outline-danger" data-bs-dismiss="modal">
                     Cerrar
                 </button>
             </div>

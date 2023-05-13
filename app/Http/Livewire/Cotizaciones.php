@@ -244,7 +244,7 @@ class Cotizaciones extends Component
 
     public $historial_cotizaciones = [];
     public function ver_cotizaciones($id){
-        $costos = CostosCotizaciones::where("cotizaciones_id", $id)->distinct('version')->get();
+        $costos = CostosCotizaciones::where("cotizaciones_id", $id)->distinct('version')->orderBy("created_at", "desc")->get();
         $versiones = $costos->unique("version");
         foreach ($versiones as $value) {
             $cotizacion = CostosCotizaciones::where("cotizaciones_id", $id)->where("version", $value->version)->get();
