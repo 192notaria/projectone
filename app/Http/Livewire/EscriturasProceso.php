@@ -712,7 +712,7 @@ public function removerParte($id){
             "proyecto_abogado.required" => "Es necesario seleccionar el abogado",
             "numero_escritura.required" => "Es necesario el número de escritura",
             "volumen_escritura.required" => "Es necesario el volumen de la escritura",
-            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
+            "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
         $acto_juridico = Servicios::find($this->acto_juridico_id);

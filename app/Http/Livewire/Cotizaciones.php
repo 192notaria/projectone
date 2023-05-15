@@ -152,7 +152,7 @@ class Cotizaciones extends Component
         ],[
             "acto_id.required" => "Es necesario seleccionar un acto",
             "proyecto_cliente.required" => "Es necesario seleccionar un cliente",
-            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
+            "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
         if(!$this->proyecto_cliente){
@@ -313,6 +313,7 @@ class Cotizaciones extends Component
         $this->total_escritura = $total_sum;
         $this->servicio_id = $cotizacion->acto->id;
         $this->cliente_id = $cotizacion->cliente->id;
+        $this->tipo_servicio = $cotizacion->tipo_servicio;
         return $this->dispatchBrowserEvent("abrir-modal-crear-proyecto");
     }
 
@@ -332,7 +333,7 @@ class Cotizaciones extends Component
             "numero_escritura.required" => "Es necesario el número de escritura",
             "volumen_escritura.required" => "Es necesario el volumen",
             "total_escritura.required" => "Es necesario el costo total de la escritura",
-            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
+            "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
 

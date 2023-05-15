@@ -193,7 +193,7 @@
                                 <a href="{{route('contabilidad.index')}}"> General</a>
                             </li>
                         @endcan
-                        @can('ver-detalle-pagos')
+                        @can('ver-facturas-proyecto')
                             <li class="{{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}}">
                                 <a href="{{route('contabilidad.facturas')}}"> Facturas</a>
                             </li>
