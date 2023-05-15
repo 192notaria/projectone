@@ -92,12 +92,18 @@
                         @forelse ($facturas as $factura)
                             <tr>
                                 <td>{{$factura->folio_factura}}</td>
-                                <td>{{$factura->monto}}</td>
-                                <td>{{$factura->proyecto_id}}</td>
-                                <td>{{$factura->proyecto_id}}</td>
+                                <td>
+                                    <span class="badge badge-success">${{number_format($factura->monto, 2)}}</span>
+                                </td>
+                                <td>
+                                    {{$factura->cliente->nombre ?? ""}}
+                                    {{$factura->cliente->apaterno ?? ""}}
+                                    {{$factura->cliente->amaterno ?? ""}}
+                                </td>
+                                <td>{{$factura->escritura->servicio->nombre ?? ""}}</td>
                                 <td>{{$factura->fecha}}</td>
                                 <td>{{$factura->origen}}</td>
-                                <td>{{$factura->concepto_pago_id}}</td>
+                                <td>{{$factura->concepto}}</td>
                                 <td>{{$factura->observaciones}}</td>
                             </tr>
                         @empty

@@ -38,9 +38,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Luecano\NumeroALetras\NumeroALetras;
-use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
-
 
 class EscriturasProceso extends Component
 {
@@ -621,8 +619,9 @@ public function removerParte($id){
     public $proyecto_cliente;
     public $proyecto_descripcion;
     public $proyecto_acto;
+    public $tipo_servicio = '';
 
-    public $acto_juridico_id;
+    public $acto_juridico_id = '';
     public $acto_honorarios;
     public $costos_proyecto = [];
     public $conceptos_pago;
@@ -703,21 +702,30 @@ public function removerParte($id){
             "acto_juridico_id" => "required",
             "proyecto_cliente" => "required",
             "proyecto_abogado" => "required",
-            "numero_escritura" => "required|unique:proyectos,numero_escritura,' . $this->proyecto_id_general",
+            "numero_escritura" => "required",
             "volumen_escritura" => "required",
-
+            "tipo_servicio" => $this->acto_juridico_id == 25 ? "required" : "",
         ],[
             "acto_honorarios.required" => "Es necesario colocar los honorarios",
             "acto_juridico_id.required" => "Es necesario seleccionar el acto juridico",
             "proyecto_cliente.required" => "Es necesario seleccionar el cliente",
             "proyecto_abogado.required" => "Es necesario seleccionar el abogado",
             "numero_escritura.required" => "Es necesario el número de escritura",
-            "numero_escritura.unique" => "Ya existe una escritura con este número",
             "volumen_escritura.required" => "Es necesario el volumen de la escritura",
+            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
         ]);
+
+        $acto_juridico = Servicios::find($this->acto_juridico_id);
+        $buscar_proyecto = Proyectos::where("tipo_id", $acto_juridico)
+            ->where("numero_escritura", $this->numero_escritura)->get();
+
+        if(count($buscar_proyecto) > 0){
+            return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
+        }
 
         $nuevo_proyecto = new Proyectos;
         $nuevo_proyecto->servicio_id = $this->acto_juridico_id;
+        $nuevo_proyecto->tipo_servicio = $this->tipo_servicio;
         $nuevo_proyecto->cliente_id = $this->proyecto_cliente['id'];
         $nuevo_proyecto->usuario_id = $this->proyecto_abogado['id'];
         $nuevo_proyecto->honorarios = $this->acto_honorarios;

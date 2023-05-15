@@ -9,6 +9,43 @@
             <div class="modal-body">
                 <div class="row gx-3 gy-3">
                     <div class="col-lg-12">
+                        <ul>
+                            @error("escritura_data")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("cliente_data")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("clienteInput")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("escrituraInput")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("rfcInput")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("folio_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("monto_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("fecha_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("concepto_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("origen_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                            @error("observaciones_input")
+                                <li>{{$message}}</li>
+                            @enderror
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
                         <div class="form-group autocomplete">
                             <label for="">Buscar escritura</label>
                             <input wire:model='buscarEscrituraInput' type="text" class="form-control" placeholder="Buscar...">
@@ -64,44 +101,59 @@
                     </div>
                     <div class="col-lg-4">
                         <label for="">Folio</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" wire:model='folio_input'>
+                        @error("folio_input")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-4">
                         <label for="">Monto</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" wire:model='monto_input'>
+                        @error("monto_input")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-4">
                         <label for="">Fecha</label>
-                        <input type="datetime-local" class="form-control">
+                        <input type="datetime-local" class="form-control" wire:model='fecha_input'>
+                        @error("fecha_input")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label for="">Concepto</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" wire:model='concepto_input'>
+                        @error("concepto_input")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label for="">Origen</label>
-                        <select class="form-select">
+                        <select class="form-select" wire:model='origen_input'>
                             <option value="" selected disabled>Seleccionar...</option>
                             <option value="Emitida">Emitida</option>
                             <option value="Recibida">Recibida</option>
                         </select>
+                        @error("origen_input")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12">
                         <label for="">Observaciones</label>
-                        <textarea class="form-control" cols="30" rows="5"></textarea>
+                        <textarea class="form-control" cols="30" rows="5" wire:model='observaciones_input'></textarea>
                     </div>
                     <div class="col-lg-6">
                         <label for="">PDF</label>
-                        <x-file-pond></x-file-pond>
+                        <x-file-pond wire:model='pdf_input'></x-file-pond>
                     </div>
                     <div class="col-lg-6">
                         <label for="">XML</label>
-                        <x-file-pond></x-file-pond>
+                        <x-file-pond wire:model='xml_input'></x-file-pond>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='crear_proyecto' class="btn btn-outline-success">
+                <button wire:click='registrar_factura' class="btn btn-outline-success">
                     Guardar
                 </button>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">

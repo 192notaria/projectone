@@ -29,4 +29,13 @@ class Facturas extends Model
     public function usuario(){
         return $this->belongsTo(User::class, "usuario_id");
     }
+
+    public function cliente(){
+        return $this->belongsTo(Clientes::class, "cliente_id");
+    }
+
+    public function escritura(){
+        return $this->belongsTo(Proyectos::class, "proyecto_id");
+    }
+
 }

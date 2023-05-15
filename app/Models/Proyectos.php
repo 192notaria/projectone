@@ -143,5 +143,4 @@ class Proyectos extends Model
             ->first();
         return $omitido;
     }
-
 }

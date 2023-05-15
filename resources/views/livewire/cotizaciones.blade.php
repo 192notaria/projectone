@@ -61,7 +61,12 @@
                                     {{$cotizacion->cliente->apaterno}}
                                     {{$cotizacion->cliente->amaterno}}
                                 </td>
-                                <td>{{$cotizacion->acto->nombre}}</td>
+                                <td>
+                                    {{$cotizacion->acto->nombre}}
+                                    @if ($cotizacion->acto_id == 25)
+                                        ({{$cotizacion->tipo_servicio}})
+                                    @endif
+                                </td>
                                 <td><span class="badge badge-primary">${{number_format($cotizacion->total, 2)}}</span></td>
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>

@@ -30,6 +30,7 @@ class Cotizaciones extends Component
     public $observaciones_concepto;
     public $buscar_cliente;
     public $proyecto_cliente;
+    public $tipo_servicio = '';
 
     public $cotizacion_id;
 
@@ -146,8 +147,12 @@ class Cotizaciones extends Component
     public function registrar_cotizacion(){
         $this->validate([
             "acto_id" => "required",
+            "proyecto_cliente" => "required",
+            "tipo_servicio" => $this->acto_id == 25 ? "required" : "",
         ],[
             "acto_id.required" => "Es necesario seleccionar un acto",
+            "proyecto_cliente.required" => "Es necesario seleccionar un cliente",
+            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
         ]);
 
         if(!$this->proyecto_cliente){
@@ -199,6 +204,7 @@ class Cotizaciones extends Component
         $cotizacion = new ModelsCotizaciones;
         $cotizacion->cliente_id = $this->proyecto_cliente['id'];
         $cotizacion->acto_id = $this->acto_id;
+        $cotizacion->tipo_servicio = $this->tipo_servicio == '' ? null : $this->tipo_servicio;
         $cotizacion->total = $total_sum;
         $cotizacion->version = 1;
         $cotizacion->save();
@@ -217,6 +223,7 @@ class Cotizaciones extends Component
 
         $this->cotizacion_id = "";
         $this->acto_id = "";
+        $this->tipo_servicio = "";
         $this->proyecto_cliente = "";
         $this->costos_array = [];
         return $this->dispatchBrowserEvent("cerrar-modal-crear-cotizacion");
@@ -284,7 +291,6 @@ class Cotizaciones extends Component
         return response()->download("cotizaciones/" . $filename . '.docx')->deleteFileAfterSend(true);
     }
 
-
     public $servicio_id;
     public $cliente_id;
     public $usuario_id = '';
@@ -318,17 +324,28 @@ class Cotizaciones extends Component
             "numero_escritura" => "required",
             "volumen_escritura" => "required",
             "total_escritura" => "required",
+            "tipo_servicio" => $this->servicio_id == 25 ? "required" : "",
         ],[
-            "servicio_id" => "Es necesario asignar un acto",
-            "cliente_id" => "Es necesario asignar el cliente",
-            "usuario_id" => "Es necesario seleccionar el abogado",
-            "numero_escritura" => "Es necesario el número de escritura",
-            "volumen_escritura" => "Es necesario el volumen",
-            "total_escritura" => "Es necesario el costo total de la escritura",
+            "servicio_id.required" => "Es necesario asignar un acto",
+            "cliente_id.required" => "Es necesario asignar el cliente",
+            "usuario_id.required" => "Es necesario seleccionar el abogado",
+            "numero_escritura.required" => "Es necesario el número de escritura",
+            "volumen_escritura.required" => "Es necesario el volumen",
+            "total_escritura.required" => "Es necesario el costo total de la escritura",
+            "tipo_servicio.required" => "Es necesario el tipo de acta de asamblea",
         ]);
+
+
+        $acto_juridico = Servicios::find($this->acto_juridico_id);
+        $buscar_proyecto = Proyectos::where("tipo_id", $acto_juridico)
+            ->where("numero_escritura", $this->numero_escritura)->get();
+        if(count($buscar_proyecto) > 0){
+            return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
+        }
 
         $proyecto = new Proyectos;
         $proyecto->servicio_id = $this->servicio_id;
+        $proyecto->tipo_servicio = $this->tipo_servicio;
         $proyecto->cliente_id = $this->cliente_id;
         $proyecto->usuario_id = $this->usuario_id;
         $proyecto->numero_escritura = $this->numero_escritura;

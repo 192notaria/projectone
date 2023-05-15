@@ -81,6 +81,22 @@
                             @endforeach
                         </select>
                     </div>
+
+                    @if ($acto_id == 25)
+                        <div class="col-lg-12 mt-4">
+                            <label for="">Tipo de Acta de asamblea</label>
+                            <select class="form-select" wire:model='tipo_servicio'>
+                                <option value="" disabled>Seleccionar...</option>
+                                <option value="Extraordinaria">Extraordinaria</option>
+                                <option value="Ordinaria">Ordinaria</option>
+                                <option value="Mixta">Mixta</option>
+                            </select>
+                            @error("tipo_servicio")
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                    @endif
+
                     <div class="col-lg-12 table-responsive">
                         <button class="btn btn-outline-primary" wire:click='abrir_modal_costo'>
                             <i class="fa-solid fa-plus"></i>

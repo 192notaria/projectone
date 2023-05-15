@@ -37,7 +37,7 @@
                         @enderror
                     </ul>
                 </p>
-                <div class="row">
+                <div class="row gx-3 gy-3">
                     <div class="col-lg-6 mb-4">
                         <label for="">Número de escritura</label>
                         <input type="text" class="form-control" placeholder="198" wire:model='numero_escritura'>
@@ -157,7 +157,7 @@
                     <div class="col-lg-12 mt-4">
                         <label for="">Acto</label>
                         <select class="form-select" wire:model='acto_juridico_id' wire:change='buscarHonorarios'>
-                            <option value="">Seleccionar...</option>
+                            <option value="" disabled>Seleccionar...</option>
                             @foreach ($actos as $acto)
                                 <option value="{{$acto->id}}">{{$acto->nombre}}</option>
                             @endforeach
@@ -166,21 +166,26 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
+                    @if ($acto_juridico_id == 25)
+                        <div class="col-lg-12 mt-4">
+                            <label for="">Tipo de Acta de asamblea</label>
+                            <select class="form-select" wire:model='tipo_servicio'>
+                                <option value="" disabled>Seleccionar...</option>
+                                <option value="Extraordinaria">Extraordinaria</option>
+                                <option value="Ordinaria">Ordinaria</option>
+                                <option value="Mixta">Mixta</option>
+                            </select>
+                            @error("tipo_servicio")
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                    @endif
 
-                    <div class="col-lg-6 mt-4">
+                    <div class="col-lg-12 mt-4">
                         <div class="form-group">
                             <label for="">Honorarios</label>
                             <input type="number" class="form-control" placeholder="$0.0" wire:model='acto_honorarios'>
                             @error('acto_honorarios')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4">
-                        <div class="form-group">
-                            <label for="">Descuento</label>
-                            <input type="number" class="form-control" placeholder="$0.0" wire:model='acto_descuento'>
-                            @error('acto_descuento')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>

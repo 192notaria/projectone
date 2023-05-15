@@ -110,6 +110,9 @@
                                                 @endcan
                                                 >
                                                     {{$escritura->servicio->nombre}}
+                                                    @if ($escritura->servicio_id == 25)
+                                                        ({{$escritura->tipo_servicio}})
+                                                    @endif
                                                 </a>
                                                 <p>
                                                     <span class="badge badge-primary">{{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}</span>
