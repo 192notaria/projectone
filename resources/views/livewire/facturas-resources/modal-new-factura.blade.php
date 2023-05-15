@@ -29,14 +29,14 @@
                         .red-border{
                             border: 1px solid rgb(154, 0, 0) !important;
                         }
+
                         .green-border {
-                            border: 1px solid rgb(0, 184, 0) !important;
+                            border: 1px solid rgb(0, 126, 0) !important;
                         }
                     </style>
                     <div class="col-lg-12">
-                        <label for="">Cliente </label>
                         <div class="form-group autocomplete">
-                            <label for="">Buscar escritura</label>
+                            <label for="">Cliente </label>
                             <input wire:keydown='limpiarCliente' wire:model='clienteInput' type="text" class="form-control @if($cliente_data) green-border @endif @if(!$cliente_data) red-border @endif">
                             <div class="autocomplete-items">
                                 @foreach ($buscar_clientes as $cliente)
@@ -73,6 +73,30 @@
                     <div class="col-lg-4">
                         <label for="">Fecha</label>
                         <input type="datetime-local" class="form-control">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">Concepto</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">Origen</label>
+                        <select class="form-select">
+                            <option value="" selected disabled>Seleccionar...</option>
+                            <option value="Emitida">Emitida</option>
+                            <option value="Recibida">Recibida</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="">Observaciones</label>
+                        <textarea class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">PDF</label>
+                        <x-file-pond></x-file-pond>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">XML</label>
+                        <x-file-pond></x-file-pond>
                     </div>
                 </div>
             </div>

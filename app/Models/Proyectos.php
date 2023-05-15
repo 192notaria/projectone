@@ -139,7 +139,7 @@ class Proyectos extends Model
         $omitido = AvanceProyecto::where("proyecto_id", $proyecto_id)
             ->where("proceso_id", $proceso_id)
             ->where("subproceso_id", $subproceso_id)
-            ->where("omitido", 1)
+            // ->where("omitido", 1)
             ->first();
         return $omitido;
     }

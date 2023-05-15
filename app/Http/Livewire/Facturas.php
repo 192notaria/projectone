@@ -63,4 +63,7 @@ class Facturas extends Component
         $nombreCliente = $this->cliente_data->nombre . " " . $this->cliente_data->apaterno . " " . $this->cliente_data->amaterno;
         $this->clienteInput = $nombreCliente;
     }
+
+
+
 }
