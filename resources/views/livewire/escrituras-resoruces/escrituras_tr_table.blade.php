@@ -105,7 +105,7 @@
 
     <td>
         <p>
-            Acto: <span class="badge badge-primary">
+            Acto: <span class="badge badge-{{$escritura->servicio->tipo_acto->color}}">
                 {{$escritura->servicio->nombre ?? ""}}
                 @if ($escritura->servicio_id == 25)
                     ({{$escritura->tipo_servicio}})

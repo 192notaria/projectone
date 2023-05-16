@@ -100,7 +100,7 @@
                                 <td>
                                     <div class="media">
                                         <div class="avatar avatar-sm me-2">
-                                            <span class="avatar-title badge bg-primary rounded-circle">{{$escritura->numero_escritura ?? "S/N"}}</span>
+                                            <span class="avatar-title badge bg-{{$escritura->servicio->tipo_acto->color}} rounded-circle">{{$escritura->numero_escritura ?? "S/N"}}</span>
                                         </div>
                                         <div class="media-body align-self-center">
                                             <h6 class="mb-0 fw-bold">
