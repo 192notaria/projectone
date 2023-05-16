@@ -233,8 +233,6 @@ public function cambiarRegistroCliente($id){
 public function registrarParte(){
     $this->validate([
         "nombre_parte" => "required",
-        "paterno_parte" => !$this->persona_moral ? "required" : "",
-        "rfc_parte" => $this->persona_moral ? "required" : "",
         "porcentaje_copropietario" => $this->copropietario_parte ? "required" : "",
         "tipo_parte" => "required"
     ]);
@@ -1471,16 +1469,18 @@ public function removerParte($id){
             "nombre_parte" => "required",
             "paterno_parte" => $this->persona_moral == '' ? "required" : "",
             "materno_parte" => $this->persona_moral == '' ? "required" : "",
+            "rfc_parte" => $this->persona_moral != '' ? "required" : "",
         ],[
-            "nombre_parte.required" => "Es necesario el nombre"
+            "nombre_parte.required" => "Es necesario el nombre",
+            "rfc_parte.required" => "Es necesario el RFC"
         ]);
 
         $cliente = new Clientes;
         $cliente->nombre = $this->nombre_parte;
-        $cliente->apaterno = $this->paterno_parte;
-        $cliente->amaterno = $this->materno_parte;
-        $cliente->curp = $this->curp_parte;
-        $cliente->rfc = $this->rfc_parte;
+        $cliente->apaterno = $this->paterno_parte ?? "";
+        $cliente->amaterno = $this->materno_parte ?? "";
+        $cliente->curp = $this->curp_parte ?? "";
+        $cliente->rfc = $this->rfc_parte ?? "";
         $cliente->tipo_cliente = $this->persona_moral == '' ? "Persona Fisica" : "Persona Moral";
         $cliente->save();
 

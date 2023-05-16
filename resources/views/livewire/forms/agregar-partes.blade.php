@@ -73,6 +73,9 @@
         <div class="col-lg-4 mt-3">
             <label for="">Porcentaje</label>
             <input wire:model='porcentaje_copropietario' type="number" class="form-control" placeholder="%">
+            @error("porcentaje_copropietario")
+                <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
     @endif
 @endif
@@ -89,30 +92,48 @@
     <div class="col-lg-12 mt-3">
         <div class="switch form-switch-custom switch-inline form-switch-primary">
             <input wire:model='persona_moral' class="switch-input" type="checkbox" role="switch" id="form-custom-switch-moral">
+            @error("persona_moral")
+                <span class="text-danger">{{$message}}</span>
+            @enderror
             <label class="switch-label" for="form-custom-switch-moral">¿Es persona moral?</label>
         </div>
     </div>
     <div class="col-lg-4 mt-3">
         <label for="">{{$persona_moral ? "Razon social" : "Nombre"}}</label>
         <input wire:model='nombre_parte' type="text" class="form-control" placeholder="{{$persona_moral ? "Razon social" : "Nombre"}}">
+        @error("nombre_parte")
+                <span class="text-danger">{{$message}}</span>
+        @enderror
     </div>
     @if (!$persona_moral)
         <div class="col-lg-4 mt-3">
             <label for="">Apellido Paterno</label>
             <input wire:model='paterno_parte' type="text" class="form-control" placeholder="Apellido paterno">
+            @error("paterno_parte")
+                <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         <div class="col-lg-4 mt-3">
             <label for="">Apellido Materno</label>
             <input wire:model='materno_parte' type="text" class="form-control" placeholder="Apellido materno">
+            @error("materno_parte")
+                <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         <div class="col-lg-4 mt-3">
             <label for="">Curp</label>
             <input wire:model='curp_parte' type="text" class="form-control" placeholder="Curp">
+            @error("curp_parte")
+                <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
     @endif
     <div class="col-lg-4 mt-3">
         <label for="">Rfc</label>
         <input wire:model='rfc_parte' type="text" class="form-control" placeholder="Rfc">
+        @error("rfc_parte")
+                <span class="text-danger">{{$message}}</span>
+        @enderror
     </div>
 @endif
 
