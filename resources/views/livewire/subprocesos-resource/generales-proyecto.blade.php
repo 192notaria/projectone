@@ -135,6 +135,15 @@
                     <label for="">Fin</label>
                     <input type="number" class="form-control" wire:model='folio_fin_general'>
                 </div>
+                <div class="col-lg-12 mt-2">
+                    <label for="">Abogado</label>
+                    <select class="form-select" wire:model='abogado_proyecto'>
+                        <option value="" disabled>Seleccionar...</option>
+                        @foreach ($abogados_proyectos as $abogado)
+                            <option value="{{$abogado->id}}">{{$abogado->name}} {{$abogado->apaterno}} {{$abogado->amaterno}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         @endif
 

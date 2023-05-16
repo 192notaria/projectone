@@ -110,6 +110,9 @@
                 @if ($escritura->servicio_id == 25)
                     ({{$escritura->tipo_servicio}})
                 @endif
+                @if ($escritura->servicio_id == 22)
+                    ({{$escritura->tipo_servicio}})
+                @endif
             </span>
         </p>
         <p class="mb-0 text-left">

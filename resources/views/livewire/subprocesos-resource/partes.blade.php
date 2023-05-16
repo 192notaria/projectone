@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row gx-4 gy-4">
     @if ($vistaPartes == 1)
         @include('livewire.forms.agregar-partes')
     @endif
@@ -36,7 +36,6 @@
                                         </td>
                                         <td>{{$parte->porcentaje != 0 ?  $parte->porcentaje . "%" : "N/A"}}</td>
                                         <td>
-                                            <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                             <button wire:click='removerParte({{$parte->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                         </td>
                                     </tr>

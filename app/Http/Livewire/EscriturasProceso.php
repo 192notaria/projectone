@@ -33,6 +33,7 @@ use App\Models\SubprocesosCatalogos;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -77,6 +78,7 @@ class EscriturasProceso extends Component
     public $pagos_checkbox = [];
 
     public $vistaComisiones = 0;
+    public $abogado_proyecto = "";
 
     public function render()
     {
@@ -86,6 +88,10 @@ class EscriturasProceso extends Component
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->get(),
+            "abogados_proyectos" => User::orderBy("name", "ASC")
+                ->whereHas("roles", function($data){
+                    $data->where('name', '!=', 'ADMINISTRADOR');
+            })->get(),
             "abogados" =>  $this->buscar_abogado == '' ? [] : User::orderBy("name", "ASC")
                 ->where(function($query){
                     $query->whereHas("roles", function($data){
@@ -211,6 +217,11 @@ public function limpiarVariablesPartes(){
     $this->persona_moral = false;
     $this->copropietario_parte = false;
     $this->clienteParte = '';
+}
+
+public $nuevoCliente = false;
+public function cambiarRegistroCliente($id){
+    $this->nuevoCliente = $id == 1 ? true : false;
 }
 
 public function registrarParte(){
@@ -715,8 +726,8 @@ public function removerParte($id){
             "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
-        $acto_juridico = Servicios::find($this->acto_juridico_id);
-        $buscar_proyecto = Proyectos::where("tipo_id", $acto_juridico)
+        // $acto_juridico = Servicios::find($this->acto_juridico_id);
+        $buscar_proyecto = Proyectos::where("servicio_id", $this->acto_juridico_id)
             ->where("numero_escritura", $this->numero_escritura)->get();
 
         if(count($buscar_proyecto) > 0){
@@ -1328,27 +1339,42 @@ public function removerParte($id){
         $this->volumen_general = $proyecto->volumen;
         $this->folio_inicio_general = $proyecto->folio_inicio;
         $this->folio_fin_general = $proyecto->folio_fin;
+        $this->abogado_proyecto = $proyecto->usuario_id;
         return $this->vista_general_modal("editar_escritura_volumen");
     }
 
+
+    public $acto_juridico_tipo;
     public function guardar_escritura_volumen(){
         $this->validate([
-                "numero_escritura_general" => 'required|unique:proyectos,numero_escritura,' . $this->proyecto_id_general,
+                "numero_escritura_general" => 'required',
                 "volumen_general" => "required",
+                "abogado_proyecto" => "required",
             ],
             [
                 "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
-                "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
+                // "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
                 "volumen_general.required" => "Es necesario el volumen para continuar",
+                "abogado_proyecto.required" => "Es necesario seleccionar un abogado para continuar",
             ]
         );
 
+        $this->acto_juridico_tipo = Servicios::find($this->proyecto_activo['servicio']['id']);
+        $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
+            $serv->where('id', $this->acto_juridico_tipo['tipo_id']);
+        })
+        ->where("numero_escritura", $this->numero_escritura_general)->first();
+
+        if($buscar_proyecto && $buscar_proyecto->numero_escritura != $this->proyecto_activo['numero_escritura']){
+            return $this->addError("numero_escritura_general", "El numero de escritura ya esta registrado");
+        }
+
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
-        $proyecto->numero_escritura = $this->numero_escritura_general;
         $proyecto->numero_escritura = $this->numero_escritura_general;
         $proyecto->volumen = $this->volumen_general;
         $proyecto->folio_inicio = $this->folio_inicio_general;
         $proyecto->folio_fin = $this->folio_fin_general;
+        $proyecto->usuario_id = $this->abogado_proyecto;
         $proyecto->save();
 
         $this->numero_escritura_general = "";
@@ -1432,5 +1458,33 @@ public function removerParte($id){
         Proyectos::find($this->proyecto_id)->delete();
         $this->proyecto_id = "";
         return $this->dispatchBrowserEvent("cerrar-modal-borrar-proyecto");
+    }
+
+    public function guardarCliente(){
+        $this->validate([
+            "nombre_parte" => "required",
+            "paterno_parte" => $this->persona_moral == '' ? "required" : "",
+            "materno_parte" => $this->persona_moral == '' ? "required" : "",
+        ],[
+            "nombre_parte.required" => "Es necesario el nombre"
+        ]);
+
+        $cliente = new Clientes;
+        $cliente->nombre = $this->nombre_parte;
+        $cliente->apaterno = $this->paterno_parte;
+        $cliente->amaterno = $this->materno_parte;
+        $cliente->curp = $this->curp_parte;
+        $cliente->rfc = $this->rfc_parte;
+        $cliente->tipo_cliente = $this->persona_moral == '' ? "Persona Fisica" : "Persona Moral";
+        $cliente->save();
+
+        $this->persona_moral = '';
+        $this->nombre_parte = '';
+        $this->paterno_parte = '';
+        $this->materno_parte = '';
+        $this->curp_parte = '';
+        $this->rfc_parte = '';
+        $this->cambiarRegistroCliente(0);
+        return $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
     }
 }
