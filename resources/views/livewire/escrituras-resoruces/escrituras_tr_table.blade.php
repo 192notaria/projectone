@@ -17,7 +17,7 @@
             <p class="mt-0 mb-0">
                 @if (count($escritura->apoyo) > 0)
                     <div class="btn-group mt-2" role="group">
-                        <button id="btndefault" type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button id="btndefault" type="button" class="btn btn-outline-{{$escritura->servicio->tipo_acto->color}} dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Apoyo
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                         <div class="dropdown-menu" aria-labelledby="btndefault">
