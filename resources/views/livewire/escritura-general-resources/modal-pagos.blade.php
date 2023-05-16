@@ -85,7 +85,9 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4>Costos</h4>
                                                 @can("crear-costo")
-                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>Registrar costo</button>
+                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>
+                                                        <i class="fa-solid fa-plus"></i> Registrar costo
+                                                    </button>
                                                 @endcan
                                             </div>
                                         </div>
@@ -166,7 +168,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4>Anticipos recibidos</h4>
                                                 @can("registrar-anticipo")
-                                                    <button wire:click='abrir_modal_pago' class="btn btn-primary">Registrar anticipo</button>
+                                                    <button wire:click='abrir_modal_pago' class="btn btn-primary"><i class="fa-solid fa-plus"></i> Registrar anticipo</button>
                                                 @endcan
                                             </div>
                                         </div>
@@ -296,6 +298,55 @@
                                                             <td colspan="9" class="text-center">Sin registros...</td>
                                                         </tr>
                                                     @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+                    @can("ver-comisiones")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                                            <h4>Comisiones</h4>
+                                            @can("crear-comision")
+                                                <button class="btn btn-primary" wire:click='abrirModalComision'><i class="fa-solid fa-plus"></i> Registrar comisión</button>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Promotor</th>
+                                                    <th>Monto</th>
+                                                    <th>Observaciones</th>
+                                                    <th class="text-center">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->comisiones_proyecto as $comision)
+                                                        <tr>
+                                                            <td>{{$comision->promotor->nombre}} {{$comision->promotor->apaterno}} {{$comision->promotor->amaterno}}</td>
+                                                            <td>${{number_format($comision->cantidad, 2)}}</td>
+                                                            <td>{{$comision->observaciones}}</td>
+                                                            <td class="text-center">
+                                                                <button wire:click='editarComision({{$comision->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                <button wire:click='borrarComision({{$comision->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td class="text-center" colspan="4">Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse ()
                                                 @endif
                                             </tbody>
                                         </table>

@@ -69,6 +69,10 @@ class Proyectos extends Model
         return $this->hasMany(Costos::class, 'proyecto_id');
     }
 
+    public function comisiones_proyecto(){
+        return $this->hasMany(Comisiones::class, 'proyecto_id');
+    }
+
     public function pagos_recibidos(){
         return $this->hasMany(Cobros::class, 'proyecto_id');
     }
@@ -131,6 +135,16 @@ class Proyectos extends Model
             $gestoria = $value->gestoria;
             $impuestos = $value->impuestos;
             $total = $total + $monto + $gestoria + $impuestos;
+        }
+        return $total;
+    }
+
+    public function comisiones_registradas($id){
+        $total = 0;
+        $costos =  Comisiones::where("proyecto_id", $id)->get();
+        foreach ($costos as $key => $value) {
+            $monto = $value->cantidad;
+            $total = $total + $monto;
         }
         return $total;
     }

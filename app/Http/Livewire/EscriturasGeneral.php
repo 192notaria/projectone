@@ -6,9 +6,11 @@ use App\Models\CatalogoMetodosPago;
 use App\Models\Catalogos_conceptos_pago;
 use App\Models\CatalogoTipoActos;
 use App\Models\Cobros;
+use App\Models\Comisiones;
 use App\Models\Costos;
 use App\Models\Cuentas_bancarias;
 use App\Models\Egresos;
+use App\Models\Promotores;
 use App\Models\Proyectos;
 use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -52,11 +54,14 @@ class EscriturasGeneral extends Component
     public $metodo_pago_id = '';
     public $cuenta_id = '';
     public $observaciones_cobro;
+    public $buscarPromotor;
+    public $promotor_data;
 
     public function render()
     {
         return view('livewire.escrituras-general', [
             "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
+                ->where("numero_escritura", "!=", null)
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
@@ -88,7 +93,12 @@ class EscriturasGeneral extends Component
             ->get(),
             "catalogo_conceptos" => Catalogos_conceptos_pago::orderBy("descripcion", "ASC")->get(),
             "cuentas_bancarias" => Cuentas_bancarias::all(),
-            "catalogo_tipos_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get()
+            "catalogo_tipos_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get(),
+            "promotores" => $this->buscarPromotor ? Promotores::orderBy("nombre", "ASC")
+                ->where("nombre", "LIKE", "%" . $this->buscarPromotor . "%")
+                ->orWhere("apaterno", "LIKE", "%" . $this->buscarPromotor . "%")
+                ->orWhere("amaterno", "LIKE", "%" . $this->buscarPromotor . "%")
+                ->get() : [],
         ]);
     }
 
@@ -400,5 +410,112 @@ class EscriturasGeneral extends Component
         $escritura->save();
         $this->costo_total_escritura = '';
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-total");
+    }
+
+    public function abrirModalComision(){
+        return $this->dispatchBrowserEvent("abrir-modal-registrar-comision");
+    }
+
+    public $nuevoPromotor = false;
+    public function nuevoPromotor($id){
+        $this->nuevoPromotor = $id == 0 ? false : true;
+    }
+
+    public $nombre_promotor;
+    public $paterno_promotor;
+    public $materno_promotor;
+    public $telefono_promotor;
+    public $email_promotor;
+    public function guardarPromotor(){
+        $this->validate([
+            "nombre_promotor" => "required",
+            "paterno_promotor" => "required",
+        ],[
+            "nombre_promotor.required" => "Es necesario el nombre",
+            "paterno_promotor.required" => "Es necesario el apellido paterno",
+        ]);
+
+        $promotor = new Promotores;
+        $promotor->nombre = $this->nombre_promotor;
+        $promotor->apaterno = $this->paterno_promotor;
+        $promotor->amaterno = $this->materno_promotor;
+        $promotor->telefono = $this->telefono_promotor;
+        $promotor->email = $this->email_promotor;
+        $promotor->save();
+
+        $this->nombre_promotor = "";
+        $this->paterno_promotor = "";
+        $this->materno_promotor = "";
+        $this->telefono_promotor = "";
+        $this->email_promotor = "";
+
+        $this->dispatchBrowserEvent("success-notify", "Promotor registrado");
+        return $this->nuevoPromotor(0);
+    }
+
+    public function asignar_promotor($promotor){
+        $this->promotor_data = $promotor;
+        $this->buscarPromotor = "";
+    }
+
+    public function removerPromotor(){
+        $this->promotor_data = "";
+    }
+
+    public $comision_id;
+    public $monto_comision;
+    public $observaciones_comision;
+
+    public function registrarcomision(){
+        $this->validate([
+            "monto_comision" => "required",
+            "promotor_data" => "required",
+        ],[
+            "monto_comision.required" => "Es necesario el monto",
+            "promotor_data.required" => "Es necesario el promotor",
+        ]);
+
+        if($this->comision_id){
+            $comision = Comisiones::find($this->comision_id);
+            $comision->promotor_id = $this->promotor_data['id'];
+            $comision->cantidad = $this->monto_comision;
+            $comision->observaciones = $this->observaciones_comision;
+            $comision->save();
+            $this->dispatchBrowserEvent("success-notify", "Comision editada");
+            $this->promotor_data = '';
+            $this->monto_comision = '';
+            $this->observaciones_comision = '';
+            $this->comision_id = '';
+            return $this->dispatchBrowserEvent("cerrar-modal-registrar-comision");
+        }
+
+        $comision = new Comisiones;
+        $comision->proyecto_id = $this->escritura_id;
+        $comision->promotor_id = $this->promotor_data['id'];
+        $comision->cantidad = $this->monto_comision;
+        $comision->observaciones = $this->observaciones_comision;
+        $comision->save();
+        $this->dispatchBrowserEvent("success-notify", "Comision registrada");
+        $this->promotor_data = '';
+        $this->monto_comision = '';
+        $this->observaciones_comision = '';
+        $this->comision_id = '';
+        return $this->dispatchBrowserEvent("cerrar-modal-registrar-comision");
+    }
+
+    public function editarComision($id){
+        $comision = Comisiones::find($id);
+        $this->comision_id = $id;
+        $this->monto_comision = $comision->cantidad;
+        $this->observaciones_comision = $comision->observaciones;
+
+        $promotor = Promotores::find($comision->promotor_id);
+        $this->asignar_promotor($promotor);
+        $this->abrirModalComision();
+    }
+
+    public function borrarComision($id){
+        Comisiones::find($id)->delete();
+        return $this->dispatchBrowserEvent("success-notify", "Comision eliminada");
     }
 }

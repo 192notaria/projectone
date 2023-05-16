@@ -20,4 +20,8 @@ class Cotizaciones extends Model
     public function costos(){
         return $this->hasMany(CostosCotizaciones::class);
     }
+
+    public function promotor(){
+        return $this->belongsTo(Promotores::class, "promotor_id");
+    }
 }

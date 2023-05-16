@@ -200,4 +200,5 @@
     @include("livewire.escritura-general-resources.modal-registrar-pago")
     @include("livewire.escritura-general-resources.modal-recibo-pago-egreso")
     @include("livewire.escritura-general-resources.modal-registrar-total")
+    @include("livewire.escritura-general-resources.modal-registrar-comision")
 </div>

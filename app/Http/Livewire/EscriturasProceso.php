@@ -765,7 +765,7 @@ public function removerParte($id){
             $nuevo_costo = new Costos;
             $nuevo_costo->concepto_id = 35;
             $nuevo_costo->subtotal = $this->acto_honorarios;
-            $nuevo_costo->impuestos = $findConcepto->impuestos;
+            $nuevo_costo->impuestos = $findConcepto->impuestos ?? 0;
             $nuevo_costo->proyecto_id = $nuevo_proyecto->id;
             $nuevo_costo->gestoria = 0.0;
             $nuevo_costo->save();
