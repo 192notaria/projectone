@@ -707,6 +707,7 @@ public function removerParte($id){
         return $this->dispatchBrowserEvent("cerrar-modal-agregar-concepto-pago", "Concepto de pago agregado");
     }
 
+    public $acto_juridico_data;
     public function crear_proyecto(){
         $this->validate([
             "acto_honorarios" => "required",
@@ -726,11 +727,12 @@ public function removerParte($id){
             "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
-        // $acto_juridico = Servicios::find($this->acto_juridico_id);
-        $buscar_proyecto = Proyectos::where("servicio_id", $this->acto_juridico_id)
-            ->where("numero_escritura", $this->numero_escritura)->get();
-
-        if(count($buscar_proyecto) > 0){
+        $this->acto_juridico_data = Servicios::find($this->acto_juridico_id);
+        $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
+            $serv->where('id', $this->acto_juridico_data['tipo_id']);
+        })
+        ->where("numero_escritura", $this->numero_escritura)->first();
+        if($buscar_proyecto){
             return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
         }
 

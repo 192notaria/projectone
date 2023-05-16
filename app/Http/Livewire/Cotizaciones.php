@@ -10,6 +10,7 @@ use App\Models\Cotizaciones as ModelsCotizaciones;
 use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -317,6 +318,8 @@ class Cotizaciones extends Component
         return $this->dispatchBrowserEvent("abrir-modal-crear-proyecto");
     }
 
+    public $acto_juridico_data;
+
     public function crear_proyecto(){
         $this->validate([
             "servicio_id" => "required",
@@ -337,10 +340,13 @@ class Cotizaciones extends Component
         ]);
 
 
-        $acto_juridico = Servicios::find($this->acto_juridico_id);
-        $buscar_proyecto = Proyectos::where("tipo_id", $acto_juridico)
-            ->where("numero_escritura", $this->numero_escritura)->get();
-        if(count($buscar_proyecto) > 0){
+        $this->acto_juridico_data = Servicios::find($this->servicio_id);
+        $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
+            $serv->where('id', $this->acto_juridico_data['tipo_id']);
+        })
+        ->where("numero_escritura", $this->numero_escritura)->first();
+        // dd($buscar_proyecto);
+        if($buscar_proyecto){
             return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
         }
 
