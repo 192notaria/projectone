@@ -1,25 +1,26 @@
 <div class="card">
     <div class="card-header">
-        <div style="display:flex; justify-content: space-between;">
-            <div class="flex-item">
-                @can("crear-proyectos")
-                    <button wire:click='modalNuevoProyecto' style="height: 100%;" type="button" class="btn btn-outline-primary me-2">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                @endcan
-            </div>
-            <div class="flex-item" style="width: 100%;">
-                <div style="display:flex; justify-content:end;">
-                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-                    <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                </div>
-            </div>
+        <div class="d-flex justify-content-start">
+            @can("crear-proyectos")
+                <button wire:click='modalNuevoProyecto' type="button" class="btn btn-outline-primary me-2">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            @endcan
+            <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select me-2">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <input wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
+            <select wire:model='cantidad_escrituras' class="form-select">
+                <option value="" disabled>Seleccionar...</option>
+                <option value="Actas">Actas</option>
+                <option value="Certificaciones">Certificaciones</option>
+                <option value="Escrituras">Escrituras</option>
+                <option value="Poderes">Poderes</option>
+            </select>
         </div>
     </div>
     <div class="card-body">
@@ -73,7 +74,7 @@
                     cursor: grabbing;
                 }
             </style>
-            <div class="col-lg-12 table-responsive drag">
+            <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
                 <table class="table table-striped" id="my_table">
                     <thead>
                         <tr>
