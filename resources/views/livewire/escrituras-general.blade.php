@@ -118,7 +118,7 @@
                                                     @endif
                                                 </a>
                                                 <p>
-                                                    <span class="badge badge-primary">{{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}</span>
+                                                    <span class="badge badge-{{$escritura->servicio->tipo_acto->color}}">{{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}</span>
                                                 </p>
                                             </h6>
                                         </div>
