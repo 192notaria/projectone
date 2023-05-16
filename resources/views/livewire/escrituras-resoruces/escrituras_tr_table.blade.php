@@ -2,7 +2,7 @@
     <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div class="media">
             <div class="avatar avatar-sm me-2">
-                <span class="avatar-title badge bg-primary rounded-circle">{{$escritura->numero_escritura ?? "S/N"}}</span>
+                <span class="avatar-title badge bg-{{$escritura->servicio->tipo_acto->color}} rounded-circle">{{$escritura->numero_escritura ?? "S/N"}}</span>
             </div>
             {{-- <div class="avatar me-2">
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
