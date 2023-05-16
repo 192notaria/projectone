@@ -73,7 +73,7 @@
                     cursor: grabbing;
                 }
             </style>
-            <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
+            <div class="col-lg-12 table-responsive drag">
                 <table class="table table-striped" id="my_table">
                     <thead>
                         <tr>
