@@ -61,7 +61,7 @@
                             @enderror
                         </ul>
                     </div>
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <label for="">Número de escritura</label>
                         <input type="text" class="form-control" wire:model='numero_escritura'>
                         @error("numero_escritura")
@@ -74,7 +74,7 @@
                         @error("volumen_escritura")
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12">
                         <label for="">Abogado</label>
                         <select class="form-select" wire:model='usuario_id'>

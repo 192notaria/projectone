@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\CatalogoTipoActos;
 use App\Models\Costos;
 use App\Models\Facturas;
 use App\Models\Proyectos;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -47,14 +49,19 @@ class Escrituras extends Component
     public $comentarios_factura = "";
     public $xml_factura = "";
     public $pdf_factura = "";
+    public $tipo_acto_id = "";
 
     public function render()
     {
         return view('livewire.escrituras',[
             "escritura_activa" => $this->escritura_id ? Proyectos::find($this->escritura_id) : "",
+            "tipo_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get(),
             "escrituras" =>
                 // Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
                 Proyectos::orderBy("numero_escritura", "ASC")
+                    ->whereHas('servicio.tipo_acto', function(Builder $serv){
+                        $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                    })
                     ->where("status", 1)
                     ->where(function($query){
                         $query->orWhereHas('cliente', function($q){

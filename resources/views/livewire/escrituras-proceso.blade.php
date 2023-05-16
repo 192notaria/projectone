@@ -14,12 +14,11 @@
                 <option value="50">50</option>
             </select>
             <input wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-            <select wire:model='cantidad_escrituras' class="form-select">
-                <option value="" disabled>Seleccionar...</option>
-                <option value="Actas">Actas</option>
-                <option value="Certificaciones">Certificaciones</option>
-                <option value="Escrituras">Escrituras</option>
-                <option value="Poderes">Poderes</option>
+            <select wire:model='tipo_acto_id' class="form-select">
+                <option value="">Todos...</option>
+                @foreach ($tipo_actos as $tipo)
+                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                @endforeach
             </select>
         </div>
     </div>

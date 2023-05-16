@@ -19,15 +19,21 @@
     </style>
 
     <div class="card-header">
-        <div class="d-flex justify-content-between">
-            <select class="form-select" style="width: 8%;" wire:model='cantidadEscrituras'>
+        <div class="d-flex justify-content-start">
+            <select class="form-select me-2" wire:model='cantidadEscrituras' style="width: 10%;">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
             </select>
-            <input type="text" class="form-control me-2" placeholder="Buscar..." style="width: 30%;">
+            <input wire:model='search' type="text" class="form-control me-2 w-100" placeholder="Buscar...">
+            <select wire:model='tipo_acto_id' class="form-select w-50">
+                <option value="">Todos...</option>
+                @foreach ($tipo_actos as $tipo)
+                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="card-body">

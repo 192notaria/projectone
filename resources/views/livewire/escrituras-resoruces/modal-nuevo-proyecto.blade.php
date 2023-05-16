@@ -38,7 +38,7 @@
                     </ul>
                 </p>
                 <div class="row gx-3 gy-3">
-                    <div class="col-lg-6 mb-4">
+                    {{-- <div class="col-lg-6 mb-4">
                         <label for="">Número de escritura</label>
                         <input type="text" class="form-control" placeholder="198" wire:model='numero_escritura'>
                         @error("numero_escritura")
@@ -51,7 +51,7 @@
                         @error("volumen_escritura")
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12">
                         <div class="form-group autocomplete">
                             <label for="">Abogado</label>

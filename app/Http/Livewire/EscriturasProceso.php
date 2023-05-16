@@ -9,6 +9,7 @@ use App\Models\CatalogoMetodosPago;
 use App\Models\Catalogos_conceptos_pago;
 use App\Models\Catalogos_tipo_cuenta;
 use App\Models\Catalogos_uso_de_cuentas;
+use App\Models\CatalogoTipoActos;
 use App\Models\Clientes;
 use App\Models\Cobros;
 use App\Models\Comisiones;
@@ -79,6 +80,7 @@ class EscriturasProceso extends Component
 
     public $vistaComisiones = 0;
     public $abogado_proyecto = "";
+    public $tipo_acto_id = "";
 
     public function render()
     {
@@ -92,6 +94,7 @@ class EscriturasProceso extends Component
                 ->whereHas("roles", function($data){
                     $data->where('name', '!=', 'ADMINISTRADOR');
             })->get(),
+            "tipo_actos" => CatalogoTipoActos::orderBy("nombre", "ASC")->get(),
             "abogados" =>  $this->buscar_abogado == '' ? [] : User::orderBy("name", "ASC")
                 ->where(function($query){
                     $query->whereHas("roles", function($data){
@@ -108,6 +111,9 @@ class EscriturasProceso extends Component
             "escrituras" =>
             // Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
                 Proyectos::orderBy("numero_escritura", "ASC")
+                ->whereHas('servicio.tipo_acto', function(Builder $serv){
+                    $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                })
                 ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
@@ -714,8 +720,6 @@ public function removerParte($id){
             "acto_juridico_id" => "required",
             "proyecto_cliente" => "required",
             "proyecto_abogado" => "required",
-            "numero_escritura" => "required",
-            "volumen_escritura" => "required",
             "tipo_servicio" => $this->acto_juridico_id == 25 ? "required" : "",
         ],[
             "acto_honorarios.required" => "Es necesario colocar los honorarios",
@@ -727,14 +731,14 @@ public function removerParte($id){
             "tipo_servicio.required" => "Es necesario el tipo de acta",
         ]);
 
-        $this->acto_juridico_data = Servicios::find($this->acto_juridico_id);
-        $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
-            $serv->where('id', $this->acto_juridico_data['tipo_id']);
-        })
-        ->where("numero_escritura", $this->numero_escritura)->first();
-        if($buscar_proyecto){
-            return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
-        }
+        // $this->acto_juridico_data = Servicios::find($this->acto_juridico_id);
+        // $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
+        //     $serv->where('id', $this->acto_juridico_data['tipo_id']);
+        // })
+        // ->where("numero_escritura", $this->numero_escritura)->first();
+        // if($buscar_proyecto){
+        //     return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
+        // }
 
         $nuevo_proyecto = new Proyectos;
         $nuevo_proyecto->servicio_id = $this->acto_juridico_id;
@@ -744,8 +748,8 @@ public function removerParte($id){
         $nuevo_proyecto->honorarios = $this->acto_honorarios;
         $nuevo_proyecto->observaciones = $this->proyecto_descripcion;
         $nuevo_proyecto->status = 0;
-        $nuevo_proyecto->numero_escritura = $this->numero_escritura;
-        $nuevo_proyecto->volumen = $this->volumen_escritura;
+        // $nuevo_proyecto->numero_escritura = $this->numero_escritura;
+        // $nuevo_proyecto->volumen = $this->volumen_escritura;
         $nuevo_proyecto->save();
 
         // if(count($this->proyecto_asistentes) > 0){
@@ -1355,7 +1359,7 @@ public function removerParte($id){
             ],
             [
                 "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
-                // "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
+                "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
                 "volumen_general.required" => "Es necesario el volumen para continuar",
                 "abogado_proyecto.required" => "Es necesario seleccionar un abogado para continuar",
             ]
@@ -1368,7 +1372,7 @@ public function removerParte($id){
         ->where("numero_escritura", $this->numero_escritura_general)->first();
 
         if($buscar_proyecto && $buscar_proyecto->numero_escritura != $this->proyecto_activo['numero_escritura']){
-            return $this->addError("numero_escritura_general", "El numero de escritura ya esta registrado");
+            return $this->addError("numero_escritura_general", "Este número ya esta registrado");
         }
 
         $proyecto = Proyectos::find($this->proyecto_activo['id']);

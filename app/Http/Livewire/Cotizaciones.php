@@ -325,8 +325,8 @@ class Cotizaciones extends Component
             "servicio_id" => "required",
             "cliente_id" => "required",
             "usuario_id" => "required",
-            "numero_escritura" => "required",
-            "volumen_escritura" => "required",
+            // "numero_escritura" => "required",
+            // "volumen_escritura" => "required",
             "total_escritura" => "required",
             "tipo_servicio" => $this->servicio_id == 25 ? "required" : "",
         ],[
@@ -340,24 +340,24 @@ class Cotizaciones extends Component
         ]);
 
 
-        $this->acto_juridico_data = Servicios::find($this->servicio_id);
-        $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
-            $serv->where('id', $this->acto_juridico_data['tipo_id']);
-        })
-        ->where("numero_escritura", $this->numero_escritura)->first();
-        // dd($buscar_proyecto);
-        if($buscar_proyecto){
-            return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
-        }
+        // $this->acto_juridico_data = Servicios::find($this->servicio_id);
+        // $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
+        //     $serv->where('id', $this->acto_juridico_data['tipo_id']);
+        // })
+        // ->where("numero_escritura", $this->numero_escritura)->first();
+        // // dd($buscar_proyecto);
+        // if($buscar_proyecto){
+        //     return $this->addError("numero_escritura", "El numero de escritura ya esta registrado");
+        // }
 
         $proyecto = new Proyectos;
         $proyecto->servicio_id = $this->servicio_id;
         $proyecto->tipo_servicio = $this->tipo_servicio;
         $proyecto->cliente_id = $this->cliente_id;
         $proyecto->usuario_id = $this->usuario_id;
-        $proyecto->numero_escritura = $this->numero_escritura;
+        // $proyecto->numero_escritura = $this->numero_escritura;
         $proyecto->status = 0;
-        $proyecto->volumen = $this->volumen_escritura;
+        // $proyecto->volumen = $this->volumen_escritura;
         $proyecto->total = $this->total_escritura;
         $proyecto->save();
 
