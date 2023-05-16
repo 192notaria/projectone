@@ -118,7 +118,7 @@
         <p class="mb-0 text-left">
             <span class="fw-bold">Abogado:</span>
             <p>
-                <span class="mt-2 avatar-chip avatar-dismiss bg-primary me-4 position-relative">
+                <span class="mt-2 avatar-chip avatar-dismiss bg-dark me-4 position-relative">
                     <img src="{{url($escritura->abogado->user_image)}}" alt="Person" width="96" height="96">
                     <span class="text">{{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}</span>
                 </span>
