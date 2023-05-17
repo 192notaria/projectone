@@ -10,6 +10,7 @@ use App\Models\Comisiones;
 use App\Models\Costos;
 use App\Models\Cuentas_bancarias;
 use App\Models\Egresos;
+use App\Models\Facturas;
 use App\Models\Promotores;
 use App\Models\Proyectos;
 use App\Models\User;
@@ -517,5 +518,10 @@ class EscriturasGeneral extends Component
     public function borrarComision($id){
         Comisiones::find($id)->delete();
         return $this->dispatchBrowserEvent("success-notify", "Comision eliminada");
+    }
+
+    public function borrarFactura($id){
+        Facturas::find($id)->delete();
+        return $this->dispatchBrowserEvent("success-notify", "Factura eliminada");
     }
 }

@@ -17,4 +17,8 @@ class Contabilidad extends Controller
     public function facturas(){
         return view("contabilidad.facturas");
     }
+
+    public function declaranot(){
+        return view("contabilidad.declaranot");
+    }
 }

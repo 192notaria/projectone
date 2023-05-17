@@ -105,6 +105,10 @@ class Proyectos extends Model
         return $this->hasMany(Partes::class, 'proyecto_id');
     }
 
+    public function declaraciones(){
+        return $this->hasMany(Declaranot::class, 'proyecto_id');
+    }
+
     public function costo_total($id){
         $total = 0;
         $costos =  Costos::where("proyecto_id", $id)->get();

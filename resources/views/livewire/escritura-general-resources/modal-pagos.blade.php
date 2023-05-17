@@ -355,6 +355,142 @@
                             </div>
                         </div>
                     @endcan
+                    @can("ver-facturas")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                                            <h4>Facturas</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Folio</th>
+                                                    <th>Monto</th>
+                                                    <th>RFC Receptor</th>
+                                                    <th>Fecha</th>
+                                                    <th>Origen</th>
+                                                    <th>Concepto</th>
+                                                    <th>Cliente</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->facturas as $factura)
+                                                        <tr>
+                                                            <td>
+                                                                {{$factura->folio_factura}}
+                                                                <br>
+                                                                <div class="d-flex justify-content-start">
+                                                                    @if ($factura->pdf)
+                                                                        <a class="btn btn-outline-success me-2" href="{{url($factura->pdf)}}" target="_blank">
+                                                                            <i class="fa-solid fa-file-pdf"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                    @if ($factura->xml)
+                                                                        <a class="btn btn-outline-success" href="{{url($factura->xml)}}" target="_blank">
+                                                                            <i class="fa-solid fa-file-invoice"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                            <td>{{$factura->monto}}</td>
+                                                            <td>{{$factura->rfc_receptor}}</td>
+                                                            <td>{{$factura->fecha}}</td>
+                                                            <td>{{$factura->origen}}</td>
+                                                            <td>{{$factura->concepto}}</td>
+                                                            <td>{{$factura->cliente->nombre}} {{$factura->cliente->apaterno}} {{$factura->cliente->amaterno}}</td>
+                                                            <td>{{$factura->observaciones}}</td>
+                                                            <td>
+                                                                <button wire:click='borrarFactura({{$factura->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td class="text-center" colspan="8">Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse ()
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+                    @can("ver-declaraciones")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                                            <h4>Declaraciones</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Escritura</th>
+                                                    <th>Usuario</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Documentos</th>
+                                                    <th>Acciones</th>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->declaraciones as $declaracion)
+                                                        <tr>
+                                                            <td>{{$declaracion->fecha}}</td>
+                                                            <td>
+                                                                {{$declaracion->escritura->servicio->nombre}} -
+                                                                {{$declaracion->escritura->cliente->nombre}} {{$declaracion->escritura->cliente->apaterno}} {{$declaracion->escritura->cliente->amaterno}} -
+                                                                #{{$declaracion->escritura->numero_escritura}}
+                                                            </td>
+                                                            <td>
+                                                                {{$declaracion->usuario->name}}
+                                                            </td>
+                                                            <td>{{$declaracion->observaciones}}</td>
+                                                            <td>
+                                                                <div class="avatar--group avatar-group-badge">
+                                                                    @foreach ($declaracion->documentos as $doc)
+                                                                        <div class="avatar avatar-sm">
+                                                                            <a href="{{url($doc->path)}}" target="_blank">
+                                                                                <span class="avatar-title rounded-circle">
+                                                                                    <i class="fa-solid fa-file-pdf"></i>
+                                                                                </span>
+                                                                            </a>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="8" class="text-center">Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
             <div class="modal-footer">

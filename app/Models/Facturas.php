@@ -38,4 +38,6 @@ class Facturas extends Model
         return $this->belongsTo(Proyectos::class, "proyecto_id");
     }
 
+
+
 }

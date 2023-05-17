@@ -198,6 +198,11 @@
                                 <a href="{{route('contabilidad.facturas')}}"> Facturas</a>
                             </li>
                         @endcan
+                        @can('ver-declaranot')
+                            <li class="{{Route::currentRouteName() == "contabilidad.declaranot" ? "active" : ""}}">
+                                <a href="{{route('contabilidad.declaranot')}}"> DeclaraNot</a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
             @endif

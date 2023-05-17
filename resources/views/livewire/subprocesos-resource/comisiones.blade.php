@@ -9,7 +9,9 @@
 
     @if ($vistaComisiones == 0)
         <div class="col-lg-12 mb-3">
-            <button wire:click='cambiarVistaComision(1)' class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar comisión</button>
+            <button wire:click='cambiarVistaComision(1)' class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Agregar comisión
+            </button>
         </div>
         <div class="col-lg-12 mb-2 mt-2">
             <div class="card">
