@@ -53,6 +53,19 @@
                         <label for="">Observaciones</label>
                         <textarea class="form-control" cols="30" rows="5" wire:model='observaciones'></textarea>
                     </div>
+                    @if (count($documentos_data) > 0)
+                        <label for="">Documentos importados</label>
+                        <div wire:loading.remove class="d-flex justify-content-start">
+                            @foreach ($documentos_data as $docs)
+                                <button class="btn btn-primary position-relative btn-icon mb-2 me-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                    <a href="#" wire:click='abrir_modal_eliminar_documento({{$docs->id}})'>
+                                        <span class="badge badge-danger counter"><i class="fa-solid fa-trash"></i></span>
+                                    </a>
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="col-lg-12">
                         <label for="">Documentos</label>
                         <x-file-pond wire:model='documentos' multiple accept="application/pdf"></x-file-pond>

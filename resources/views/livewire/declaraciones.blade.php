@@ -78,7 +78,6 @@
                         <tr>
                             <th>Fecha</th>
                             <th>Escritura</th>
-                            <th>Usuario</th>
                             <th>Observaciones</th>
                             <th>Documentos</th>
                             <th>Acciones</th>
@@ -92,9 +91,6 @@
                                     {{$declaracion->escritura->servicio->nombre}} -
                                     {{$declaracion->escritura->cliente->nombre}} {{$declaracion->escritura->cliente->apaterno}} {{$declaracion->escritura->cliente->amaterno}} -
                                     #{{$declaracion->escritura->numero_escritura}}
-                                </td>
-                                <td>
-                                    {{$declaracion->usuario->name}}
                                 </td>
                                 <td>{{$declaracion->observaciones}}</td>
                                 <td>
@@ -111,8 +107,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    <button wire:click='editar_declaracion({{$declaracion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button wire:click='abrir_modal_eliminar_declaracion({{$declaracion->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -127,4 +123,6 @@
         </div>
     </div>
     @include("livewire.declaraciones-resources.modal-new-declaracion")
+    @include("livewire.declaraciones-resources.modal-borrar-documento")
+    @include("livewire.declaraciones-resources.modal-borrar-declaracion")
 </div>
