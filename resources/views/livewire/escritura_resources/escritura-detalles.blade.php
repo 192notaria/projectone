@@ -8,15 +8,6 @@
                             <button wire:ignore.self class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Pagos</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Facturas</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button wire:ignore.self class="nav-link" id="comisiones-tab" data-bs-toggle="tab" data-bs-target="#comisiones-tab-pane" type="button" role="tab" aria-controls="comisiones-tab-pane" aria-selected="false">Comisiones</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
                             <button wire:ignore.self class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora-tab-pane" type="button" role="tab" aria-controls="bitacora-tab-pane" aria-selected="false">Bitacora</button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -83,46 +74,6 @@
             </style>
 
             <div class="modal-body">
-                <div wire:ignore.self id="mySidenav" class="mysidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa-solid fa-circle-xmark"></i></a>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 mt-1 mb-2">
-                                <button wire:click='abrirModalNuevoCosto' style="width: 100%;" class="btn btn-info"><i class="fa-solid fa-circle-plus"></i> Agregar costo</button>
-                            </div>
-                            <div class="col-lg-12 mt-1 mb-4">
-                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group" style="width: 100%;">
-                                    <button wire:click='abrirModalPagos({{$total_pago + $total_impuestos}})' type="button" class="btn btn-info"><i class="fa-solid fa-cash-register"></i> Registrar pago</button>
-                                    <button wire:click='abrirModalEgresos' type="button" class="btn btn-info"><i class="fa-solid fa-money-bill-transfer"></i> Registrar egresos</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="d-flex justify-content-between mb-2 mt-2">
-                                    <span>Subtotal: </span>
-                                    <span>${{number_format($total_pago, 2)}}</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2 mt-2">
-                                    <span>Impuestos: </span>
-                                    <span>${{number_format($total_impuestos, 2)}}</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2 mt-2">
-                                    <span>Descuentos: </span>
-                                    <span>${{number_format($escritura_activa['descuento'] ?? 0, 2)}}</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2 mt-2">
-                                    <h5 class="text-white">Total:</h5>
-                                    @php
-                                        $costoTotal = 0;
-                                        if(isset($escritura_activa['descuento'])){
-                                            $costoTotal = $total_pago + $total_impuestos - $escritura_activa['descuento'];
-                                        }
-                                    @endphp
-                                    <h5 class="text-white">${{number_format($costoTotal, 2)}}</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 @if ($escritura_activa)
                     <div class="simple-tab">
                         <div class="tab-content" id="myTabContent">
@@ -131,26 +82,17 @@
                                     @include('livewire.escritura_resources.tabs.general')
                                 </div>
                             </div>
-                            <div wire:ignore.self class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                @include('livewire.escritura_resources.tabs.pagos')
-                            </div>
-                            <div wire:ignore.self class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                                @include('livewire.escritura_resources.tabs.facturas')
-                            </div>
-                            <div wire:ignore.self class="tab-pane fade" id="comisiones-tab-pane" role="tabpanel" aria-labelledby="comisiones-tab" tabindex="0">
-                                {{-- @include('livewire.subprocesos-resource.comisiones') --}}
-                            </div>
                             <div wire:ignore.self class="tab-pane fade" id="bitacora-tab-pane" role="tabpanel" aria-labelledby="bitacora-tab" tabindex="0">
-                                {{-- @include('livewire.subprocesos-resource.bitacora') --}}
+                                @include("livewire.escritura_resources.bitacora")
                             </div>
                             <div wire:ignore.self class="tab-pane fade" id="partes-tab-pane" role="tabpanel" aria-labelledby="partes-tab" tabindex="0">
-                                {{-- @include('livewire.subprocesos-resource.partes') --}}
+                                @include('livewire.escritura_resources.partes')
                             </div>
                             <div wire:ignore.self class="tab-pane fade" id="observaciones-tab-pane" role="tabpanel" aria-labelledby="observaciones-tab" tabindex="0">
-                                {{-- @include('livewire.subprocesos-resource.observaciones') --}}
+                                @include('livewire.escritura_resources.observaciones')
                             </div>
                             <div wire:ignore.self class="tab-pane fade" id="documentos-tab-pane" role="tabpanel" aria-labelledby="documentos-tab" tabindex="0">
-                                {{-- @include('livewire.subprocesos-resource.documentos') --}}
+                                @include('livewire.escritura_resources.documentos')
                             </div>
                         </div>
                     </div>

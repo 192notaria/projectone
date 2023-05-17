@@ -1,146 +1,98 @@
 <div id="timelineBasic" class="col-lg-12 layout-spacing">
     {{-- <div class="statbox widget box box-shadow">
        <div class="widget-content widget-content-area pb-1"> --}}
-        @if ($vista_general == "general")
-            <ol class="timeline">
-                <li class="timeline-item extra-space">
-                    <span class="timeline-item-icon filled-icon">
-                        <i class="fa-solid fa-list-ol"></i>
-                    </span>
-                    <div class="timeline-item-wrapper">
-                        <div class="timeline-item-description">
-                            <span class="align-self-center">
-                                Numero de escritura: <span class="badge bg-light-primary">{{$escritura_activa->numero_escritura}}</span>
-                            </span>
-                        </div>
-                        <div class="timeline-item-wrapper">
-                            <span class="align-self-center">
-                                Volumen: <span class="badge bg-light-primary">{{$escritura_activa->volumen}}</span>
-                            </span>
-                        </div>
-                        <div class="timeline-item-wrapper mt-1">
-                            <span class="align-self-center">
-                                Folios: <span class="badge bg-light-primary">{{$escritura_activa->folio_inicio}} - {{$escritura_activa->folio_fin}}</span>
-                            </span>
-                        </div>
-                        <div class="timeline-item-wrapper">
-                            <span class="align-self-center">
-                                <a wire:click='cambiar_info_proyecto({{$escritura_activa["id"]}})' style="font-size: 11px;" class="text-warning" href="#">Asignar o  cambiar el numero de escritura y volumen</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                <li class="timeline-item">
-                    <span class="timeline-item-icon filled-icon">
-                        <i class="fa-solid fa-file-contract"></i>
-                    </span>
+        <ol class="timeline">
+            <li class="timeline-item extra-space">
+                <span class="timeline-item-icon filled-icon">
+                    <i class="fa-solid fa-list-ol"></i>
+                </span>
+                <div class="timeline-item-wrapper">
                     <div class="timeline-item-description">
                         <span class="align-self-center">
-                            Acto: <span class="badge bg-light-primary">{{$escritura_activa->servicio->nombre}}</span>
+                            Numero de escritura: <span class="badge bg-light-primary">{{$escritura_activa->numero_escritura}}</span>
                         </span>
                     </div>
-                </li>
-                <li class="timeline-item">
-                    <span class="timeline-item-icon filled-icon">
-                        <i class="fa-solid fa-users"></i>
+                    <div class="timeline-item-wrapper">
+                        <span class="align-self-center">
+                            Volumen: <span class="badge bg-light-primary">{{$escritura_activa->volumen}}</span>
+                        </span>
+                    </div>
+                    <div class="timeline-item-wrapper mt-1">
+                        <span class="align-self-center">
+                            Folios: <span class="badge bg-light-primary">{{$escritura_activa->folio_inicio}} - {{$escritura_activa->folio_fin}}</span>
+                        </span>
+                    </div>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <span class="timeline-item-icon filled-icon">
+                    <i class="fa-solid fa-file-contract"></i>
+                </span>
+                <div class="timeline-item-description">
+                    <span class="align-self-center">
+                        Acto: <span class="badge bg-light-primary">{{$escritura_activa->servicio->nombre}}</span>
                     </span>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <span class="timeline-item-icon filled-icon">
+                    <i class="fa-solid fa-users"></i>
+                </span>
+                <div class="timeline-item-description">
+                    <span class="align-self-center">
+                        Cliente:
+                        <span class="badge bg-light-primary">
+                            {{$escritura_activa->cliente->nombre}}
+                            {{$escritura_activa->cliente->apaterno}}
+                            {{$escritura_activa->cliente->amaterno}}
+                        </span>
+                    </span>
+                </div>
+            </li>
+            <li class="timeline-item extra-space">
+                <span class="timeline-item-icon filled-icon">
+                    <i class="fa-solid fa-user-tie"></i>
+                </span>
+                <div class="timeline-item-wrapper">
                     <div class="timeline-item-description">
                         <span class="align-self-center">
-                            Cliente:
+                            Abogado:
                             <span class="badge bg-light-primary">
-                                {{$escritura_activa->cliente->nombre}}
-                                {{$escritura_activa->cliente->apaterno}}
-                                {{$escritura_activa->cliente->amaterno}}
+                                {{$escritura_activa->abogado->name}}
+                                {{$escritura_activa->abogado->apaterno}}
+                                {{$escritura_activa->abogado->amaterno}}
                             </span>
                         </span>
                     </div>
-                </li>
-                <li class="timeline-item extra-space">
-                    <span class="timeline-item-icon filled-icon">
-                        <i class="fa-solid fa-user-tie"></i>
-                    </span>
-                    <div class="timeline-item-wrapper">
-                        <div class="timeline-item-description">
-                            <span class="align-self-center">
-                                Abogado:
-                                <span class="badge bg-light-primary">
-                                    {{$escritura_activa->abogado->name}}
-                                    {{$escritura_activa->abogado->apaterno}}
-                                    {{$escritura_activa->abogado->amaterno}}
-                                </span>
-                            </span>
-                        </div>
-                        <div class="comment">
-                            <h5>Comentarios u observaciones</h5>
-                            <p class="text-warning">
-                                {{$escritura_activa->observaciones ?? "Sin comentarios u observaciones"}}
-                            </p>
-                        </div>
-                        @if (count($escritura_activa->asistentes) > 0)
-                            <div class="show-replies">
-                                <i class="fa-solid fa-handshake-angle"></i>
-                                Asistentes
-                                <div class="avatar--group ms-3">
-                                    @foreach ($escritura_activa->asistentes as $asistente)
+                    @if (count($escritura_activa->asistentes) > 0)
+                        <div class="show-replies">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                            Asistentes
+                            <div class="avatar--group ms-3">
+                                @foreach ($escritura_activa->asistentes as $asistente)
+                                    <div class="avatar avatar-sm">
                                         <div class="avatar avatar-sm">
-                                            <div class="avatar avatar-sm">
-                                                <img alt="avatar" src="{{$asistente->abogado_apoyo->user_image}}" class="rounded-circle">
-                                            </div>
+                                            <img alt="avatar" src="{{$asistente->abogado_apoyo->user_image}}" class="rounded-circle">
                                         </div>
-                                    @endforeach
+                                    </div>
+                                @endforeach
 
-                                    {{-- <div class="avatar avatar-sm">
-                                        <img alt="avatar" src="{{url('v3/src/assets/img/delete-user-4.jpeg')}}" class="rounded-circle">
-                                    </div>
-                                    <div class="avatar avatar-sm">
-                                        <img alt="avatar" src="{{url('v3/src/assets/img/profile-5.jpeg')}}" class="rounded-circle">
-                                    </div>
-                                    <div class="avatar avatar-sm">
-                                        <span class="avatar-title rounded-circle">AG</span>
-                                    </div> --}}
+                                {{-- <div class="avatar avatar-sm">
+                                    <img alt="avatar" src="{{url('v3/src/assets/img/delete-user-4.jpeg')}}" class="rounded-circle">
                                 </div>
+                                <div class="avatar avatar-sm">
+                                    <img alt="avatar" src="{{url('v3/src/assets/img/profile-5.jpeg')}}" class="rounded-circle">
+                                </div>
+                                <div class="avatar avatar-sm">
+                                    <span class="avatar-title rounded-circle">AG</span>
+                                </div> --}}
                             </div>
-                        @endif
-                    </div>
-                </li>
-            </ol>
-        @endif
-        @if ($vista_general == "editar_escritura_volumen")
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex justify-content-start">
-                        <button wire:click='vista_general_modal("general")' class="btn btn-danger me-2">Cancelar</button>
-                        <button wire:click='guardar_escritura_volumen' class="btn btn-success">Guardar</button>
-                    </div>
+                        </div>
+                    @endif
                 </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Numero de escritura</label>
-                    <input type="text" class="form-control" wire:model='numero_escritura_general'>
-                    @error('numero_escritura_general')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Volumen</label>
-                    <input type="text" class="form-control" wire:model='volumen_general'>
-                    @error('volumen_general')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="col-lg-12 mt-4">
-                    <h4>Folios</h4>
-                </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Inicio</label>
-                    <input type="number" class="form-control" wire:model='folio_inicio_general'>
-                </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Fin</label>
-                    <input type="number" class="form-control" wire:model='folio_fin_general'>
-                </div>
-            </div>
-        @endif
+            </li>
+        </ol>
 
-       </div>
+</div>
    {{-- </div>
 </div> --}}
