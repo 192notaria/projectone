@@ -275,6 +275,8 @@ class Cotizaciones extends Component
             $total_sum = $total_sum + $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
         }
 
+        $elaboro = $cotizacion[0]->cotizacion->usuario->name . " " . $cotizacion[0]->cotizacion->usuario->apaterno . " " . $cotizacion[0]->cotizacion->usuario->amaterno;
+
         $nombre = $cotizacion[0]->cotizacion->cliente->nombre . " " . $cotizacion[0]->cotizacion->cliente->apaterno . " " . $cotizacion[0]->cotizacion->cliente->amaterno;
         $acto = $cotizacion[0]->cotizacion->acto->nombre;
         $day = date("d", strtotime($cotizacion[0]->cotizacion->created_at));
@@ -288,6 +290,7 @@ class Cotizaciones extends Component
         $templateprocessor->setValue('dia', $day);
         $templateprocessor->setValue('mes', $month);
         $templateprocessor->setValue('year', $year);
+        $templateprocessor->setValue('elaboro', $elaboro);
         $filename = "Cotización " . $acto . " " . $nombre;
 
         $templateprocessor->saveAs("cotizaciones/" . $filename . '.docx');
