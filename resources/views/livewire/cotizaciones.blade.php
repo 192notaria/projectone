@@ -3,9 +3,11 @@
         <div style="display:flex; justify-content: space-between;">
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:end;">
-                    <button wire:click='abrir_modal_crear_cotizacion' class="btn btn-outline-success me-2">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                    @can("crear-cotizacion")
+                        <button wire:click='abrir_modal_crear_cotizacion' class="btn btn-outline-success me-2">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    @endcan
                     <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
                     <select style="width: 10%;" wire:model='cantidadCotizaciones' class="form-select">
                         <option value="5">5</option>
@@ -71,11 +73,17 @@
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>
                                     <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
-                                    <button wire:loading.remove wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
-                                        <i class="fa-solid fa-bars"></i>
-                                    </button>
-                                    <button wire:loading.remove wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button wire:loading.remove class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    @can("ver-historial-cotizaciones")
+                                        <button wire:loading.remove wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
+                                            <i class="fa-solid fa-bars"></i>
+                                        </button>
+                                    @endcan
+                                    @can("editar-cotizacion")
+                                        <button wire:loading.remove wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    @endcan
+                                    @can("borrar-cotizacion")
+                                        <button wire:loading.remove class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty
