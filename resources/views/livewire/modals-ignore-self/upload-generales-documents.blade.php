@@ -18,13 +18,9 @@
                                             <label for="">Tipo de documento</label>
                                             <select class="form-select" wire:model='tipo_doc'>
                                                 <option value="" selected disabled>Seleccionar...</option>
-                                                <option value="Acta de nacimiento">Acta de nacimiento</option>
-                                                <option value="Acta de matrimonio">Acta de matrimonio</option>
-                                                <option value="Comprobante de domicilio">Comprobante de domicilio</option>
-                                                <option value="Identificacion oficial con fotografia">Identificación oficial con fotografia</option>
-                                                <option value="Curp">Curp</option>
-                                                <option value="Rfc">Rfc</option>
-                                                <option value="Otro">Otro</option>
+                                                @foreach ($catalogo_documentos_generales as $cat_docs)
+                                                    <option value="{{$cat_docs->nombre}}">{{$cat_docs->nombre}}</option>
+                                                @endforeach
                                             </select>
                                             @error('tipo_doc')
                                                 <span class="text-danger">{{$message}}</span>

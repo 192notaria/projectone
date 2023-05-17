@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\CatalogoDocumentosGenerales;
 use App\Models\Clientes as ModelClientes;
 use App\Models\Colonias;
 use App\Models\DocumentosClientes;
@@ -10,6 +11,7 @@ use App\Models\Municipios;
 use App\Models\Ocupaciones;
 use App\Models\Proyectos;
 use App\Models\Servicios;
+use App\Models\SubprocesosCatalogos;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -67,9 +69,9 @@ class Clientes extends Component
                     $data->where('name', "ABOGADO");
                 })->get(),
             "cliente_activo" => $this->id_cliente ? ModelClientes::find($this->id_cliente) : "",
+            "catalogo_documentos_generales" => CatalogoDocumentosGenerales::orderBy("nombre")->get(),
         ]);
     }
-
 
     public function closeModalBorrarCliente(){
         $this->modalBorrarCliente = false;
