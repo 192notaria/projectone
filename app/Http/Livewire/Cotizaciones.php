@@ -11,6 +11,7 @@ use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -208,6 +209,7 @@ class Cotizaciones extends Component
         $cotizacion->tipo_servicio = $this->tipo_servicio == '' ? null : $this->tipo_servicio;
         $cotizacion->total = $total_sum;
         $cotizacion->version = 1;
+        $cotizacion->usuario_id = Auth::user()->id;
         $cotizacion->save();
 
         foreach ($this->costos_array as $valor) {
