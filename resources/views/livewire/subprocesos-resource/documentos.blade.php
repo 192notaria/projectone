@@ -1,4 +1,7 @@
-<div class="row">
+<div class="row gx-4 gy-4">
+    <div class="col-lg-12">
+        <button wire:click='abrir_agregar_documentos' class="btn btn-primary">Agregar documentos</button>
+    </div>
     <div class="col-lg-12 table-responsive card">
        <div class="card-body">
             <table class="table table-responsive table-stripped">
@@ -14,7 +17,7 @@
                         @forelse ($proyecto_activo->documentos as $document_data)
                             <tr>
                                 <td>
-                                    <a target="_blank" href="{{$document_data->storage}}">
+                                    <a target="_blank" href="/{{$document_data->storage}}">
                                         {{$document_data->nombre}}
                                     </a>
                                 </td>

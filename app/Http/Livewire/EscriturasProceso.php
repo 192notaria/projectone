@@ -109,7 +109,6 @@ class EscriturasProceso extends Component
                 ->where('id', '!=', $this->proyecto_abogado['id'] ?? "")
                 ->get(),
             "escrituras" =>
-            // Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('ABOGADO ADMINISTRADOR') ?
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
@@ -128,26 +127,7 @@ class EscriturasProceso extends Component
                     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
                 ->paginate($this->cantidad_escrituras ),
-            // :
-            //     Proyectos::orderBy("numero_escritura", "ASC")
-            //         ->where('usuario_id', auth()->user()->id)
-            //         ->where('status', 0)
-            //         ->where(function($query){
-            //             $query->orWhereHas('cliente', function($q){
-            //                 $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-            //                     ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-            //                     ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-            //             })->orWhereHas('servicio', function($serv){
-            //                 $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
-            //             })->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
-            //             ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
-            //         })
-            //         ->paginate($this->cantidad_escrituras ),
             "generales" => Generales::where("proyecto_id", $this->proyecto_id)
-                // ->where(function($query){
-                //     $query->where('tipo', 'Generales del comprador')
-                //         ->orWhere('tipo', 'Generales del vendedor');
-                // })
                 ->where('tipo_id', $this->subprocesos_info->id ?? 0)
                 ->get(),
             "documentos" => Documentos::where("proyecto_id", $this->proyecto_id)
@@ -180,6 +160,7 @@ class EscriturasProceso extends Component
                 ->orwhere("amaterno", "LIKE", "%" . $this->buscarClienteParte . "%")
                 ->get()
             : [],
+            "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get()
         ]);
     }
 
@@ -1493,4 +1474,44 @@ public function removerParte($id){
         $this->cambiarRegistroCliente(0);
         return $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
     }
+
+    public $tipo_doc_upload = '';
+    public $document_upload;
+
+    public function abrir_agregar_documentos(){
+        return $this->dispatchBrowserEvent("abrir-modal-agregar-documentos");
+    }
+
+    public function limpiarVariables(){
+        $this->tipo_doc_upload = '';
+        $this->document_upload = '';
+    }
+
+    public function uploadDocument(){
+        $this->validate([
+            "tipo_doc_upload" => "required",
+            "document_upload" => "required",
+        ],[
+            "tipo_doc_upload.required" => "Es necesario seleccionar el tipo de documento",
+            "document_upload.required" => "Es necesario subir el documento",
+        ]);
+
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos";
+        $store = $this->document_upload->storeAs(mb_strtolower($path), time() . "_" . $this->document_upload->getClientOriginalName(), 'public');
+
+        $newdoc = new Documentos;
+        $newdoc->nombre = $this->document_upload->getClientOriginalName();
+        $newdoc->catalogo_id = $this->tipo_doc_upload;
+        $newdoc->storage = "storage/" . $store;
+        $newdoc->cliente_id = $this->proyecto_activo['cliente']['id'];
+        $newdoc->proyecto_id = $this->proyecto_activo['id'];
+        $newdoc->save();
+
+        $this->limpiarVariables();
+        $this->resetProyect();
+        $this->dispatchBrowserEvent("success-notify", "Documento registrado");
+        return $this->dispatchBrowserEvent("cerrar-modal-agregar-documentos");
+
+    }
+
 }
