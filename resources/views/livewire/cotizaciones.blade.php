@@ -48,6 +48,7 @@
                             <th>Cliente</th>
                             <th>Acto</th>
                             <th>Total</th>
+                            <th>Usuario</th>
                             <th>Fecha</th>
                             <th></th>
                         </tr>
@@ -70,6 +71,7 @@
                                     @endif
                                 </td>
                                 <td><span class="badge badge-primary">${{number_format($cotizacion->total, 2)}}</span></td>
+                                <td>{{$cotizacion->usuario->name ?? ""}} {{$cotizacion->usuario->apaterno ?? ""}} {{$cotizacion->usuario->amaterno ?? ""}}</td>
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>
                                     <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>

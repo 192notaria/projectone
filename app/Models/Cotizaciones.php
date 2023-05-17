@@ -21,7 +21,7 @@ class Cotizaciones extends Model
         return $this->hasMany(CostosCotizaciones::class);
     }
 
-    public function promotor(){
-        return $this->belongsTo(Promotores::class, "promotor_id");
+    public function usuario(){
+        return $this->belongsTo(User::class, "usuario_id");
     }
 }
