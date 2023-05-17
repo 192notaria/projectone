@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
     Route::get('/administracion/cotizaciones', [ProyectosController::class, 'cotizaciones'])->name('admin-cotizaciones');
+    Route::get('/catalogos/documentos_generales', [ProyectosController::class, 'documentos_generales'])->name('catalogos-documentos_generales');
 
     Route::get('/recibo/{id}', [UsuariosController::class, 'generatePdf'])->name('recibo-pago');
 
@@ -85,4 +86,3 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/contabilidad/facturas', [Contabilidad::class, 'facturas'])->name('contabilidad.facturas');
     Route::get('/contabilidad/declaranot', [Contabilidad::class, 'declaranot'])->name('contabilidad.declaranot');
 });
-
