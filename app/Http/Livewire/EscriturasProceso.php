@@ -1511,7 +1511,5 @@ public function removerParte($id){
         $this->resetProyect();
         $this->dispatchBrowserEvent("success-notify", "Documento registrado");
         return $this->dispatchBrowserEvent("cerrar-modal-agregar-documentos");
-
     }
-
 }
