@@ -29,58 +29,6 @@
                                 {{$mensaje}}
                             </span>
                         @endif
-                        {{-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="">
-                                    <label class="form-label">Enter Title</label>
-                                    <input id="event-title" type="text" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 d-none">
-                                <div class="">
-                                    <label class="form-label">Enter Start Date</label>
-                                    <input id="event-start-date" type="text" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 d-none">
-                                <div class="">
-                                    <label class="form-label">Enter End Date</label>
-                                    <input id="event-end-date" type="text" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="d-flex mt-4">
-                                    <div class="n-chk">
-                                        <div class="form-check form-check-primary form-check-inline">
-                                            <input class="form-check-input" type="radio" name="event-level" value="Work" id="rwork">
-                                            <label class="form-check-label" for="rwork">Work</label>
-                                        </div>
-                                    </div>
-                                    <div class="n-chk">
-                                        <div class="form-check form-check-warning form-check-inline">
-                                            <input class="form-check-input" type="radio" name="event-level" value="ChangeGuard" id="rtravel">
-                                            <label class="form-check-label" for="rtravel">Travel</label>
-                                        </div>
-                                    </div>
-                                    <div class="n-chk">
-                                        <div class="form-check form-check-success form-check-inline">
-                                            <input class="form-check-input" type="radio" name="event-level" value="Personal" id="rPersonal">
-                                            <label class="form-check-label" for="rPersonal">Personal</label>
-                                        </div>
-                                    </div>
-                                    <div class="n-chk">
-                                        <div class="form-check form-check-danger form-check-inline">
-                                            <input class="form-check-input" type="radio" name="event-level" value="Important" id="rImportant">
-                                            <label class="form-check-label" for="rImportant">Important</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
@@ -93,7 +41,5 @@
             </div>
         </div>
     @endif
-
-
     @include("livewire.guardias-resources.modal-new-guardia")
 </div>

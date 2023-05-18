@@ -67,15 +67,8 @@
                                             <i class="fa-solid fa-circle-stop"></i>
                                         @endif
                                     </button>
-                                    {{--
-                                        @if(!$recording)
-                                        @else
-                                            <button @if ($interphoneUser != $usuario->id) disabled @endif wire:click='stopRecording' class="btn btn-danger"><i class="fa-solid fa-circle-stop"></i></button>
-                                        @endif
-                                    --}}
                                 </p>
                             </div>
-
                         </td>
                         <td>
                             @if (isset($usuario))

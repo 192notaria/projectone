@@ -1,14 +1,6 @@
 <div class="card">
     <div class="card-header">
         <div style="display:flex; align-items:right;">
-            @can("crear-proyectos")
-                {{-- <button type="button" wire:click='openModalNuevoProyecto' class="btn btn-outline-success">
-                    <i class="fa-solid fa-user-plus"></i>
-                </button>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".modal-generales-docs">
-                    <i class="fa-solid fa-user-plus"></i>
-                </button> --}}
-            @endcan
             <select wire:model='cantidadProyectos' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
                 <option value="5">5</option>
                 <option value="10">10</option>

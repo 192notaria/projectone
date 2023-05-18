@@ -1,5 +1,4 @@
 <div class="row">
-    {{-- Estados --}}
     <div class="col-lg-12">
         <h2>Estados</h2>
     </div>

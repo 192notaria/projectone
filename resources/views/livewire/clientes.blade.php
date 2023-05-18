@@ -1,11 +1,7 @@
 <div class="card">
     <div class="card-header">
-        {{-- <a href="/file_system/word.docx" class="btn btn-danger">Document</a> --}}
         <div style="display:flex; align-items:right;">
             @can('crear-clientes')
-                {{-- <button type="button" wire:click='openModal' class="btn btn-outline-success">
-                    <i class="fa-solid fa-user-plus"></i>
-                </button> --}}
                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
@@ -22,6 +18,7 @@
     </div>
     <div class="card-body">
         <div class="row">
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -99,7 +96,6 @@
                     color: #ffffff !important;
                 }
             </style>
-
 
             <div class="col-lg-12 table-responsive">
                 <table class="table table-striped">
@@ -291,7 +287,6 @@
             @include('livewire.modals-ignore-self.upload-generales-documents')
             @include('livewire.modals.nuevo-cliente')
             @include('livewire.modals.domicilioCliente')
-            {{-- @include('livewire.modals.nuevProyectoCliente') --}}
             @include('livewire.modals.borrarCliente')
             @include('livewire.modals-ignore-self.nuevo-proyecto-clientes')
         </div>

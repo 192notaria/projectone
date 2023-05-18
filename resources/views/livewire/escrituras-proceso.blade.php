@@ -24,6 +24,7 @@
     </div>
     <div class="card-body">
         <div class="row">
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -73,6 +74,7 @@
                     cursor: grabbing;
                 }
             </style>
+
             <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
                 <table class="table table-striped" id="my_table">
                     <thead>

@@ -14,15 +14,12 @@
 
                 <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
                     <div class="d-flex justify-content-sm-end justify-content-center">
-                        {{-- <svg id="btn-add-contact" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg> --}}
-
                         <div class="switch align-self-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list view-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid active-view"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                         </div>
                     </div>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -95,19 +92,11 @@
                 <div class="items items-header-section">
                     <div class="item-content">
                         <div class="d-inline-flex">
-                            {{-- <div class="n-chk align-self-center text-center">
-                                <div class="form-check form-check-primary me-0 mb-0">
-                                    <input class="form-check-input inbox-chkbox" id="contact-check-all" type="checkbox">
-                                </div>
-                            </div> --}}
                             <h4>Name</h4>
                         </div>
                         <div class="user-email">
                             <h4>Email</h4>
                         </div>
-                        {{-- <div class="user-location">
-                            <h4 style="margin-left: 0;">Location</h4>
-                        </div> --}}
                         <div class="user-phone">
                             <h4>Phone</h4>
                         </div>
@@ -121,11 +110,6 @@
                         <div class="items">
                             <div class="item-content">
                                 <div class="user-profile">
-                                    {{-- <div class="n-chk align-self-center text-center">
-                                        <div class="form-check form-check-primary me-0 mb-0">
-                                            <input class="form-check-input inbox-chkbox contact-chkbox" type="checkbox">
-                                        </div>
-                                    </div> --}}
                                     <img style="max-width: 80px;" src="{{url($contact->user_image)}}" alt="avatar">
                                     <div class="user-meta-info">
                                         <p class="user-name" data-name="Alan Green">{{$contact->name}} {{$contact->apaterno}}</p>
