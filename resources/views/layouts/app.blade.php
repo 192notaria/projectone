@@ -139,7 +139,6 @@
                     // if(e.message == "closession"){
                     //     document.getElementById('logout-form').submit();
                     // }
-
                     Livewire.emit('newinterfon')
 
                     var myAudio= document.createElement('audio');
@@ -157,7 +156,6 @@
                         actionText: '<i class="fa-solid fa-circle-xmark"></i>'
                     });
                 })
-
 
                 window.addEventListener('success-notify', event => {
                     var myAudio= document.createElement('audio')
