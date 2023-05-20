@@ -17,7 +17,7 @@
                         @forelse ($proyecto_activo->documentos as $document_data)
                             <tr>
                                 <td>
-                                    <a target="_blank" href="/{{$document_data->storage}}">
+                                    <a target="_blank" href="{{url($document_data->storage)}}">
                                         {{$document_data->nombre}}
                                     </a>
                                 </td>

@@ -50,7 +50,7 @@
                         @foreach ($documentos as $doc)
                             <tr>
                                 <td class="td-max-size">
-                                    <a target="_blank" href="{{$doc->storage}}">
+                                    <a target="_blank" href="{{url($doc->storage)}}">
                                         {{$doc->nombre}}
                                     </a>
                                 </td>
