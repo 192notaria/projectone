@@ -741,6 +741,8 @@ public function removerParte($id){
         //     }
         // }
 
+        create_firebase_project($nuevo_proyecto->id);
+
         if($this->acto_honorarios && $this->acto_honorarios > 0){
             $findConcepto = Catalogos_conceptos_pago::find(22);
             $nuevo_costo = new Costos;

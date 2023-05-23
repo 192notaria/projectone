@@ -55,7 +55,7 @@ class FirebaseAuthController extends Controller
         // Registrar escrituras
             $escrituras = Proyectos::all();
             foreach($escrituras as $escritura){
-                $qr_data = Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at);
+                // $qr_data = Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at);
                 // $testRef = $database->collection('clientes')
                 //     ->document($escritura->cliente->firebase_key)
                 //     ->collection('escrituras')
@@ -86,6 +86,7 @@ class FirebaseAuthController extends Controller
                                 // 'status' => $escritura->status,
                                 // 'fecha_registro' => $escritura->created_at,
                                 // 'qr' => $qr_data
+
                             ]);
                             $avance = AvanceProyecto::find($value->id);
                             $avance->firebase_key = $testRef->id();
