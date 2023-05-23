@@ -61,28 +61,39 @@ class FirebaseAuthController extends Controller
                 //     ->collection('escrituras')
                 //     ->document($escritura->firebase_key);
                 $testRef = $database->collection('actos')
-                    // ->document($escritura->cliente->firebase_key)
-                    // ->collection('escrituras')
+                    ->document($escritura->firebase_key)
+                    ->collection('avance')
                     ->newDocument();
 
-                $testRef->set([
-                    'id' => $testRef->id(),
-                    'acto' => $escritura->servicio->nombre,
-                    'tipo_acto' => $escritura->servicio->tipo_acto->nombre,
-                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-                    'cliente' => $escritura->cliente->nombre . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno,
-                    'numero_escritura' => $escritura->numero_escritura ?? "S/N",
-                    'volumen' => $escritura->volumen,
-                    'folios' => $escritura->folio_inicio . " - " . $escritura->folio_fin,
-                    'status' => $escritura->status,
-                    'fecha_registro' => $escritura->created_at,
-                    'qr' => $qr_data
-                ]);
+                    if(count($escritura->avance) > 0){
+                        foreach ($escritura->avance as $key => $value) {
+                            $testRef->set([
+                                'id' => $testRef->id(),
+                                'proceso' => $value->proceso->nombre,
+                                'subproceso' => $value->subproceso->nombre,
+                                'omitido' => $value->omitido,
+                                'usuario' => $value->usuario->name . " " . $value->usuario->apaterno,
+                                'created_at' => $value->created_at,
 
-                $escritura_search = Proyectos::find($escritura->id);
-                $escritura_search->firebase_key = $testRef->id();
-                $escritura_search->qr = $qr_data;
-                $escritura_search->save();
+                                // 'acto' => $escritura->servicio->nombre,
+                                // 'tipo_acto' => $escritura->servicio->tipo_acto->nombre,
+                                // 'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
+                                // 'cliente' => $escritura->cliente->nombre . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno,
+                                // 'numero_escritura' => $escritura->numero_escritura ?? "S/N",
+                                // 'volumen' => $escritura->volumen,
+                                // 'folios' => $escritura->folio_inicio . " - " . $escritura->folio_fin,
+                                // 'status' => $escritura->status,
+                                // 'fecha_registro' => $escritura->created_at,
+                                // 'qr' => $qr_data
+                            ]);
+                        }
+                    }
+
+
+                // $escritura_search = Proyectos::find($escritura->id);
+                // $escritura_search->firebase_key = $testRef->id();
+                // $escritura_search->qr = $qr_data;
+                // $escritura_search->save();
             }
 
 // Registrar qr

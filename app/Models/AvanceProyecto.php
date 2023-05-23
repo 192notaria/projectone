@@ -12,6 +12,7 @@ class AvanceProyecto extends Model
         "proyecto_id",
         "proceso_id",
         "subproceso_id",
+        "usuario_id",
     ];
 
     public function proceso(){
@@ -24,5 +25,9 @@ class AvanceProyecto extends Model
 
     public function proyecto(){
         return $this->hasOne(Proyectos::class, 'id', 'proyecto_id');
+    }
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 }
