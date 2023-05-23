@@ -60,13 +60,14 @@ class FirebaseAuthController extends Controller
                 //     ->document($escritura->cliente->firebase_key)
                 //     ->collection('escrituras')
                 //     ->document($escritura->firebase_key);
-                $testRef = $database->collection('actos')
-                    ->document($escritura->firebase_key)
-                    ->collection('avance')
-                    ->newDocument();
 
                     if(count($escritura->avance) > 0){
                         foreach ($escritura->avance as $key => $value) {
+                            $testRef = $database->collection('actos')
+                                ->document($escritura->firebase_key)
+                                ->collection('avance')
+                                ->newDocument();
+
                             $testRef->set([
                                 'id' => $testRef->id(),
                                 'proceso' => $value->proceso->nombre,
