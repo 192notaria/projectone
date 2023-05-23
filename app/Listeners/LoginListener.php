@@ -30,5 +30,6 @@ class LoginListener
         $loginlog->usuario_id = $event->user->id;
         $loginlog->local_ip = request()->getClientIp();
         $loginlog->save();
+        login_logs_firebase($loginlog->id);
     }
 }

@@ -123,4 +123,17 @@ use Kreait\Firebase\Factory;
         $database = $firestore->database();
         $database->collection('actos')->document($escritura->firebase_key)->delete();
     }
+
+    function login_logs_firebase($id){
+        $login = LoginLog::find($id);
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+        $firestore = $factory->createFirestore();
+        $database = $firestore->database();
+        $testRef = $database->collection('login_logs')->newDocument();
+        $testRef->set([
+            'id' => $testRef->id(),
+            'usuario' => $login->usuario->name . " " . $login->usuario->apaterno,
+            'created_at' => $login->created_at,
+        ]);
+    }
 ?>
