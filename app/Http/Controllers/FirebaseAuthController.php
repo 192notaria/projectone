@@ -16,11 +16,12 @@ use Google\Cloud\Firestore\FirestoreClient;
 class FirebaseAuthController extends Controller
 {
     public function index(){
+        // return "Hola mundo";
         $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
         $firestore = $factory->createFirestore();
         $database = $firestore->database();
 
-//Registrar clientes firebase
+        //Registrar clientes firebase
         // $clientes = Clientes::all();
         // foreach($clientes as $cliente){
         //     $municipio = isset($cliente->getMunicipio->nombre) ? $cliente->getMunicipio->nombre : "";
@@ -51,30 +52,38 @@ class FirebaseAuthController extends Controller
         //     $updateCliente->save();
         // }
 
-// Registrar escrituras
-            // $escrituras = Proyectos::all();
-            // foreach($escrituras as $escritura){
-            //     // $testRef = $database->collection('clientes')
-            //     //     ->document($escritura->cliente->firebase_key)
-            //     //     ->collection('escrituras')
-            //     //     ->document($escritura->firebase_key);
-            //     $testRef = $database->collection('clientes')
-            //         ->document($escritura->cliente->firebase_key)
-            //         ->collection('escrituras')
-            //         ->newDocument();
+        // Registrar escrituras
+            $escrituras = Proyectos::all();
+            foreach($escrituras as $escritura){
+                $qr_data = Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at);
+                // $testRef = $database->collection('clientes')
+                //     ->document($escritura->cliente->firebase_key)
+                //     ->collection('escrituras')
+                //     ->document($escritura->firebase_key);
+                $testRef = $database->collection('actos')
+                    // ->document($escritura->cliente->firebase_key)
+                    // ->collection('escrituras')
+                    ->newDocument();
 
-            //     $testRef->set([
-            //         'id' => $testRef->id(),
-            //         'acto' => $escritura->servicio->nombre,
-            //         'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-            //         'fecha_registro' => $escritura->created_at,
-            //         'qr' => Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at),
-            //     ]);
+                $testRef->set([
+                    'id' => $testRef->id(),
+                    'acto' => $escritura->servicio->nombre,
+                    'tipo_acto' => $escritura->servicio->tipo_acto->nombre,
+                    'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
+                    'cliente' => $escritura->cliente->nombre . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno,
+                    'numero_escritura' => $escritura->numero_escritura ?? "S/N",
+                    'volumen' => $escritura->volumen,
+                    'folios' => $escritura->folio_inicio . " - " . $escritura->folio_fin,
+                    'status' => $escritura->status,
+                    'fecha_registro' => $escritura->created_at,
+                    'qr' => $qr_data
+                ]);
 
-            //     $escritura_search = Proyectos::find($escritura->id);
-            //     $escritura_search->firebase_key = $testRef->id();
-            //     $escritura_search->save();
-            // }
+                $escritura_search = Proyectos::find($escritura->id);
+                $escritura_search->firebase_key = $testRef->id();
+                $escritura_search->qr = $qr_data;
+                $escritura_search->save();
+            }
 
 // Registrar qr
             // $escrituras = Proyectos::all();

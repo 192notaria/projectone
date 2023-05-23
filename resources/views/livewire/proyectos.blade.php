@@ -14,6 +14,7 @@
     <div class="card-body">
 
         <div class="row">
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -96,6 +97,7 @@
                     color: #ffffff !important;
                 }
             </style>
+
             <div class="col-lg-12 table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -129,7 +131,7 @@
                                 @endif --}}
                             @endforeach
 
-                            {{-- @if (Auth::user()->hasRole('RECEPCIONISTA'))
+                            {{-- @if (Auth::user()->hasRole('RE CEPCIONISTA'))
                                 @foreach ($proyectos as $proyecto)
                                     @include('livewire.resource.tr_proyectos')
                                 @endforeach
