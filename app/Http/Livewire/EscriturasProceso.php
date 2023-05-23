@@ -376,6 +376,7 @@ public function removerParte($id){
         $new_observacion->proyecto_id = $this->proyecto_activo['id'];
         $new_observacion->save();
         $this->resetProyect();
+        agregar_observaciones_firebase($new_observacion->id);
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-observaciones", "Observaciones registradas");
     }
 

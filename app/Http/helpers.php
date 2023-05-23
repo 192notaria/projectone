@@ -3,6 +3,7 @@
 use App\Events\NotificationEvent;
 use App\Models\LoginLog;
 use App\Models\Notifications;
+use App\Models\ObservacionesProyectos;
 use App\Models\Proyectos;
 use App\Models\User;
 use Carbon\Carbon;
@@ -98,6 +99,21 @@ use Kreait\Firebase\Factory;
             'fecha_registro' => $escritura->created_at,
             'qr' => $escritura->qr
         ]);
+    }
+
+    function agregar_observaciones_firebase($id):void{
+        $observacion = ObservacionesProyectos::find($id);
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+        $firestore = $factory->createFirestore();
+        $database = $firestore->database();
+        $testRef = $database->collection('actos')->document($observacion->proyectos->firebase_key)->collection('observaciones')->newDocument();
+        $testRef->set([
+            'descripcion' => $observacion->comentarios,
+            'usuario' => $observacion->usuarios->name . " " . $observacion->usuarios->apaterno,
+            'created_at' => $observacion->created_at,
+        ]);
+        $observacion->firebase_key = $testRef->id();
+        $observacion->save();
     }
 
     function delete_firebase_project($id){
