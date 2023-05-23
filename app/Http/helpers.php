@@ -129,7 +129,7 @@ use Kreait\Firebase\Factory;
         $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
         $firestore = $factory->createFirestore();
         $database = $firestore->database();
-        $testRef = $database->collection('login_logs')->newDocument();
+        $testRef = $database->collection('logins')->newDocument();
         $testRef->set([
             'id' => $testRef->id(),
             'usuario' => $login->usuario->name . " " . $login->usuario->apaterno,
