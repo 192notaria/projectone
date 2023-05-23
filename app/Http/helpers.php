@@ -101,11 +101,12 @@ use Kreait\Firebase\Factory;
         ]);
     }
 
-    function agregar_observaciones_firebase($id):void{
+    function agregar_observaciones_firebase($id){
         $observacion = ObservacionesProyectos::find($id);
         $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
         $firestore = $factory->createFirestore();
         $database = $firestore->database();
+        dd($observacion->proyectos->firebase_key);
         $testRef = $database->collection('actos')->document($observacion->proyectos->firebase_key)->collection('observaciones')->newDocument();
         $testRef->set([
             'descripcion' => $observacion->comentarios,
