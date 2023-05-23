@@ -133,6 +133,7 @@ use Kreait\Firebase\Factory;
         $testRef->set([
             'id' => $testRef->id(),
             'usuario' => $login->usuario->name . " " . $login->usuario->apaterno,
+            'ip' => $login->local_ip,
             'created_at' => $login->created_at,
         ]);
     }
