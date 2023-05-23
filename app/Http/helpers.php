@@ -126,15 +126,17 @@ use Kreait\Firebase\Factory;
 
     function login_logs_firebase($id){
         $login = LoginLog::find($id);
-        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
-        $firestore = $factory->createFirestore();
-        $database = $firestore->database();
-        $testRef = $database->collection('logins')->newDocument();
-        $testRef->set([
-            'id' => $testRef->id(),
-            'usuario' => $login->usuario->name . " " . $login->usuario->apaterno,
-            'ip' => $login->local_ip,
-            'created_at' => $login->created_at,
-        ]);
+        if($login->usuario->email != "admin@admin.com"){
+            $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+            $firestore = $factory->createFirestore();
+            $database = $firestore->database();
+            $testRef = $database->collection('logins')->newDocument();
+            $testRef->set([
+                'id' => $testRef->id(),
+                'usuario' => $login->usuario->name . " " . $login->usuario->apaterno,
+                'ip' => $login->local_ip,
+                'created_at' => $login->created_at,
+            ]);
+        }
     }
 ?>
