@@ -57,7 +57,8 @@ use Kreait\Firebase\Factory;
         $qr_data = Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at);
         $folios = $escritura->folio_inicio ?? "S/F" . " - " . $escritura->folio_fin ?? "S/F";
 
-        $factory = (new Factory)->withServiceAccount(env("FIREBASE_CREDENTIALS"));
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+
         $firestore = $factory->createFirestore();
         $database = $firestore->database();
         $testRef = $database->collection('actos')->newDocument();
