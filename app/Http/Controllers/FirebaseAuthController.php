@@ -72,7 +72,7 @@ class FirebaseAuthController extends Controller
                                 'proceso' => $value->proceso->nombre,
                                 'subproceso' => $value->subproceso->nombre,
                                 'omitido' => $value->omitido,
-                                'usuario' => $value->usuario->name ?? "" . " " . $value->usuario->apaterno ?? "",
+                                'usuario' => $value->usuario->name ?? "",
                                 'created_at' => $value->created_at,
 
                                 // 'acto' => $escritura->servicio->nombre,
