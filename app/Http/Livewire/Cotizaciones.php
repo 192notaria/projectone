@@ -376,6 +376,7 @@ class Cotizaciones extends Component
             $costo->save();
         }
 
+        create_firebase_project($proyecto->id);
         return $this->dispatchBrowserEvent("cerrar-modal-crear-proyecto");
     }
 }

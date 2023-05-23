@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::post('/intefone', [FilesData::class, 'interphone'])->name('interphone-comunication');
 
-    Route::get('/firebase_data', [FirebaseAuthController::class, 'index'])->name('firebase.index');
+    Route::get('/firebase_data', [FirebaseAuthController::class, 'partes_proyectos_firebase'])->name('firebase.index');
     Route::get('/email', [FirebaseAuthController::class, 'sendemail'])->name('email.test');
     Route::get('/usuarios/guardias', [GuardiasController::class, 'index'])->name('usuarios.guardias');
     Route::get('/usuarios/getGuardias', [GuardiasController::class, 'getGuardias'])->name('usuarios.getGuardias');
