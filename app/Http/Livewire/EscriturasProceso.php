@@ -1442,7 +1442,10 @@ public function removerParte($id){
         foreach ($apoyos as $key => $value) {
             $value->delete();
         }
-        Proyectos::find($this->proyecto_id)->delete();
+
+        $proyecto = Proyectos::find($this->proyecto_id);
+        delete_firebase_project($proyecto->id);
+        $proyecto->delete();
         $this->proyecto_id = "";
         return $this->dispatchBrowserEvent("cerrar-modal-borrar-proyecto");
     }
