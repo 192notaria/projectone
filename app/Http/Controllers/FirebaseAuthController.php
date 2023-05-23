@@ -86,6 +86,9 @@ class FirebaseAuthController extends Controller
                                 // 'fecha_registro' => $escritura->created_at,
                                 // 'qr' => $qr_data
                             ]);
+                            $avance = AvanceProyecto::find($value->id);
+                            $avance->firebase_key = $testRef->id();
+                            $avance->save();
                         }
                     }
 
