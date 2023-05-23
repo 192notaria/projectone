@@ -741,8 +741,6 @@ public function removerParte($id){
         //     }
         // }
 
-        create_firebase_project($nuevo_proyecto->id);
-
         if($this->acto_honorarios && $this->acto_honorarios > 0){
             $findConcepto = Catalogos_conceptos_pago::find(22);
             $nuevo_costo = new Costos;
@@ -778,6 +776,7 @@ public function removerParte($id){
         $this->volumen_escritura = '';
         $this->costos_proyecto = [];
 
+        create_firebase_project($nuevo_proyecto->id);
         return $this->dispatchBrowserEvent('cerrar-modal-nuevo-proyecto', 'Nuevo proyecto creado exitosamente');
     }
 
@@ -1371,6 +1370,7 @@ public function removerParte($id){
 
         $this->resetProyect();
         $this->vista_general_modal("general");
+        edit_firebase_project($proyecto->id);
         return $this->dispatchBrowserEvent("alert-success", "Informacion del proyecto registrada");
     }
 
