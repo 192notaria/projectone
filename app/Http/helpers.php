@@ -136,6 +136,5 @@ use Kreait\Firebase\Factory;
             'ip' => $login->local_ip,
             'created_at' => $login->created_at,
         ]);
-        dd($testRef);
     }
 ?>
