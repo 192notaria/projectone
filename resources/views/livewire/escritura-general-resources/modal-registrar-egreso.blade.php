@@ -44,6 +44,9 @@
                     <div class="col-lg-6 mb-2 mt-2">
                         <label for="">Fecha de egreso</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha_egreso'>
+                        @error("fecha_egreso")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-6 mb-2 mt-2">
                         <label for="">Responsable de pagar</label>
@@ -53,6 +56,9 @@
                                 <option value="{{$abogado->id}}">{{$abogado->name}} {{$abogado->apaterno}} {{$abogado->amaterno}}</option>
                             @endforeach
                         </select>
+                        @error("responsable_pago")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12 mt-2">
                         <label for="">Comentarios</label>

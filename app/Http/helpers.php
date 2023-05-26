@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NotificationEvent;
+use App\Models\Egresos;
 use App\Models\LoginLog;
 use App\Models\Notifications;
 use App\Models\ObservacionesProyectos;
@@ -138,5 +139,30 @@ use Kreait\Firebase\Factory;
                 'created_at' => $login->created_at,
             ]);
         }
+    }
+
+    function send_notification_to_firebase_egresos($id, $tittle, $body){
+        $egreso = Egresos::find($id);
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+        $firestore = $factory->createFirestore();
+        $database = $firestore->database();
+        $testRef = $database->collection('notifications')->newDocument();
+        $testRef->set([
+            'id' => $testRef->id(),
+            'tittle' => $tittle,
+            'body' => $body,
+            'created_at' => $egreso->created_at,
+        ]);
+    }
+
+    function save_notification($tittle, $body, $user_id){
+        $notification = new Notifications;
+        $notification->name = $tittle;
+        $notification->body = $body;
+        $notification->viewed = 0;
+        $notification->channel = "private";
+        $notification->user_id = $user_id;
+        $notification->save();
+        event(new NotificationEvent($user_id, $tittle));
     }
 ?>

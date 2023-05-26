@@ -188,7 +188,20 @@ class EscriturasGeneral extends Component
         $egreso->save();
         $this->clear_inputs();
         $this->clearEgresos();
-        return $this->dispatchBrowserEvent("cerrar-modal-registrar-egresos");
+
+        $this->dispatchBrowserEvent("cerrar-modal-registrar-egresos");
+
+        save_notification(
+            "Nuevo egreso asignado",
+            "Te asignaron un nuevo egreso para un " . $egreso->costos->concepto_pago->descripcion . " correspondiente a la escritura numero: " . $escritura_activa->numero_escritura,
+            $egreso->usuario_id
+        );
+
+        return send_notification_to_firebase_egresos(
+            $egreso->id,
+            "Nuevo egreso registrado",
+            "Se registro un egreso para un " . $egreso->costos->concepto_pago->descripcion . " correspondiente a la escritura numero: " . $escritura_activa->numero_escritura . ". Responsable: " . $egreso->responsable->name . " " . $egreso->responsable->apaterno,
+        );
     }
 
     public function abrir_modal_borrar_egreso($id){
@@ -198,6 +211,7 @@ class EscriturasGeneral extends Component
 
     public function borrar_egreso(){
         Egresos::find($this->egreso_id)->delete();
+        $this->egreso_id = '';
         $this->egreso_data = '';
         $this->fecha_egreso = '';
         $this->comentarios_egreso = '';
@@ -228,7 +242,19 @@ class EscriturasGeneral extends Component
 
         $this->clearEgresos();
         $this->dispatchBrowserEvent("cerrar-modal-registrar-recibo-egreso");
-        return $this->dispatchBrowserEvent("success-notify", "Recibo registrado con exito");
+        $this->dispatchBrowserEvent("success-notify", "Recibo registrado con exito");
+
+        save_notification(
+            "Recibo de pago registrado",
+            $egreso->responsable->name . "registro el recibo de pago del " . $egreso->costos->concepto_pago->descripcion . " correspondiente al numero de escritura " . $escritura->numero_escritura,
+            3
+        );
+
+        return send_notification_to_firebase_egresos(
+            $egreso->id,
+            "Recibo de pago registrado",
+            $egreso->responsable->name . " registro el recibo de pago del " . $egreso->costos->concepto_pago->descripcion . " correspondiente al numero de escritura " . $escritura->numero_escritura,
+        );
     }
 
     public function abrir_registro_costos(){
