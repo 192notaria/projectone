@@ -62,23 +62,23 @@ class ChartsController extends Controller
         return json_encode($datareturn);
     }
 
-    if($request->type == 'dounut'){
-        // $data = [
-        //     "values" => [15,90,30],
-        //     "labels" => ["Compraventas","Donaciones","Testamentos"],
-        // ];
-
-        // $datareturn = [
-        //     "data" => $data,
-        // ];
-
-        // return json_encode($datareturn);
-        $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
+        if($request->type == 'dounut'){
+            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->take(10)->get();
             $values = [];
             $labels = [];
             foreach($actos as $acto){
-                 array_push($values,$acto->cantidad);
-                 array_push($labels,$acto->servicio->nombre);
+                array_push($values,$acto->cantidad);
+                array_push($labels,$acto->servicio->nombre);
+
+                $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+                $firestore = $factory->createFirestore();
+                $database = $firestore->database();
+                $testRef = $database->collection('pie_chart')->newDocument();
+                $testRef->set([
+                    'id' => $testRef->id(),
+                    'cantidad' => $acto->cantidad,
+                    'acto' => $acto->servicio->nombre,
+                ]);
             }
             $data = [
                 "values" => $values,
@@ -87,15 +87,9 @@ class ChartsController extends Controller
             $datareturn = [
                 "data" => $data,
             ];
-            // $actos = Proyectos::selectRaw('count(*) as qty')
-            //     ->groupBy('if')
-            //     ->get();
-            // $actos = DB::table('proyectos')
-            //     ->groupBy('servicio_id')
-            //     ->having(DB::raw('count(*)'), '<', 2)
-            //     ->pluck('servicio_id');
+
             return json_encode($datareturn);
-    }
+        }
 
         if($request->type == 'prueba'){
             $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
