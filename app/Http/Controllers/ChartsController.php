@@ -61,7 +61,7 @@ class ChartsController extends Controller
 
         return json_encode($datareturn);
     }
-
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
         if($request->type == 'dounut'){
             $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->take(10)->get();
             $values = [];
@@ -70,7 +70,6 @@ class ChartsController extends Controller
                 array_push($values,$acto->cantidad);
                 array_push($labels,$acto->servicio->nombre);
 
-                $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
                 $firestore = $factory->createFirestore();
                 $database = $firestore->database();
                 $testRef = $database->collection('pie_chart')->newDocument();
