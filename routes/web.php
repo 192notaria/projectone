@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/catalogos/colonias', [ColoniasController::class, 'index'])->name('catalogos-colonias');
 
     Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
-    Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
+
     // Route::resource('/user/profile', UserProfileController::class);
     Route::get('/file_system/{filename}', [FilesData::class, 'file_preview'])->name('file-preview');
 
