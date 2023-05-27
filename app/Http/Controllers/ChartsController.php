@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB;
 class ChartsController extends Controller
 {
     public function index(Request $request){
-        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
-        $firestore = $factory->createFirestore();
-        $database = $firestore->database();
-
         if($request->type == 'area'){
             $proyectos = Proyectos::select("id", "created_at")->get()->groupBy(function ($date){
                 return Carbon::parse($date->created_at)->format('m'); // grouping by months
@@ -72,13 +68,6 @@ class ChartsController extends Controller
             foreach($actos as $acto){
                 array_push($values,$acto->cantidad);
                 array_push($labels,$acto->servicio->nombre);
-
-                // $testRef = $database->collection('pie_chart')->newDocument();
-                // $testRef->set([
-                //     'id' => $testRef->id(),
-                //     'cantidad' => $acto->cantidad,
-                //     'acto' => $acto->servicio->nombre,
-                // ]);
             }
             $data = [
                 "values" => $values,
