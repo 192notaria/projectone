@@ -6,6 +6,7 @@ use App\Models\Proyectos;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Kreait\Firebase\Factory;
 
 class ChartsController extends Controller
 {
