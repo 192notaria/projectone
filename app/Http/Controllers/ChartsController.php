@@ -18,7 +18,6 @@ class ChartsController extends Controller
             $mes = "";
             $proyectosArray = [];
             foreach ($proyectos as $key => $value) {
-
                 if((int)$key == 1) $mes = "Enero";
                 if((int)$key == 2) $mes = "Febrero";
                 if((int)$key == 3) $mes = "Marzo";
@@ -62,7 +61,7 @@ class ChartsController extends Controller
         }
 
         if($request->type == 'dounut'){
-            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->take(10)->get();
+            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->get();
             $values = [];
             $labels = [];
             foreach($actos as $acto){
