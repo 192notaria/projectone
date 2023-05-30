@@ -5,7 +5,7 @@
                 <h5>Registrar juzgado</h5>
             </div>
             <div class="modal-body">
-                <div class="row gx-3 gy-3" wire:ignore.self>
+                <div class="row gx-3 gy-3">
                     <div class="col-lg-12">
                         <label for="">Distrito</label>
                         <input type="text" class="form-control" wire:model='distrito'>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-lg-12">
                         <label for="">Nombre (Buscar en Clientes)</label>
-                        <select id="tom-select-id" wire:model='cliente_id'>
+                        <select id="tom-select-id" wire:model='cliente_id' wire:ignore.self>
                             <option value="" disabled selected>Seleccionar...</option>
                             @foreach ($clientes as $cliente)
                                 <option value="{{$cliente->id}}">
