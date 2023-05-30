@@ -20,9 +20,9 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" wire:ignore>
                         <label for="">Nombre (Buscar en Clientes)</label>
-                        <select id="tom-select-id" wire:model='cliente_id' wire:ignore>
+                        <select id="tom-select-id" wire:model='cliente_id'>
                             <option value="" disabled selected>Seleccionar...</option>
                             @foreach ($clientes as $cliente)
                                 <option value="{{$cliente->id}}">
