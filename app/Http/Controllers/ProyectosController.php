@@ -39,4 +39,8 @@ class ProyectosController extends Controller
     public function documentos_generales(){
         return view("catalogos.documentos_generales");
     }
+
+    public function escrituras_guardadas(){
+        return view("administracion.escrituras-guardadas");
+    }
 }

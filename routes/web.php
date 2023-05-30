@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/administracion/escrituras_proceso', [ProyectosController::class, 'index2'])->name('escrituras-proceso');
     Route::get('/administracion/escrituras', [ProyectosController::class, 'escrituras'])->name('escrituras-escrituras');
     Route::get('/administracion/escrituras_general', [ProyectosController::class, 'escrituras_general'])->name('escrituras-general');
+    Route::get('/administracion/escrituras_pendientes', [ProyectosController::class, 'escrituras_guardadas'])->name('escrituras-pendientes');
 
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
