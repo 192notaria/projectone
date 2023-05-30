@@ -40,7 +40,11 @@
                                         {{$juzgado->distrito}}
                                     </p>
                                 </td>
-                                <td>{{$juzgado->cliente->nombre ?? "SIN NOMBRE"}}</td>
+                                <td>
+                                    {{$juzgado->cliente->nombre ?? "SIN NOMBRE"}}
+                                    {{$juzgado->cliente->apaterno ?? ""}}
+                                    {{$juzgado->cliente->amaterno ?? ""}}
+                                </td>
                                 <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     {{$juzgado->domicilio}}
                                 </td>
