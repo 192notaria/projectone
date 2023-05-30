@@ -98,7 +98,7 @@ use Kreait\Firebase\Factory;
             'folios' => $folios,
             'status' => $escritura->status,
             'fecha_registro' => $escritura->created_at,
-            'qr' => $escritura->qr
+            // 'qr' => $escritura->qr
         ]);
     }
 
