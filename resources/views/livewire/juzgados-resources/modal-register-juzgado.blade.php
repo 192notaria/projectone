@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-lg-12">
                         <label for="">Nombre (Buscar en Clientes)</label>
-                        <select id="tom-select-id" wire:model='cliente_id' wire:ignore.self>
+                        <select id="tom-select-id" wire:model='cliente_id' wire:ignore>
                             <option value="" disabled selected>Seleccionar...</option>
                             @foreach ($clientes as $cliente)
                                 <option value="{{$cliente->id}}">
