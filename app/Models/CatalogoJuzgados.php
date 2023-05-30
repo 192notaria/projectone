@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CatalogoJuzgados extends Model
 {
     use HasFactory;
+
+    public function cliente(){
+        return $this->belongsTo(Clientes::class, "cliente_id");
+    }
 }
