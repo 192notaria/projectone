@@ -89,6 +89,7 @@ use Kreait\Firebase\Factory;
         $database = $firestore->database();
         $testRef = $database->collection('actos')->document($escritura->firebase_key);
         $testRef->set([
+            'id' => $escritura->firebase_key,
             'acto' => $escritura->servicio->nombre,
             'tipo_acto' => $escritura->servicio->tipo_acto->nombre,
             'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
