@@ -9,10 +9,16 @@
                     <div class="col-lg-12">
                         <label for="">Distrito</label>
                         <input type="text" class="form-control" wire:model='distrito'>
+                        @error("distrito")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12">
                         <label for="">Adscripción</label>
                         <input type="text" class="form-control" wire:model='adscripcion'>
+                        @error("adscripcion")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12" wire:ignore>
                         <label for="">Nombre (Buscar en Clientes)</label>
@@ -26,6 +32,9 @@
                                 </option>
                             @endforeach
                         </select>
+                        @error("cliente_id")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                         <p class="mt-2">
                             <a href="#" class="text-warning" wire:click='abrirModalRegistrarCliente'><small>Registrar nuevo cliente</small></a>
                         </p>
@@ -33,6 +42,9 @@
                     <div class="col-lg-12">
                         <label for="">Domicilio</label>
                         <textarea class="form-control" cols="30" rows="5" wire:model='domicilio'></textarea>
+                        @error("domicilio")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
             </div>

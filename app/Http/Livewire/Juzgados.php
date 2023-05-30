@@ -63,6 +63,48 @@ class Juzgados extends Component
     }
 
     public function registrarJuzgado(){
+        $this->validate([
+            "distrito" => "required",
+            "adscripcion" => "required",
+            "cliente_id" => "required",
+            "domicilio" => "required",
+        ],[
+            "distrito.required" => "Es necesario el distrito",
+            "adscripcion.required" => "Es necesario la adscripcion",
+            "cliente_id.required" => "Es necesario el cliente",
+            "domicilio.required" => "Es necesario el domicilio",
+        ]);
 
+        if($this->juzgado_id){
+            $juzgado = CatalogoJuzgados::find($this->juzgado_id);
+            $juzgado->distrito;
+            $juzgado->adscripcion;
+            $juzgado->cliente_id;
+            $juzgado->domicilio;
+            $juzgado->save();
+
+            $this->distrito = '';
+            $this->adscripcion = '';
+            $this->cliente_id = '';
+            $this->domicilio = '';
+
+            $this->dispatchBrowserEvent("success-notify", "Juzgado editado");
+            return $this->dispatchBrowserEvent("cerrar-modal-registrar-juzgado");
+        }
+
+        $juzgado = new CatalogoJuzgados();
+        $juzgado->distrito;
+        $juzgado->adscripcion;
+        $juzgado->cliente_id;
+        $juzgado->domicilio;
+        $juzgado->save();
+
+        $this->distrito = '';
+        $this->adscripcion = '';
+        $this->cliente_id = '';
+        $this->domicilio = '';
+
+        $this->dispatchBrowserEvent("success-notify", "Juzgado guardado");
+        return $this->dispatchBrowserEvent("cerrar-modal-registrar-juzgado");
     }
 }
