@@ -77,10 +77,10 @@ class Juzgados extends Component
 
         if($this->juzgado_id){
             $juzgado = CatalogoJuzgados::find($this->juzgado_id);
-            $juzgado->distrito;
-            $juzgado->adscripcion;
-            $juzgado->cliente_id;
-            $juzgado->domicilio;
+            $juzgado->distrito = $this->distrito;
+            $juzgado->adscripcion = $this->adscripcion;
+            $juzgado->cliente_id = $this->cliente_id;
+            $juzgado->domicilio = $this->domicilio;
             $juzgado->save();
 
             $this->distrito = '';
@@ -93,10 +93,10 @@ class Juzgados extends Component
         }
 
         $juzgado = new CatalogoJuzgados();
-        $juzgado->distrito;
-        $juzgado->adscripcion;
-        $juzgado->cliente_id;
-        $juzgado->domicilio;
+        $juzgado->distrito = $this->distrito;
+        $juzgado->adscripcion = $this->adscripcion;
+        $juzgado->cliente_id = $this->cliente_id;
+        $juzgado->domicilio = $this->domicilio;
         $juzgado->save();
 
         $this->distrito = '';
