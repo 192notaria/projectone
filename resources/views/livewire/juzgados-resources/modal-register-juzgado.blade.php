@@ -68,7 +68,6 @@
         new TomSelect('#tom-select-id',{
             persist: false,
             createOnBlur: true,
-            create: true
         });
     })
 

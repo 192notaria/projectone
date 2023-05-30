@@ -63,7 +63,7 @@ class Juzgados extends Component
         $this->apaterno = '';
         $this->amaterno = '';
 
-        $this->clientes = Clientes::orderBy("nombre", "ASC")->get();
+        // $this->clientes = Clientes::orderBy("nombre", "ASC")->get();
         $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-cliente");
     }

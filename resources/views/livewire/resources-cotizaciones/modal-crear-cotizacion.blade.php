@@ -109,6 +109,22 @@
                             @enderror
                         </div>
                     @endif
+                    @if ($acto_juridico_id == 2)
+                        <div class="col-lg-12 mt-4">
+                            <label for="">Tipo de Compraventa</label>
+                            <select class="form-select" wire:model='tipo_servicio'>
+                                <option value="" disabled>Seleccionar...</option>
+                                <option value="De Contado">De Contado</option>
+                                <option value="Credito Banorte">Credito Banorte</option>
+                                <option value="Credito Foviiste">Credito Fovissste</option>
+                                <option value="Credito infonavit">Credito Infonavit</option>
+                                <option value="Credito Pensiones Civiles">Credito Pensiones Civiles</option>
+                            </select>
+                            @error("tipo_servicio")
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                    @endif
 
                     <div class="col-lg-12 table-responsive">
                         <button class="btn btn-outline-primary" wire:click='abrir_modal_costo'>
