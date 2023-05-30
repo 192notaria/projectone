@@ -65,7 +65,11 @@
 <script>
     window.addEventListener('abrir-modal-registrar-juzgado', event => {
         $(".modal-registrar-juzgado").modal("show")
-        new TomSelect('#tom-select-id');
+        new TomSelect('#tom-select-id',{
+            persist: false,
+            createOnBlur: true,
+            create: true
+        });
     })
 
     window.addEventListener('cerrar-modal-registrar-juzgado', event => {
