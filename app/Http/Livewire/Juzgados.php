@@ -20,12 +20,16 @@ class Juzgados extends Component
     public $adscripcion;
     public $cliente_id = '';
     public $domicilio;
+    public $clientes = [];
+
+    public function mount(){
+        $this->clientes = Clientes::orderBy("nombre", "ASC")->get();
+    }
 
     public function render(){
         return view('livewire.juzgados',[
             "juzgados" => CatalogoJuzgados::orderBy("adscripcion", "ASC")
                 ->paginate($this->cantidadJuzgados),
-            "clientes" => Clientes::orderBy("nombre", "ASC")->get()
         ]);
     }
 
@@ -48,6 +52,7 @@ class Juzgados extends Component
     }
 
     public function registrarCliente(){
+        $this->clientes = [];
         $cliente = new Clientes;
         $cliente->nombre = $this->nombre;
         $cliente->apaterno = $this->apaterno;
@@ -58,6 +63,7 @@ class Juzgados extends Component
         $this->apaterno = '';
         $this->amaterno = '';
 
+        $this->clientes = Clientes::orderBy("nombre", "ASC")->get();
         $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-cliente");
     }

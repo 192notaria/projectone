@@ -20,7 +20,7 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-lg-12" wire:ignore>
+                    <div class="col-lg-12" wire:ignore.self>
                         <label for="">Nombre (Buscar en Clientes)</label>
                         <select id="tom-select-id" wire:model='cliente_id'>
                             <option value="" disabled selected>Seleccionar...</option>
