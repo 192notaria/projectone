@@ -116,6 +116,7 @@
                                 <option value="" disabled>Seleccionar...</option>
                                 <option value="De Contado">De Contado</option>
                                 <option value="Credito Banorte">Credito Banorte</option>
+                                <option value="Credito Cofinavit">Credito Cofinavit</option>
                                 <option value="Credito Foviiste">Credito Fovissste</option>
                                 <option value="Credito infonavit">Credito Infonavit</option>
                                 <option value="Credito Pensiones Civiles">Credito Pensiones Civiles</option>
