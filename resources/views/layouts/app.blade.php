@@ -26,15 +26,16 @@
         <link href="{{ url('v3/src/plugins/src/notification/snackbar/snackbar.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/plugins/css/light/notification/snackbar/custom-snackbar.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/plugins/css/dark/notification/snackbar/custom-snackbar.css') }}" rel="stylesheet" type="text/css" />
-
         <link href="{{ url('v3/src/assets/css/light/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('v3/src/assets/css/dark/components/modal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ url('css/audioplayer.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url('js/tom-select/dist/css/tom-select.css') }}" rel="stylesheet" type="text/css" />
 
         @yield('links-content')
         @livewireStyles()
     </head>
         <body class="alt-menu">
+
             <!-- BEGIN LOADER -->
             <div id="load_screen">
                 <div class="loader">
@@ -62,7 +63,6 @@
 
             {{-- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> --}}
             <script src="{{url('js/jquery.js')}}"></script>
-
             <script>
                 $('#notificationDropdown').on('click', function (event) {
                     if($("#notificationDropdownDiv").hasClass("show")){
@@ -94,7 +94,7 @@
                     }
                 });
             </script>
-
+            <script src='{{url('js/tom-select/dist/js/tom-select.base.js')}}'></script>
             <script src="{{ url("/v3/src/plugins/src/global/vendors.min.js") }}"></script>
             <script src="{{ url("/v3/src/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
             <script src="{{ url("/v3/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
@@ -102,14 +102,11 @@
             <script src="{{ url("/v3/layouts/collapsible-menu/app.js") }}"></script>
             <script src="{{ url("/v3/src/assets/js/custom.js") }}"></script>
             <script src="{{url('v3/src/plugins/src/jquery-ui/jquery-ui.min.js')}}"></script>
-            {{-- <script src="{{url('v3/src/assets/js/apps/contact.js')}}"></script> --}}
             <script src="{{ url('/v3/src/plugins/src/notification/snackbar/snackbar.min.js') }}"></script>
-
             <script src="{{ asset("js/app.js") }}"></script>
 
             <!-- END GLOBAL MANDATORY SCRIPTS -->
             <script src="{{ url('js/audioplayer.js') }}"></script>
-
 
             @yield('scripts-content')
             <script>

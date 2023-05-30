@@ -121,7 +121,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu {{Route::currentRouteName() == "catalogos-documentos_generales" ? "active" : ""}} {{Route::currentRouteName() == "admin-subprocesos" ? "active" : ""}} {{Route::currentRouteName() == "admin-procesos_servicios" ? "active" : ""}} {{Route::currentRouteName() == "admin-ocupaciones" ? "active" : ""}} {{Route::currentRouteName() == "admin-servicios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-paises" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-estados" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-municipios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-colonias" ? "active" : ""}}">
+            <li class="menu {{Route::currentRouteName() == "catalogos-juzgados" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-documentos_generales" ? "active" : ""}} {{Route::currentRouteName() == "admin-subprocesos" ? "active" : ""}} {{Route::currentRouteName() == "admin-procesos_servicios" ? "active" : ""}} {{Route::currentRouteName() == "admin-ocupaciones" ? "active" : ""}} {{Route::currentRouteName() == "admin-servicios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-paises" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-estados" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-municipios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-colonias" ? "active" : ""}}">
                 <a href="#catalogos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
@@ -150,6 +150,11 @@
                     @can('ver-estados')
                         <li class="{{Route::currentRouteName() == "catalogos-estados" ? "active" : ""}}">
                             <a href="/catalogos/estados"> Estados  </a>
+                        </li>
+                    @endcan
+                    @can('ver-juzgados')
+                        <li class="{{Route::currentRouteName() == "catalogos-juzgados" ? "active" : ""}}">
+                            <a href="/catalogos/juzgados"> Juzgados </a>
                         </li>
                     @endcan
                     @can('ver-municipios')

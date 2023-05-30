@@ -16,4 +16,8 @@ class ColoniasController extends Controller
     public function index(){
         return view('catalogos.colonias');
     }
+
+    public function juzgados(){
+        return view('catalogos.juzgados');
+    }
 }

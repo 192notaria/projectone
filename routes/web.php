@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/catalogos/estados', [EstadosController::class, 'index'])->name('catalogos-estados');
     Route::get('/catalogos/municipios', [MunicipiosController::class, 'index'])->name('catalogos-municipios');
     Route::get('/catalogos/colonias', [ColoniasController::class, 'index'])->name('catalogos-colonias');
+    Route::get('/catalogos/juzgados', [ColoniasController::class, 'juzgados'])->name('catalogos-juzgados');
 
     Route::get('/chartsData/{type}', [ChartsController::class, 'index'])->name('charts');
 

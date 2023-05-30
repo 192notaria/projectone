@@ -128,7 +128,6 @@ class Servicios extends Component
         $servicio->nombre = $this->nombre_del_servicio;
         $servicio->tiempo_firma = $this->tiempo_firma;
         $servicio->tipo_id = $this->tipo_id;
-
         $servicio->save();
 
         foreach($this->conceptos_pago as $key => $concepto){

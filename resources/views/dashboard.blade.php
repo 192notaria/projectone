@@ -12,6 +12,7 @@
     <link href="{{url('v3/src/assets/css/dark/elements/popover.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+
 <div class="layout-px-spacing">
     <div class="middle-content container-xxl p-0">
         <div class="row layout-top-spacing">
