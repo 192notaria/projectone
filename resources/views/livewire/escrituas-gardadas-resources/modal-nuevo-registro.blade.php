@@ -26,8 +26,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
-                <button wire:click='registrar' class="btn btn-outline-danger" data-bs-dismiss="modal">Guardar</button>
+                <a href="#" data-bs-dismiss="modal" class="me-3">Cerrar</a>
+                <button wire:click='registrar' class="btn btn-outline-success" data-bs-dismiss="modal">Guardar</button>
             </div>
         </div>
     </div>

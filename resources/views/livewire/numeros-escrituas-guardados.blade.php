@@ -84,7 +84,7 @@
                                 <td>{{$escritura->folio_inicio}} - {{$escritura->folio_fin}}</td>
                                 <td>{{$escritura->created_at}}</td>
                                 <td>
-                                    <button class="btn btn-outline-primary">
+                                    <button class="btn btn-outline-primary" wire:click='editarNumero({{$escritura->id}})'>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </td>

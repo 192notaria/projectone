@@ -74,4 +74,14 @@ class NumerosEscrituasGuardados extends Component
         $this->clearInputs();
         return $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");
     }
+
+    public function editarNumero($id){
+        $escritura = Proyectos::find($id);
+        $this->volumen = $escritura->volumen;
+        $this->numero_escritura = $escritura->numero_escritura;
+        $this->f_inicio = $escritura->folio_inicio;
+        $this->f_final = $escritura->folio_fin;
+        $this->fecha = date("Y-m-d H:m:i", strtotime($escritura->created_at));
+        return $this->openModal();
+    }
 }
