@@ -11,8 +11,9 @@ use Kreait\Firebase\Factory;
 class ChartsController extends Controller
 {
     public function index(Request $request){
+        $year = date("Y", time());
         if($request->type == 'area'){
-            $proyectos = Proyectos::select("id", "created_at")->whereYear("created_at", 2023)->get()->groupBy(function ($date){
+            $proyectos = Proyectos::select("id", "created_at")->whereYear("created_at", $year)->get()->groupBy(function ($date){
                 return Carbon::parse($date->created_at)->format('m');
             });
 
