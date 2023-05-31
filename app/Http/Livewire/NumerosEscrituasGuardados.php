@@ -48,10 +48,10 @@ class NumerosEscrituasGuardados extends Component
     public function registrar(){
         $this->validate([
             "numero_escritura" => "required|unique:proyectos,numero_escritura," . $this->escritura_id,
-            "volumen" => "required",
-            "f_inicio" => "required",
-            "f_final" => "required",
-            "fecha" => "required",
+            // "volumen" => "required",
+            // "f_inicio" => "required",
+            // "f_final" => "required",
+            // "fecha" => "required",
         ],[
             "numero_escritura.required" => "Es necesario el numero de escritura",
             "numero_escritura.unique" => "Este numero de escritura ya esta registrado",
