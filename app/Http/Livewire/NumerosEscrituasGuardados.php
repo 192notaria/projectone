@@ -77,8 +77,8 @@ class NumerosEscrituasGuardados extends Component
             $escritura->usuario_id = $this->abogado_id == '' ? null : $this->abogado_id;
             $escritura->folio_inicio = $this->f_inicio;
             $escritura->folio_fin = $this->f_final;
-            $escritura->created_at = $this->fecha;
-            $escritura->updated_at = $this->fecha;
+            $escritura->created_at = $this->fecha == '' ? null : $this->fecha;
+            $escritura->updated_at = $this->fecha == '' ? null : $this->fecha;
             $escritura->save();
             $this->clearInputs();
             $this->dispatchBrowserEvent("success-notify", "Numero editado");
@@ -92,7 +92,8 @@ class NumerosEscrituasGuardados extends Component
         $escritura->usuario_id = $this->abogado_id == '' ? null : $this->abogado_id;
         $escritura->folio_inicio = $this->f_inicio;
         $escritura->folio_fin = $this->f_final;
-        $escritura->created_at = $this->fecha;
+        $escritura->created_at = $this->fecha == '' ? null : $this->fecha;
+        $escritura->updated_at = $this->fecha == '' ? null : $this->fecha;
         $escritura->save();
         $this->clearInputs();
         $this->dispatchBrowserEvent("success-notify", "Numero registrado");
