@@ -44,11 +44,12 @@ class NumerosEscrituasGuardados extends Component
             "f_final" => "required",
             "fecha" => "required",
         ],[
-            "numero_escritura" => "Es n ecesario el numero de escritura",
-            "volumen" => "Es necesario el volumen",
-            "f_inicio" => "Es necesario el folio de inicio",
-            "f_final" => "Es necesario el folio final",
-            "fecha" => "Es necesario la fecha de la escritura",
+            "numero_escritura.required" => "Es necesario el numero de escritura",
+            "numero_escritura.unique" => "Este numero de escritura ya esta registrado",
+            "volumen.required" => "Es necesario el volumen",
+            "f_inicio.required" => "Es necesario el folio de inicio",
+            "f_final.required" => "Es necesario el folio final",
+            "fecha.required" => "Es necesario la fecha de la escritura",
         ]);
 
         if($this->escritura_id){
