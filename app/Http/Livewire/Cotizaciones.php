@@ -178,6 +178,7 @@ class Cotizaciones extends Component
         if($this->cotizacion_id){
             $cotizacion = ModelsCotizaciones::find($this->cotizacion_id);
             $cotizacion->total = $total_sum;
+            $cotizacion->cliente_id = $this->proyecto_cliente['id'];
 
             $version = $cotizacion->version + 1;
 
