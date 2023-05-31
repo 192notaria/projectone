@@ -82,7 +82,11 @@
                             <tr>
                                 <td>{{$escritura->numero_escritura}}</td>
                                 <td>{!! $escritura->volumen ?? "<span class='text-danger'>S/V</span>" !!}</td>
-                                <td>{!! $escritura->abogado->name ?? "<span class='text-danger'>Sin abogado asignado</span>" !!}</td>
+                                <td>
+                                    {!! $escritura->abogado->name ?? "<span class='text-danger'>Sin abogado asignado</span>" !!}
+                                    {{$escritura->abogado->apaterno ?? ""}}
+                                    {{$escritura->abogado->amaterno ?? ""}}
+                                </td>
                                 <td>{!! $escritura->folio_inicio ?? "<span class='text-danger'>S/F</span>" !!} - {!!$escritura->folio_fin ?? "<span class='text-danger'>S/F</span>"!!}</td>
                                 <td>{!! $escritura->created_at ?? "<span class='text-danger'>S/F</span>" !!}</td>
                                 <td>
