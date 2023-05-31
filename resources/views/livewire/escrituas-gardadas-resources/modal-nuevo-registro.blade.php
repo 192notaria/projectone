@@ -6,28 +6,43 @@
                     <div class="col-lg-12">
                         <label for="">Número de escritura</label>
                         <input type="number" class="form-control" wire:model='numero_escritura'>
+                        @error("numero_escritura")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12">
                         <label for="">Volumen</label>
                         <input type="number" class="form-control" wire:model='volumen'>
+                        @error("volumen")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label for="">Folio inicio</label>
                         <input type="number" class="form-control" wire:model='f_inicio'>
+                        @error("f_inicio")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label for="">Folio final</label>
                         <input type="number" class="form-control" wire:model='f_final'>
+                        @error("f_final")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="col-lg-12">
                         <label for="">Fecha escritura</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha'>
+                        @error("fecha")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a wire:click='clearInputs' href="#" data-bs-dismiss="modal" class="me-3">Cerrar</a>
-                <button wire:click='registrar' class="btn btn-outline-success" data-bs-dismiss="modal">Guardar</button>
+                <button wire:click='registrar' class="btn btn-outline-success">Guardar</button>
             </div>
         </div>
     </div>
