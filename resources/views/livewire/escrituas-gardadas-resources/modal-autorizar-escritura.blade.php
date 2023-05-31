@@ -6,14 +6,16 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3 gx-3">
-                    <div class="col-lg-12" wire:ignore>
+                    <div class="col-lg-12">
                         <label for="">Acto juridico</label>
-                        <select id="acto-select-id" wire:model='acto_juridico_id' wire:change='cambiar_acto'>
-                            <option value="" selected disabled>Seleccionar</option>
-                            @foreach ($actos as $acto)
-                                <option value="{{$acto->id}}">{{$acto->nombre}}</option>
-                            @endforeach
-                        </select>
+                        <div wire:ignore>
+                            <select id="acto-select-id" wire:model='acto_juridico_id' wire:change='cambiar_acto'>
+                                <option value="" selected disabled>Seleccionar</option>
+                                @foreach ($actos as $acto)
+                                    <option value="{{$acto->id}}">{{$acto->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         @error("acto_juridico_id")
                             <span class="text-danger">{{$message}}</span>
                         @enderror
