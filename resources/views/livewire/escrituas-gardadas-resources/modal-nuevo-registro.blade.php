@@ -17,6 +17,18 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
+                    <div class="col-lg-12" wire:ignore>
+                        <label for="">Abogado</label>
+                        <select wire:model='abogado_id' id="abogado-select-id">
+                            <option value="">Ninguno...</option>
+                            @foreach ($abogados as $abogado)
+                                <option value="{{$abogado->id}}">{{$abogado->name}} {{$abogado->apaterno}} {{$abogado->amaterno}}</option>
+                            @endforeach
+                        </select>
+                        @error("abogado_id")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
                     <div class="col-lg-6">
                         <label for="">Folio inicio</label>
                         <input type="number" class="form-control" wire:model='f_inicio'>
@@ -56,6 +68,10 @@
 <script>
     window.addEventListener('open-modal-escrituras-guardadas', event => {
         $(".modal-escrituras-guardadas").modal("show")
+        new TomSelect('#abogado-select-id',{
+            persist: false,
+            createOnBlur: true,
+        })
     })
 
     window.addEventListener('close-modal-escrituras-guardadas', event => {

@@ -71,6 +71,7 @@
                         <tr>
                             <th scope="col">Número de escritura</th>
                             <th scope="col">Volumen</th>
+                            <th scope="col">Abogado</th>
                             <th scope="col">Folios</th>
                             <th scope="col">Fecha</th>
                             <th scope="col"></th>
@@ -81,6 +82,7 @@
                             <tr>
                                 <td>{{$escritura->numero_escritura}}</td>
                                 <td>{{$escritura->volumen}}</td>
+                                <td>{{$escritura->abogado->name ?? "Sin abogado asignado"}}</td>
                                 <td>{{$escritura->folio_inicio}} - {{$escritura->folio_fin}}</td>
                                 <td>{{$escritura->created_at}}</td>
                                 <td>
@@ -90,7 +92,9 @@
                                 </td>
                             </tr>
                         @empty
-
+                            <tr>
+                                <td colspan="6" class="text-center">Sin registros</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>

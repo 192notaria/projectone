@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Proyectos;
+use App\Models\User;
 use Livewire\Component;
 
 class NumerosEscrituasGuardados extends Component
@@ -10,6 +11,7 @@ class NumerosEscrituasGuardados extends Component
     public $escritura_id;
     public $numero_escritura;
     public $volumen;
+    public $abogado_id = '';
     public $f_inicio;
     public $f_final;
     public $fecha;
@@ -20,6 +22,12 @@ class NumerosEscrituasGuardados extends Component
             "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("status", 5)
                 ->get(),
+            "abogados" => User::orderBy("name", "ASC")
+                ->where(function($query){
+                    $query->whereHas("roles", function($data){
+                        $data->where('name', '!=', 'ADMINISTRADOR');
+                    });
+                })->get(),
         ]);
     }
 
@@ -31,6 +39,7 @@ class NumerosEscrituasGuardados extends Component
         $this->escritura_id = '';
         $this->numero_escritura = '';
         $this->volumen = '';
+        $this->abogado_id = '';
         $this->f_inicio = '';
         $this->f_final = '';
         $this->fecha = '';
