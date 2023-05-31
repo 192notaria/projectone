@@ -81,10 +81,10 @@
                         @forelse ($escrituras as $escritura)
                             <tr>
                                 <td>{{$escritura->numero_escritura}}</td>
-                                <td>{{$escritura->volumen}}</td>
+                                <td>{{$escritura->volumen ?? "S/V"}}</td>
                                 <td>{{$escritura->abogado->name ?? "Sin abogado asignado"}}</td>
-                                <td>{{$escritura->folio_inicio}} - {{$escritura->folio_fin}}</td>
-                                <td>{{$escritura->created_at}}</td>
+                                <td>{{$escritura->folio_inicio ?? "S/F"}} - {{$escritura->folio_fin ?? "S/F"}}</td>
+                                <td>{{$escritura->created_at ?? "S/F"}}</td>
                                 <td>
                                     <button class="btn btn-outline-primary" wire:click='editarNumero({{$escritura->id}})'>
                                         <i class="fa-solid fa-pen-to-square"></i>
