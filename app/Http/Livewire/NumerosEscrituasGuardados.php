@@ -65,6 +65,7 @@ class NumerosEscrituasGuardados extends Component
             $escritura = Proyectos::find($this->escritura_id);
             $escritura->volumen = $this->volumen;
             $escritura->numero_escritura = $this->numero_escritura;
+            $escritura->usuario_id = $this->abogado_id;
             $escritura->folio_inicio = $this->f_inicio;
             $escritura->folio_fin = $this->f_final;
             $escritura->created_at = $this->fecha;
@@ -79,6 +80,7 @@ class NumerosEscrituasGuardados extends Component
         $escritura->status = 5;
         $escritura->volumen = $this->volumen;
         $escritura->numero_escritura = $this->numero_escritura;
+        $escritura->usuario_id = $this->abogado_id;
         $escritura->folio_inicio = $this->f_inicio;
         $escritura->folio_fin = $this->f_final;
         $escritura->created_at = $this->fecha;
@@ -92,6 +94,7 @@ class NumerosEscrituasGuardados extends Component
         $escritura = Proyectos::find($id);
         $this->escritura_id = $id;
         $this->volumen = $escritura->volumen;
+        $this->abogado_id = $escritura->usuario_id;
         $this->numero_escritura = $escritura->numero_escritura;
         $this->f_inicio = $escritura->folio_inicio;
         $this->f_final = $escritura->folio_fin;
