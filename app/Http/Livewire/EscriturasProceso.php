@@ -1359,6 +1359,7 @@ public function removerParte($id){
         $buscar_pendiente = Proyectos::where("numero_escritura", $this->numero_escritura_general)
             ->where("status", 5)
             ->first();
+
         if($buscar_pendiente){
             return $this->addError("numero_escritura_general", "Este número ya esta registrado");
         }
