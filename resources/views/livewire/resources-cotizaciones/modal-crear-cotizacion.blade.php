@@ -109,7 +109,7 @@
                             @enderror
                         </div>
                     @endif
-                    @if ($acto_juridico_id == 2)
+                    @if ($acto_id == 2)
                         <div class="col-lg-12 mt-4">
                             <label for="">Tipo de Compraventa</label>
                             <select class="form-select" wire:model='tipo_servicio'>
