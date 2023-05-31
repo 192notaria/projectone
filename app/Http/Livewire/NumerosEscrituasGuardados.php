@@ -79,6 +79,7 @@ class NumerosEscrituasGuardados extends Component
 
     public function editarNumero($id){
         $escritura = Proyectos::find($id);
+        $this->escritura_id = $id;
         $this->volumen = $escritura->volumen;
         $this->numero_escritura = $escritura->numero_escritura;
         $this->f_inicio = $escritura->folio_inicio;
