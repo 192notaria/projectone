@@ -1453,12 +1453,10 @@ public function removerParte($id){
         }
 
         $proyecto = Proyectos::find($this->proyecto_id);
+        delete_firebase_project($proyecto->id);
         $proyecto->delete();
         $this->proyecto_id = "";
-        if(!$proyecto->firebase_key){
-            return $this->dispatchBrowserEvent("cerrar-modal-borrar-proyecto");
-        }
-        return delete_firebase_project($proyecto->id);
+        return $this->dispatchBrowserEvent("cerrar-modal-borrar-proyecto");
     }
 
     public function guardarCliente(){

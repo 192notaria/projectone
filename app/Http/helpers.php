@@ -124,10 +124,12 @@ use Kreait\Firebase\Factory;
 
     function delete_firebase_project($id){
         $escritura = Proyectos::find($id);
-        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
-        $firestore = $factory->createFirestore();
-        $database = $firestore->database();
-        $database->collection('actos')->document($escritura->firebase_key)->delete();
+        if($escritura->firebase_key){
+            $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+            $firestore = $factory->createFirestore();
+            $database = $firestore->database();
+            $database->collection('actos')->document($escritura->firebase_key)->delete();
+        }
     }
 
     function login_logs_firebase($id){
