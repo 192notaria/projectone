@@ -12,7 +12,7 @@ class ChartsController extends Controller
 {
     public function index(Request $request){
         if($request->type == 'area'){
-            $proyectos = Proyectos::select("id", "created_at")->get()->groupBy(function ($date){
+            $proyectos = Proyectos::select("id", "created_at")->whereYear("created_at", 2023)->get()->groupBy(function ($date){
                 return Carbon::parse($date->created_at)->format('m');
             });
 
