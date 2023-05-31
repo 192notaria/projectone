@@ -30,16 +30,6 @@
                             @enderror
                         </div>
                     @endif
-
-                    <div class="col-lg-12" wire:ignore>
-                        <label for="">Cliente</label>
-                        <select id="cliente-select-id" wire:model='cliente_id'>
-                            <option value="" selected disabled>Seleccionar</option>
-                            @foreach ($clientes as $cliente)
-                                <option value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -59,10 +49,6 @@
     window.addEventListener('open-modal-autorizar-escritura', event => {
         $(".modal-autorizar-escritura").modal("show")
         new TomSelect('#acto-select-id',{
-            persist: false,
-            createOnBlur: true,
-        })
-        new TomSelect('#cliente-select-id',{
             persist: false,
             createOnBlur: true,
         })
