@@ -116,6 +116,9 @@
                                                     @if ($escritura->servicio_id == 22)
                                                         ({{$escritura->tipo_servicio}})
                                                     @endif
+                                                    @if ($escritura->servicio_id == 2)
+                                                        ({{$escritura->tipo_servicio}})
+                                                    @endif
                                                 </a>
                                                 <p>
                                                     <span class="badge badge-{{$escritura->servicio->tipo_acto->color}}">{{$escritura->servicio->tipo_acto->nombre ?? "S/D"}}</span>

@@ -69,6 +69,15 @@
                                 </td>
                                 <td>
                                     {{strtoupper($escritura->servicio->nombre)}}
+                                    @if ($escritura->servicio_id == 25)
+                                        ({{$escritura->tipo_servicio}})
+                                    @endif
+                                    @if ($escritura->servicio_id == 22)
+                                        ({{$escritura->tipo_servicio}})
+                                    @endif
+                                    @if ($escritura->servicio_id == 2)
+                                        ({{$escritura->tipo_servicio}})
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="media">
