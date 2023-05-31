@@ -35,14 +35,16 @@ class ProyectosObserver
      */
     public function updated(Proyectos $proyectos)
     {
-        $bitacora = new Bitacora;
-        $bitacora->actividad = "Registro editado";
-        $bitacora->detalle = "Acto editado";
-        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
-            " ha editado la informacion del acto " . $proyectos->servicio->nombre . " que corresponde al cliente " .
-            $proyectos->cliente->nombre . " " . $proyectos->cliente->apaterno . " " . $proyectos->cliente->amaterno;
-        $bitacora->user_id = auth()->user()->id;
-        $bitacora->save();
+        if(isset($proyectos->servicio->nombre) && isset($proyectos->cliente->nombre)){
+            $bitacora = new Bitacora;
+            $bitacora->actividad = "Registro editado";
+            $bitacora->detalle = "Acto editado";
+            $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+                " ha editado la informacion del acto " . $proyectos->servicio->nombre . " que corresponde al cliente " .
+                $proyectos->cliente->nombre . " " . $proyectos->cliente->apaterno . " " . $proyectos->cliente->amaterno;
+            $bitacora->user_id = auth()->user()->id;
+            $bitacora->save();
+        }
     }
 
     /**
