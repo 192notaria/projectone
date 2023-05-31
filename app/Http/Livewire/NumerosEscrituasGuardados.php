@@ -6,9 +6,13 @@ use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NumerosEscrituasGuardados extends Component
 {
+    use WithPagination;
+    public $cantidad_escrituras = 20;
+
     public $escritura_id;
     public $numero_escritura;
     public $volumen;
@@ -26,7 +30,7 @@ class NumerosEscrituasGuardados extends Component
         return view('livewire.numeros-escrituas-guardados',[
             "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("status", 5)
-                ->get(),
+                ->paginate($this->cantidad_escrituras),
             "abogados" => User::orderBy("name", "ASC")
                 ->where(function($query){
                     $query->whereHas("roles", function($data){
