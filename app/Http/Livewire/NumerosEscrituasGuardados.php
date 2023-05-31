@@ -60,6 +60,7 @@ class NumerosEscrituasGuardados extends Component
             $escritura->updated_at = $this->fecha;
             $escritura->save();
             $this->clearInputs();
+            $this->dispatchBrowserEvent("success-notify", "Numero editado");
             return $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");
         }
 
@@ -72,6 +73,7 @@ class NumerosEscrituasGuardados extends Component
         $escritura->created_at = $this->fecha;
         $escritura->save();
         $this->clearInputs();
+        $this->dispatchBrowserEvent("success-notify", "Numero registrado");
         return $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");
     }
 
