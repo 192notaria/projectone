@@ -62,7 +62,6 @@
                 .autocomplete-items div:hover {
                     background-color: #e9e9e9;
                 }
-
             </style>
 
             <div class="col-lg-12 table-responsive">
@@ -107,4 +106,5 @@
         </div>
     </div>
     @include("livewire.escrituas-gardadas-resources.modal-nuevo-registro")
+    @include("livewire.escrituas-gardadas-resources.modal-autorizar-escritura")
 </div>

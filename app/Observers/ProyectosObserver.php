@@ -55,14 +55,16 @@ class ProyectosObserver
      */
     public function deleted(Proyectos $proyectos)
     {
-        $bitacora = new Bitacora;
-        $bitacora->actividad = "Registro borrado";
-        $bitacora->detalle = "Acto borrado";
-        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+        if(isset($proyectos->servicio->nombre) && isset($proyectos->cliente->nombre)){
+            $bitacora = new Bitacora;
+            $bitacora->actividad = "Registro borrado";
+            $bitacora->detalle = "Acto borrado";
+            $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
             " ha borrado el acto " . $proyectos->servicio->nombre . " que corresponde al cliente " .
             $proyectos->cliente->nombre . " " . $proyectos->cliente->apaterno . " " . $proyectos->cliente->amaterno;
-        $bitacora->user_id = auth()->user()->id;
-        $bitacora->save();
+            $bitacora->user_id = auth()->user()->id;
+            $bitacora->save();
+        }
     }
 
     /**

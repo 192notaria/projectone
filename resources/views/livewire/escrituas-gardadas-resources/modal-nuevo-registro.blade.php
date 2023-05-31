@@ -17,14 +17,16 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-lg-12" wire:ignore>
+                    <div class="col-lg-12">
                         <label for="">Abogado</label>
-                        <select wire:model='abogado_id' id="abogado-select-id">
-                            <option value="">Ninguno...</option>
-                            @foreach ($abogados as $abogado)
-                                <option value="{{$abogado->id}}">{{$abogado->name}} {{$abogado->apaterno}} {{$abogado->amaterno}}</option>
-                            @endforeach
-                        </select>
+                        <div wire:ignore>
+                            <select wire:model='abogado_id' id="abogado-select-id">
+                                <option value="">Ninguno...</option>
+                                @foreach ($abogados as $abogado)
+                                    <option value="{{$abogado->id}}">{{$abogado->name}} {{$abogado->apaterno}} {{$abogado->amaterno}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         @error("abogado_id")
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -52,9 +54,12 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a wire:click='clearInputs' href="#" data-bs-dismiss="modal" class="me-3">Cerrar</a>
-                <button wire:click='registrar' class="btn btn-outline-success">Guardar</button>
+            <div class="modal-footer d-flex justify-content-between">
+                <a href="#" class="text-warning" wire:click='autorizar_escritura_modal'>Autorizar</a>
+                <div>
+                    <a wire:click='clearInputs' href="#" data-bs-dismiss="modal" class="me-3">Cerrar</a>
+                    <button wire:click='registrar' class="btn btn-outline-success">Guardar</button>
+                </div>
             </div>
         </div>
     </div>

@@ -33,4 +33,8 @@ class Servicios extends Model
     public function tipo_acto(){
         return $this->belongsTo(CatalogoTipoActos::class, "tipo_id");
     }
+
+    public function tipo_servicio(){
+        return $this->hasMany(TipoServicio::class, "servicio_id");
+    }
 }

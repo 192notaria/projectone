@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Proyectos;
+use App\Models\Servicios;
 use App\Models\User;
 use Livewire\Component;
 
@@ -16,6 +17,10 @@ class NumerosEscrituasGuardados extends Component
     public $f_final;
     public $fecha;
 
+    public $acto_juridico_id = '';
+    public $acto_juridico;
+    public $tipo_servicio = '';
+
     public function render()
     {
         return view('livewire.numeros-escrituas-guardados',[
@@ -28,6 +33,7 @@ class NumerosEscrituasGuardados extends Component
                         $data->where('name', '!=', 'ADMINISTRADOR');
                     });
                 })->get(),
+            "actos" => Servicios::orderBy("nombre", "ASC")->get()
         ]);
     }
 
@@ -43,6 +49,9 @@ class NumerosEscrituasGuardados extends Component
         $this->f_inicio = '';
         $this->f_final = '';
         $this->fecha = '';
+        $this->acto_juridico_id = '';
+        $this->acto_juridico = '';
+        $this->tipo_servicio = '';
     }
 
     public function registrar(){
@@ -100,5 +109,33 @@ class NumerosEscrituasGuardados extends Component
         $this->f_final = $escritura->folio_fin;
         $this->fecha = date("Y-m-d H:m:i", strtotime($escritura->created_at));
         return $this->openModal();
+    }
+
+    public function autorizar_escritura_modal(){
+        $this->validate([
+            "abogado_id" => "required"
+        ],[
+            "abogado_id.required" => "Es necesario seleccionar un abogado"
+        ]);
+        $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");
+        $this->dispatchBrowserEvent("open-modal-autorizar-escritura");
+    }
+
+    public function cambiar_acto(){
+        $this->acto_juridico = Servicios::find($this->acto_juridico_id);
+    }
+
+    public function autorizar(){
+        $escritura = Proyectos::find($this->escritura_id);
+        $escritura->status = 0;
+        $escritura->usuario_id = $this->abogado_id;
+        $escritura->servicio_id = $this->acto_juridico_id;
+        $escritura->tipo_servicio = $this->tipo_servicio == '' ? null : $this->tipo_servicio;
+        $escritura->save();
+
+        $this->dispatchBrowserEvent("success-notify", "Número de escritura autorizado");
+        $this->dispatchBrowserEvent("close-modal-autorizar-escritura");
+        create_firebase_project($escritura->id);
+        return $this->clearInputs();
     }
 }
