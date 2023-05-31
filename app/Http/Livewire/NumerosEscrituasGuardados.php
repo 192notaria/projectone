@@ -133,6 +133,11 @@ class NumerosEscrituasGuardados extends Component
     }
 
     public function autorizar(){
+        $this->validate([
+            "acto_juridico_id" => "required"
+        ],[
+            "acto_juridico_id.required" => "Es necesario seleccionar el acto"
+        ]);
         $escritura = Proyectos::find($this->escritura_id);
         $escritura->status = 0;
         $escritura->usuario_id = $this->abogado_id;

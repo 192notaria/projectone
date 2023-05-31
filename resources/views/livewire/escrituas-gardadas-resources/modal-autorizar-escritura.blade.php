@@ -14,6 +14,9 @@
                                 <option value="{{$acto->id}}">{{$acto->nombre}}</option>
                             @endforeach
                         </select>
+                        @error("acto_juridico_id")
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
 
                     @if (isset($acto_juridico->tipo_servicio) && count($acto_juridico->tipo_servicio) > 0)
