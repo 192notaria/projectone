@@ -4,7 +4,6 @@
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:end;">
                     <button wire:click='openModal' class="btn btn-outline-primary me-2"><i class="fa-solid fa-plus"></i></button>
-                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
                     <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>
