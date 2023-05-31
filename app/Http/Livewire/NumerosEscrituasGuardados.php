@@ -57,6 +57,7 @@ class NumerosEscrituasGuardados extends Component
             $escritura->folio_inicio = $this->f_inicio;
             $escritura->folio_fin = $this->f_final;
             $escritura->created_at = $this->fecha;
+            $escritura->updated_at = $this->fecha;
             $escritura->save();
             $this->clearInputs();
             return $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");

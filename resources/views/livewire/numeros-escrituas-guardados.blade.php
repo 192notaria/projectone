@@ -70,6 +70,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Número de escritura</th>
+                            <th scope="col">Volumen</th>
                             <th scope="col">Folios</th>
                             <th scope="col">Fecha</th>
                             <th scope="col"></th>
@@ -79,9 +80,14 @@
                         @forelse ($escrituras as $escritura)
                             <tr>
                                 <td>{{$escritura->numero_escritura}}</td>
-                                <td>{{$escritura->numero_escritura}}</td>
-                                <td>{{$escritura->numero_escritura}}</td>
-                                <td>{{$escritura->numero_escritura}}</td>
+                                <td>{{$escritura->volumen}}</td>
+                                <td>{{$escritura->folio_inicio}} - {{$escritura->folio_fin}}</td>
+                                <td>{{$escritura->created_at}}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @empty
 

@@ -15,14 +15,16 @@ class ProyectosObserver
      */
     public function created(Proyectos $proyectos)
     {
-        $bitacora = new Bitacora;
-        $bitacora->actividad = "Nuevo registro";
-        $bitacora->detalle = "Nuevo acto registrado";
-        $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
-            " ha registrado un nuevo acto de " . $proyectos->servicio->nombre . " para el cliente " .
-            $proyectos->cliente->nombre . " " . $proyectos->cliente->apaterno . " " . $proyectos->cliente->amaterno;
-        $bitacora->user_id = auth()->user()->id;
-        $bitacora->save();
+        if(isset($proyectos->servicio->nombre) && isset($proyectos->cliente->nombre)){
+            $bitacora = new Bitacora;
+            $bitacora->actividad = "Nuevo registro";
+            $bitacora->detalle = "Nuevo acto registrado";
+            $bitacora->descripcion = auth()->user()->name . " " . auth()->user()->apaterno .
+                " ha registrado un nuevo acto de " . $proyectos->servicio->nombre . " para el cliente " .
+                $proyectos->cliente->nombre . " " . $proyectos->cliente->apaterno . " " . $proyectos->cliente->amaterno;
+            $bitacora->user_id = auth()->user()->id;
+            $bitacora->save();
+        }
     }
 
     /**
