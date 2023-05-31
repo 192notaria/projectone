@@ -108,7 +108,9 @@ class NumerosEscrituasGuardados extends Component
         $this->numero_escritura = $escritura->numero_escritura;
         $this->f_inicio = $escritura->folio_inicio;
         $this->f_final = $escritura->folio_fin;
-        $this->fecha = date("Y-m-d H:m:i", strtotime($escritura->created_at));
+        if($escritura->created_at){
+            $this->fecha = date("Y-m-d H:m:i", strtotime($escritura->created_at));
+        }
         return $this->openModal();
     }
 
