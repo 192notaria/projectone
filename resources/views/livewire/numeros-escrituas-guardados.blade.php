@@ -2,7 +2,7 @@
     <div class="card-header">
         <div style="display:flex; justify-content: space-between;">
             <div class="flex-item" style="width: 100%;">
-                <div style="display:flex; justify-content:end;">
+                <div style="display:flex; justify-content:start;">
                     <button wire:click='openModal' class="btn btn-outline-primary me-2"><i class="fa-solid fa-plus"></i></button>
                     <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
                         <option value="5">5</option>
