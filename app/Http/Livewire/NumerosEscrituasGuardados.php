@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Clientes;
 use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
@@ -20,6 +21,7 @@ class NumerosEscrituasGuardados extends Component
     public $acto_juridico_id = '';
     public $acto_juridico;
     public $tipo_servicio = '';
+    public $cliente_id = '';
 
     public function render()
     {
@@ -33,7 +35,8 @@ class NumerosEscrituasGuardados extends Component
                         $data->where('name', '!=', 'ADMINISTRADOR');
                     });
                 })->get(),
-            "actos" => Servicios::orderBy("nombre", "ASC")->get()
+            "actos" => Servicios::orderBy("nombre", "ASC")->get(),
+            "clientes" => Clientes::orderBy("nombre", "ASC")->get()
         ]);
     }
 
@@ -52,6 +55,7 @@ class NumerosEscrituasGuardados extends Component
         $this->acto_juridico_id = '';
         $this->acto_juridico = '';
         $this->tipo_servicio = '';
+        $this->cliente_id = '';
     }
 
     public function registrar(){
@@ -128,6 +132,7 @@ class NumerosEscrituasGuardados extends Component
     public function autorizar(){
         $escritura = Proyectos::find($this->escritura_id);
         $escritura->status = 0;
+        $escritura->cliente_id = $this->cliente_id;
         $escritura->usuario_id = $this->abogado_id;
         $escritura->servicio_id = $this->acto_juridico_id;
         $escritura->tipo_servicio = $this->tipo_servicio == '' ? null : $this->tipo_servicio;

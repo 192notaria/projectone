@@ -65,16 +65,16 @@ use Kreait\Firebase\Factory;
         $testRef = $database->collection('actos')->newDocument();
         $testRef->set([
             'id' => $testRef->id(),
-            'acto' => $escritura->servicio->nombre,
-            'tipo_acto' => $escritura->servicio->tipo_acto->nombre,
+            'acto' => $escritura->servicio->nombre ?? "",
+            'tipo_acto' => $escritura->servicio->tipo_acto->nombre ?? "",
             'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-            'cliente' => $escritura->cliente->nombre . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno,
+            'cliente' => $escritura->cliente->nombre ?? "" . " " . $escritura->cliente->apaterno ?? "" . " " . $escritura->cliente->amaterno ?? "",
             'numero_escritura' => $escritura->numero_escritura ?? "S/N",
-            'volumen' => $escritura->volumen,
-            'folios' => $folios,
-            'status' => $escritura->status,
-            'fecha_registro' => $escritura->created_at,
-            'qr' => $qr_data
+            'volumen' => $escritura->volumen ?? "",
+            'folios' => $folios ?? "",
+            'status' => $escritura->status ?? "",
+            'fecha_registro' => $escritura->created_at ?? "",
+            'qr' => $qr_data ?? ""
         ]);
         $escritura->firebase_key = $testRef->id();
         $escritura->qr = $qr_data;
