@@ -28,6 +28,7 @@ class NumerosEscrituasGuardados extends Component
     }
 
     public function clearInputs(){
+        $this->escritura_id = '';
         $this->numero_escritura = '';
         $this->volumen = '';
         $this->f_inicio = '';
