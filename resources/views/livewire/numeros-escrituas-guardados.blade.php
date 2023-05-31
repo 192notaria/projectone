@@ -3,7 +3,9 @@
         <div style="display:flex; justify-content: space-between;">
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:start;">
-                    <button wire:click='openModal' class="btn btn-outline-primary me-2"><i class="fa-solid fa-plus"></i></button>
+                    @can("registrar-escritura-pendiente")
+                        <button wire:click='openModal' class="btn btn-outline-primary me-2"><i class="fa-solid fa-plus"></i></button>
+                    @endcan
                     <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -88,9 +90,11 @@
                                 <td>{!! $escritura->folio_inicio ?? "<span class='text-danger'>S/F</span>" !!} - {!!$escritura->folio_fin ?? "<span class='text-danger'>S/F</span>"!!}</td>
                                 <td>{!! $escritura->created_at ?? "<span class='text-danger'>S/F</span>" !!}</td>
                                 <td>
-                                    <button class="btn btn-outline-primary" wire:click='editarNumero({{$escritura->id}})'>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
+                                    @can("editar-escritura-pendiente")
+                                        <button class="btn btn-outline-primary" wire:click='editarNumero({{$escritura->id}})'>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty
@@ -105,5 +109,7 @@
         </div>
     </div>
     @include("livewire.escrituas-gardadas-resources.modal-nuevo-registro")
-    @include("livewire.escrituas-gardadas-resources.modal-autorizar-escritura")
+    @can('autorizar-escritura-pendiente')
+        @include("livewire.escrituas-gardadas-resources.modal-autorizar-escritura")
+    @endcan
 </div>

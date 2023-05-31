@@ -55,7 +55,9 @@
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <a href="#" class="text-warning" wire:click='autorizar_escritura_modal'>Autorizar</a>
+                @can('autorizar-escritura-pendiente')
+                    <a href="#" class="text-warning" wire:click='autorizar_escritura_modal'>Autorizar</a>
+                @endcan
                 <div>
                     <a wire:click='clearInputs' href="#" data-bs-dismiss="modal" class="me-3">Cerrar</a>
                     <button wire:click='registrar' class="btn btn-outline-success">Guardar</button>
