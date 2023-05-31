@@ -58,6 +58,10 @@ use Kreait\Firebase\Factory;
         $escritura = Proyectos::find($id);
         $qr_data = Hash::make($escritura->servicio->nombre . $escritura->abogado->name . $escritura->abogado->apaterno . $escritura->abogado->amaterno . $escritura->created_at);
         $folios = $escritura->folio_inicio ?? "S/F" . " - " . $escritura->folio_fin ?? "S/F";
+        $cliente = "Sin cliente";
+        if(isset($escritura->cliente->nombre )){
+            $cliente = $escritura->cliente->nombre . " " . $escritura->cliente->apaterno . " " . $escritura->cliente->amaterno;
+        }
 
         $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
         $firestore = $factory->createFirestore();
@@ -68,7 +72,7 @@ use Kreait\Firebase\Factory;
             'acto' => $escritura->servicio->nombre ?? "",
             'tipo_acto' => $escritura->servicio->tipo_acto->nombre ?? "",
             'abogado' => $escritura->abogado->name . " " . $escritura->abogado->apaterno . " " . $escritura->abogado->amaterno,
-            'cliente' => $escritura->cliente->nombre ?? "" . " " . $escritura->cliente->apaterno ?? "" . " " . $escritura->cliente->amaterno ?? "",
+            'cliente' => $cliente,
             'numero_escritura' => $escritura->numero_escritura ?? "S/N",
             'volumen' => $escritura->volumen ?? "",
             'folios' => $folios ?? "",
