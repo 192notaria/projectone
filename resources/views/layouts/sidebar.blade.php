@@ -66,6 +66,11 @@
                             <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
                         </li>
                     @endcan
+                    @can("ver-escrituras-pendientes")
+                        <li class="{{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}}">
+                            <a href="{{route("escrituras-pendientes")}}"> Escrituras pendientes </a>
+                        </li>
+                    @endcan
                     @can("ver-escrituras-finalizadas")
                         <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
                             <a href="{{route("escrituras-escrituras")}}"> Finalizados </a>
@@ -79,11 +84,6 @@
                     @can("ver-proyectos")
                         <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
                             <a href="{{route("escrituras-proceso")}}"> Proyectos </a>
-                        </li>
-                    @endcan
-                    @can("ver-escrituras-pendientes")
-                        <li class="{{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}}">
-                            <a href="{{route("escrituras-pendientes")}}"> Escrituras pendientes </a>
                         </li>
                     @endcan
                 </ul>
