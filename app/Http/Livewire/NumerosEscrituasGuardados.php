@@ -120,9 +120,11 @@ class NumerosEscrituasGuardados extends Component
 
     public function autorizar_escritura_modal(){
         $this->validate([
-            "abogado_id" => "required"
+            "abogado_id" => "required",
+            "fecha" => "required",
         ],[
-            "abogado_id.required" => "Es necesario seleccionar un abogado"
+            "abogado_id.required" => "Es necesario seleccionar un abogado",
+            "fecha.required" => "Es necesario la fecha"
         ]);
         $this->dispatchBrowserEvent("close-modal-escrituras-guardadas");
         $this->dispatchBrowserEvent("open-modal-autorizar-escritura");
