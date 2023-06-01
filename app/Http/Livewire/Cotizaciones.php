@@ -185,7 +185,6 @@ class Cotizaciones extends Component
             $cotizacion->version = $version;
             $cotizacion->save();
 
-
             foreach ($this->costos_array as $valor) {
                 $costo = new CostosCotizaciones;
                 $costo->subtotal = $valor['monto'];
@@ -197,6 +196,7 @@ class Cotizaciones extends Component
                 $costo->observaciones = $valor['observaciones'] ?? "Sin observaciones";
                 $costo->save();
             }
+
             $this->cotizacion_id = "";
             $this->acto_id = "";
             $this->proyecto_cliente = "";

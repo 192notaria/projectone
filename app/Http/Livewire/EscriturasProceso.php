@@ -113,7 +113,8 @@ class EscriturasProceso extends Component
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
-                ->where('status', '!=', 5)
+                // ->where('status', '!=', 5)
+                ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
                         $q->where('nombre', 'LIKE', '%' . $this->search . '%')
