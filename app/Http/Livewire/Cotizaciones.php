@@ -302,7 +302,7 @@ class Cotizaciones extends Component
         $templateprocessor->setValue('elaboro', $elaboro);
 
         if($total_isr != 0){
-            $templateprocessor->setValue('isr_cliente', $total_isr);
+            $templateprocessor->setValue('isr_cliente', "$" . number_format($total_isr, 2));
         }
 
         $filename = "Cotización " . $acto . " " . $nombre;
