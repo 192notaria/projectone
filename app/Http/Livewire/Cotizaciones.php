@@ -272,19 +272,27 @@ class Cotizaciones extends Component
     public function descargar_cotizacion($version, $cotizacion_id){
         $cotizacion = CostosCotizaciones::where("cotizaciones_id", $cotizacion_id)->where("version", $version)->get();
         $total_sum = 0;
+        $total_isr = 0;
+
         foreach ($cotizacion as $costo_sum) {
-            $total_sum = $total_sum + $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
+            if($costo_sum->concepto_id != 12){
+                $total_sum = $total_sum + $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
+            }else{
+                $total_isr = $costo_sum->subtotal + $costo_sum->gestoria + $costo_sum->impuesto * $costo_sum->subtotal / 100;
+            }
         }
 
         $elaboro = $cotizacion[0]->cotizacion->usuario->name . " " . $cotizacion[0]->cotizacion->usuario->apaterno . " " . $cotizacion[0]->cotizacion->usuario->amaterno;
 
         $nombre = $cotizacion[0]->cotizacion->cliente->nombre . " " . $cotizacion[0]->cotizacion->cliente->apaterno . " " . $cotizacion[0]->cotizacion->cliente->amaterno;
         $acto = $cotizacion[0]->cotizacion->acto->nombre;
+
         $day = date("d", strtotime($cotizacion[0]->cotizacion->created_at));
         $month = date("m", strtotime($cotizacion[0]->cotizacion->created_at));
         $year = date("Y", strtotime($cotizacion[0]->cotizacion->created_at));
 
         $templateprocessor = new TemplateProcessor('word-template/cotizacion.docx');
+
         $templateprocessor->setValue('nombre', mb_strtoupper($nombre));
         $templateprocessor->setValue('acto', $acto);
         $templateprocessor->setValue('costo', "$" . number_format($total_sum, 2));
@@ -292,8 +300,8 @@ class Cotizaciones extends Component
         $templateprocessor->setValue('mes', $month);
         $templateprocessor->setValue('year', $year);
         $templateprocessor->setValue('elaboro', $elaboro);
-        $filename = "Cotización " . $acto . " " . $nombre;
 
+        $filename = "Cotización " . $acto . " " . $nombre;
         $templateprocessor->saveAs("cotizaciones/" . $filename . '.docx');
         return response()->download("cotizaciones/" . $filename . '.docx')->deleteFileAfterSend(true);
     }
