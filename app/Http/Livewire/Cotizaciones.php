@@ -10,6 +10,7 @@ use App\Models\Cotizaciones as ModelsCotizaciones;
 use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -291,13 +292,15 @@ class Cotizaciones extends Component
         $month = date("m", strtotime($cotizacion[0]->cotizacion->created_at));
         $year = date("Y", strtotime($cotizacion[0]->cotizacion->created_at));
 
+        $fecha = Carbon::parse($cotizacion[0]->cotizacion->created_at);
+
         $templateprocessor = new TemplateProcessor($total_isr == 0 ? 'word-template/cotizacion_sin_isr.docx' : 'word-template/cotizacion.docx');
 
         $templateprocessor->setValue('nombre', mb_strtoupper($nombre));
         $templateprocessor->setValue('acto', $acto);
         $templateprocessor->setValue('costo', "$" . number_format($total_sum, 2));
         $templateprocessor->setValue('dia', $day);
-        $templateprocessor->setValue('mes', $month);
+        $templateprocessor->setValue('mes', $fecha->monthName);
         $templateprocessor->setValue('year', $year);
         $templateprocessor->setValue('elaboro', $elaboro);
 
