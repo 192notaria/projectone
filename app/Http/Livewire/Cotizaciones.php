@@ -291,7 +291,7 @@ class Cotizaciones extends Component
         $month = date("m", strtotime($cotizacion[0]->cotizacion->created_at));
         $year = date("Y", strtotime($cotizacion[0]->cotizacion->created_at));
 
-        $templateprocessor = new TemplateProcessor('word-template/cotizacion.docx');
+        $templateprocessor = new TemplateProcessor($total_isr == 0 ? 'word-template/cotizacion_sin_isr.docx' : 'word-template/cotizacion.docx');
 
         $templateprocessor->setValue('nombre', mb_strtoupper($nombre));
         $templateprocessor->setValue('acto', $acto);
@@ -301,7 +301,12 @@ class Cotizaciones extends Component
         $templateprocessor->setValue('year', $year);
         $templateprocessor->setValue('elaboro', $elaboro);
 
+        if($total_isr != 0){
+            $templateprocessor->setValue('isr_cliente', $total_isr);
+        }
+
         $filename = "Cotización " . $acto . " " . $nombre;
+
         $templateprocessor->saveAs("cotizaciones/" . $filename . '.docx');
         return response()->download("cotizaciones/" . $filename . '.docx')->deleteFileAfterSend(true);
     }
