@@ -84,7 +84,7 @@ class ChartsController extends Controller
             $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
             $firestore = $factory->createFirestore();
             $database = $firestore->database();
-            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->take(10)->get();
+            $actos = Proyectos::select('servicio_id', DB::raw('count(*) as cantidad'))->groupBy('servicio_id')->orderBy('cantidad', "DESC")->take(5)->get();
             foreach($actos as $acto){
                 $testRef = $database->collection('piechart')->newDocument();
                 $testRef->set([
