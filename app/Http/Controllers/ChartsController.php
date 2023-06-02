@@ -90,7 +90,7 @@ class ChartsController extends Controller
                 $testRef->set([
                     'id' => $testRef->id(),
                     'cantidad' => $acto->cantidad,
-                    'acto' => $acto->servicio->nombre,
+                    'acto' => $acto->servicio->nombre ?? "Sin nombre",
                 ]);
                 // array_push($values,$acto->cantidad);
                 // array_push($labels,$acto->servicio->nombre);
