@@ -51,19 +51,21 @@
                                         </thead>
                                         <tbody>
                                             @if ($cliente_activo)
-                                            <tr>
                                                 @forelse ($cliente_activo->documentos as $docs)
-                                                    <td>
-                                                        <a href="{{url($docs->path)}}" target="_blank">
-                                                            {{$docs->nombre}}
-                                                        </a>
-                                                    </td>
-                                                    <td>{{$docs->tipo}}</td>
-                                                    <td>{{$docs->created_at}}</td>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="{{url($docs->path)}}" target="_blank">
+                                                                {{$docs->nombre}}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{$docs->tipo}}</td>
+                                                        <td>{{$docs->created_at}}</td>
+                                                    </tr>
                                                 @empty
-                                                    <td colspan="3" class="text-center">Sin registros...</td>
+                                                    <tr>
+                                                        <td colspan="3" class="text-center">Sin registros...</td>
+                                                    </tr>
                                                 @endforelse
-                                            </tr>
                                             @endif
                                         </tbody>
                                     </table>
