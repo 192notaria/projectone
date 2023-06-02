@@ -89,6 +89,7 @@ class ChartsController extends Controller
                 $testRef = $database->collection('piechart')->newDocument();
                 $testRef->set([
                     'id' => $testRef->id(),
+                    'servicio_id' => $acto->id,
                     'cantidad' => $acto->cantidad,
                     'acto' => $acto->servicio->nombre ?? "Sin nombre",
                 ]);
