@@ -1196,6 +1196,7 @@ public function removerParte($id){
         $this->proyecto_activo = [];
         $this->proceso_activo = "";
         $this->tipo_subproceso = '';
+        $this->vista_general = "general";
         return $this->dispatchBrowserEvent('cerrar-modal-procesos-escritura');
     }
 
