@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <button class="btn btn-danger" wire:click='data_delete_collection'>Borrar firestore</button>
+        <button class="btn btn-danger" wire:click='deleteCollection'>Borrar firestore</button>
         <div class="d-flex justify-content-start">
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' type="button" class="btn btn-outline-primary me-2">

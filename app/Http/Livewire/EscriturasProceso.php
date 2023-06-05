@@ -1529,4 +1529,9 @@ public function removerParte($id){
         $this->dispatchBrowserEvent("success-notify", "Documento registrado");
         return $this->dispatchBrowserEvent("cerrar-modal-agregar-documentos");
     }
+
+    public function deleteCollection(){
+        data_delete_collection();
+    }
+
 }
