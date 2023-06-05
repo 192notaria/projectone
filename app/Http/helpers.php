@@ -122,6 +122,20 @@ use Kreait\Firebase\Factory;
         $observacion->save();
     }
 
+    function data_delete_collection(){
+        $factory = (new Factory)->withServiceAccount(__DIR__."/firebase_credentials.json");
+        $firestore = $factory->createFirestore();
+        $database = $firestore->database();
+        $docs = $database->collection("piechart")->documents();
+        while (!$docs->isEmpty()) {
+            foreach ($docs as $document) {
+                // printf('Deleting document %s' . PHP_EOL, $document->id());
+                $document->reference()->delete();
+            }
+            $docs = $database->collection("piechart")->documents();
+        }
+    }
+
     function delete_firebase_project($id){
         $escritura = Proyectos::find($id);
         if($escritura->firebase_key){
