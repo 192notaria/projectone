@@ -1208,7 +1208,6 @@ public function removerParte($id){
         $this->subproceso_activo = [];
         $this->subprocesos_info = [];
 
-
         $this->proceso_activo = $proceso_id;
         $proceso = ProcesosServicios::find($proceso_id);
         $this->subprocesos_data = $proceso->subprocesos;
