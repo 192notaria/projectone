@@ -1197,6 +1197,7 @@ public function removerParte($id){
         $this->proceso_activo = "";
         $this->tipo_subproceso = '';
         $this->vista_general = "general";
+
         return $this->dispatchBrowserEvent('cerrar-modal-procesos-escritura');
     }
 
@@ -1206,6 +1207,7 @@ public function removerParte($id){
         $this->documents_to_upload = [];
         $this->subproceso_activo = [];
         $this->subprocesos_info = [];
+
 
         $this->proceso_activo = $proceso_id;
         $proceso = ProcesosServicios::find($proceso_id);
