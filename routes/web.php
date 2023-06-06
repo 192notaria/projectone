@@ -24,7 +24,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UsuariosController;
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
