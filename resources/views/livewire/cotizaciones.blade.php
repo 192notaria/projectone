@@ -95,8 +95,8 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{$cotizaciones->links('pagination-links')}}
             </div>
+            {{$cotizaciones->links('pagination-links')}}
         </div>
     </div>
     @include("livewire.resources-cotizaciones.modal-crear-cotizacion")
