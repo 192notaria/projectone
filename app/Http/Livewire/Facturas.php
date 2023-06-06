@@ -36,8 +36,10 @@ class Facturas extends Component
     public function render(){
         return view('livewire.facturas',[
             "facturas" => ModelsFacturas::orderBY("created_At", "DESC")
-                ->where(function($q){
-                    $q->whereHas("escritura", "LIKE", "%" . $this->search . "%");
+                ->where(function($query){
+                    $query->whereHas("escritura", function($q){
+                        $q->where("numero_escritura", "LIKE", "%". $this->search ."%");
+                    });
                 })
                 ->paginate($this->cantidadFacturas),
             "buscar_escrituras" => !$this->buscarEscrituraInput ? [] : Proyectos::orderBy("numero_escritura", "ASC")
