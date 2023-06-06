@@ -3,12 +3,12 @@
         <div class="navbar-nav theme-brand flex-row  text-center">
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
-                    <a href="./dashboard">
+                    <a href="{{route("home")}}">
                         <img src="{{ url('v3/src/assets/img/rounded-logo-notaria.svg') }}"  alt="logo">
                     </a>
                 </div>
                 <div class="nav-item theme-text">
-                    <a href="./dashboard" class="nav-link"> Notaria 192 </a>
+                    <a href="{{route("home")}}" class="nav-link"> Notaria 192 </a>
                 </div>
             </div>
             <div class="nav-item sidebar-toggle">
@@ -20,7 +20,7 @@
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu {{Route::currentRouteName() == "home" ? "active" : ""}}  menu-heading">
-                <a href="/dashboard" class="dropdown-toggle">
+                <a href="{{route("home")}}" class="dropdown-toggle">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         <span>Inicio</span>
@@ -40,13 +40,13 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="clientesNav" data-bs-parent="#accordionExample">
                     <li class="{{Route::currentRouteName() == "admin-clientes" ? "active" : ""}}">
-                        <a href="/administracion/clientes"> Clientes </a>
+                        <a href="{{route("admin-clientes")}}"> Clientes </a>
                     </li>
                     <li class="{{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
-                        <a href="/contactos/lista_contactos"> Contactos </a>
+                        <a href="{{route("lista-contactos")}}"> Contactos </a>
                     </li>
                     <li class="{{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}}">
-                        <a href="/usuarios/guardias"> Guardias </a>
+                        <a href="{{route("usuarios.guardias")}}"> Guardias </a>
                     </li>
                 </ul>
             </li>
