@@ -104,6 +104,7 @@
             {{$escrituras->links('pagination-links')}}
         </div>
     </div>
+
     @include("livewire.escrituras-resoruces.procesos_escritura")
     @include("livewire.escrituras-resoruces.modal-registrar-pago")
     @include("livewire.escrituras-resoruces.modal-borrar-proyecto")

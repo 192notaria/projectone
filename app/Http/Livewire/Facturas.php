@@ -31,10 +31,15 @@ class Facturas extends Component
     public $observaciones_input;
     public $pdf_input;
     public $xml_input;
+    public $search;
 
     public function render(){
         return view('livewire.facturas',[
-            "facturas" => ModelsFacturas::orderBY("created_At", "DESC")->paginate($this->cantidadFacturas),
+            "facturas" => ModelsFacturas::orderBY("created_At", "DESC")
+                ->where(function($q){
+                    $q->whereHas("escritura", "LIKE", "%" . $this->search . "%");
+                })
+                ->paginate($this->cantidadFacturas),
             "buscar_escrituras" => !$this->buscarEscrituraInput ? [] : Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("numero_escritura", "LIKE", "%" . $this->buscarEscrituraInput . "%")
                 ->take(10)

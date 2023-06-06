@@ -91,7 +91,7 @@ class ChartsController extends Controller
                     'id' => $testRef->id(),
                     'servicio_id' => $acto->servicio->id,
                     'cantidad' => $acto->cantidad,
-                    'acto' => $acto->servicio->nombre ?? "Sin nombre",
+                    // 'acto' => $acto->servicio->nombre ?? "Sin nombre",
                 ]);
                 // array_push($values,$acto->cantidad);
                 // array_push($labels,$acto->servicio->nombre);
@@ -103,7 +103,7 @@ class ChartsController extends Controller
             $serverKey = 'AAAAQwE2vxw:APA91bEkJ06IORB6GNrtyTdsnLitXE5JDD1VCvovoVWbwgVAojxBcU8G8C0C3WB5C5XIUWye1CvK2hc475VdHGrFqPseOvto8j7LAii7lcocX2zskqXSTihZCCGFB3twSvbWALhLny_q';
 
             $data = [
-                "to" => "B788Z5ZQ8Q",
+                "to" => "d1RRhpI6wEtIjJtzqebZPU:APA91bE9-n6qMdIuLxdA8A-vapQUbUD--N4aLZLc2CHbFA0kARQpFjLSdQIwvE1n_wYKNpHAHlrzCBYONWLujddJimiyUo9gsFwDDBJS0fHgYqw8XKG-IY4xJVI3IPkrrIEajEuHPR0q",
                 // "registration_ids" => ["B788Z5ZQ8Q"],
                 "notification" => [
                     "title" => "Prueba de notificacion",
