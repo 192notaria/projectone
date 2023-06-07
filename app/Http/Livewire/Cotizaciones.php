@@ -381,7 +381,7 @@ class Cotizaciones extends Component
         // $proyecto->numero_escritura = $this->numero_escritura;
         $proyecto->status = 0;
         // $proyecto->volumen = $this->volumen_escritura;
-        $proyecto->total = $this->total_escritura;
+        $proyecto->total = 0;
         $proyecto->save();
 
         foreach ($this->costos_escritura as $value) {
