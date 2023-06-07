@@ -1533,6 +1533,7 @@ public function removerParte($id){
     public function deleteCollection(){
         data_delete_collection();
     }
+
     public $qrData;
     public function abrirQr($id){
         $escritura = Proyectos::find($id);

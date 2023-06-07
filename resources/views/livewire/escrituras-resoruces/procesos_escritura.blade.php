@@ -56,6 +56,11 @@
                                 <button wire:ignore.self class="nav-link" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos-tab-pane" type="button" role="tab" aria-controls="documentos-tab-pane" aria-selected="false">Documentos</button>
                             </li>
                         @endcan
+                        @can('ver-qr')
+                            <li class="nav-item" role="presentation">
+                                <button wire:ignore.self class="nav-link" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr-tab-pane" type="button" role="tab" aria-controls="qr-tab-pane" aria-selected="false">QR</button>
+                            </li>
+                        @endcan
                     </ul>
                 </div>
             </div>
@@ -286,6 +291,9 @@
                         </div>
                         <div wire:ignore.self class="tab-pane fade" id="documentos-tab-pane" role="tabpanel" aria-labelledby="documentos-tab" tabindex="0">
                             @include('livewire.subprocesos-resource.documentos')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="documentos-tab-pane" role="tabpanel" aria-labelledby="qr-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.qr')
                         </div>
                     </div>
                 </div>
