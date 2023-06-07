@@ -1,8 +1,9 @@
 <div class="row gx-3 gy-3">
     <div class="col-lg-12 mb-2 mt-2">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h5>Anticipos</h5>
+                <button class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
