@@ -19,7 +19,7 @@
                             <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
                                 <div class="card bg-primary">
                                     <div class="card-body pt-3">
-                                        <h5 class="card-title mb-3">Costo total <a href="#"><i class="fa-solid fa-pen-to-square"></i></a></h5>
+                                        <h5 class="card-title mb-3">Costo total <a href="#" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a></h5>
                                         <h1 class="text-white">
                                             @if ($escritura_activa)
                                                 ${{number_format($escritura_activa->total, 2)}}
