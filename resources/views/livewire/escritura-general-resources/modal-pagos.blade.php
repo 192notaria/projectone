@@ -183,8 +183,8 @@
                                                 <tr>
                                                     <th>Concepto</th>
                                                     <th>Subtotal</th>
-                                                    <th>Impuestos</th>
                                                     <th>Gestoria</th>
+                                                    <th>Impuestos</th>
                                                     <th>Total</th>
                                                     <th>Observaciones</th>
                                                 </tr>
