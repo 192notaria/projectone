@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row gy-3 gx-3">
     @if ($proyecto_activo)
         <div class="col-lg-6">
             <div class="visible-print text-center">
