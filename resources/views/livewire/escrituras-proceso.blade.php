@@ -118,20 +118,21 @@
     @include("livewire.escrituras-resoruces.modal-registrar-observacion")
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
+    @include("livewire.modals-ignore-self.generar-qr")
 
     <script>
         var mx = 0;
         $(".drag").on({
-        mousemove: function(e) {
-            var mx2 = e.pageX - this.offsetLeft;
-            if(mx) this.scrollLeft = this.sx + mx - mx2;
-        },
+            mousemove: function(e) {
+                var mx2 = e.pageX - this.offsetLeft;
+                if(mx) this.scrollLeft = this.sx + mx - mx2;
+            },
 
-        mousedown: function(e) {
-            this.sx = this.scrollLeft;
-            mx = e.pageX - this.offsetLeft;
-            document.getElementById("my_table").classList.add("active_drag")
-        }
+            mousedown: function(e) {
+                this.sx = this.scrollLeft;
+                mx = e.pageX - this.offsetLeft;
+                document.getElementById("my_table").classList.add("active_drag")
+            }
         });
 
         $(document).on("mouseup", function(){

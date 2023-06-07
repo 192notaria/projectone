@@ -103,13 +103,16 @@ class ChartsController extends Controller
             $serverKey = 'AAAAQwE2vxw:APA91bEkJ06IORB6GNrtyTdsnLitXE5JDD1VCvovoVWbwgVAojxBcU8G8C0C3WB5C5XIUWye1CvK2hc475VdHGrFqPseOvto8j7LAii7lcocX2zskqXSTihZCCGFB3twSvbWALhLny_q';
 
             $data = [
-                "to" => "d1RRhpI6wEtIjJtzqebZPU:APA91bE9-n6qMdIuLxdA8A-vapQUbUD--N4aLZLc2CHbFA0kARQpFjLSdQIwvE1n_wYKNpHAHlrzCBYONWLujddJimiyUo9gsFwDDBJS0fHgYqw8XKG-IY4xJVI3IPkrrIEajEuHPR0q",
+                "to" => "clKq_o9rQULMl4gHpz9H8S:APA91bEmXxmmc8RUzhxC_Nt0gPC44EqRgkr572YNx8yFa9ZP3ZMZNmPuH7sfsVrJCOG07bER3DOyB91Uf-7t9Om65lyp1ZNs9qIHhURDytKcLxoEwNGKvBQ7QFM3HdrBzgaxfaaCmN1V",
                 // "registration_ids" => ["B788Z5ZQ8Q"],
                 "notification" => [
-                    "title" => "Prueba de notificacion",
-                    "body" => "Prueba de notificacion desde Laravel",
+                    "title" => "Recibo de pago registrado",
+                    "body" => "Manuel ha registrado el recibo de pago de la escritura numero 192",
+                    'sound' => "default"
+
                 ]
             ];
+
             $encodedData = json_encode($data);
 
             $headers = [

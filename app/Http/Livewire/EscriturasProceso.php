@@ -1533,5 +1533,9 @@ public function removerParte($id){
     public function deleteCollection(){
         data_delete_collection();
     }
-
+    public $qrData;
+    public function abrirQr($id){
+        $this->qrData = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-generar-qr");
+    }
 }
