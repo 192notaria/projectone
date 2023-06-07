@@ -1535,7 +1535,8 @@ public function removerParte($id){
     }
     public $qrData;
     public function abrirQr($id){
-        $this->qrData = $id;
+        $escritura = Proyectos::find($id);
+        $this->qrData = $escritura->qr ?? "";
         return $this->dispatchBrowserEvent("abrir-modal-generar-qr");
     }
 }
