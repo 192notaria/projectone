@@ -156,10 +156,6 @@
                 @can('borrar-proyectos')
                     <button wire:click='open_modal_borrar({{$escritura->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                 @endcan
-                @can('abrir-qr')
-                    <button class="btn-outline-danger" wire:click='abrirQr({{$escritura->id}})'>QR</button>
-                @endcan
-
             </div>
         </div>
     </td>
