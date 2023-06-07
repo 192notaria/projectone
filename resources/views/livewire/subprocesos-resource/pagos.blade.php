@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5>Anticipos</h5>
-                <button class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-outline-primary" wire:click='abrirModalPagos'><i class="fa-solid fa-plus"></i></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

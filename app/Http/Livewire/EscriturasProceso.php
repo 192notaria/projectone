@@ -447,8 +447,7 @@ public function removerParte($id){
         return $this->dispatchBrowserEvent('open-side-box');
     }
 
-    public function abrirModalPagos($monto){
-        $this->monto_cobro = $monto;
+    public function abrirModalPagos(){
         return $this->dispatchBrowserEvent('abrir-modal-registrar-pagos');
     }
 
