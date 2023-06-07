@@ -388,8 +388,9 @@ class Cotizaciones extends Component
             $costo = new CotizacionProyecto;
             $costo->concepto_id = $value->concepto_id;
             $costo->subtotal = $value->subtotal;
-            $costo->gestoria = $value->gestoria;
             $costo->impuestos = $value->impuesto;
+            $costo->gestoria = $value->gestoria;
+            $costo->observaciones = $value->observaciones;
             $costo->proyecto_id = $proyecto->id;
             $costo->save();
         }

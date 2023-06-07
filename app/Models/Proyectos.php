@@ -161,4 +161,8 @@ class Proyectos extends Model
             ->first();
         return $omitido;
     }
+
+    public function costos_cotizacion(){
+        return $this->hasMany(CotizacionProyecto::class, "proyecto_id");
+    }
 }
