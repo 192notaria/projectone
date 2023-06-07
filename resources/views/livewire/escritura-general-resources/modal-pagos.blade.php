@@ -254,6 +254,7 @@
                                                 <tr>
                                                     <th>Fecha</th>
                                                     <th>Recibido de:</th>
+                                                    <th>Recibio</th>
                                                     <th>Monto</th>
                                                     <th>Metodo de pago</th>
                                                     <th>Cuenta</th>
@@ -268,6 +269,7 @@
                                                         <tr>
                                                             <td>{{$pago->fecha}}</td>
                                                             <td>{{$pago->cliente ?? $escritura_activa->cliente->nombre . " " . $escritura_activa->cliente->apaterno}}</td>
+                                                            <td>{{$pago->usuario->name}} {{$pago->usuario->apaterno}}</td>
                                                             <td>${{number_format($pago->monto, 2)}}</td>
                                                             <td>{{$pago->metodo_pago->nombre}}</td>
                                                             <td>{{$pago->cuenta->numero_cuenta ?? "N/A"}}</td>
