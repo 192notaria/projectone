@@ -3,10 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5>Anticipos</h5>
-                <button wire:loading.remove class="btn btn-outline-primary" wire:click='abrirModalPagos'><i class="fa-solid fa-plus"></i></button>
-                <div wire:loading class="d-flex justify-content-between mx-5 mt-3 mb-5">
-                    <div class="spinner-border text-success align-self-center ">Loading...</div>
-                </div>
+                <button wire:loading.attr="disabled" class="btn btn-outline-primary" wire:click='abrirModalPagos'><i class="fa-solid fa-plus"></i></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
