@@ -19,6 +19,19 @@
                             <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
                                 <div class="card bg-primary">
                                     <div class="card-body pt-3">
+                                        <h5 class="card-title mb-3">Cotización</h5>
+                                        <h1 class="text-white">
+                                            @if ($escritura_activa)
+                                                ${{number_format($escritura_activa->costo_total_cotizacion($escritura_activa->id), 2)}}
+                                            @endif
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-6  mb-4">
+                                <div class="card bg-primary">
+                                    <div class="card-body pt-3">
                                         <h5 class="card-title mb-3">Costo total <a wire:click='abrir_modal_registrar_total({{$escritura_activa->id}})' href="#" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a></h5>
                                         <h1 class="text-white">
                                             @if ($escritura_activa)

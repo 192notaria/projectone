@@ -121,6 +121,18 @@ class Proyectos extends Model
         return $total;
     }
 
+    public function costo_total_cotizacion($id){
+        $total = 0;
+        $costos =  CotizacionProyecto::where("proyecto_id", $id)->get();
+        foreach ($costos as $key => $value) {
+            $subtotal = $value->subtotal;
+            $gestoria = $value->gestoria;
+            $impuesto = $value->subtotal * $value->impuestos / 100;
+            $total = $total + $subtotal + $gestoria + $impuesto;
+        }
+        return $total;
+    }
+
     public function pagos_recibidos_total($id){
         $total = 0;
         $costos =  Cobros::where("proyecto_id", $id)->get();
