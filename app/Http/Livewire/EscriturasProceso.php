@@ -458,35 +458,16 @@ public function removerParte($id){
             "metodo_pago_id" => "required",
         ]);
 
-        $monto_pago = $this->total_pago + $this->total_impuestos;
-
-        if($monto_pago > $this->monto_cobro){
-            return $this->addError('monto-no-valido', 'El monto del pago no debe ser mayor de $' . number_format($this->monto_cobro, 2));
-        }
-
         $nuevo_cobro = new Cobros;
         $nuevo_cobro->fecha = $this->fecha_cobro;
-        $nuevo_cobro->cliente = $this->nombre_cliente_cobro;
+        $nuevo_cobro->cliente = $this->nombre_cliente_cobro == '' ? null : $this->nombre_cliente_cobro;
         $nuevo_cobro->monto = $this->monto_cobro;
         $nuevo_cobro->metodo_pago_id = $this->metodo_pago_id;
-        // $nuevo_cobro->factura_id = $this->factura_id;
         $nuevo_cobro->cuenta_id = $this->cuenta_id == '' ? null : $this->cuenta_id;
         $nuevo_cobro->proyecto_id = $this->proyecto_activo['id'];
         $nuevo_cobro->observaciones = $this->observaciones_cobro;
-        $nuevo_cobro->usuario_id = auth()->user()->id;
+        $nuevo_cobro->usuario_id = Auth::user()->id;
         $nuevo_cobro->save();
-
-        foreach ($this->pagos_checkbox as $key => $value) {
-            if($value){
-                $costo = Costos::find($key);
-                $impuesto = $value * $costo->impuestos / 100;
-                $new_costo_cobrado = new CostosCobrados;
-                $new_costo_cobrado->monto = $value + $impuesto;
-                $new_costo_cobrado->costo_id = $key;
-                $new_costo_cobrado->cobro_id = $nuevo_cobro->id;
-                $new_costo_cobrado->save();
-            }
-        }
 
         $this->pagos_checkbox = [];
         $this->fecha_cobro = '';
