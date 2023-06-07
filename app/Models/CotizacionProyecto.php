@@ -12,4 +12,8 @@ class CotizacionProyecto extends Model
     public function proyecto(){
         return $this->belongsTo(Proyectos::class, "proyecto_id");
     }
+
+    public function concepto_pago(){
+        return $this->belongsTo(Catalogos_conceptos_pago::class, "concepto_id");
+    }
 }

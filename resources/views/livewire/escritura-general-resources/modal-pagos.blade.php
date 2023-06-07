@@ -159,6 +159,66 @@
                         </div>
                     @endcan
 
+                    @can("ver-cotizacion")
+                        <div class="col-lg-12 col-md-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <h4>Cotización</h4>
+                                                {{-- @can("crear-costo")
+                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>
+                                                        <i class="fa-solid fa-plus"></i> Registrar costo
+                                                    </button>
+                                                @endcan --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mb-4">
+                                            <thead>
+                                                <tr>
+                                                    <th>Concepto</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Impuestos</th>
+                                                    <th>Gestoria</th>
+                                                    <th>Total</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($escritura_activa)
+                                                    @forelse ($escritura_activa->costos_cotizacion as $costo)
+                                                        <tr>
+                                                            <td>{{$costo->concepto_pago->descripcion}}</td>
+                                                            <td class="text-center">${{number_format($costo->subtotal, 2)}}</td>
+                                                            <td class="text-center">${{number_format($costo->gestoria, 2)}}</td>
+                                                            <td class="text-center">
+                                                                ${{number_format($costo->subtotal * $costo->impuestos / 100, 2)}}
+                                                                <span class="text-primary">({{$costo->impuestos}}%)</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                ${{number_format($costo->subtotal + $costo->gestoria + $costo->subtotal * $costo->impuestos / 100, 2)}}
+                                                            </td>
+                                                            <td>{{$costo->observaciones ?? "Sin observaciones"}}</td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td>Sin registros...</td>
+                                                        </tr>
+                                                    @endforelse
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
                     @can("ver-anticipos")
                         <div class="col-lg-12 col-md-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
