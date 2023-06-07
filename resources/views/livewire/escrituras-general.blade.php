@@ -169,11 +169,11 @@
                                 @endcan
 
                                 <td>
-                                    @can("editar-costo-total")
+                                    {{-- @can("editar-costo-total")
                                         <button class="btn btn-primary" wire:click='abrir_modal_registrar_total({{$escritura->id}})'>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                                    @endcan
+                                    @endcan --}}
                                     @can("ver-detalles-pagos")
                                         <button class="btn btn-success" wire:click='open_modal({{$escritura->id}})'>
                                             <i class="fa-solid fa-magnifying-glass-dollar"></i>
