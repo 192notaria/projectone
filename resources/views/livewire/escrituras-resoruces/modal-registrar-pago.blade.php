@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='registrarPago' class="btn btn-outline-success">Guardar</button>
+                <button wire:loading.attr="disabled" wire:click='registrarPago' class="btn btn-outline-success">Guardar</button>
                 <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>

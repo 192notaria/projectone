@@ -7,6 +7,7 @@ use App\Models\Clientes;
 use App\Models\Costos;
 use App\Models\CostosCotizaciones;
 use App\Models\Cotizaciones as ModelsCotizaciones;
+use App\Models\CotizacionProyecto;
 use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\User;
@@ -384,7 +385,7 @@ class Cotizaciones extends Component
         $proyecto->save();
 
         foreach ($this->costos_escritura as $value) {
-            $costo = new Costos;
+            $costo = new CotizacionProyecto;
             $costo->concepto_id = $value->concepto_id;
             $costo->subtotal = $value->subtotal;
             $costo->gestoria = $value->gestoria;
