@@ -121,7 +121,6 @@
 
     <script>
         var mx = 0;
-
         $(".drag").on({
         mousemove: function(e) {
             var mx2 = e.pageX - this.offsetLeft;
