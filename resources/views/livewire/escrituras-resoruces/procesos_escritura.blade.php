@@ -21,9 +21,9 @@
                                 <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
                             </li>
                         @endcan
-                        @can('ver-pagos-proyecto')
+                        @can('ver-anticipos-proyecto')
                             <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Pagos</button>
+                                <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Anticipos</button>
                             </li>
                         @endcan
                         @can('ver-facturas-proyecto')
