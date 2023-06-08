@@ -1210,7 +1210,7 @@ public function removerParte($id){
         $pago = Cobros::find($id);
         // $fecha_escrita = Carbon::parse($pago->fecha)->isoFormat('dddd D \d\e MMMM \d\e\l Y \a \l\a\s h:m A');
         $fecha_escrita = Carbon::parse($pago->fecha)->isoFormat('dddd D \d\e MMMM');
-        $cliente = $pago->proyecto->cliente->nombre . " " . $pago->proyecto->cliente->apaterno . " " . $pago->proyecto->cliente->amaterno;
+        $cliente = $pago->cliente == '' ? $pago->proyecto->cliente->nombre . " " . $pago->proyecto->cliente->apaterno . " " . $pago->proyecto->cliente->amaterno : $pago->cliente;
         $cantidad = number_format($pago->monto, 2);
         $cantidad_escrita = new NumeroALetras();
         $cantidad_esc = $cantidad_escrita->toWords($pago->monto);
@@ -1238,6 +1238,7 @@ public function removerParte($id){
         $templateprocessor->setValue('mes_escrito', $mes_escrito);
         $templateprocessor->setValue('year', $year);
         $templateprocessor->setValue('year_escrito', $year_escrito);
+        $templateprocessor->setValue('usuario_receptor', Auth::user()->name . " " . Auth::user()->apaterno . " " . Auth::user()->amaterno);
 
         $filename = "Recibo de pago " . $cliente;
         $templateprocessor->saveAs($filename . '.docx');

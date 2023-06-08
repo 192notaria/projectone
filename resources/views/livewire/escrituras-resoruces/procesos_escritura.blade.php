@@ -293,7 +293,7 @@
                             @include('livewire.subprocesos-resource.documentos')
                         </div>
                         <div wire:ignore.self class="tab-pane fade" id="qr-tab-pane" role="tabpanel" aria-labelledby="qr-tab" tabindex="0">
-                            @include('livewire.subprocesos-resource.qr')
+                            {{-- @include('livewire.subprocesos-resource.qr') --}}
                         </div>
                     </div>
                 </div>

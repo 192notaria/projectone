@@ -10,12 +10,13 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Recibo de pago</th>
                                 <th>Fecha</th>
                                 <th>Recibido de</th>
+                                <th>Recibio</th>
                                 <th>Monto</th>
                                 <th>Metodo de pago</th>
                                 <th>Cuenta</th>
-                                <th>Usuario</th>
                                 <th>Observaciones</th>
                             </tr>
                         </thead>
@@ -23,12 +24,15 @@
                             @if ($proyecto_activo)
                                 @forelse ($proyecto_activo->pagos_recibidos as $pago)
                                     <tr>
+                                        <td class="text-center">
+                                            <button wire:click='crear_recibo({{$pago->id}})' class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-file-invoice-dollar"></i></button>
+                                        </td>
                                         <td>{{$pago->fecha}}</td>
-                                        <td>{{$pago->cliente}}</td>
+                                        <td>{{$pago->cliente ?? $pago->proyecto->cliente->nombre . " " . $pago->proyecto->cliente->apaterno}}</td>
+                                        <td>{{$pago->usuario->name}} {{$pago->usuario->apaterno}}</td>
                                         <td>{{$pago->monto}}</td>
-                                        <td>{{$pago->metodo_pago_id}}</td>
-                                        <td>{{$pago->cuenta_id}}</td>
-                                        <td>{{$pago->usuario_id}}</td>
+                                        <td>{{$pago->metodo_pago->nombre}}</td>
+                                        <td>{{isset($pago->cuenta->banco->nombre) ? $pago->cuenta->banco->nombre : "N/A"}}</td>
                                         <td>{{$pago->observaciones}}</td>
                                     </tr>
                                 @empty

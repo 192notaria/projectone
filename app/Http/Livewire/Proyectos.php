@@ -32,8 +32,6 @@ use Livewire\WithFileUploads;
 use NumberFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Kreait\Firebase\Contract\Database;
-use Kreait\Firebase\Contract;
-use Kreait\Firebase\Factory;
 use Livewire\WithPagination;
 
 class Proyectos extends Component
