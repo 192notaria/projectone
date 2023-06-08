@@ -127,7 +127,6 @@ class EscriturasProceso extends Component
                     ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
                     ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
                 })
-                ->take(3)
                 ->paginate($this->cantidad_escrituras ),
             "generales" => Generales::where("proyecto_id", $this->proyecto_id)
                 ->where('tipo_id', $this->subprocesos_info->id ?? 0)
