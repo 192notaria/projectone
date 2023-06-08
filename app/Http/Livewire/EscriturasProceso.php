@@ -1165,6 +1165,7 @@ public function removerParte($id){
         $this->subproceso_activo = Subprocesos::find($this->subprocesos_data[0]->id);
         $this->subprocesos_info = SubprocesosCatalogos::find($this->subproceso_activo->catalogosSubprocesos->id);
         $this->tipo_subproceso = $this->subprocesos_info->tipo_id;
+        return $this->dispatchBrowserEvent("abrir-modal-procesos-escritura");
     }
 
     public function closeProcesos(){
