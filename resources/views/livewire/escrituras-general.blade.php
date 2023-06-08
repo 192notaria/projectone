@@ -175,7 +175,7 @@
                                         </button>
                                     @endcan --}}
                                     @can("ver-detalles-pagos")
-                                        <button class="btn btn-success" wire:click='open_modal({{$escritura->id}})'>
+                                        <button wire:loading.attr="disabled" class="btn btn-success" wire:click='open_modal({{$escritura->id}})'>
                                             <i class="fa-solid fa-magnifying-glass-dollar"></i>
                                         </button>
                                     @endcan
