@@ -118,7 +118,7 @@
     @include("livewire.escrituras-resoruces.modal-registrar-observacion")
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
-    @include("livewire.modals-ignore-self.generar-qr")
+    {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
 
     <script>
         var mx = 0;
