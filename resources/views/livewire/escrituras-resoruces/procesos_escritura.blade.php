@@ -211,7 +211,7 @@
                                                         @if ($tipo_subproceso == 3)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.autorizacion-catastro')
@@ -219,7 +219,7 @@
                                                         @if ($tipo_subproceso == 5)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.agendar-firma')
@@ -227,7 +227,7 @@
                                                         @if ($tipo_subproceso == 6)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.documentos-subprocesos')
@@ -235,7 +235,7 @@
                                                         @if ($tipo_subproceso == 8)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.registrar-firma')
@@ -243,7 +243,7 @@
                                                         @if ($tipo_subproceso == 10)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.recibos-pago')
@@ -251,7 +251,7 @@
                                                         @if ($tipo_subproceso == 19)
                                                             @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
                                                                 @can("omitir-subproceso")
-                                                                    <button wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+                                                                    <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
                                                                 @endcan
                                                             @endif
                                                             @include('livewire.subprocesos-resource.varios-generales')
