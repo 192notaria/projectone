@@ -26,6 +26,12 @@
                                     <tr>
                                         <td class="text-center">
                                             <button wire:click='crear_recibo({{$pago->id}})' class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-file-invoice-dollar"></i></button>
+                                            @if ($pago->path)
+                                                <a href="{{url($pago->path)}}" target="_blank" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                                            @endif
+                                            @if (!$pago->path)
+                                                <button wire:click='abrir_modal_importar_recibo({{$pago->id}})' class="btn btn-outline-danger"><i class="fa-solid fa-file-import"></i></button>
+                                            @endif
                                         </td>
                                         <td>{{$pago->fecha}}</td>
                                         <td>{{$pago->cliente ?? $pago->proyecto->cliente->nombre . " " . $pago->proyecto->cliente->apaterno}}</td>

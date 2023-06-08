@@ -1248,6 +1248,7 @@ public function removerParte($id){
 
     public $check_cliente = true;
     public $nombre_quien_recibe;
+
     public function crear_recibo_entrega(){
         if(!$this->check_cliente){
             $this->validate([
@@ -1521,5 +1522,33 @@ public function removerParte($id){
         $escritura = Proyectos::find($id);
         $this->qrData = $escritura->qr ?? "";
         return $this->dispatchBrowserEvent("abrir-modal-generar-qr");
+    }
+
+    public $anticipo_id;
+    public $recibo_pdf;
+    public function abrir_modal_importar_recibo($id){
+        $this->anticipo_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-importar-recibo-pago");
+    }
+
+    public function importar_recibo_pago(){
+        $this->validate([
+            "recibo_pdf" => "required|mimes:pdf"
+        ],[
+            "recibo_pdf.required" => "Es necesario el recibo de pago",
+            "recibo_pdf.mimes" => "El recibo de pago debe ser en formato PDF",
+        ]);
+
+        $cobro = Cobros::find($this->anticipo_id);
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $this->proyecto_activo['cliente']['nombre']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['apaterno']) . "_" . str_replace(" ", "_", $this->proyecto_activo['cliente']['amaterno']) . "/documentos/recibos_de_pago";
+        $store = $this->recibo_pdf->storeAs(mb_strtolower($path), "Recibo_de_pago_" . time() . "." . $this->recibo_pdf->extension(), 'public');
+        $cobro->path = "storage/" . $store;
+        $cobro->save();
+
+        $this->anticipo_id = '';
+        $this->recibo_pdf = '';
+
+        $this->dispatchBrowserEvent("success-notify", "Se registro el recibo de pago con exito");
+        return $this->dispatchBrowserEvent("cerrar-modal-importar-recibo-pago");
     }
 }

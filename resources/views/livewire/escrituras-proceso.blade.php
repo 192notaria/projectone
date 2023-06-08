@@ -118,6 +118,7 @@
     @include("livewire.escrituras-resoruces.modal-registrar-observacion")
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
+    @include("livewire.escrituras-resoruces.modal-importar-recibo-pago")
     {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
 
     <script>
