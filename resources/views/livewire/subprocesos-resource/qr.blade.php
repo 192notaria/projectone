@@ -3,7 +3,7 @@
         <div class="col-lg-3">
             <div class="visible-print text-center">
                 {{-- <img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!'), 'QrCode.png', 'image/png'!!}"> --}}
-                <img style="width: 200px; height: 200px;" src="data:image/png;base64, {!! base64_encode(QrCode::size(400)->format('png')->merge(url("v3/src/assets/img/192logocoloreado.png"), .4, true)->size(300)->style('round')->generate($proyecto_activo->qr)) !!} ">
+                <img style="width: 200px; height: 200px;" src="data:image/png;base64, {!! base64_encode(QrCode::size(400)->format('png')->merge(url("v3/src/assets/img/192logocoloreado.png"), .6, true)->size(300)->style('round')->generate($proyecto_activo->qr)) !!} ">
             </div>
         </div>
         <div class="col-lg-3">
