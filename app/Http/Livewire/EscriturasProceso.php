@@ -1566,9 +1566,9 @@ public function removerParte($id){
 
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
         $templateprocessor->setValue('num_esc', $proyecto->numero_escritura ?? "S/N");
-        $templateprocessor->setValue('num_esc_letra', $proyecto->numero_escritura ? "Sin número" : $escritura_letra);
+        $templateprocessor->setValue('num_esc_letra', !$proyecto->numero_escritura ? "Sin número" : $escritura_letra);
         $templateprocessor->setValue('volumen', $proyecto->volumen ?? "S/V");
-        $templateprocessor->setValue('volumen_letra', $proyecto->volumen ? "Sin volumen" : $volumen_letra);
+        $templateprocessor->setValue('volumen_letra', !$proyecto->volumen ? "Sin volumen" : $volumen_letra);
         $templateprocessor->setValue('folio_inicio', $proyecto->folio_inicio ?? "S/F");
         $templateprocessor->setValue('folio_fin', $proyecto->folio_fin ?? "S/F");
         $templateprocessor->setValue('hora', date("H", time()));
