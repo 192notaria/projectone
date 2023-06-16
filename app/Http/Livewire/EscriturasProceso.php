@@ -1594,7 +1594,7 @@ public function removerParte($id){
         $templateprocessor->setValue('dia_letra', $dia_escrito);
         $templateprocessor->setValue('mes_letra', $mes_escrito);
         $templateprocessor->setValue('year', date("Y", time()));
-        $templateprocessor->setValue('year_letra', $year_letra);
+        $templateprocessor->setValue('year_letra', mb_strtolower($year_letra));
 
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');
