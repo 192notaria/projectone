@@ -1576,10 +1576,10 @@ public function removerParte($id){
         $escritura_letra = $numero_letras->toWords($proyecto->numero_escritura);
         $volumen_letra = $numero_letras->toWords($proyecto->volumen);
         $hora_letra = $numero_letras->toWords(date("H", time()));
+        $year_letra = $numero_letras->toWords(date("Y", time()));
 
         $dia_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('dddd');
         $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
-        $year_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('Y');
 
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
         $templateprocessor->setValue('num_esc', $proyecto->numero_escritura);
@@ -1594,7 +1594,7 @@ public function removerParte($id){
         $templateprocessor->setValue('dia_letra', $dia_escrito);
         $templateprocessor->setValue('mes_letra', $mes_escrito);
         $templateprocessor->setValue('year', date("Y", time()));
-        $templateprocessor->setValue('year_letra', $year_escrito);
+        $templateprocessor->setValue('year_letra', $year_letra);
 
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');
