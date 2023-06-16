@@ -10,8 +10,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center" colspan="3">Sin registros</td>
+                    <td>Compraventas</td>
+                    <td>Compraventa de casa</td>
+                    <td><button class="btn btn-primary" wire:click='plantilla'>Descargar</button></td>
                 </tr>
+                {{-- <tr>
+                    <td class="text-center" colspan="3">Sin registros</td>
+                </tr> --}}
             </tbody>
         </table>
     </div>
