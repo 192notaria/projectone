@@ -4,12 +4,16 @@
     <div class="col-lg-12 table-responsive">
         <table class="table table-responsive">
             <thead>
-                <tr>Nombre</tr>
-                <tr>Descripcion</tr>
-                <tr>Descargar</tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Descargar</th>
+                </tr>
             </thead>
             <tbody>
-                <td class="text-center" colspan="3">Sin registros</td>
+                <tr>
+                    <td class="text-center" colspan="3">Sin registros</td>
+                </tr>
             </tbody>
         </table>
     </div>
