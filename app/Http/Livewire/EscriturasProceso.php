@@ -1553,7 +1553,7 @@ public function removerParte($id){
     }
 
     public function plantilla(){
-        $proyecto = Proyectos::find($this->proyect);
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
         if(!$proyecto->numero_escritura){
             return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el número de escritura para generar la plantilla");
