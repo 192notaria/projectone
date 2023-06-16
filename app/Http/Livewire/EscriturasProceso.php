@@ -1555,6 +1555,11 @@ public function removerParte($id){
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
+        dd($proyecto->servicio->partes);
+        // if(!isset()){
+        //     return $this->dispatchBrowserEvent("danger-notify", "Es necesario el comprador");
+        // }
+
         $numero_letras = new NumeroALetras();
         $escritura_letra = $numero_letras->toWords($proyecto->numero_escritura);
         $volumen_letra = $numero_letras->toWords($proyecto->volumen);
