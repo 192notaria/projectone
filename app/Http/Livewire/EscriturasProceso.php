@@ -1552,23 +1552,52 @@ public function removerParte($id){
         return $this->dispatchBrowserEvent("cerrar-modal-importar-recibo-pago");
     }
 
-    // public function plantilla(){
-    //     $templateprocessor = new TemplateProcessor('word-template/recibo_pago.docx');
-    //     $templateprocessor->setValue('fecha_escrita', $fecha_escrita);
-    //     $templateprocessor->setValue('nombre', $cliente);
-    //     $templateprocessor->setValue('acto', $acto);
-    //     $templateprocessor->setValue('cantidad', $cantidad);
-    //     $templateprocessor->setValue('cantidad_escrita', $cantidad_esc);
-    //     $templateprocessor->setValue('dia', $dia);
-    //     $templateprocessor->setValue('dia_escrito', $dia_escrito);
-    //     $templateprocessor->setValue('mes', $mes);
-    //     $templateprocessor->setValue('mes_escrito', $mes_escrito);
-    //     $templateprocessor->setValue('year', $year);
-    //     $templateprocessor->setValue('year_escrito', $year_escrito);
-    //     $templateprocessor->setValue('usuario_receptor', Auth::user()->name . " " . Auth::user()->apaterno . " " . Auth::user()->amaterno);
+    public function plantilla(){
+        $proyecto = Proyectos::find($this->proyect);
 
-    //     $filename = "Recibo de pago " . $cliente;
-    //     $templateprocessor->saveAs($filename . '.docx');
-    //     return response()->download($filename . ".docx")->deleteFileAfterSend(true);
-    // }
+        if(!$proyecto->numero_escritura){
+            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el número de escritura para generar la plantilla");
+        }
+
+        if(!$proyecto->volumen){
+            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el volumen de la escritura para generar la plantilla");
+        }
+
+        if(!$proyecto->folio_inicio){
+            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el folio inicial de la escritura para generar la plantilla");
+        }
+
+        if(!$proyecto->folio_fin){
+            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el folio final de la escritura para generar la plantilla");
+        }
+
+
+        $numero_letras = new NumeroALetras();
+        $escritura_letra = $numero_letras->toWords($proyecto->numero_escritura);
+        $volumen_letra = $numero_letras->toWords($proyecto->volumen);
+        $hora_letra = $numero_letras->toWords(date("H", time()));
+
+        $dia_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('dddd');
+        $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
+        $year_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('YYYY');
+
+        $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
+        $templateprocessor->setValue('num_esc', $proyecto->numero_escritura);
+        $templateprocessor->setValue('num_esc_letra', $escritura_letra);
+        $templateprocessor->setValue('volumen', $proyecto->volumen);
+        $templateprocessor->setValue('volumen_letra', $volumen_letra);
+        $templateprocessor->setValue('folio_inicio', $proyecto->folio_inicio);
+        $templateprocessor->setValue('folio_fin', $proyecto->folio_fin);
+        $templateprocessor->setValue('hora', date("H", time()));
+        $templateprocessor->setValue('hora_letra', $hora_letra);
+        $templateprocessor->setValue('dia', date("d", time()));
+        $templateprocessor->setValue('dia_letra', $dia_escrito);
+        $templateprocessor->setValue('mes_letra', $mes_escrito);
+        $templateprocessor->setValue('year', date("Y", time()));
+        $templateprocessor->setValue('year_letra', $year_escrito);
+
+        $filename = "Compraventa plantilla";
+        $templateprocessor->saveAs($filename . '.docx');
+        return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+    }
 }
