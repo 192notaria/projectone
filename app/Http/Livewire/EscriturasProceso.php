@@ -1579,7 +1579,7 @@ public function removerParte($id){
 
         $dia_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('dddd');
         $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
-        $year_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('YYYY');
+        $year_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('Y');
 
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
         $templateprocessor->setValue('num_esc', $proyecto->numero_escritura);
