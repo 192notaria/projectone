@@ -82,10 +82,10 @@
 
 @if ($nuevoCliente)
     <div class="col-lg-12">
-        <button wire:click='cambiarRegistroCliente(0)' class="btn btn-danger">
+        <button wire:click='cambiarRegistroCliente(0)' class="btn btn-danger" wire:loading.attr='disabled'>
             <i class="fa-solid fa-chevron-left"></i> Cancelar Registro
         </button>
-        <button wire:click='guardarCliente' class="btn btn-success">
+        <button wire:click='guardarCliente' class="btn btn-success" wire:loading.attr='disabled'>
             <i class="fa-solid fa-floppy-disk"></i> Guardar Cliente
         </button>
     </div>

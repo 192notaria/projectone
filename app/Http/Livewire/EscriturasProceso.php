@@ -1551,4 +1551,24 @@ public function removerParte($id){
         $this->dispatchBrowserEvent("success-notify", "Se registro el recibo de pago con exito");
         return $this->dispatchBrowserEvent("cerrar-modal-importar-recibo-pago");
     }
+
+    // public function plantilla(){
+    //     $templateprocessor = new TemplateProcessor('word-template/recibo_pago.docx');
+    //     $templateprocessor->setValue('fecha_escrita', $fecha_escrita);
+    //     $templateprocessor->setValue('nombre', $cliente);
+    //     $templateprocessor->setValue('acto', $acto);
+    //     $templateprocessor->setValue('cantidad', $cantidad);
+    //     $templateprocessor->setValue('cantidad_escrita', $cantidad_esc);
+    //     $templateprocessor->setValue('dia', $dia);
+    //     $templateprocessor->setValue('dia_escrito', $dia_escrito);
+    //     $templateprocessor->setValue('mes', $mes);
+    //     $templateprocessor->setValue('mes_escrito', $mes_escrito);
+    //     $templateprocessor->setValue('year', $year);
+    //     $templateprocessor->setValue('year_escrito', $year_escrito);
+    //     $templateprocessor->setValue('usuario_receptor', Auth::user()->name . " " . Auth::user()->apaterno . " " . Auth::user()->amaterno);
+
+    //     $filename = "Recibo de pago " . $cliente;
+    //     $templateprocessor->saveAs($filename . '.docx');
+    //     return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+    // }
 }
