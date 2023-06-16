@@ -1555,23 +1555,6 @@ public function removerParte($id){
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
-        if(!$proyecto->numero_escritura){
-            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el número de escritura para generar la plantilla");
-        }
-
-        if(!$proyecto->volumen){
-            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el volumen de la escritura para generar la plantilla");
-        }
-
-        if(!$proyecto->folio_inicio){
-            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el folio inicial de la escritura para generar la plantilla");
-        }
-
-        if(!$proyecto->folio_fin){
-            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el folio final de la escritura para generar la plantilla");
-        }
-
-
         $numero_letras = new NumeroALetras();
         $escritura_letra = $numero_letras->toWords($proyecto->numero_escritura);
         $volumen_letra = $numero_letras->toWords($proyecto->volumen);
