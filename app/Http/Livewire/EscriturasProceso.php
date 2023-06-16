@@ -1582,12 +1582,12 @@ public function removerParte($id){
         $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
 
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
-        $templateprocessor->setValue('num_esc', $proyecto->numero_escritura);
-        $templateprocessor->setValue('num_esc_letra', $escritura_letra);
-        $templateprocessor->setValue('volumen', $proyecto->volumen);
-        $templateprocessor->setValue('volumen_letra', $volumen_letra);
-        $templateprocessor->setValue('folio_inicio', $proyecto->folio_inicio);
-        $templateprocessor->setValue('folio_fin', $proyecto->folio_fin);
+        $templateprocessor->setValue('num_esc', $proyecto->numero_escritura ?? "S/N");
+        $templateprocessor->setValue('num_esc_letra', $proyecto->numero_escritura ? "Sin número" : $escritura_letra);
+        $templateprocessor->setValue('volumen', $proyecto->volumen ?? "S/V");
+        $templateprocessor->setValue('volumen_letra', $proyecto->volumen ? "Sin volumen" : $volumen_letra);
+        $templateprocessor->setValue('folio_inicio', $proyecto->folio_inicio ?? "S/F");
+        $templateprocessor->setValue('folio_fin', $proyecto->folio_fin ?? "S/F");
         $templateprocessor->setValue('hora', date("H", time()));
         $templateprocessor->setValue('hora_letra', $hora_letra);
         $templateprocessor->setValue('dia', date("d", time()));
