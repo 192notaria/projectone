@@ -1562,7 +1562,6 @@ public function removerParte($id){
         $vendedor = "SIN VENDEDOR";
         $comprador = "SIN COMPRADOR";
         foreach($proyecto->partes as $parte){
-            dd($parte);
             if($parte->tipo == "COMPRADOR"){
                 $comprador = $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
             }
