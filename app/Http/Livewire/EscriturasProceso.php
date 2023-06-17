@@ -1556,7 +1556,7 @@ public function removerParte($id){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
         if(!isset($proyecto->partes->tipo)){
-            return $this->dispatchBrowserEvent("danger-notify", "Es necesario el asignar las partes del acto");
+            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
         }
 
         foreach($proyecto->servicio->partes as $partes_acto){
