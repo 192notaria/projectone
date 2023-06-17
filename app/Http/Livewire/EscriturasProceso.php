@@ -1560,10 +1560,54 @@ public function removerParte($id){
         }
 
         $vendedor = "SIN VENDEDOR";
+        $nacionalidad_v = "SIN NACIONALIDAD";
+        $mayor_edad_v = "mayor de edad";
+        $estado_civil_v = "sin estado civil";
+        $ocupacion_v = "sin ocupacion";
+        $originario_de_v = "sin origen";
+        $originario_de_v = "sin origen";
+        $dia_nac_v = "S/N";
+        $dia_nac_letra_v = "Sin dia de nacimiento";
+        $mes_nacimiento_v = "S/M";
+        $mes_nacimiento_letra_v = "Sin mes de nacimiento";
+        $year_nacimiento_v = "S/A";
+        $year_nacimiento_letra_v = "Sin año de nacimiento";
+        $calle_dom_v = "Sin calle";
+        $num_dom_v = "S/N";
+        $num_dom_letra_v = "Sin numero";
+        $colonia_dom_v = "Sin colonia";
+        $cp_dom_v = "Sin codigo postal";
+        $rfc_v = "Sin rfc";
+        $curp_v = "Sin curp";
+
         $comprador = "SIN COMPRADOR";
+        $nacionalidad_c = "SIN NACIONALIDAD";
+        $mayor_edad_c = "mayor de edad";
+        $estado_civil_c = "sin estado civil";
+        $ocupacion_c = "sin ocupacion";
+        $originario_de_c = "sin origen";
+        $originario_de_c = "sin origen";
+        $dia_nac_c = "S/N";
+        $dia_nac_letra_c = "Sin dia de nacimiento";
+        $mes_nacimiento_c = "S/M";
+        $mes_nacimiento_letra_c = "Sin mes de nacimiento";
+        $year_nacimiento_c = "S/A";
+        $year_nacimiento_letra_c = "Sin año de nacimiento";
+        $calle_dom_c = "Sin calle";
+        $num_dom_c = "S/N";
+        $num_dom_letra_c = "Sin numero";
+        $colonia_dom_c = "Sin colonia";
+        $cp_dom_c = "Sin codigo postal";
+        $rfc_c = "Sin rfc";
+        $curp_c = "Sin curp";
+
         foreach($proyecto->partes as $parte){
             if($parte->tipo == "COMPRADOR"){
                 $comprador = $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
+                if($parte->cliente->nombre){
+
+                }
+
             }
 
             if($parte->tipo == "VENDEDOR"){
