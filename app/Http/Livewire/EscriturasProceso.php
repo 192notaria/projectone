@@ -1559,8 +1559,8 @@ public function removerParte($id){
         //     return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
         // }
 
-        dd($proyecto->partes);
-        foreach($proyecto->servicio->partes as $partes_acto){
+        foreach($proyecto->servicio->partes as $key => $partes_acto){
+            dd($proyecto->partes[$key]["tipo"]);
             // if($proyecto->partes->tipo[$partes_acto->descripcion]){
             //     return $this->dispatchBrowserEvent("danger-notify", "Es necesario el asignar las partes del acto");
             // }
