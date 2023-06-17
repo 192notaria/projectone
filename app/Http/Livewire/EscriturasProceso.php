@@ -1555,9 +1555,9 @@ public function removerParte($id){
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
-        if(!isset($proyecto->partes->tipo)){
-            return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
-        }
+        // if(!isset($proyecto->partes->tipo)){
+        //     return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
+        // }
 
         foreach($proyecto->servicio->partes as $partes_acto){
             dd($proyecto->partes->tipo[$partes_acto->descripcion]);
