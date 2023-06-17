@@ -1555,7 +1555,7 @@ public function removerParte($id){
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
-        if(!isset($proyecto->partes)){
+        if(!isset($proyecto->partes[0]->tipo)){
             return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
         }
 
