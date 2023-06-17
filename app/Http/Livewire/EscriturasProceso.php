@@ -1564,11 +1564,11 @@ public function removerParte($id){
         foreach($proyecto->partes as $parte){
             dd($parte);
             if($parte->tipo == "COMPRADOR"){
-                $comprador == $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
+                $comprador = $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
             }
 
             if($parte->tipo == "VENDEDOR"){
-                $vendedor == $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
+                $vendedor = $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
             }
         }
 
