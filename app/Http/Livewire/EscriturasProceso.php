@@ -1555,8 +1555,20 @@ public function removerParte($id){
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
 
-        if(!isset($proyecto->partes[0]->tipo)){
+        if(!isset($proyecto->partes[0]->tipo) || !isset($proyecto->partes[1]->tipo)){
             return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
+        }
+
+        $vendedor = "SIN VENDEDOR";
+        $comprador = "SIN COMPRADOR";
+        foreach($proyecto->partes as $parte){
+            if($parte->tipo == "COMPRADOR"){
+                $comprador == $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
+            }
+
+            if($parte->tipo == "VENDEDOR"){
+                $vendedor == $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
+            }
         }
 
         // if(!isset()){
@@ -1572,6 +1584,7 @@ public function removerParte($id){
         $dia_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('dddd');
         $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
 
+
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
         $templateprocessor->setValue('num_esc', $proyecto->numero_escritura ?? "S/N");
         $templateprocessor->setValue('num_esc_letra', !$proyecto->numero_escritura ? "Sin número" : $escritura_letra);
@@ -1586,6 +1599,8 @@ public function removerParte($id){
         $templateprocessor->setValue('mes_letra', $mes_escrito);
         $templateprocessor->setValue('year', date("Y", time()));
         $templateprocessor->setValue('year_letra', mb_strtolower($year_letra));
+        $templateprocessor->setValue('comprador', $comprador);
+        $templateprocessor->setValue('vendedor', $vendedor);
 
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');
