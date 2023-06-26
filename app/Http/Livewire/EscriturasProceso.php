@@ -114,7 +114,7 @@ class EscriturasProceso extends Component
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
                 // ->where('status', '!=', 5)
-                ->where('status', 0)
+                // ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
                         $q->where('nombre', 'LIKE', '%' . $this->search . '%')
@@ -1607,7 +1607,6 @@ public function removerParte($id){
                 if($parte->cliente->nombre){
 
                 }
-
             }
 
             if($parte->tipo == "VENDEDOR"){
