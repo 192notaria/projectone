@@ -107,7 +107,7 @@
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-start">
                         <button wire:click='vista_general_modal("general")' class="btn btn-danger me-2">Cancelar</button>
-                        <button wire:click='guardar_escritura_volumen' class="btn btn-success">Guardar</button>
+                        <button wire:loading.attr='disabled' wire:click='guardar_escritura_volumen' class="btn btn-success">Guardar</button>
                     </div>
                 </div>
                 <div class="col-lg-6 mt-2">
