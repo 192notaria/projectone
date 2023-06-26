@@ -1554,6 +1554,7 @@ public function removerParte($id){
 
     public function plantilla(){
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $numero_letras = new NumeroALetras();
 
         if(!isset($proyecto->partes[0]->tipo) || !isset($proyecto->partes[1]->tipo)){
             return $this->dispatchBrowserEvent("dangert-notify", "Es necesario el asignar las partes del acto");
@@ -1586,7 +1587,6 @@ public function removerParte($id){
         $estado_civil_c = "sin estado civil";
         $ocupacion_c = "sin ocupacion";
         $originario_de_c = "sin origen";
-        $originario_de_c = "sin origen";
         $dia_nac_c = "S/N";
         $dia_nac_letra_c = "Sin dia de nacimiento";
         $mes_nacimiento_c = "S/M";
@@ -1601,11 +1601,50 @@ public function removerParte($id){
         $rfc_c = "Sin rfc";
         $curp_c = "Sin curp";
 
+        $fecha_actual = Carbon::now();
+
         foreach($proyecto->partes as $parte){
             if($parte->tipo == "COMPRADOR"){
                 $comprador = $parte->nombre . " " . $parte->apaterno . " " . $parte->amaterno;
                 if($parte->cliente->nombre){
-
+                    $nacionalidad_c = isset($parte->cliente->getMunicipio->getEstado->getPais->nombre) ? $parte->cliente->getMunicipio->getEstado->getPais->nombre : "SIN NACIONALIDAD";
+                    $mayor_edad_c = $fecha_actual->diffInMonths($parte->cliente->fecha_nacimiento) > 18 ? "mayor de edad" : "menor de edad";
+                    $estado_civil_c = isset($parte->cliente->estado_civil) ? $parte->cliente->estado_civil : "Sin estado civil registrado";
+                    $ocupacion_c = isset($parte->cliente->getOcupacion) ? $parte->cliente->getOcupacion->nombre : "Sin ocupacion registrada";
+                    $originario_de_c = isset($parte->cliente->getMunicipio) ? $parte->cliente->getMunicipio->nombre : "Sin origen registrado";
+                    $dia_nac_c = isset($parte->cliente->fecha_nacimiento) ? date("d", strtotime($parte->cliente->fecha_nacimiento)) : "S/F";
+                    $dia_nac_letra_c = isset($parte->cliente->fecha_nacimiento) ? $numero_letras->toWords(date("d", strtotime($parte->cliente->fecha_nacimiento))) : "Sin fecha de nacimiento registrada";
+                    $mes_nacimiento_c = isset($parte->cliente->fecha_nacimiento) ? date("m", strtotime($parte->cliente->fecha_nacimiento)) : "S/F";
+                    $mes_nacimiento_letra_c = isset($parte->cliente->fecha_nacimiento) ? $numero_letras->toWords(date("m", strtotime($parte->cliente->fecha_nacimiento))) : "Sin fecha de nacimiento registrada";
+                    $year_nacimiento_c = isset($parte->cliente->fecha_nacimiento) ? date("Y", strtotime($parte->cliente->fecha_nacimiento)) : "S/F";
+                    $year_nacimiento_letra_c = isset($parte->cliente->fecha_nacimiento) ? $numero_letras->toWords(date("Y", strtotime($parte->cliente->fecha_nacimiento))) : "Sin fecha de nacimiento registrada";
+                    $calle_dom_c = isset($parte->cliente->domicilio) ? $parte->cliente->domicilio->calle : "S/D";
+                    $num_dom_c = isset($parte->cliente->domicilio) ? $parte->cliente->domicilio->numero_ext : "S/N";
+                    $num_dom_letra_c = isset($parte->cliente->domicilio) ? $numero_letras->toWords($parte->cliente->domicilio->numero_ext) : "Sin numero";
+                    $colonia_dom_c = isset($parte->cliente->domicilio->getColonia) ? $parte->cliente->domicilio->getColonia->nombre : "Sin colonia registrada";
+                    $cp_dom_c = isset($parte->cliente->domicilio->getColonia) ? $parte->cliente->domicilio->getColonia->codigo_postal : "Sin codigo postal registrada";
+                    $rfc_c = isset($parte->cliente->rfc) ? $parte->cliente->rfc : "Sin rfc";
+                    $curp_c = isset($parte->cliente->curp) ? $parte->cliente->curp : "Sin curp";
+                    dd(
+                        $nacionalidad_c,
+                        $mayor_edad_c,
+                        $estado_civil_c,
+                        $ocupacion_c,
+                        $originario_de_c,
+                        $dia_nac_c,
+                        $dia_nac_letra_c,
+                        $mes_nacimiento_c,
+                        $mes_nacimiento_letra_c,
+                        $year_nacimiento_c,
+                        $year_nacimiento_letra_c,
+                        $calle_dom_c,
+                        $num_dom_c,
+                        $num_dom_letra_c,
+                        $colonia_dom_c,
+                        $cp_dom_c,
+                        $rfc_c,
+                        $curp_c
+                    );
                 }
             }
 
@@ -1618,7 +1657,6 @@ public function removerParte($id){
         //     return $this->dispatchBrowserEvent("danger-notify", "Es necesario el comprador");
         // }
 
-        $numero_letras = new NumeroALetras();
         $escritura_letra = $numero_letras->toWords($proyecto->numero_escritura);
         $volumen_letra = $numero_letras->toWords($proyecto->volumen);
         $hora_letra = $numero_letras->toWords(date("H", time()));

@@ -22,6 +22,4 @@ class DomiciliosClientes extends Model
     public function cliente(){
         return $this->belongsTo("App\Models\Clientes");
     }
-
-
 }
