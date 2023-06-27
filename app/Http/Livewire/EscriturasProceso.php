@@ -1625,26 +1625,6 @@ public function removerParte($id){
                     $cp_dom_c = isset($parte->cliente->domicilio->getColonia) ? $parte->cliente->domicilio->getColonia->codigo_postal : "Sin codigo postal registrada";
                     $rfc_c = isset($parte->cliente->rfc) ? $parte->cliente->rfc : "Sin rfc";
                     $curp_c = isset($parte->cliente->curp) ? $parte->cliente->curp : "Sin curp";
-                    dd(
-                        $nacionalidad_c,
-                        $mayor_edad_c,
-                        $estado_civil_c,
-                        $ocupacion_c,
-                        $originario_de_c,
-                        $dia_nac_c,
-                        $dia_nac_letra_c,
-                        $mes_nacimiento_c,
-                        $mes_nacimiento_letra_c,
-                        $year_nacimiento_c,
-                        $year_nacimiento_letra_c,
-                        $calle_dom_c,
-                        $num_dom_c,
-                        $num_dom_letra_c,
-                        $colonia_dom_c,
-                        $cp_dom_c,
-                        $rfc_c,
-                        $curp_c
-                    );
                 }
             }
 
@@ -1682,6 +1662,25 @@ public function removerParte($id){
         $templateprocessor->setValue('year_letra', mb_strtolower($year_letra));
         $templateprocessor->setValue('comprador', $comprador);
         $templateprocessor->setValue('vendedor', $vendedor);
+
+        $templateprocessor->setValue('nacionalidad_c', $nacionalidad_c);
+        $templateprocessor->setValue('mayor_edad_c', $mayor_edad_c);
+        $templateprocessor->setValue('estado_civil_c', $estado_civil_c);
+        $templateprocessor->setValue('ocupacion_c', $ocupacion_c);
+        $templateprocessor->setValue('originario_de_c', $originario_de_c);
+        $templateprocessor->setValue('dia_nac_c', $dia_nac_c);
+        $templateprocessor->setValue('dia_nac_letra_c', $dia_nac_letra_c);
+        $templateprocessor->setValue('mes_nac_c', $mes_nacimiento_letra_c);
+        $templateprocessor->setValue('year_nac_c', $year_nacimiento_c);
+        $templateprocessor->setValue('year_nac_letra_c', $year_nacimiento_letra_c);
+        $templateprocessor->setValue('calle_dom_c', $calle_dom_c);
+        $templateprocessor->setValue('numero_dom_c', $num_dom_c);
+        $templateprocessor->setValue('numero_dom_letra_c', $num_dom_letra_c);
+        $templateprocessor->setValue('colonia_dom_c', $colonia_dom_c);
+        $templateprocessor->setValue('cp_dom_c', $cp_dom_c);
+        $templateprocessor->setValue('rfc_c', $rfc_c);
+        $templateprocessor->setValue('curp_c', $curp_c);
+
 
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');
