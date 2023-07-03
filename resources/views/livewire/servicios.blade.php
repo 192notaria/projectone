@@ -106,9 +106,11 @@
                                                     <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                                         {{$key + 1}}.- {{$proceso->nombre}}
                                                         @can('remover-proceso')
-                                                            <span class="badge badge-danger badge-pill">
-                                                                <a wire:click='removerProceso({{$proceso->id}}, {{$servicio->id}})'><i class="fa-sharp fa-solid fa-circle-xmark text-white"></i></a>
-                                                            </span>
+                                                            <a wire:click='removerProceso({{$proceso->id}}, {{$servicio->id}})'>
+                                                                <span class="badge badge-danger badge-pill">
+                                                                    <i class="fa-sharp fa-solid fa-circle-xmark text-white"></i>
+                                                                </span>
+                                                            </a>
                                                         @endcan
                                                     </li>
                                                 @endforeach

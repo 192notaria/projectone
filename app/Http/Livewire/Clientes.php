@@ -496,8 +496,5 @@ class Clientes extends Component
         $this->cliente_doc = "";
         $this->tipo_doc = "";
         return $this->dispatchBrowserEvent("success-notify", "Documento importado con exito");
-
     }
-
-
 }
