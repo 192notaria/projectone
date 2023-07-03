@@ -1645,7 +1645,6 @@ public function removerParte($id){
         $dia_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('dddd');
         $mes_escrito = Carbon::parse(date("Y-m-d", time()))->isoFormat('MMMM');
 
-
         $templateprocessor = new TemplateProcessor('word-template/plantillas/plantilla_compraventas.docx');
         $templateprocessor->setValue('num_esc', $proyecto->numero_escritura ?? "S/N");
         $templateprocessor->setValue('num_esc_letra', !$proyecto->numero_escritura ? "Sin número" : $escritura_letra);
@@ -1680,7 +1679,6 @@ public function removerParte($id){
         $templateprocessor->setValue('cp_dom_c', $cp_dom_c);
         $templateprocessor->setValue('rfc_c', $rfc_c);
         $templateprocessor->setValue('curp_c', $curp_c);
-
 
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');

@@ -485,7 +485,7 @@ class Clientes extends Component
 
         $cliente_activo = ModelClientes::find($this->id_cliente);
         $path = "/uploads/clientes/" . str_replace(" ", "_", $cliente_activo->nombre) . "_" . str_replace(" ", "_", $cliente_activo->apaterno) . "_" . str_replace(" ", "_", $cliente_activo->amaterno) . "/documentos";
-        $store = $this->cliente_doc->storeAs(mb_strtolower($path), $this->tipo_doc . "_" . time() . "." . $this->cliente_doc->extension(), 'public');
+        $store = $this->cliente_doc->storeAs(mb_strtolower($path), $this->cliente_doc->getClientOriginalName(), 'public');
         $doc->nombre = $this->cliente_doc->getClientOriginalName();
         $doc->tipo = $this->tipo_doc;
         $doc->path = "storage/" . $store;
