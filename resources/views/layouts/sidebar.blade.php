@@ -62,8 +62,8 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
                     @can("ver-proyectos")
-                        <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
-                            <a href="{{route("escrituras-proceso")}}"> Actas </a>
+                        <li>
+                            <a href="#"> Actas </a>
                         </li>
                     @endcan
 
