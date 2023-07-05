@@ -292,6 +292,10 @@ public function removerParte($id){
         $this->buscarPromotor = "";
     }
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
     public function registrarComision(){
         $this->validate([
             "promotor_asignado" => "required",
