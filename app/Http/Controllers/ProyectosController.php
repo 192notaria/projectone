@@ -20,6 +20,14 @@ class ProyectosController extends Controller
         return view("administracion.proyectos");
     }
 
+    public function actas(){
+        return view("administracion.actas");
+    }
+
+    public function poderes(){
+        return view("administracion.poderes");
+    }
+
     public function index2(){
         return view("administracion.escrituras-proceso");
     }
