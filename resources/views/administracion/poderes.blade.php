@@ -33,7 +33,7 @@
             </div>
             <div class="row layout-top-spacing">
                 <div class="col-lg-12">
-                    @livewire("escrituras-poderes")
+                    @livewire("poderes")
                 </div>
             </div>
         </div>
