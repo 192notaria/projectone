@@ -61,29 +61,49 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
+                    @can("ver-proyectos")
+                        <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
+                            <a href="{{route("escrituras-proceso")}}"> Actas </a>
+                        </li>
+                    @endcan
+
                     @can("ver-cotizaciones")
                         <li class="{{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
                             <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
                         </li>
                     @endcan
+
                     @can("ver-escrituras-pendientes")
                         <li class="{{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}}">
                             <a href="{{route("escrituras-pendientes")}}"> Escrituras pendientes </a>
                         </li>
                     @endcan
-                    @can("ver-escrituras-finalizadas")
+
+                    @can("ver-proyectos")
+                        <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
+                            <a href="{{route("escrituras-proceso")}}"> Escrituras publicas </a>
+                        </li>
+                    @endcan
+                    {{-- @can("ver-escrituras-finalizadas")
                         <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
                             <a href="{{route("escrituras-escrituras")}}"> Finalizados </a>
                         </li>
-                    @endcan
+                    @endcan --}}
                     @can('ver-pagos-escritura-page')
                         <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
                             <a href="{{route("escrituras-general")}}"> Pagos </a>
                         </li>
                     @endcan
+
                     @can("ver-proyectos")
-                        <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
-                            <a href="{{route("escrituras-proceso")}}"> Proyectos </a>
+                        <li>
+                            <a href="#"> Ratificaciones</a>
+                        </li>
+                    @endcan
+
+                    @can("ver-proyectos")
+                        <li>
+                            <a href="#"> Poderes</a>
                         </li>
                     @endcan
                 </ul>
