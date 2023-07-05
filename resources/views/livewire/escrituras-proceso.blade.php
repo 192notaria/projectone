@@ -15,12 +15,12 @@
                 <option value="50">50</option>
             </select>
             <input wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-            <select wire:model='tipo_acto_id' class="form-select">
+            {{-- <select wire:model='tipo_acto_id' class="form-select">
                 <option value="">Todos...</option>
                 @foreach ($tipo_actos as $tipo)
                     <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
     </div>
     <div class="card-body">
