@@ -114,6 +114,11 @@ class Poderes extends Component
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%3%');
                 })
+                ->whereHas('abogado', function(Builder $serv){
+                    $serv->where('name', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                })
                 // ->where('status', '!=',
                 // ->where('status', 0)
                 ->where(function($query){
