@@ -270,7 +270,12 @@
                         <div wire:ignore.self class="tab-pane fade" id="general-tab-pane" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
                             <div class="row">
                                 @if ($proyecto_activo != [])
-                                    @include('livewire.subprocesos-resource.generales-proyecto')
+                                    @if (isset($poderes_true))
+                                        @include('livewire.poderes_resources.generales')
+                                    @endif
+                                    @if (isset($escrituras_true))
+                                        @include('livewire.subprocesos-resource.generales-proyecto')
+                                    @endif
                                 @endif
                             </div>
                         </div>

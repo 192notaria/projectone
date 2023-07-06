@@ -82,6 +82,8 @@ class Poderes extends Component
     public $abogado_proyecto = "";
     public $tipo_acto_id = "";
 
+    public $poderes_true = true;
+
     public function render()
     {
         return view('livewire.poderes', [
@@ -113,7 +115,7 @@ class Poderes extends Component
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%3%');
                 })
-                // ->where('status', '!=', 5)
+                // ->where('status', '!=',
                 // ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
