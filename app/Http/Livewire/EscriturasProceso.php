@@ -121,6 +121,11 @@ class EscriturasProceso extends Component
                             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
                     })
+                    ->orWhereHas('abogado', function($abogado){
+                        $abogado->where('name', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    })
                     ->orWhereHas('servicio', function($serv){
                         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
                     })
