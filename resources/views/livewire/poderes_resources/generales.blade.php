@@ -13,6 +13,11 @@
                                 Numero de poder: <span class="badge bg-light-primary">{{$proyecto_activo->numero_escritura}}</span>
                             </span>
                         </div>
+                        <div class="timeline-item-wrapper">
+                            <span class="align-self-center">
+                                <a wire:click='cambiar_info_proyecto({{$proyecto_activo["id"]}})' style="font-size: 11px;" class="text-warning" href="#">Asignar o  cambiar el numero de poder</a>
+                            </span>
+                        </div>
                     </div>
                 </li>
                 <li class="timeline-item">
