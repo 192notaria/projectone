@@ -1184,6 +1184,7 @@ public function removerParte($id){
         $this->proceso_activo = "";
         $this->tipo_subproceso = '';
         $this->vista_general = "general";
+        $this->vista_general_modal("general");
 
         return $this->dispatchBrowserEvent('cerrar-modal-procesos-escritura');
     }
@@ -1327,13 +1328,11 @@ public function removerParte($id){
     public function guardar_escritura_volumen(){
         $this->validate([
                 "numero_escritura_general" => 'required',
-                "volumen_general" => "required",
                 "abogado_proyecto" => "required",
             ],
             [
                 "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
                 "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
-                "volumen_general.required" => "Es necesario el volumen para continuar",
                 "abogado_proyecto.required" => "Es necesario seleccionar un abogado para continuar",
             ]
         );
@@ -1358,9 +1357,6 @@ public function removerParte($id){
 
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
         $proyecto->numero_escritura = $this->numero_escritura_general;
-        $proyecto->volumen = $this->volumen_general;
-        $proyecto->folio_inicio = $this->folio_inicio_general;
-        $proyecto->folio_fin = $this->folio_fin_general;
         $proyecto->usuario_id = $this->abogado_proyecto;
         $proyecto->save();
 

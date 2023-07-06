@@ -93,39 +93,21 @@
             </ol>
         @endif
         @if ($vista_general == "editar_escritura_volumen")
-            <div class="row">
+            <div class="row gx-3 gy-3">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-start">
                         <button wire:loading.attr='disabled' wire:click='vista_general_modal("general")' class="btn btn-danger me-2">Cancelar</button>
                         <button wire:loading.attr='disabled' wire:click='guardar_escritura_volumen' class="btn btn-success">Guardar</button>
                     </div>
                 </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Numero de escritura</label>
+                <div class="col-lg-6">
+                    <label for="">Numero de poder</label>
                     <input type="text" class="form-control" wire:model='numero_escritura_general'>
                     @error('numero_escritura_general')
                         <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Volumen</label>
-                    <input type="text" class="form-control" wire:model='volumen_general'>
-                    @error('volumen_general')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="col-lg-12 mt-4">
-                    <h4>Folios</h4>
-                </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Inicio</label>
-                    <input type="number" class="form-control" wire:model='folio_inicio_general'>
-                </div>
-                <div class="col-lg-6 mt-2">
-                    <label for="">Fin</label>
-                    <input type="number" class="form-control" wire:model='folio_fin_general'>
-                </div>
-                <div class="col-lg-12 mt-2">
+                <div class="col-lg-6">
                     <label for="">Abogado</label>
                     <select class="form-select" wire:model='abogado_proyecto'>
                         <option value="" disabled>Seleccionar...</option>
