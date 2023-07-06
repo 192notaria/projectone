@@ -82,6 +82,8 @@ class EscriturasProceso extends Component
     public $abogado_proyecto = "";
     public $tipo_acto_id = "";
 
+    public $escrituras_true = true;
+
     public function render()
     {
         return view('livewire.escrituras-proceso', [
