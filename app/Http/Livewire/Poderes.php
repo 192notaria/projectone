@@ -111,7 +111,7 @@ class Poderes extends Component
             "escrituras" =>
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%2%');
+                    $serv->where('id', 'LIKE', '%3%');
                 })
                 // ->where('status', '!=', 5)
                 // ->where('status', 0)
