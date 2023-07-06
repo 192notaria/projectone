@@ -276,6 +276,9 @@
                                     @if (isset($escrituras_true))
                                         @include('livewire.subprocesos-resource.generales-proyecto')
                                     @endif
+                                    @if (isset($actas_true))
+                                        @include('livewire.actas_resources.generales')
+                                    @endif
                                 @endif
                             </div>
                         </div>
