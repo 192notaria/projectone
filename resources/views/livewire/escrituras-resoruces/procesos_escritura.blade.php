@@ -313,9 +313,6 @@
                 <button wire:loading.attr="disabled" wire:click='closeProcesos' class="btn btn-outline-danger" data-bs-dismiss="modal">
                     <i class="flaticon-cancel-12"></i> Cerrar
                 </button>
-                <button wire:loading.attr="disabled" wire:click='terminarProyecto' class="btn btn-outline-success">
-                    <i class="fa-solid fa-circle-check"></i> Terminar Proyecto
-                </button>
             </div>
         </div>
     </div>
