@@ -150,7 +150,13 @@ class Poderes extends Component
                 ->where("proceso_id", $this->proceso_activo)
                 ->where("subproceso_id", $this->subprocesos_info->id ?? 0)
                 ->first(),
-            "actos" => Servicios::orderBy('nombre', 'ASC')->get(),
+
+            "actos" => Servicios::orderBy('nombre', 'ASC')
+                ->whereHas('tipo_acto', function(Builder $serv){
+                    $serv->where('id', 'LIKE', '%3%');
+                })
+                ->get(),
+
             "uso_de_cuentas" => Catalogos_uso_de_cuentas::orderBy("nombre", "ASC")->get(),
             "tipo_cuentas" => Catalogos_tipo_cuenta::orderBy("nombre", "ASC")->get(),
             "metodos_pago" => CatalogoMetodosPago::orderBy("nombre", "ASC")->get(),
