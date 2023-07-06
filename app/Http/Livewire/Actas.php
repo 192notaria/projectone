@@ -159,7 +159,7 @@ class Actas extends Component
 
             "actos" => Servicios::orderBy('nombre', 'ASC')
                 ->whereHas('tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%3%');
+                    $serv->where('id', 'LIKE', '%2%');
                 })
                 ->get(),
 
