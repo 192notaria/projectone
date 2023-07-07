@@ -137,7 +137,7 @@
                     @endif
 
                     @if ($tipo_cliente == "Persona Moral")
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label for="">Razón social</label>
                                 <input wire:model="razon_social" type="text" class="form-control was-validated" placeholder="Empresa S.A. de C.V.">
@@ -147,7 +147,7 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-3">
                                 <label for="">Administrador unico / Representante Legal</label>
-                                <input wire:model="admin_unico" type="text" class="form-control was-validated" placeholder="Nobre completo">
+                                <input wire:model="admin_unico" type="text" class="form-control was-validated" placeholder="Nombre completo">
                                 @error('admin_unico') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>

@@ -285,7 +285,6 @@
                 </table>
                 {{$clientes->links('pagination-links')}}
             </div>
-
             @include('livewire.modals.nuevoCliente')
             @include('livewire.modals-ignore-self.upload-generales-documents')
             @include('livewire.modals.nuevo-cliente')
