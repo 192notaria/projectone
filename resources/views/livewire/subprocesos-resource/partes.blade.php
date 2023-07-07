@@ -27,7 +27,13 @@
                             @if ($proyecto_activo)
                                 @forelse ($proyecto_activo->partes as $parte)
                                     <tr>
-                                        <td>{{$parte->nombre}} {{$parte->apaterno}} {{$parte->amaterno}}</td>
+                                        <td>
+                                            @if ($parte->cliente->tipo_cliente == 'Persona Moral')
+                                                {{$parte->cliente->razon_social}}
+                                            @else
+                                                {{$parte->cliente->nombre}} {{$parte->cliente->apaterno}} {{$parte->cliente->amaterno}}
+                                            @endif
+                                        </td>
                                         <td>{{$parte->tipo_persona}}</td>
                                         <td>{{$parte->tipo}}</td>
                                         <td>

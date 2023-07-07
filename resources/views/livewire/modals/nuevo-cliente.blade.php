@@ -203,7 +203,7 @@
     window.addEventListener('cliente_editado', event => {
         $(".bd-example-modal-lg").modal("hide")
         var myAudio= document.createElement('audio');
-        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}";
+        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}1";
         myAudio.play();
 
         Snackbar.show({
