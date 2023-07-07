@@ -23,10 +23,13 @@ use Livewire\WithFileUploads;
 class EscriturasGeneral extends Component
 {
     use WithPagination, WithFileUploads;
+    public $user_anticipo_recibo_id = '';
+
     public $cantidadEscrituras = 10;
     public $searchEscritura;
     public $search;
     public $tipo_acto_id = '';
+
 
     public $escritura_id;
     public $egreso_data = "";
@@ -100,6 +103,7 @@ class EscriturasGeneral extends Component
                 ->orWhere("apaterno", "LIKE", "%" . $this->buscarPromotor . "%")
                 ->orWhere("amaterno", "LIKE", "%" . $this->buscarPromotor . "%")
                 ->get() : [],
+            "usuarios" => User::orderBy("name", "asc")->get()
         ]);
     }
 
@@ -411,7 +415,7 @@ class EscriturasGeneral extends Component
         $pago->metodo_pago_id = $this->metodo_pago_id;
         $pago->cuenta_id = $this->cuenta_id == '' ? null : $this->cuenta_id;
         $pago->proyecto_id = $this->escritura_id;
-        $pago->usuario_id = Auth::user()->id;
+        $pago->usuario_id = $this->user_anticipo_recibo_id == '' ? Auth::user()->id : $this->user_anticipo_recibo_id;
         $pago->observaciones = $this->observaciones_cobro;
         $pago->save();
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-pagos");

@@ -5,23 +5,23 @@
                 <h5>Registrar anticipo</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 mb-2 mt-2">
+                <div class="row gx-3 gy-3">
+                    <div class="col-lg-12">
                         <label for="">Fecha de pago</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha_cobro'>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    <div class="col-lg-12">
                         <label for="">Nombre del cliente</label>
                         <input type="text" class="form-control" placeholder="Opcional..." wire:model='nombre_cliente_cobro'>
                     </div>
-                    <div class="col-lg-6 mb-2 mt-2">
+                    <div class="col-lg-6">
                         <label for="">Monto</label>
                         <input type="number" class="form-control" placeholder="0.0" wire:model='monto_cobro'>
                         @error('monto_mayor')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-lg-6 mb-2 mt-2">
+                    <div class="col-lg-6">
                         <label for="">Metodo de pago</label>
                         <select class="form-select" wire:model='metodo_pago_id'>
                             <option value="" disabled selected>Seleccionar...</option>
@@ -30,7 +30,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    <div class="col-lg-12">
                         <label for="">Cuenta</label>
                         <select class="form-select" wire:model='cuenta_id'>
                             <option value="" selected>Ninguna...</option>
@@ -39,7 +39,17 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    @if (Auth::user()->email == "admin@admin.com")
+                        <div class="col-lg-12">
+                            <select class="form-select" wire:model='user_anticipo_recibo_id'>
+                                <option value="" selected>Seleccionar...</option>
+                                @foreach ($usuarios as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->name}} {{$usuario->apaterno}} {{$usuario->amaterno}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                    <div class="col-lg-12">
                         <label for="">Comentarios</label>
                         <textarea wire:model='observaciones_cobro' cols="30" rows="2" class="form-control"></textarea>
                     </div>
