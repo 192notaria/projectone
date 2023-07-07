@@ -5,7 +5,7 @@
                 <ul>
                     <li>Acto: {{$proyecto_activo->servicio->nombre ?? "S/S"}}</li>
                     <li>Cliente:
-                        @if ($proyecto_activo->cliente->tipo_cliente == 'Persona Moral')
+                        @if (isset($proyecto_activo->cliente) && $proyecto_activo->cliente->tipo_cliente == 'Persona Moral')
                             {{$proyecto_activo->cliente->razon_social ?? ""}} - {{$proyecto_activo->cliente->admin_unico ?? ""}}
                         @else
                             {{$proyecto_activo->cliente->nombre ?? ""}} {{$proyecto_activo->cliente->apaterno ?? ""}} {{$proyecto_activo->cliente->amaterno ?? ""}}
