@@ -96,8 +96,8 @@
                     @endcan
 
                     @can("ver-proyectos")
-                        <li class="{{Route::currentRouteName() == "ratificaciones-general" ? "active" : ""}}">
-                            <a href="{{route("ratificaciones-general")}}"> Ratificaciones</a>
+                        <li class="{{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}}">
+                            <a href="{{route("ratificaciones-proceso")}}"> Ratificaciones</a>
                         </li>
                     @endcan
 
