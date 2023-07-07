@@ -187,9 +187,9 @@ class Clientes extends Component
     public function save(){
         $validatedData = $this->validate();
         if($this->id_cliente == ""){
-            $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $this->nombre . '%')
-                ->where('apaterno', 'LIKE', '%' . $this->apaterno . '%')
-                ->where('amaterno', 'LIKE', '%' . $this->amaterno . '%')
+            $buscarCliente = ModelClientes::where('nombre', $this->nombre)
+                ->where('apaterno', $this->apaterno)
+                ->where('amaterno', $this->amaterno)
                 ->where('fecha_nacimiento', $this->fecha_nacimiento)
                 ->get();
 
@@ -225,10 +225,10 @@ class Clientes extends Component
             // return $this->closeModal();
         }
 
-        $buscarCliente = ModelClientes::where('nombre', 'LIKE', '%' . $validatedData['nombre'] . '%')
-                ->where('apaterno', 'LIKE', '%' . $validatedData['apaterno'] . '%')
-                ->where('amaterno', 'LIKE', '%' . $validatedData['amaterno'] . '%')
-                ->where('fecha_nacimiento', 'LIKE', '%' . $validatedData['fecha_nacimiento'] . '%')
+        $buscarCliente = ModelClientes::where('nombre',  $validatedData['nombre'])
+                ->where('apaterno', $validatedData['apaterno'])
+                ->where('amaterno', $validatedData['amaterno'])
+                ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
                 ->get();
 
         if(count($buscarCliente) > 0){
