@@ -177,8 +177,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a wire:click='clearInputs' class="text-primary mr-3" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</a>
-                <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
+                <a href="#" wire:click='clearInputs' class="text-primary mr-3" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</a>
+                <button wire:click='save' type="button" class="btn btn-success">Guardar</button>
             </div>
         </div>
     </div>
