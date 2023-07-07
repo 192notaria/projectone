@@ -144,6 +144,13 @@
                                 @error('razon_social') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                            <div class="form-group mb-3">
+                                <label for="">Administrador unico / Representante Legal</label>
+                                <input wire:model="admin_unico" type="text" class="form-control was-validated" placeholder="Nobre completo">
+                                @error('admin_unico') <span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-3">
                                 <label for="">Rfc</label>
@@ -170,12 +177,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='clearInputs' class="btn" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</button>
-                @if (!$cliente_institucion)
-                    <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
-                @else
-                    <button wire:click='saveClienteInst' type="button" class="btn btn-primary">Guardar</button>
-                @endif
+                <a wire:click='clearInputs' class="text-primary mr-3" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</a>
+                <button wire:click='save' type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>

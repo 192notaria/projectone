@@ -37,6 +37,8 @@ class Clientes extends Component
         $curp,
         $rfc,
         $genero = "";
+    public $admin_unico;
+
     public $modal = false;
     public $cantidadClientes = 5;
 
@@ -215,6 +217,7 @@ class Clientes extends Component
             $cliente->rfc = $this->rfc ?? "";
             $cliente->tipo_cliente = $this->tipo_cliente;
             $cliente->razon_social = $this->razon_social;
+            $cliente->admin_unico = $this->admin_unico;
             $cliente->save();
 
             $this->clearInputs();
@@ -251,6 +254,7 @@ class Clientes extends Component
         $cliente->rfc = $this->rfc;
         $cliente->tipo_cliente = $this->tipo_cliente;
         $cliente->razon_social = $this->razon_social;
+        $cliente->admin_unico = $this->admin_unico;
         $cliente->save();
         $this->clearInputs();
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
