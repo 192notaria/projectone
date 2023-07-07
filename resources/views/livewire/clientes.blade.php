@@ -120,6 +120,10 @@
                                             <div class="avatar avatar-sm me-2">
                                                 @if ($cliente->tipo_cliente == "Persona Moral")
                                                     <span class="avatar-title badge bg-success rounded-circle">{{substr(strtoupper($cliente->razon_social), 0, 2)}}</span>
+                                                    <br>
+                                                    <span class="badge badge-primary">
+                                                        {{$cliente->admin_unico}}
+                                                    </span>
                                                 @else
                                                     <span class="avatar-title badge bg-primary rounded-circle">{{substr(strtoupper($cliente->nombre), 0, 2)}}</span>
                                                 @endif
