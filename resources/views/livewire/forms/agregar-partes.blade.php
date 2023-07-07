@@ -1,10 +1,10 @@
 
 @if (!$nuevoCliente)
     <div class="col-lg-12">
-        <button wire:click='cambiarVistaPartes(0)' class="btn btn-danger">
+        <button wire:loading.attr='disabled' wire:click='cambiarVistaPartes(0)' class="btn btn-danger">
             <i class="fa-solid fa-chevron-left"></i> Regresar
         </button>
-        <button wire:click='registrarParte' class="btn btn-success">
+        <button wire:loading.attr='disabled' wire:click='registrarParte' class="btn btn-success">
             <i class="fa-solid fa-floppy-disk"></i> Guardar
         </button>
     </div>
@@ -59,7 +59,7 @@
                     </td>
                     <td>{{$clienteParte['curp'] ?? "N/A"}}</td>
                     <td>{{$clienteParte['rfc'] ?? "S/R"}}</td>
-                    <td><button wire:click='limpiarVariablesPartes' class="btn btn-danger">Remover</button></td>
+                    <td><button wire:loading.attr='disabled' wire:click='limpiarVariablesPartes' class="btn btn-danger">Remover</button></td>
                 </tr>
             </tbody>
         </table>
@@ -94,10 +94,10 @@
 
 @if ($nuevoCliente)
     <div class="col-lg-12">
-        <button wire:click='cambiarRegistroCliente(0)' class="btn btn-danger" wire:loading.attr='disabled'>
+        <button wire:loading.attr='disabled' wire:click='cambiarRegistroCliente(0)' class="btn btn-danger" wire:loading.attr='disabled'>
             <i class="fa-solid fa-chevron-left"></i> Cancelar Registro
         </button>
-        <button wire:click='guardarCliente' class="btn btn-success" wire:loading.attr='disabled'>
+        <button wire:loading.attr='disabled' wire:click='guardarCliente' class="btn btn-success" wire:loading.attr='disabled'>
             <i class="fa-solid fa-floppy-disk"></i> Guardar Cliente
         </button>
     </div>
