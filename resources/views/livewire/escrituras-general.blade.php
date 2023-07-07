@@ -77,7 +77,6 @@
                         <tr>
                             <th scope="col">Acto</th>
                             <th scope="col">Cliente/Abogado</th>
-                            <th scope="col">Fecha de creacion</th>
                             @can('ver-costo-total')
                                 <th scope="col">Costo total</th>
                             @endcan
@@ -132,7 +131,7 @@
                                     <br>
                                     <span class="fw-bold">Abogado: </span> {{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}
                                 </td>
-                                <td>{{$escritura->created_at}}</td>
+                                {{-- <td>{{$escritura->created_at}}</td> --}}
                                 @can('ver-costo-total')
                                     <td>
                                         <span class="badge badge-primary">
