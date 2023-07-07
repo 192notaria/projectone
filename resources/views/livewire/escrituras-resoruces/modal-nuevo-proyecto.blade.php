@@ -117,7 +117,12 @@
                                         <a wire:click='asignar_cliente({{$cliente}})'>
                                             <div>
                                                 <strong>
-                                                    {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
+                                                    @if ($cliente->tipo_cliente == 'Persona Fisica')
+                                                        {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
+                                                    @endif
+                                                    @if ($cliente->tipo_cliente == 'Persona Moral')
+                                                        {{$cliente->razon_social}} - {{$cliente->admin_unico}}
+                                                    @endif
                                                 </strong>
                                             </div>
                                         </a>
