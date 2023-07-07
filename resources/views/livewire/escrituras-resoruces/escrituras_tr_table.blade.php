@@ -9,7 +9,7 @@
             </div> --}}
             <div class="media-body align-self-center">
                 <h6 class="mb-0 fw-bold">
-                    @if ($escritura->cliente->tipo_cliente == "Persona Moral")
+                    @if (isset($escritura->cliente->tipo_cliente) && $escritura->cliente->tipo_cliente == "Persona Moral")
                         {{$escritura->cliente->razon_social ?? ""}}
                         <br>
                         <span class="badge badge-primary">
