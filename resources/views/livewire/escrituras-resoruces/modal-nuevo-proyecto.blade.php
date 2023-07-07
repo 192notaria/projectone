@@ -116,14 +116,15 @@
                                     @foreach ($clientes as $cliente)
                                         <a wire:click='asignar_cliente({{$cliente}})'>
                                             <div>
-                                                <strong>
-                                                    @if ($cliente->tipo_cliente == 'Persona Fisica')
-                                                        {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
-                                                    @endif
-                                                    @if ($cliente->tipo_cliente == 'Persona Moral')
+                                                @if ($cliente->tipo_cliente == 'Persona Moral')
+                                                    <strong>
                                                         {{$cliente->razon_social}} - {{$cliente->admin_unico}}
-                                                    @endif
-                                                </strong>
+                                                    </strong>
+                                                @else
+                                                    <strong>
+                                                        {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
+                                                    </strong>
+                                                @endif
                                             </div>
                                         </a>
                                     @endforeach
