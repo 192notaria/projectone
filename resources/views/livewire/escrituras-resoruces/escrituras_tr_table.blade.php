@@ -8,7 +8,17 @@
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
-                <h6 class="mb-0 fw-bold">{{$escritura->cliente->nombre ?? ""}} {{$escritura->cliente->apaterno ?? ""}} {{$escritura->cliente->amaterno ?? ""}}</h6>
+                <h6 class="mb-0 fw-bold">
+                    @if ($escritura->cliente->razon_social == "Persona Moral")
+                        {{$escritura->cliente->razon_social ?? ""}}
+                        <br>
+                        <span class="badge badge-primary">
+                            {{$escritura->cliente->admin_unico ?? ""}}
+                        </span>
+                    @else
+                        {{$escritura->cliente->nombre ?? ""}} {{$escritura->cliente->apaterno ?? ""}} {{$escritura->cliente->amaterno ?? ""}}
+                    @endif
+                </h6>
             </div>
         </div>
     </td>
