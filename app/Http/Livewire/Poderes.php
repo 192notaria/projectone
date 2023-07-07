@@ -173,6 +173,8 @@ class Poderes extends Component
                 ->where("nombre", "LIKE", "%" . $this->buscarClienteParte . "%")
                 ->orwhere("apaterno", "LIKE", "%" . $this->buscarClienteParte . "%")
                 ->orwhere("amaterno", "LIKE", "%" . $this->buscarClienteParte . "%")
+                ->orWhere('admin_unico', 'LIKE', '%' . $this->buscarClienteParte . '%')
+                ->orWhere('razon_social', 'LIKE', '%' . $this->buscarClienteParte . '%')
                 ->get()
             : [],
             "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get()
