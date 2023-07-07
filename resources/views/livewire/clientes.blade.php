@@ -125,7 +125,7 @@
                                                 @endif
                                             </div>
                                             <div class="media-body align-self-center">
-                                                @if ($cliente->tipo_cliente = "Persona Moral")
+                                                @if ($cliente->tipo_cliente == "Persona Moral")
                                                     <h6 class="mb-0">{{$cliente->razon_social}}</h6>
                                                     <span class="badge badge-primary">
                                                         {{$cliente->admin_unico}}
