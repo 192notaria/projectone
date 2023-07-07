@@ -202,7 +202,7 @@ public function cambiarVistaPartes($vista){
 
 public function asignarCliente($cliente){
     $this->clienteParte = $cliente;
-    $this->nombre_parte = $cliente['nombre'];
+    $this->nombre_parte = $cliente['nombre'] != '' ? $cliente['nombre'] : $cliente['razon_social'];
     $this->paterno_parte = $cliente['apaterno'];
     $this->materno_parte = $cliente['amaterno'];
     $this->curp_parte = $cliente['curp'];
@@ -233,6 +233,10 @@ public function registrarParte(){
         "nombre_parte" => "required",
         "porcentaje_copropietario" => $this->copropietario_parte ? "required" : "",
         "tipo_parte" => "required"
+    ],[
+        "nombre_parte.required" => "Es necesario el nombre de la parte",
+        "porcentaje_copropietario.required" => "Es necesario el porcentaje de la parte",
+        "tipo_parte.required" => "Es necesario el tipo de la parte",
     ]);
 
     $parte = new Partes;

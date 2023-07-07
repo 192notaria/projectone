@@ -9,6 +9,21 @@
         </button>
     </div>
 
+    @error("nombre_parte")
+        <div class="col-lg-12">
+            <span class="text-danger">{{$message}}</span>
+        </div>
+    @enderror
+    @error("porcentaje_copropietario")
+        <div class="col-lg-12">
+            <span class="text-danger">{{$message}}</span>
+        </div>
+    @enderror
+    @error("tipo_parte")
+        <div class="col-lg-12">
+            <span class="text-danger">{{$message}}</span>
+        </div>
+    @enderror
     <div class="col-lg-12 mt-3">
         <div class="form-group autocomplete">
             <label for="">Buscar en lista de clientes</label>
