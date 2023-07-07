@@ -91,6 +91,8 @@ class EscriturasProceso extends Component
                 ->where('nombre', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->orWhere('apaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->orWhere('amaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
+                ->orWhere('admin_unico', 'LIKE', '%' . $this->buscar_cliente . '%')
+                ->orWhere('razon_social', 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->get(),
             "abogados_proyectos" => User::orderBy("name", "ASC")
                 ->whereHas("roles", function($data){

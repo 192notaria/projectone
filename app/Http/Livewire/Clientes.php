@@ -142,6 +142,7 @@ class Clientes extends Component
         $this->id_cliente = "";
         $this->tipo_cliente = "";
         $this->razon_social = "";
+        $this->admin_unico = "";
     }
 
     public function selectMunicipio($id){
