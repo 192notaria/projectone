@@ -50,9 +50,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{$clienteParte['nombre']}} {{$clienteParte['apaterno']}} {{$clienteParte['amaterno']}}</td>
-                    <td>{{$clienteParte['curp']}}</td>
-                    <td>{{$clienteParte['rfc']}}</td>
+                    <td>
+                        @if ($clienteParte['tipo_cliente'] == "Persona Moral")
+                            {{$clienteParte['razon_social']}}
+                        @else
+                            {{$clienteParte['nombre']}} {{$clienteParte['apaterno']}} {{$clienteParte['amaterno']}}
+                        @endif
+                    </td>
+                    <td>{{$clienteParte['curp'] ?? "N/A"}}</td>
+                    <td>{{$clienteParte['rfc'] ?? "S/R"}}</td>
                     <td><button wire:click='limpiarVariablesPartes' class="btn btn-danger">Remover</button></td>
                 </tr>
             </tbody>
