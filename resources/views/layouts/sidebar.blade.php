@@ -96,14 +96,13 @@
                     @endcan
 
                     @can("ver-proyectos")
+                    <li class="{{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}}">
+                        <a href="{{route("poderes-proceso")}}"> Poderes</a>
+                    </li>
+                    @endcan
+                    @can("ver-proyectos")
                         <li class="{{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}}">
                             <a href="{{route("ratificaciones-proceso")}}"> Ratificaciones</a>
-                        </li>
-                    @endcan
-
-                    @can("ver-proyectos")
-                        <li class="{{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}}">
-                            <a href="{{route("poderes-proceso")}}"> Poderes</a>
                         </li>
                     @endcan
                 </ul>
