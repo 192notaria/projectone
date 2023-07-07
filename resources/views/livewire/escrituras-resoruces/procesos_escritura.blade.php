@@ -279,6 +279,9 @@
                                     @if (isset($actas_true))
                                         @include('livewire.actas_resources.generales')
                                     @endif
+                                    @if (isset($ratificacion_true))
+                                        @include('livewire.ratificaciones-resources.generales')
+                                    @endif
                                 @endif
                             </div>
                         </div>

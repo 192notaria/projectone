@@ -28,6 +28,10 @@ class ProyectosController extends Controller
         return view("administracion.poderes");
     }
 
+    public function ratificaciones(){
+        return view("administracion.ratificaciones");
+    }
+
     public function index2(){
         return view("administracion.escrituras-proceso");
     }

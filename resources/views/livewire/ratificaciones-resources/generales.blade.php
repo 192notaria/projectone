@@ -1,4 +1,6 @@
 <div id="timelineBasic" class="col-lg-12 layout-spacing">
+    {{-- <div class="statbox widget box box-shadow">
+       <div class="widget-content widget-content-area pb-1"> --}}
         @if ($vista_general == "general")
             <ol class="timeline">
                 <li class="timeline-item extra-space">
@@ -8,7 +10,7 @@
                     <div class="timeline-item-wrapper">
                         <div class="timeline-item-description">
                             <span class="align-self-center">
-                                Numero de poder: <span class="badge bg-light-primary">{{$proyecto_activo->numero_escritura}}</span>
+                                Numero de ratificación: <span class="badge bg-light-primary">{{$proyecto_activo->numero_escritura}}</span>
                             </span>
                         </div>
                         <div class="timeline-item-wrapper">
@@ -99,7 +101,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <label for="">Numero de poder</label>
+                    <label for="">Numero de ratificación</label>
                     <input type="text" class="form-control" wire:model='numero_escritura_general'>
                     @error('numero_escritura_general')
                         <span class="text-danger">{{$message}}</span>
