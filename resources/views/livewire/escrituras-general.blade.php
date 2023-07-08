@@ -151,7 +151,15 @@
                                         <span class="badge badge-warning">
                                             ${{number_format($escritura->egresos_registrados($escritura->id), 2)}}
                                         </span>
-                                        {{$escritura->egresos_data}}
+                                        @php
+                                            $egresos = 0;
+                                            foreach ($escritura->egresos_data as $key => $value) {
+                                                if($value->path){
+                                                    $egresos = $egresos + 1;
+                                                }
+                                            }
+                                            {{$egresos}}
+                                        @endphp
                                     </td>
                                 @endcan
                                 @can('ver-pendiente-pago')
