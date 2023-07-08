@@ -84,7 +84,11 @@
                                 <th scope="col">Anticipos</th>
                             @endcan
                             @can('ver-egresos-registrados')
-                                <th scope="col">Egresos</th>
+                                <th scope="col">
+                                    Egresos
+                                    <input type="checkbox" value="" wire:model='ver_egresos_faltantes'>
+                                </th>
+
                             @endcan
                             @can('ver-pendiente-pago')
                                 <th scope="col">Sobrante</th>
