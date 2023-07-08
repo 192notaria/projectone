@@ -70,7 +70,7 @@ class EscriturasGeneral extends Component
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
-                ->whereHas('egresos_data', function(Builder $egresos){
+                ->whereHas('egresos_data', function($egresos){
                     if($this->ver_egresos_faltantes){
                         $egresos->whereNull('path');
                     }
