@@ -151,6 +151,7 @@
                                         <span class="badge badge-warning">
                                             ${{number_format($escritura->egresos_registrados($escritura->id), 2)}}
                                         </span>
+                                        {{$escritura->egresos_data}}
                                     </td>
                                 @endcan
                                 @can('ver-pendiente-pago')
