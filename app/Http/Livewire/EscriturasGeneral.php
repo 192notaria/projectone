@@ -78,7 +78,7 @@ class EscriturasGeneral extends Component
                             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
                     })
-                    ->whereHas('egresos_data', function(Builder $egresos){
+                    ->orWhereHas('egresos_data', function(Builder $egresos){
                         $egresos->whereNull('path');
                     })
                     ->orWhereHas('servicio', function(Builder $serv){
