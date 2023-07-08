@@ -154,12 +154,16 @@
                                         @php
                                             $egresos = 0;
                                             foreach ($escritura->egresos_data as $key => $value) {
-                                                if($value->path){
+                                                if(!$value->path){
                                                     $egresos = $egresos + 1;
                                                 }
                                             }
                                         @endphp
-                                        {{$egresos}}
+                                        @if ($egresos > 0)
+                                            <span class="badge badge-danger">
+                                                {{$egresos}}
+                                            </span>
+                                        @endif
                                     </td>
                                 @endcan
                                 @can('ver-pendiente-pago')
