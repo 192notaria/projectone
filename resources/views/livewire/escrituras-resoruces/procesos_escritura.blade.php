@@ -188,8 +188,7 @@
                                     <div style="width: 100%; max-width: 80%;" class="tab-content" id="v-pills-tabContent">
                                         <div class="tab-pane fade show active">
                                             @if (count($subprocesos_data) > 0)
-                                                <div class="row">
-
+                                                <div class="row gx-3 gy-3">
                                                     <div class="col-lg-3">
                                                         @foreach ($subprocesos_data as $key => $sub)
                                                             <div class="mt-container mx-auto">

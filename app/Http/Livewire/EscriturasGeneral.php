@@ -405,6 +405,16 @@ class EscriturasGeneral extends Component
             $pago->cuenta_id = $this->cuenta_id;
             $pago->observaciones = $this->observaciones_cobro;
             $pago->save();
+
+            $this->fecha_cobro = '';
+            $this->nombre_cliente_cobro = '';
+            $this->monto_cobro = '';
+            $this->metodo_pago_id = '';
+            $this->cuenta_id = '';
+            $this->escritura_id = '';
+            $this->user_anticipo_recibo_id = '';
+            $this->observaciones_cobro = '';
+
             return $this->dispatchBrowserEvent("cerrar-modal-registrar-pagos");
         }
 
@@ -417,6 +427,16 @@ class EscriturasGeneral extends Component
         $pago->proyecto_id = $this->escritura_id;
         $pago->usuario_id = $this->user_anticipo_recibo_id == '' ? Auth::user()->id : $this->user_anticipo_recibo_id;
         $pago->observaciones = $this->observaciones_cobro;
+
+        $this->fecha_cobro = '';
+        $this->nombre_cliente_cobro = '';
+        $this->monto_cobro = '';
+        $this->metodo_pago_id = '';
+        $this->cuenta_id = '';
+        $this->escritura_id = '';
+        $this->user_anticipo_recibo_id = '';
+        $this->observaciones_cobro = '';
+
         $pago->save();
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-pagos");
     }

@@ -1566,6 +1566,7 @@ public function removerParte($id){
 
         $this->anticipo_id = '';
         $this->recibo_pdf = '';
+        $this->resetProyect();
 
         $this->dispatchBrowserEvent("success-notify", "Se registro el recibo de pago con exito");
         return $this->dispatchBrowserEvent("cerrar-modal-importar-recibo-pago");
