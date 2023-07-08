@@ -88,7 +88,6 @@
                                     Egresos
                                     <input type="checkbox" value="" wire:model='ver_egresos_faltantes'>
                                 </th>
-
                             @endcan
                             @can('ver-pendiente-pago')
                                 <th scope="col">Sobrante</th>
