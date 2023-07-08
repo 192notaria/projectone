@@ -60,7 +60,8 @@ class EscriturasGeneral extends Component
     public $observaciones_cobro;
     public $buscarPromotor;
     public $promotor_data;
-    public $ver_egresos_faltantes = false;
+
+    public $ver_egresos_faltantes;
 
     public function render()
     {
