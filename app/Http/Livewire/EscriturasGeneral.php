@@ -60,6 +60,7 @@ class EscriturasGeneral extends Component
     public $observaciones_cobro;
     public $buscarPromotor;
     public $promotor_data;
+    public $ver_egresos_faltantes = false;
 
     public function render()
     {
@@ -70,7 +71,9 @@ class EscriturasGeneral extends Component
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
                 ->whereHas('egresos_data', function(Builder $egresos){
-                    $egresos->whereNull('path');
+                    if($this->ver_egresos_faltantes){
+                        $egresos->whereNull('path');
+                    }
                 })
                 // ->where("numero_escritura", "LIKE", "%" . $this->searchEscritura . "&")
                 ->where(function($query){
