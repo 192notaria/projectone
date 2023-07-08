@@ -158,8 +158,8 @@
                                                     $egresos = $egresos + 1;
                                                 }
                                             }
-                                            {{$egresos}}
                                         @endphp
+                                        {{$egresos}}
                                     </td>
                                 @endcan
                                 @can('ver-pendiente-pago')
