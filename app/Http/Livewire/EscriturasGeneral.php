@@ -70,7 +70,7 @@ class EscriturasGeneral extends Component
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
                 ->whereHas('egresos_data', function(Builder $egresos){
-                    $egresos->where('path', '==', '');
+                    $egresos->whereNull('path');
                 })
                 // ->where("numero_escritura", "LIKE", "%" . $this->searchEscritura . "&")
                 ->where(function($query){
