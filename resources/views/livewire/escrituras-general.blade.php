@@ -86,7 +86,7 @@
                             @can('ver-egresos-registrados')
                                 <th scope="col">
                                     <div class="form-check form-check-primary form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="form-check-default" value="" wire:model='ver_egresos_faltantes'>
+                                        <input class="form-check-input me-2" type="checkbox" id="form-check-default" value="" wire:model='ver_egresos_faltantes'>
                                         <label class="form-check-label" for="form-check-default">
                                             Egresos
                                         </label>
