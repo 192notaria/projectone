@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Importar documentos</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Documentos</h5>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -47,6 +47,7 @@
                                                 <th>Nombre</th>
                                                 <th>Tipo</th>
                                                 <th>Fecha</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -60,6 +61,11 @@
                                                         </td>
                                                         <td>{{$docs->tipo}}</td>
                                                         <td>{{$docs->created_at}}</td>
+                                                        <td>
+                                                            <button class="btn btn-danger" wire:click='remove_doc({{$docs->id}})'>
+                                                                <i class="fa-solid fa-circle-minus"></i>
+                                                            </button>
+                                                        </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
@@ -89,17 +95,5 @@
 
     window.addEventListener('close-upload-general-docs', event => {
         $(".upload-general-docs").modal("hide")
-        var myAudio= document.createElement('audio');
-        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}";
-        myAudio.play();
-
-        Snackbar.show({
-            text: event.detail,
-            actionTextColor: '#fff',
-            backgroundColor: '#00ab55',
-            pos: 'top-center',
-            duration: 5000,
-            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
-        });
     })
 </script>

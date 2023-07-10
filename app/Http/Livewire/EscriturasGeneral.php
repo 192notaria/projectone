@@ -71,15 +71,15 @@ class EscriturasGeneral extends Component
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
+                ->whereHas('egresos_data', function(Builder $egresos){
+                    $egresos->whereNull('path');
+                })
                 // ->where("numero_escritura", "LIKE", "%" . $this->searchEscritura . "&")
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
                         $q->where('nombre', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('egresos_data', function(Builder $egresos){
-                        $egresos->whereNull('path');
                     })
                     ->orWhereHas('servicio', function(Builder $serv){
                         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
