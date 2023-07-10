@@ -435,7 +435,6 @@ class EscriturasGeneral extends Component
             $this->monto_cobro = '';
             $this->metodo_pago_id = '';
             $this->cuenta_id = '';
-            $this->escritura_id = '';
             $this->user_anticipo_recibo_id = '';
             $this->observaciones_cobro = '';
 
@@ -457,7 +456,6 @@ class EscriturasGeneral extends Component
         $this->monto_cobro = '';
         $this->metodo_pago_id = '';
         $this->cuenta_id = '';
-        $this->escritura_id = '';
         $this->user_anticipo_recibo_id = '';
         $this->observaciones_cobro = '';
 
