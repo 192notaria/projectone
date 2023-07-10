@@ -428,6 +428,7 @@ class EscriturasGeneral extends Component
             $pago->metodo_pago_id = $this->metodo_pago_id;
             $pago->cuenta_id = $this->cuenta_id;
             $pago->observaciones = $this->observaciones_cobro;
+            $pago->usuario_id = $this->user_anticipo_recibo_id == '' ? $pago->usuario_id : $this->user_anticipo_recibo_id;
             $pago->save();
 
             $this->fecha_cobro = '';
