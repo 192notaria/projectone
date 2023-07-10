@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Livewire;
 
 use App\Models\CatalogoMetodosPago;
@@ -66,7 +65,27 @@ class EscriturasGeneral extends Component
     public function render()
     {
         return view('livewire.escrituras-general', [
-            "escrituras" => Proyectos::orderBy("numero_escritura", "ASC")
+            "escrituras" => !$this->ver_egresos_faltantes ? Proyectos::orderBy("numero_escritura", "ASC")
+                ->where("numero_escritura", "!=", null)
+                ->whereHas('servicio.tipo_acto', function(Builder $serv){
+                    $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                })
+                ->where(function($query){
+                    $query->whereHas('cliente', function($q){
+                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('servicio', function(Builder $serv){
+                        $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('abogado', function($serv){
+                        $serv->where('name', 'LIKE', '%' . $this->search . '%');
+                    })
+                    ->orWhere('volumen', 'LIKE', '%' . $this->search . '%')
+                    ->orWhere('numero_escritura', 'LIKE', '%' . $this->search . '%');
+                })
+                ->paginate($this->cantidadEscrituras) : Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("numero_escritura", "!=", null)
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
