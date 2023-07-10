@@ -505,7 +505,7 @@ class Clientes extends Component
 
     function remove_doc($id){
         DocumentosClientes::find($id)->delete();
-        $this->dispatchBrowserEvent("close-upload-general-docs");
-        return $this->dispatchBrowserEvent("success-notify", "Documento removido");
+        return $this->dispatchBrowserEvent("close-upload-general-docs");
+        // return $this->dispatchBrowserEvent("success-notify", "Documento removido");
     }
 }
