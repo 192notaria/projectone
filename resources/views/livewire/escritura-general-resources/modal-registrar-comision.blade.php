@@ -82,16 +82,16 @@
                             <input type="email" class="form-control" wire:model='email_promotor'>
                         </div>
                         <div class="col-lg-12">
-                            <button wire:click='guardarPromotor' class="btn btn-success">Guardar</button>
-                            <button wire:click='nuevoPromotor(0)' class="btn btn-danger">Cancelar</button>
+                            <button wire:loading.attr="disabled" wire:click='guardarPromotor' class="btn btn-success">Guardar</button>
+                            <button wire:loading.attr="disabled" wire:click='nuevoPromotor(0)' class="btn btn-danger">Cancelar</button>
                         </div>
                     @endif
                 </div>
             </div>
             @if (!$nuevoPromotor)
                 <div class="modal-footer">
-                    <button wire:click='registrarcomision' class="btn btn-outline-success">Guardar</button>
-                    <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button wire:loading.attr="disabled" wire:click='registrarcomision' class="btn btn-outline-success">Guardar</button>
+                    <button wire:loading.attr="disabled" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             @endif
         </div>

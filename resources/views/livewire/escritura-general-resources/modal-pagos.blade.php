@@ -98,7 +98,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4>Costos</h4>
                                                 @can("crear-costo")
-                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>
+                                                    <button wire:loading.attr="disabled" class="btn btn-primary" wire:click='abrir_registro_costos'>
                                                         <i class="fa-solid fa-plus"></i> Registrar costo
                                                     </button>
                                                 @endcan
@@ -143,15 +143,15 @@
                                                             <td class="text-center">
                                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                                     @can("editar-costo")
-                                                                        <button wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='editar_costo({{$costo->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                                                     @endcan
                                                                     @can("borrar-costo")
-                                                                        <button wire:click='abrir_modal_borrar_costo({{$costo->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='abrir_modal_borrar_costo({{$costo->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                                     @endcan
                                                                     @if ($costo->concepto_pago->descripcion != "Honorarios")
                                                                         @if (!isset($costo->egreso->monto) && $costo->concepto_pago->categoria_gasto_id == 3)
                                                                         @can("crear-egreso")
-                                                                            <button wire:click='abrir_registrar_egreso({{$costo->id}})' type="button" class="btn btn-success"><i class="fa-solid fa-money-bill-1-wave"></i></button>
+                                                                            <button wire:loading.attr="disabled" wire:click='abrir_registrar_egreso({{$costo->id}})' type="button" class="btn btn-success"><i class="fa-solid fa-money-bill-1-wave"></i></button>
                                                                         @endcan
                                                                         @endif
                                                                     @endif
@@ -181,7 +181,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4>Cotización</h4>
                                                 {{-- @can("crear-costo")
-                                                    <button class="btn btn-primary" wire:click='abrir_registro_costos'>
+                                                    <button wire:loading.attr="disabled" class="btn btn-primary" wire:click='abrir_registro_costos'>
                                                         <i class="fa-solid fa-plus"></i> Registrar costo
                                                     </button>
                                                 @endcan --}}
@@ -241,7 +241,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <h4>Anticipos recibidos</h4>
                                                 @can("registrar-anticipo")
-                                                    <button wire:click='abrir_modal_pago' class="btn btn-primary"><i class="fa-solid fa-plus"></i> Registrar anticipo</button>
+                                                    <button wire:loading.attr="disabled" wire:click='abrir_modal_pago' class="btn btn-primary"><i class="fa-solid fa-plus"></i> Registrar anticipo</button>
                                                 @endcan
                                             </div>
                                         </div>
@@ -279,10 +279,10 @@
                                                             <td class="text-center">
                                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                                     @can("editar-pago")
-                                                                        <button wire:click='editar_pago({{$pago->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='editar_pago({{$pago->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                                                     @endcan
                                                                     @can("borrar-pago")
-                                                                        <button wire:click='abrir_modal_borrar_pago({{$pago->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='abrir_modal_borrar_pago({{$pago->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                                     @endcan
                                                                 </div>
                                                             </td>
@@ -350,15 +350,15 @@
                                                             <td>
                                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                                     @can("editar-egresos")
-                                                                        <button wire:click='editar_egresos({{$egreso->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='editar_egresos({{$egreso->id}})' type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                                                     @endcan
 
                                                                     @can("borrar-egreso")
-                                                                        <button wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                        <button wire:loading.attr="disabled" wire:click='abrir_modal_borrar_egreso({{$egreso->id}})' type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                                     @endcan
                                                                     @if (!$egreso->status || $egreso->status == 0)
                                                                         @can("registrar-recibo-egreso")
-                                                                            <button wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
+                                                                            <button wire:loading.attr="disabled" wire:click='abrir_modal_recibo_egreso({{$egreso->id}})' class="btn btn-warning"><i class="fa-solid fa-file-arrow-up"></i></button>
                                                                         @endcan
                                                                     @else
                                                                         @can("ver-recibo-egreso")
@@ -389,7 +389,7 @@
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                                             <h4>Comisiones</h4>
                                             @can("crear-comision")
-                                                <button class="btn btn-primary" wire:click='abrirModalComision'><i class="fa-solid fa-plus"></i> Registrar comisión</button>
+                                                <button wire:loading.attr="disabled" class="btn btn-primary" wire:click='abrirModalComision'><i class="fa-solid fa-plus"></i> Registrar comisión</button>
                                             @endcan
                                         </div>
                                     </div>
@@ -413,8 +413,8 @@
                                                             <td>${{number_format($comision->cantidad, 2)}}</td>
                                                             <td>{{$comision->observaciones}}</td>
                                                             <td class="text-center">
-                                                                <button wire:click='editarComision({{$comision->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                                <button wire:click='borrarComision({{$comision->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                <button wire:loading.attr="disabled" wire:click='editarComision({{$comision->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                <button wire:loading.attr="disabled" wire:click='borrarComision({{$comision->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -483,7 +483,7 @@
                                                             <td>{{$factura->cliente->nombre}} {{$factura->cliente->apaterno}} {{$factura->cliente->amaterno}}</td>
                                                             <td>{{$factura->observaciones}}</td>
                                                             <td>
-                                                                <button wire:click='borrarFactura({{$factura->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                <button wire:loading.attr="disabled" wire:click='borrarFactura({{$factura->id}})' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -549,8 +549,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                                <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                                <button wire:loading.attr="disabled" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                                <button wire:loading.attr="disabled" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -569,7 +569,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='clear_inputs' class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button wire:loading.attr="disabled" wire:click='clear_inputs' class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

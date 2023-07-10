@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button wire:click='registrar_recibo_pago_egreso' class="btn btn-outline-success">Guardar</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button wire:loading.attr="disabled" wire:click='registrar_recibo_pago_egreso' class="btn btn-outline-success">Guardar</button>
+                <button wire:loading.attr="disabled" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
