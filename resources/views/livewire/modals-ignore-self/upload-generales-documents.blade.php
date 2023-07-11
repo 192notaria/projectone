@@ -54,13 +54,15 @@
                                             <style>
                                                 .text-overflow{
                                                     white-space: nowrap;
+                                                    overflow: hidden;
                                                     text-overflow: ellipsis;
+                                                    width: 100px !important;
                                                 }
                                             </style>
                                             @if ($cliente_activo)
                                                 @forelse ($cliente_activo->documentos as $docs)
                                                     <tr>
-                                                        <td style="max-width: 100px;" class="text-overflow">
+                                                        <td class="text-overflow">
                                                             <a href="{{url($docs->path)}}" target="_blank">
                                                                 {{$docs->nombre}}
                                                             </a>

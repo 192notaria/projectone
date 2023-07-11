@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         <h5>
             {{$subprocesos_info->nombre}}
             {{-- {{$subprocesos_info->tipo_id}}
@@ -9,6 +9,11 @@
                 <i class="fa-solid fa-circle-check text-success"></i>
             @endif
         </h5>
+        @if (!$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id))
+            @can("omitir-subproceso")
+                <button wire:loading.attr="disabled" wire:click='open_moda_omitir' class="btn btn-danger mb-2"><i class="fa-solid fa-forward"></i> Omitir</button>
+            @endcan
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
