@@ -55,7 +55,14 @@
                                                 @forelse ($cliente_activo->documentos as $docs)
                                                     <tr>
                                                         <td>
-                                                            <a href="{{url($docs->path)}}" target="_blank">
+                                                            <style>
+                                                                .text-overflow{
+                                                                    white-space: nowrap;
+                                                                    overflow: hidden;
+                                                                    text-overflow: ellipsis;
+                                                                }
+                                                            </style>
+                                                            <a href="{{url($docs->path)}}" target="_blank" class="text-overflow">
                                                                 {{$docs->nombre}}
                                                             </a>
                                                         </td>
