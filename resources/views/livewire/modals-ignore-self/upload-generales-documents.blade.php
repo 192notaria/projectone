@@ -54,7 +54,7 @@
                                             @if ($cliente_activo)
                                                 @forelse ($cliente_activo->documentos as $docs)
                                                     <tr>
-                                                        <td style="max-width: 10px;">
+                                                        <td style="max-width: 20px;" class="text-overflow">
                                                             <style>
                                                                 .text-overflow{
                                                                     white-space: nowrap;
@@ -62,7 +62,7 @@
                                                                     text-overflow: ellipsis;
                                                                 }
                                                             </style>
-                                                            <a href="{{url($docs->path)}}" target="_blank" class="text-overflow">
+                                                            <a href="{{url($docs->path)}}" target="_blank">
                                                                 {{$docs->nombre}}
                                                             </a>
                                                         </td>
