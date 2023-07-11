@@ -54,7 +54,7 @@
                                             @if ($cliente_activo)
                                                 @forelse ($cliente_activo->documentos as $docs)
                                                     <tr>
-                                                        <td style="max-width: 20px;" class="text-overflow">
+                                                        <td style="max-width: 50px;" class="text-overflow">
                                                             <style>
                                                                 .text-overflow{
                                                                     white-space: nowrap;
