@@ -220,8 +220,8 @@ class Clientes extends Component
             $cliente->razon_social = $this->razon_social;
             $cliente->admin_unico = $this->admin_unico;
             $cliente->save();
-
             $this->clearInputs();
+
             return $this->dispatchBrowserEvent('cliente_registrado', "Nuevo cliente registrado");
             // return $this->closeModal();
         }
@@ -258,6 +258,7 @@ class Clientes extends Component
         $cliente->admin_unico = $this->admin_unico;
         $cliente->save();
         $this->clearInputs();
+
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
         // return $this->closeModal();
     }
@@ -267,6 +268,7 @@ class Clientes extends Component
             'nombre' => 'required',
             'telefono' => $this->telefono != "" ? 'min:10|integer' : '',
         ]);
+
         if($this->id_cliente == ""){
             $cliente = new ModelClientes;
             $cliente->nombre = $this->nombre;
@@ -281,6 +283,7 @@ class Clientes extends Component
         $cliente->telefono = $this->telefono;
         $cliente->representante_inst = $this->cliente_institucion ?? 0;
         $cliente->save();
+
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
     }
 

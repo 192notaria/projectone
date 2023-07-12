@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-header">
-        {{-- <button class="btn btn-danger" wire:click='deleteCollection'>Borrar firestore</button> --}}
         <div class="d-flex justify-content-start">
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' type="button" class="btn btn-outline-primary me-2">
@@ -15,12 +14,6 @@
                 <option value="50">50</option>
             </select>
             <input wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-            {{-- <select wire:model='tipo_acto_id' class="form-select">
-                <option value="">Todos...</option>
-                @foreach ($tipo_actos as $tipo)
-                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
-                @endforeach
-            </select> --}}
         </div>
     </div>
     <div class="card-body">
@@ -119,7 +112,6 @@
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
     @include("livewire.escrituras-resoruces.modal-importar-recibo-pago")
-    {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
 
     <script>
         var mx = 0;

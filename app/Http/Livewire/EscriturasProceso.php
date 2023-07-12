@@ -14,7 +14,6 @@ use App\Models\Clientes;
 use App\Models\Cobros;
 use App\Models\Comisiones;
 use App\Models\Costos;
-use App\Models\CostosCobrados;
 use App\Models\Cuentas_bancarias;
 use App\Models\Documentos;
 use App\Models\Egresos;
