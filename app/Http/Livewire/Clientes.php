@@ -156,7 +156,7 @@ class Clientes extends Component
         $cliente = ModelClientes::find($id);
         $this->id_cliente = $id;
         $municipio = Municipios::find($cliente->municipio_nacimiento_id);
-        $this->buscarMunicipio = $municipio->nombre . ", " . $municipio->getEstado->nombre . ", " . $municipio->getEstado->getPais->nombre;
+        $this->buscarMunicipio = isset($municipio->nombre) ? $municipio->nombre . ", " . $municipio->getEstado->nombre . ", " . $municipio->getEstado->getPais->nombre : "";
 
         $this->nombre = $cliente->nombre;
         $this->apaterno = $cliente->apaterno;
@@ -167,8 +167,8 @@ class Clientes extends Component
         $this->telefono = $cliente->telefono ?? "";
         $this->ocupacion = $cliente->ocupacion ?? "";
         $this->estado_civil = $cliente->estado_civil ?? "";
-        $this->genero = $cliente->genero ?? "";
         $this->curp = $cliente->curp ?? "";
+        $this->genero = $cliente->genero ?? "";
         $this->rfc = $cliente->rfc ?? "";
         $this->tipo_cliente = $cliente->tipo_cliente ?? "";
         $this->razon_social = $cliente->razon_social ?? "";
