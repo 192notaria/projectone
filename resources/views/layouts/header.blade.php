@@ -35,7 +35,7 @@
                 </a>
             </li>
 
-            @livewire('intercomunicador')
+            {{-- @livewire('intercomunicador') --}}
             @livewire('favorite-contacts')
             @livewire('notifications-component')
 
