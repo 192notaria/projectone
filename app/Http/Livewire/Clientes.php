@@ -59,18 +59,13 @@ class Clientes extends Component
     public $proyectos_escrituras = [];
     public function render(){
         return view('livewire.clientes', [
-            "clientes" => ModelClientes::orderBy('nombre', 'ASC')
-                ->where(function($query){
+            "clientes" => ModelClientes::where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
                         $query->where('nombre', 'LIKE', '%' . $value . '%')
                             ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
                             ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
-                })
-                // ->where('nombre', 'LIKE', '%' . $this->search . '%')
-                // ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                // ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%')
-                ->paginate($this->cantidadClientes),
+                })->paginate($this->cantidadClientes),
             "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
             "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
             // "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
