@@ -62,9 +62,9 @@ class Clientes extends Component
             "clientes" => ModelClientes::orderBy('nombre', 'ASC')
                 ->where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
+                        $query->where('nombre', 'LIKE', '%' . $value . '%')
+                            ->where('apaterno', 'LIKE', '%' . $value . '%')
+                            ->where('amaterno', 'LIKE', '%' . $value . '%');
                     }
                 })
                 // ->where('nombre', 'LIKE', '%' . $this->search . '%')
