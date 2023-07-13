@@ -61,17 +61,17 @@ class Clientes extends Component
         return view('livewire.clientes', [
             "clientes" => ModelClientes::where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->where('nombre', 'LIKE', '%' . $value . '%');
+                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%');
                     }
                 })
                 ->where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->where('apaterno', 'LIKE', '%' . $value . '%');
+                        $query->orWhere('apaterno', 'LIKE', '%' . $value . '%');
                     }
                 })
                 ->where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->where('amaterno', 'LIKE', '%' . $value . '%');
+                        $query->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
                 })
                 ->paginate($this->cantidadClientes),
