@@ -64,12 +64,12 @@ class Clientes extends Component
                         $query->orWhere('nombre', 'LIKE', '%' . $value . '%');
                     }
                 })
-                ->where(function($query){
+                ->orWhere(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
                         $query->orWhere('apaterno', 'LIKE', '%' . $value . '%');
                     }
                 })
-                ->where(function($query){
+                ->orWhere(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
                         $query->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
