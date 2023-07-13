@@ -50,7 +50,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu {{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}} {{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}} {{Route::currentRouteName() == "actas-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}} {{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-general" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
+            <li class="menu {{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}} {{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}} {{Route::currentRouteName() == "actas-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
                 <a href="#serviciosNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -67,12 +67,6 @@
                         </li>
                     @endcan
 
-                    @can("ver-cotizaciones")
-                        <li class="{{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
-                            <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
-                        </li>
-                    @endcan
-
                     @can("ver-escrituras-pendientes")
                         <li class="{{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}}">
                             <a href="{{route("escrituras-pendientes")}}"> Escrituras pendientes </a>
@@ -84,25 +78,44 @@
                             <a href="{{route("escrituras-proceso")}}"> Escrituras publicas </a>
                         </li>
                     @endcan
-                    {{-- @can("ver-escrituras-finalizadas")
-                        <li class="{{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
-                            <a href="{{route("escrituras-escrituras")}}"> Finalizados </a>
-                        </li>
-                    @endcan --}}
-                    @can('ver-pagos-escritura-page')
-                        <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
-                            <a href="{{route("escrituras-general")}}"> Pagos </a>
-                        </li>
-                    @endcan
 
                     @can("ver-proyectos")
                     <li class="{{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}}">
                         <a href="{{route("poderes-proceso")}}"> Poderes</a>
                     </li>
                     @endcan
+
                     @can("ver-proyectos")
                         <li class="{{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}}">
                             <a href="{{route("ratificaciones-proceso")}}"> Ratificaciones</a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="menu {{Route::currentRouteName() == "escrituras-general" ? "active" : ""}} {{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}} {{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
+                <a href="#serviciosNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span>Finanzas</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="serviciosNav" data-bs-parent="#accordionExample">
+                    @can("ver-cotizaciones")
+                        <li class="{{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
+                            <a href="{{route("admin-cotizaciones")}}"> Cotizaciones </a>
+                        </li>
+                    @endcan
+                    @can('ver-facturas-proyecto')
+                        <li class="{{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}}">
+                            <a href="{{route('contabilidad.facturas')}}"> Facturas</a>
+                        </li>
+                    @endcan
+                    @can('ver-pagos-escritura-page')
+                        <li class="{{Route::currentRouteName() == "escrituras-general" ? "active" : ""}}">
+                            <a href="{{route("escrituras-general")}}"> Pagos </a>
                         </li>
                     @endcan
                 </ul>
@@ -134,7 +147,7 @@
                         <li class="{{Route::currentRouteName() == "admin-roles" ? "active" : ""}}">
                             <a href="/administracion/roles"> Perfiles </a>
                         </li>
-                        @endcan
+                    @endcan
                     <li class="{{Route::currentRouteName() == "user_profile" ? "active" : ""}}">
                         <a href="/user/profile">Mi perfil</a>
                     </li>
@@ -204,7 +217,7 @@
                 </ul>
             </li>
             @if ( Auth::user()->hasRole('ADMINISTRADOR') || Auth::user()->hasRole('CONTADOR'))
-                <li class="menu {{Route::currentRouteName() == "contabilidad.declaranot" ? "active" : ""}} {{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}} {{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
+                <li class="menu {{Route::currentRouteName() == "contabilidad.declaranot" ? "active" : ""}} {{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
                     <a href="#contabilidad" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
@@ -215,19 +228,14 @@
                         </div>
                     </a>
                     <ul class="collapse submenu list-unstyled" id="contabilidad" data-bs-parent="#accordionExample">
-                        @can('ver-contabilidad-general')
-                            <li class="{{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
-                                <a href="{{route('contabilidad.index')}}"> General</a>
-                            </li>
-                        @endcan
-                        @can('ver-facturas-proyecto')
-                            <li class="{{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}}">
-                                <a href="{{route('contabilidad.facturas')}}"> Facturas</a>
-                            </li>
-                        @endcan
                         @can('ver-declaranot')
                             <li class="{{Route::currentRouteName() == "contabilidad.declaranot" ? "active" : ""}}">
                                 <a href="{{route('contabilidad.declaranot')}}"> DeclaraNot</a>
+                            </li>
+                        @endcan
+                        @can('ver-contabilidad-general')
+                            <li class="{{Route::currentRouteName() == "contabilidad.index" ? "active" : ""}}">
+                                <a href="{{route('contabilidad.index')}}"> General</a>
                             </li>
                         @endcan
                     </ul>
