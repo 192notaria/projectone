@@ -37,8 +37,8 @@
                                         <td>{{$parte->tipo_persona}}</td>
                                         <td>{{$parte->tipo}}</td>
                                         <td>
-                                            <p>{{$parte->curp}}</p>
-                                            <p>{{$parte->rfc}}</p>
+                                            <p>{{$parte->cliente->curp ?? "S/D"}}</p>
+                                            <p>{{$parte->cliente->rfc ?? "S/D"}}</p>
                                         </td>
                                         <td>{{$parte->porcentaje != 0 ?  $parte->porcentaje . "%" : "N/A"}}</td>
                                         <td>
