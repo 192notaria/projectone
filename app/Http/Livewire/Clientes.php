@@ -61,9 +61,9 @@ class Clientes extends Component
         return view('livewire.clientes', [
             "clientes" => ModelClientes::where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->where('nombre', 'LIKE', '%' . $value . '%')
-                            ->where('apaterno', 'LIKE', '%' . $value . '%')
-                            ->where('amaterno', 'LIKE', '%' . $value . '%');
+                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
                 })->paginate($this->cantidadClientes),
             "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
