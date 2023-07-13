@@ -59,7 +59,8 @@ class Clientes extends Component
     public $proyectos_escrituras = [];
     public function render(){
         return view('livewire.clientes', [
-            "clientes" => ModelClientes::where(function($query){
+            "clientes" => ModelClientes::orderBy("apaterno", "ASC")->orderBy("amaterno", "ASC")->orderBy("nombre", "ASC")
+                ->where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
                         $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
                             ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
