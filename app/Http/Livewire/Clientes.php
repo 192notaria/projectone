@@ -63,8 +63,8 @@ class Clientes extends Component
                 ->where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
                         $query->where('nombre', 'LIKE', '%' . $value . '%')
-                            ->where('apaterno', 'LIKE', '%' . $value . '%')
-                            ->where('amaterno', 'LIKE', '%' . $value . '%');
+                            ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
                 })
                 // ->where('nombre', 'LIKE', '%' . $this->search . '%')
