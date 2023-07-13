@@ -114,7 +114,6 @@ class ChartsController extends Controller
                     "title" => "Recibo de pago registrado",
                     "body" => "Manuel ha registrado el recibo de pago de la escritura numero 192",
                     'sound' => "default"
-
                 ]
             ];
 

@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     // Clientes
     Route::get('/administracion/clientes', [ClientesController::class, 'index'])->name('admin-clientes');
-    Route::get('/contactos/lista_contactos', [ContactosController::class, 'index'])->name('lista-contactos');
+    // Route::get('/contactos/lista_contactos', [ContactosController::class, 'index'])->name('lista-contactos');
 
     // PROCESOS Y SERVICIOS
     Route::get('/administracion/servicios', [ServiciosController::class, 'index'])->name('admin-servicios');

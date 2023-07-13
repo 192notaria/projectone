@@ -42,9 +42,9 @@
                     <li class="{{Route::currentRouteName() == "admin-clientes" ? "active" : ""}}">
                         <a href="{{route("admin-clientes")}}"> Clientes </a>
                     </li>
-                    <li class="{{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
+                    {{-- <li class="{{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
                         <a href="{{route("lista-contactos")}}"> Contactos </a>
-                    </li>
+                    </li> --}}
                     <li class="{{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}}">
                         <a href="{{route("usuarios.guardias")}}"> Guardias </a>
                     </li>
