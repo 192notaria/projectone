@@ -118,7 +118,6 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Télefono</th>
                             <th scope="col">Correo</th>
@@ -133,11 +132,6 @@
                         @if (count($clientes) > 0)
                             @foreach ($clientes as $cliente)
                                 <tr>
-                                    <td class="text-center">
-                                        <div class="form-check form-check-primary form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="form-check-default">
-                                        </div>
-                                    </td>
                                     <td>
                                         <div class="media">
                                             <div class="media-body align-self-center">
