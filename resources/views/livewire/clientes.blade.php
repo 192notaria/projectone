@@ -20,7 +20,9 @@
                         <option value="20">20</option>
                         <option value="50">50</option>
                     </select>
-                    <button class="btn btn-outline-dark mb-3"><i class="fa-solid fa-trash"></i></button>
+                    @can('borrar-clientes')
+                        <button class="btn btn-outline-dark mb-3"><i class="fa-solid fa-trash"></i></button>
+                    @endcan
                 </div>
                 <div>
                     {{-- <input wire:model="search" type="text" class="form-control" placeholder="Buscar..."> --}}
