@@ -12,16 +12,17 @@
     <div class="card-body">
         <div class="row gx-3">
             <div class="col-lg-12 d-flex justify-content-between">
-                <div>
-                    <select wire:model='cantidadClientes' class="form-select" style="width: 80px;">
+                <div class="d-flex justify-content-start">
+                    <select wire:model='cantidadClientes' class="form-select mb-3 me-1">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
                         <option value="50">50</option>
                     </select>
+                    <button class="btn btn-outline-dark mb-3"><i class="fa-solid fa-trash"></i></button>
                 </div>
-                <div style="width: 30%">
+                <div>
                     {{-- <input wire:model="search" type="text" class="form-control" placeholder="Buscar..."> --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </div>
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -107,12 +109,14 @@
                     background-color: #4361ee !important;
                     color: #ffffff !important;
                 }
+
             </style>
 
             <div class="col-lg-12 table-responsive">
-                <table class="table table-striped table-bordered">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Télefono</th>
                             <th scope="col">Correo</th>
@@ -127,15 +131,13 @@
                         @if (count($clientes) > 0)
                             @foreach ($clientes as $cliente)
                                 <tr>
+                                    <td class="text-center">
+                                        <div class="form-check form-check-primary form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="form-check-default">
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="media">
-                                            {{-- <div class="avatar avatar-sm me-2">
-                                                @if ($cliente->tipo_cliente == "Persona Moral")
-                                                    <span class="avatar-title badge bg-success rounded-circle">{{substr(strtoupper($cliente->razon_social), 0, 2)}}</span>
-                                                @else
-                                                    <span class="avatar-title badge bg-primary rounded-circle">{{substr(strtoupper($cliente->nombre), 0, 2)}}</span>
-                                                @endif
-                                            </div> --}}
                                             <div class="media-body align-self-center">
                                                 @if ($cliente->tipo_cliente == "Persona Moral")
                                                     <span class="mb-0">{{$cliente->razon_social}}</span>
@@ -154,67 +156,11 @@
                                                         {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
                                                     </span>
                                                 @endif
-                                                    {{-- <p class="mb-0">
-                                                    <h5>
-                                                        @if ($cliente->genero == "Masculino")
-                                                            <span class="badge badge-info">{{$cliente->genero}}</span>
-                                                        @else
-                                                            <span class="badge badge-secondary">{{$cliente->genero}}</span>
-                                                        @endif
-                                                    </h5>
-                                                </p> --}}
-                                                {{-- <p class="mb-0">
-                                                    <h5>
-                                                        @if ($cliente->estado_civil == "Casado")
-                                                            <span class="badge badge-danger">{{$cliente->estado_civil}}</span>
-                                                        @else
-                                                            <span class="badge badge-success">{{$cliente->estado_civil}}</span>
-                                                        @endif
-                                                    </h5>
-                                                </p> --}}
                                             </div>
                                         </div>
                                     </td>
-                                    {{-- <td>
-                                        @if ($cliente->representante_inst)
-                                            <span class="text-danger">Sin informacion</span>
-                                        @else
-                                            <p class="mb-0">
-                                                @if (isset($cliente->getMunicipio->getEstado->nombre))
-                                                    <span class="fw-bold">Lugar de nacimiento: </span><br>{{$cliente->getMunicipio->nombre}}, {{$cliente->getMunicipio->getEstado->nombre}}, {{$cliente->getMunicipio->getEstado->getPais->nombre}}
-                                                @else
-                                                    <span class="fw-bold">Lugar de nacimiento: </span><br> <span>Sin registro</span>
-                                                @endif
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">Fecha de nacimiento: </span><br>{{$cliente->fecha_nacimiento}}
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">Edad: </span><br>{{\Carbon\Carbon::parse($cliente->fecha_nacimiento)->diff(\Carbon\Carbon::now())->format('%y')}}
-                                            </p>
-                                        @endif
-
-                                    </td> --}}
                                     <td class="text-center">
                                         <span>{!! $cliente->telefono == '' ? "<span class='text-danger'>S/R</span>" : $cliente->telefono !!}</span>
-                                        {{-- @if ($cliente->representante_inst)
-                                        @else
-                                            <p class="mb-0">
-                                                <span class="fw-bold">CURP:</span><br>{{$cliente->curp ?? "Sin registro"}}
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">RFC:</span><br>{{$cliente->rfc ?? "Sin registro"}}
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">Correo:</span><br>{{$cliente->email ?? "Sin registro"}}
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono ?? "Sin registro"}}
-                                            </p>
-                                            <p class="mb-0">
-                                                <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre ?? "Sin registro"}}
-                                            </p>
-                                        @endif --}}
                                     </td>
                                     <td>
                                         <span>{!! $cliente->email == '' ? "<span class='text-danger'>S/R</span>" : $cliente->email !!}</span>
@@ -222,64 +168,24 @@
 
                                     @can('ver-domiciliosClientes')
                                         <td>
-                                        @if ($cliente->representante_inst)
-                                            <span class="text-danger">Sin domicilio</span>
-                                        @else
-                                            @if (isset($cliente->domicilio->calle))
-                                            <a href="#" wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})'>
-                                                <span>
-                                                    {{$cliente->domicilio->calle}},
-                                                    {{$cliente->domicilio->numero_ext}},
-                                                    {{$cliente->domicilio->getColonia->codigo_postal}},
-                                                    {{$cliente->domicilio->getColonia->nombre}},
-                                                    {{$cliente->domicilio->getColonia->getMunicipio->nombre ?? "Sin municipio"}},
-                                                    {{$cliente->domicilio->getColonia->getMunicipio->getEstado->nombre ?? "Sin Estado"}}
-                                                </span>
-                                            </a>
-                                                {{-- <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
-                                                <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
-                                                <span class="fw-bold">Colonia y Municipio:</span>
-                                                @if (isset($cliente->domicilio->getColonia->nombre))
-                                                    {{$cliente->domicilio->getColonia->nombre}},
-                                                @else
-                                                    <span class="text-danger">Sin colonia registrada, </span>
-                                                @endif
-                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->nombre))
-                                                    {{$cliente->domicilio->getColonia->getMunicipio->nombre}}
-                                                @else
-                                                    <span class="text-danger">Sin Municipio registrado</span>
-                                                @endif
-                                                <br>
-                                                <span class="fw-bold">Estado y pais: </span>
-
-                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->nombre))
-                                                    {{$cliente->domicilio->getColonia->getMunicipio->getEstado->nombre}},
-                                                @else
-                                                    <span class="text-danger">No hay estado registrado</span>
-                                                @endif
-
-                                                @if (isset($cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre))
-                                                    <span>{{$cliente->domicilio->getColonia->getMunicipio->getEstado->getPais->nombre}}</span>
-                                                @else
-                                                    <span class="text-danger">No hay pais registrado</span>
-                                                @endif
-                                                <br>
-                                                <span class="fw-bold">Codigo postal: </span>
-                                                @if (isset($cliente->domicilio->getColonia->codigo_postal))
-                                                    {{$cliente->domicilio->getColonia->codigo_postal}}
-                                                @else
-                                                    <span class="text-danger">Sin codigo postal</span>
-                                                @endif
-                                                <br> --}}
-                                                {{-- @can('editar-domiciliosClientes')
-                                                    <button wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})' class="btn btn-outline-info">Editar domicilio <i class="fa-solid fa-pen-to-square"></i></button>
-                                                @endcan --}}
+                                            @if ($cliente->representante_inst)
+                                                <span class="text-danger">Sin domicilio</span>
                                             @else
-                                                @can('crear-domiciliosClientes')
-                                                    <button wire:loading.attr='disabled' wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
-                                                @endcan
+                                                @if (isset($cliente->domicilio->calle))
+                                                    <a href="#" wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})'>
+                                                        <span>
+                                                            {{$cliente->domicilio->calle}},
+                                                            {{$cliente->domicilio->numero_ext}},
+                                                            {{$cliente->domicilio->getColonia->codigo_postal}},
+                                                            {{$cliente->domicilio->getColonia->nombre}}
+                                                        </span>
+                                                    </a>
+                                                @else
+                                                    @can('crear-domiciliosClientes')
+                                                        <button wire:loading.attr='disabled' wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
+                                                    @endcan
+                                                @endif
                                             @endif
-                                        @endif
                                         </td>
                                     @endcan
 
@@ -318,6 +224,7 @@
                     </tbody>
                 </table>
             </div>
+
             {{$clientes->links('pagination-links')}}
             {{-- @include('livewire.modals.nuevoCliente') --}}
             @include('livewire.clientes-resources.modal-warning')

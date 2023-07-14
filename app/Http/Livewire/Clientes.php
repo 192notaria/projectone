@@ -13,6 +13,7 @@ use App\Models\Proyectos;
 use App\Models\Servicios;
 use App\Models\SubprocesosCatalogos;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -59,13 +60,24 @@ class Clientes extends Component
     public $proyectos_escrituras = [];
     public function render(){
         return view('livewire.clientes', [
-            "clientes" => ModelClientes::where(function($query){
-                    foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
-                    }
-                })->paginate($this->cantidadClientes),
+            // "clientes" => ModelClientes::where(function($query){
+            //         foreach (explode(" ", $this->search) as $key => $value) {
+            //             $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
+            //                 ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
+            //                 ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
+            //         }
+            //     })->paginate($this->cantidadClientes),
+            "clientes" => ModelClientes::where(DB::raw("CONCAT(nombre, ' ', apaterno, ' ', amaterno)"), "LIKE", "%" . $this->search . "%")
+                ->orWhere(function($query){
+                    $query->where("telefono", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("fecha_nacimiento", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("estado_civil", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("genero", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("curp", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("rfc", "LIKE", "%" . $this->search . "%")
+                        ->orWhere("email", "LIKE", "%" . $this->search . "%");
+                })
+                ->paginate($this->cantidadClientes),
             "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
             "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
             // "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
@@ -173,6 +185,8 @@ class Clientes extends Component
         $this->rfc = $cliente->rfc ?? "";
         $this->tipo_cliente = $cliente->tipo_cliente ?? "";
         $this->razon_social = $cliente->razon_social ?? "";
+
+        return $this->dispatchBrowserEvent("open-new-cliente-modal");
     }
 
     public function borrarCliente(){
@@ -188,8 +202,30 @@ class Clientes extends Component
 
     public function save(){
         $validatedData = $this->validate();
-        if($this->id_cliente == ""){
-            $buscarCliente = ModelClientes::where('nombre', $this->nombre)
+
+        if($this->id_cliente != ""){
+            $cliente = ModelClientes::find($this->id_cliente);
+            $cliente->nombre = $this->nombre;
+            $cliente->apaterno = $this->apaterno;
+            $cliente->amaterno = $this->amaterno;
+            $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
+            $cliente->fecha_nacimiento = $this->fecha_nacimiento;
+            $cliente->email = $this->email;
+            $cliente->telefono = $this->telefono;
+            $cliente->ocupacion = $this->ocupacion;
+            $cliente->estado_civil = $this->estado_civil;
+            $cliente->genero = $this->genero;
+            $cliente->curp = $this->curp;
+            $cliente->rfc = $this->rfc;
+            $cliente->tipo_cliente = $this->tipo_cliente;
+            $cliente->razon_social = $this->razon_social;
+            $cliente->admin_unico = $this->admin_unico;
+            $cliente->save();
+            $this->clearInputs();
+            return $this->dispatchBrowserEvent('close-new-cliente-modal');
+        }
+
+        $buscarCliente = ModelClientes::where('nombre', $this->nombre)
                 ->where('apaterno', $this->apaterno)
                 ->where('amaterno', $this->amaterno)
                 ->where('fecha_nacimiento', $this->fecha_nacimiento)
@@ -218,49 +254,11 @@ class Clientes extends Component
             $cliente->curp = $this->curp ?? "";
             $cliente->rfc = $this->rfc ?? "";
             $cliente->tipo_cliente = $this->tipo_cliente;
-            $cliente->razon_social = $this->razon_social;
-            $cliente->admin_unico = $this->admin_unico;
+            $cliente->razon_social = $this->razon_social ?? "";
+            $cliente->admin_unico = $this->admin_unico ?? "";
             $cliente->save();
             $this->clearInputs();
-
-            return $this->dispatchBrowserEvent('cliente_registrado', "Nuevo cliente registrado");
-            // return $this->closeModal();
-        }
-
-        // $buscarCliente = ModelClientes::where('nombre',  $validatedData['nombre'])
-        //         ->where('apaterno', $validatedData['apaterno'])
-        //         ->where('amaterno', $validatedData['amaterno'])
-        //         ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
-        //         ->get();
-
-        // if(count($buscarCliente) > 0){
-        //     foreach($buscarCliente as $clienteEncontrado){
-        //         if($this->id_cliente != $clienteEncontrado['id']){
-        //             return $this->addError('existeCliente', 'Este cliente ya esta registrado');
-        //         }
-        //     }
-        // }
-
-        $cliente = ModelClientes::find($this->id_cliente);
-        $cliente->nombre = $this->nombre;
-        $cliente->apaterno = $this->apaterno;
-        $cliente->amaterno = $this->amaterno;
-        $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
-        $cliente->fecha_nacimiento = $this->fecha_nacimiento;
-        $cliente->email = $this->email;
-        $cliente->telefono = $this->telefono;
-        $cliente->ocupacion = $this->ocupacion;
-        $cliente->estado_civil = $this->estado_civil;
-        $cliente->genero = $this->genero;
-        $cliente->curp = $this->curp;
-        $cliente->rfc = $this->rfc;
-        $cliente->tipo_cliente = $this->tipo_cliente;
-        $cliente->razon_social = $this->razon_social;
-        $cliente->admin_unico = $this->admin_unico;
-        $cliente->save();
-
-        $this->clearInputs();
-        return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
+            return $this->dispatchBrowserEvent('close-new-cliente-modal');
     }
 
     public function saveClienteInst(){

@@ -45,13 +45,9 @@ class Clientes extends Model
                     ->orWhere("amaterno", "")
                     ->orWhere("municipio_nacimiento_id", "")
                     ->orWhereNull("fecha_nacimiento")
-                    ->orWhere("email", "")
-                    ->orWhere("telefono", "")
                     ->orWhere("ocupacion", "")
                     ->orWhere("estado_civil", "")
                     ->orWhere("genero", "")
-                    ->orWhere("curp", "")
-                    ->orWhere("rfc", "")
                     ->orWhere("tipo_cliente", "");
             })
             ->first();

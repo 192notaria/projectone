@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade bd-example-modal-lg"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
+<div wire:ignore.self class="modal fade new-cliente-modal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,34 +202,11 @@
 </div>
 
 <script>
-    window.addEventListener('cliente_registrado', event => {
-        $(".bd-example-modal-lg").modal("hide")
-        var myAudio= document.createElement('audio');
-        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}";
-        myAudio.play();
-
-        Snackbar.show({
-            text: event.detail,
-            actionTextColor: '#fff',
-            backgroundColor: '#00ab55',
-            pos: 'top-center',
-            duration: 5000,
-            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
-        });
+    window.addEventListener('open-new-cliente-modal', event => {
+        $(".new-cliente-modal").modal("show")
     })
-    window.addEventListener('cliente_editado', event => {
-        $(".bd-example-modal-lg").modal("hide")
-        var myAudio= document.createElement('audio');
-        myAudio.src = "{{ url("/v3/src/assets/audio/notification.mp3") }}1";
-        myAudio.play();
 
-        Snackbar.show({
-            text: event.detail,
-            actionTextColor: '#fff',
-            backgroundColor: '#00ab55',
-            pos: 'top-center',
-            duration: 5000,
-            actionText: '<i class="fa-solid fa-circle-xmark"></i>'
-        });
+    window.addEventListener('close-new-cliente-modal', event => {
+        $(".new-cliente-modal").modal("hide")
     })
 </script>

@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <h5>Registros totales: {{ $paginator->total() }}</h5>
+    <p>Registros totales: {{ $paginator->total() }}</p>
     <div class="paginating-container">
         <div class="pagination-custom_solid">
             @if ($paginator->onFirstPage())
