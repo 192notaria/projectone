@@ -20,7 +20,7 @@
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                <li><a wire:click="gotoPage({{$page}})"class="active">{{$page}}</a></li>
+                                <li><a wire:click="gotoPage({{$page}})" class="active">{{$page}}</a></li>
                             @else
                                 <li><a style="cursor: pointer" wire:click="gotoPage({{$page}})">{{$page}}</a></li>
                             @endif

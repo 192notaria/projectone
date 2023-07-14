@@ -5,19 +5,17 @@
 
     <link href="{{ url('v3/src/assets/css/light/forms/switches.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ url('v3/src/assets/css/dark/forms/switches.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{url('v3/src/assets/css/dark/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('v3/src/assets/css/light/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('v3/src/assets/css/dark/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('/v3/src/assets/css/dark/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('/v3/src/assets/css/light/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('/v3/src/assets/css/dark/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('/v3/src/plugins/src/tomSelect/tom-select.default.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url('/v3/src/plugins/css/light/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url('/v3/src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
 
 @endsection
 @section('content')
     <div class="layout-px-spacing">
         <div class="middle-content container-xxl p-0">
-            <div class="page-meta">
-                <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                    <h2>Clientes</h2>
-                </nav>
-            </div>
             <div class="row layout-top-spacing">
                 <div class="col-lg-12">
                     @livewire("clientes")
@@ -29,6 +27,7 @@
 
 @section('scripts-content')
     <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
-    <script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
+    <script src="{{ url("v3/src/assets/js/elements/custom-search.js") }}"></script>
+    <script src="{{url("v3/src/plugins/src/tomSelect/tom-select.base.js")}}"></script>
 @endsection
 

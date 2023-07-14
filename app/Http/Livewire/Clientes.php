@@ -61,20 +61,11 @@ class Clientes extends Component
         return view('livewire.clientes', [
             "clientes" => ModelClientes::where(function($query){
                     foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%');
+                        $query->orWhere('nombre', 'LIKE', '%' . $value . '%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $value . '%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $value . '%');
                     }
-                })
-                ->orWhere(function($query){
-                    foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->orWhere('apaterno', 'LIKE', '%' . $value . '%');
-                    }
-                })
-                ->orWhere(function($query){
-                    foreach (explode(" ", $this->search) as $key => $value) {
-                        $query->orWhere('amaterno', 'LIKE', '%' . $value . '%');
-                    }
-                })
-                ->paginate($this->cantidadClientes),
+                })->paginate($this->cantidadClientes),
             "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
             "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
             // "servicios" => Servicios::orderBy("nombre", "ASC")->get(),
@@ -84,6 +75,7 @@ class Clientes extends Component
                 })->get(),
             "cliente_activo" => $this->id_cliente ? ModelClientes::find($this->id_cliente) : "",
             "catalogo_documentos_generales" => CatalogoDocumentosGenerales::orderBy("nombre")->get(),
+            "municipios_data" => Municipios::orderBy("nombre", "ASC")->get()
         ]);
     }
 
@@ -109,9 +101,6 @@ class Clientes extends Component
                 'fecha_nacimiento' => '',
                 'email' => $this->email != "" ? 'email' : "",
                 'telefono' => $this->telefono != "" ? 'min:10' : "",
-                'ocupacion' => '',
-                'estado_civil' => '',
-                'genero' => '',
                 'tipo_cliente' => 'required',
             ];
         }
@@ -238,19 +227,19 @@ class Clientes extends Component
             // return $this->closeModal();
         }
 
-        $buscarCliente = ModelClientes::where('nombre',  $validatedData['nombre'])
-                ->where('apaterno', $validatedData['apaterno'])
-                ->where('amaterno', $validatedData['amaterno'])
-                ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
-                ->get();
+        // $buscarCliente = ModelClientes::where('nombre',  $validatedData['nombre'])
+        //         ->where('apaterno', $validatedData['apaterno'])
+        //         ->where('amaterno', $validatedData['amaterno'])
+        //         ->where('fecha_nacimiento', $validatedData['fecha_nacimiento'])
+        //         ->get();
 
-        if(count($buscarCliente) > 0){
-            foreach($buscarCliente as $clienteEncontrado){
-                if($this->id_cliente != $clienteEncontrado->id){
-                    return $this->addError('existeCliente', 'Este cliente ya esta registrado');
-                }
-            }
-        }
+        // if(count($buscarCliente) > 0){
+        //     foreach($buscarCliente as $clienteEncontrado){
+        //         if($this->id_cliente != $clienteEncontrado['id']){
+        //             return $this->addError('existeCliente', 'Este cliente ya esta registrado');
+        //         }
+        //     }
+        // }
 
         $cliente = ModelClientes::find($this->id_cliente);
         $cliente->nombre = $this->nombre;
@@ -269,10 +258,9 @@ class Clientes extends Component
         $cliente->razon_social = $this->razon_social;
         $cliente->admin_unico = $this->admin_unico;
         $cliente->save();
-        $this->clearInputs();
 
+        $this->clearInputs();
         return $this->dispatchBrowserEvent('cliente_editado', "Cliente editado");
-        // return $this->closeModal();
     }
 
     public function saveClienteInst(){
@@ -522,5 +510,14 @@ class Clientes extends Component
         DocumentosClientes::find($id)->delete();
         // return $this->dispatchBrowserEvent("close-upload-general-docs");
         return $this->dispatchBrowserEvent("success-notify", "Documento removido");
+    }
+
+
+    public $warning_tittle;
+    public $warning_message;
+    function open_warning_modal(){
+        $this->warning_tittle = 'Información faltante';
+        $this->warning_message = 'Es necesario ingresar la información faltante del cliente';
+        return $this->dispatchBrowserEvent("abrir-modal-warning");
     }
 }

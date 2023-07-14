@@ -60,7 +60,22 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-3 autocomplete">
                                 <label for="">Municipio de nacimiento</label>
-                                <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
+                                <select id="select-beast" placeholder="Select a person..." autocomplete="off">
+                                    <option value="">Select a person...</option>
+                                    @foreach ($municipios as $municipio)
+                                        <option value="{{$municipio->id}}">{{$municipio->nombre}}</option>
+                                    @endforeach
+                                </select>
+                                <script>
+                                    new TomSelect("#select-beast",{
+                                        create: true,
+                                        sortField: {
+                                            field: "text",
+                                            direction: "asc"
+                                        }
+                                    });
+                                </script>
+                                {{-- <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
                                 <input type="hidden" wire:model='municipio_nacimiento_id'>
                                 @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
                                 <div class="autocomplete-items">
@@ -71,7 +86,7 @@
                                             </a>
                                         </div>
                                     @endforeach
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-lg-6">

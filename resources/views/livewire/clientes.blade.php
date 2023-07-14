@@ -1,24 +1,36 @@
 <div class="card">
     <div class="card-header">
-        <div style="display:flex; align-items:right;">
+        <div class="d-flex justify-content-between">
+            <h3>Clientes</h3>
             @can('crear-clientes')
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
-                    <i class="fa-solid fa-user-plus"></i>
+                <button wire:loading.attr='disabled' type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                    Nuevo registro <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
-            <select wire:model='cantidadClientes' class="form-select" style="width: 5%; margin-left: 5px; margin-right: 5px;">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-            <input style="width: 30%" wire:model="search" type="text" class="form-control" placeholder="Buscar...">
         </div>
     </div>
     <div class="card-body">
-        <div class="row">
-
+        <div class="row gx-3">
+            <div class="col-lg-12 d-flex justify-content-between">
+                <div>
+                    <select wire:model='cantidadClientes' class="form-select" style="width: 80px;">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div style="width: 30%">
+                    {{-- <input wire:model="search" type="text" class="form-control" placeholder="Buscar..."> --}}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </span>
+                        <input wire:model="search" type="text" class="form-control" placeholder="Busqueda rapida" aria-label="notification" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
@@ -98,16 +110,16 @@
             </style>
 
             <div class="col-lg-12 table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Nacimiento</th>
-                            <th scope="col">Datos personales</th>
+                            <th scope="col">Télefono</th>
+                            <th scope="col">Correo</th>
                             @can('ver-domiciliosClientes')
                                 <th scope="col">Domicilio</th>
                             @endcan
-                            <th scope="col"></th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                     </thead>
@@ -117,22 +129,32 @@
                                 <tr>
                                     <td>
                                         <div class="media">
-                                            <div class="avatar avatar-sm me-2">
+                                            {{-- <div class="avatar avatar-sm me-2">
                                                 @if ($cliente->tipo_cliente == "Persona Moral")
                                                     <span class="avatar-title badge bg-success rounded-circle">{{substr(strtoupper($cliente->razon_social), 0, 2)}}</span>
                                                 @else
                                                     <span class="avatar-title badge bg-primary rounded-circle">{{substr(strtoupper($cliente->nombre), 0, 2)}}</span>
                                                 @endif
-                                            </div>
+                                            </div> --}}
                                             <div class="media-body align-self-center">
                                                 @if ($cliente->tipo_cliente == "Persona Moral")
-                                                    <h6 class="mb-0">{{$cliente->razon_social}}</h6>
-                                                    <span class="badge badge-primary">
+                                                    <span class="mb-0">{{$cliente->razon_social}}</span>
+                                                    {{-- <span class="badge badge-primary">
                                                         {{$cliente->admin_unico}}
+                                                    </span> --}}
+                                                @else
+                                                    @if ($cliente->validarData($cliente->id))
+                                                        <a href="#" wire:click='open_warning_modal'>
+                                                            <span class="badge badge-danger" style="width: 25px; height: 25px; border-radius: 100%;">
+                                                                <i class="fa-solid fa-exclamation"></i>
+                                                            </span>
+                                                        </a>
+                                                    @endif
+                                                    <span class="mb-0 me-1">
+                                                        {{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}
                                                     </span>
                                                 @endif
-                                                <h6 class="mb-0">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</h6>
-                                                <p class="mb-0">
+                                                    {{-- <p class="mb-0">
                                                     <h5>
                                                         @if ($cliente->genero == "Masculino")
                                                             <span class="badge badge-info">{{$cliente->genero}}</span>
@@ -140,8 +162,8 @@
                                                             <span class="badge badge-secondary">{{$cliente->genero}}</span>
                                                         @endif
                                                     </h5>
-                                                </p>
-                                                <p class="mb-0">
+                                                </p> --}}
+                                                {{-- <p class="mb-0">
                                                     <h5>
                                                         @if ($cliente->estado_civil == "Casado")
                                                             <span class="badge badge-danger">{{$cliente->estado_civil}}</span>
@@ -149,11 +171,11 @@
                                                             <span class="badge badge-success">{{$cliente->estado_civil}}</span>
                                                         @endif
                                                     </h5>
-                                                </p>
+                                                </p> --}}
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         @if ($cliente->representante_inst)
                                             <span class="text-danger">Sin informacion</span>
                                         @else
@@ -172,10 +194,10 @@
                                             </p>
                                         @endif
 
-                                    </td>
-                                    <td>
-                                        @if ($cliente->representante_inst)
-                                            <span class="fw-bold">Télefono:</span><br>{{$cliente->telefono ?? "Sin registro"}}
+                                    </td> --}}
+                                    <td class="text-center">
+                                        <span>{!! $cliente->telefono == '' ? "<span class='text-danger'>S/R</span>" : $cliente->telefono !!}</span>
+                                        {{-- @if ($cliente->representante_inst)
                                         @else
                                             <p class="mb-0">
                                                 <span class="fw-bold">CURP:</span><br>{{$cliente->curp ?? "Sin registro"}}
@@ -192,7 +214,10 @@
                                             <p class="mb-0">
                                                 <span class="fw-bold">Ocupacion:</span><br>{{$cliente->getOcupacion->nombre ?? "Sin registro"}}
                                             </p>
-                                        @endif
+                                        @endif --}}
+                                    </td>
+                                    <td>
+                                        <span>{!! $cliente->email == '' ? "<span class='text-danger'>S/R</span>" : $cliente->email !!}</span>
                                     </td>
 
                                     @can('ver-domiciliosClientes')
@@ -201,7 +226,17 @@
                                             <span class="text-danger">Sin domicilio</span>
                                         @else
                                             @if (isset($cliente->domicilio->calle))
-                                                <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
+                                            <a href="#" wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})'>
+                                                <span>
+                                                    {{$cliente->domicilio->calle}},
+                                                    {{$cliente->domicilio->numero_ext}},
+                                                    {{$cliente->domicilio->getColonia->codigo_postal}},
+                                                    {{$cliente->domicilio->getColonia->nombre}},
+                                                    {{$cliente->domicilio->getColonia->getMunicipio->nombre ?? "Sin municipio"}},
+                                                    {{$cliente->domicilio->getColonia->getMunicipio->getEstado->nombre ?? "Sin Estado"}}
+                                                </span>
+                                            </a>
+                                                {{-- <span class="fw-bold">Calle: </span>{{$cliente->domicilio->calle}}<br>
                                                 <span class="fw-bold">Numero Exterior: </span>{{$cliente->domicilio->numero_ext}}, <span class="fw-bold">Numero Interior: </span>{{$cliente->domicilio->numero_int}}<br>
                                                 <span class="fw-bold">Colonia y Municipio:</span>
                                                 @if (isset($cliente->domicilio->getColonia->nombre))
@@ -228,7 +263,6 @@
                                                 @else
                                                     <span class="text-danger">No hay pais registrado</span>
                                                 @endif
-
                                                 <br>
                                                 <span class="fw-bold">Codigo postal: </span>
                                                 @if (isset($cliente->domicilio->getColonia->codigo_postal))
@@ -236,13 +270,13 @@
                                                 @else
                                                     <span class="text-danger">Sin codigo postal</span>
                                                 @endif
-                                                <br>
-                                                @can('editar-domiciliosClientes')
+                                                <br> --}}
+                                                {{-- @can('editar-domiciliosClientes')
                                                     <button wire:click='editarDomicilio({{$cliente->domicilio->id}}, {{$cliente->id}})' class="btn btn-outline-info">Editar domicilio <i class="fa-solid fa-pen-to-square"></i></button>
-                                                @endcan
+                                                @endcan --}}
                                             @else
                                                 @can('crear-domiciliosClientes')
-                                                    <button wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
+                                                    <button wire:loading.attr='disabled' wire:click='openModalDomicilios({{$cliente->id}})' class="btn btn-outline-success">Agregar domicilio <i class="fa-solid fa-circle-plus"></i></button>
                                                 @endcan
                                             @endif
                                         @endif
@@ -253,21 +287,21 @@
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 @can('editar-clientes')
-                                                    <button
+                                                    <button wire:loading.attr='disabled'
                                                         @if ($cliente->representante_inst)
                                                             wire:click='editClienteInst({{$cliente->id}})'
                                                         @else
                                                             wire:click='editarCliente({{$cliente->id}})'
                                                         @endif
-                                                        type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
+                                                        type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
                                                 @endcan
                                                 @can('borrar-clientes')
-                                                    <button wire:click='SelectBorrarCliente({{$cliente->id}})' data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <button wire:loading.attr='disabled' wire:click='SelectBorrarCliente({{$cliente->id}})' data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
                                                 @endcan
                                                 @can('subir-documentos-clientes')
-                                                    <button  type="button" class="btn btn-outline-primary" wire:click='open_upload_docs({{$cliente->id}})'>
+                                                    <button wire:loading.attr='disabled' type="button" class="btn btn-outline-dark" wire:click='open_upload_docs({{$cliente->id}})'>
                                                         <i class="fa-solid fa-file"></i>
                                                     </button>
                                                 @endcan
@@ -283,9 +317,10 @@
                         @endif
                     </tbody>
                 </table>
-                {{$clientes->links('pagination-links')}}
             </div>
-            @include('livewire.modals.nuevoCliente')
+            {{$clientes->links('pagination-links')}}
+            {{-- @include('livewire.modals.nuevoCliente') --}}
+            @include('livewire.clientes-resources.modal-warning')
             @include('livewire.modals-ignore-self.upload-generales-documents')
             @include('livewire.modals.nuevo-cliente')
             @include('livewire.modals.domicilioCliente')

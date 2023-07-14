@@ -37,4 +37,24 @@ class Clientes extends Model
     public function documentos(){
         return $this->hasMany(DocumentosClientes::class, 'cliente_id');
     }
+
+    public function validarData($id){
+        return Clientes::where('id', $id)
+            ->where(function($query){
+                $query->where("apaterno","")
+                    ->orWhere("amaterno", "")
+                    ->orWhere("municipio_nacimiento_id", "")
+                    ->orWhereNull("fecha_nacimiento")
+                    ->orWhere("email", "")
+                    ->orWhere("telefono", "")
+                    ->orWhere("ocupacion", "")
+                    ->orWhere("estado_civil", "")
+                    ->orWhere("genero", "")
+                    ->orWhere("curp", "")
+                    ->orWhere("rfc", "")
+                    ->orWhere("tipo_cliente", "");
+            })
+            ->first();
+    }
+
 }

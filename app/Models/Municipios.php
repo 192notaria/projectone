@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Municipios extends Model
 {
     use HasFactory;
+    protected $table = "municipios";
+    protected $fillable = [
+        "nombre",
+        "estado"
+    ];
 
     public function getEstado(){
         return $this->belongsTo(Estados::class, 'estado');
