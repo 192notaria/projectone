@@ -2,10 +2,10 @@
     <div class="card-header">
         <div class="d-flex justify-content-between">
 
-            {!!Route::currentRouteName() == "escrituras-proceso" ?? "<h3>Escrituras públicas</h3>"!!}
-            {!!Route::currentRouteName() == "poderes-proceso" ?? "<h3>Poderes</h3>"!!}
-            {!!Route::currentRouteName() == "ratificaciones-proceso" ?? "<h3>Ratificaciones</h3>"!!}
-            {!!Route::currentRouteName() == "actas-proceso" ?? "<h3>Actas</h3>"!!}
+            {!!Route::currentRouteName() == "escrituras-proceso" ? "<h3>Escrituras públicas</h3>" : "Proyectos"!!}
+            {!!Route::currentRouteName() == "poderes-proceso" ? "<h3>Poderes</h3>" : "Proyectos"!!}
+            {!!Route::currentRouteName() == "ratificaciones-proceso" ? "<h3>Ratificaciones</h3>" : "Proyectos"!!}
+            {!!Route::currentRouteName() == "actas-proceso" ? "<h3>Actas</h3>" : "Proyectos"!!}
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
