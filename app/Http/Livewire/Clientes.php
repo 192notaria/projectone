@@ -189,6 +189,11 @@ class Clientes extends Component
         return $this->dispatchBrowserEvent("open-new-cliente-modal");
     }
 
+    public function nuevo_cliente(){
+        $this->clearInputs();
+        return $this->dispatchBrowserEvent("open-new-cliente-modal");
+    }
+
     public function borrarCliente(){
         if($this->id_cliente != ""){
             ModelClientes::find($this->id_cliente)->delete();
