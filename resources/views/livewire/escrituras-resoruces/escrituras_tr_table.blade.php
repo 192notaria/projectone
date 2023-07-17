@@ -111,12 +111,12 @@
                 @endif --}}
 
                 @can('editar-proyectos')
-                    <button wire:loading.attr="disabled" wire:click='openProcesos({{$escritura->id}})' type="button" class="btn btn-outline-success">
+                    <button wire:loading.attr="disabled" wire:click='openProcesos({{$escritura->id}})' type="button" class="btn btn-outline-dark">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 @endcan
                 @can('borrar-proyectos')
-                    <button wire:loading.attr="disabled" wire:click='open_modal_borrar({{$escritura->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                    <button wire:loading.attr="disabled" wire:click='open_modal_borrar({{$escritura->id}})' data-bs-toggle="modal" data-bs-target=".modal-cancelar-proyecto" type="button" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
                 @endcan
             </div>
         </div>
