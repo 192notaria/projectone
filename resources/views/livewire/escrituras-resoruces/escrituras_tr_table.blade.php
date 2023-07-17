@@ -5,6 +5,7 @@
     <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div>
             {{-- <div class="avatar me-2">
+
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
@@ -30,8 +31,8 @@
             @if (isset($escritura->getstatus->proceso->nombre))
                 <p>
                     <span class="badge badge-info">
-                        <i class="fa-solid fa-pen"></i> {{$escritura->getstatus->proceso->nombre}} - {{$escritura->getstatus->subproceso->nombre}}
-                    </span>
+                        an><i class="fa-solid fa-pen"></i> {{$escritura->getstatus->proceso->nombre}} - {{$escritura->getstatus->subproceso->nombre}}
+                    </sp
                 </p>
                 <p>
                     <span class="badge badge-info"><i class="fa-solid fa-calendar"></i>
@@ -39,7 +40,6 @@
                     </span>
                 </p>
             @endif
-
         @endcan --}}
     </td>
 
@@ -81,6 +81,7 @@
                     $porcentaje = round($procesos / $subprocesoscount);
                     if($porcentaje > 100) $porcentaje = 100;
                 @endphp
+
                 @if ($porcentaje <= 20)<span class="badge badge-danger mb-1">{{$porcentaje}}%</span>@endif
                 @if ($porcentaje > 20 && $porcentaje <= 50)<span class="badge badge-warning mb-1">{{$porcentaje}}%</span>@endif
                 @if ($porcentaje > 50 && $porcentaje <= 99)<span class="badge badge-info mb-1">{{$porcentaje}}%</span>@endif
