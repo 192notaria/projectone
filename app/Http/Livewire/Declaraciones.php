@@ -25,7 +25,7 @@ class Declaraciones extends Component
 
     public function render()
     {
-        return view('livewire.declaraciones',[
+        return view('livewire.declaraciones', [
             "declaraciones" => Declaranot::orderBy("created_at", "DESC")->paginate($this->cantidadDeclaraciones),
             "escrituras" => $this->buscarEscrituraInput ? Proyectos::orderBY("numero_escritura", "ASC")
                 ->where("numero_escritura", "LIKE", "%" . $this->buscarEscrituraInput . "%")
