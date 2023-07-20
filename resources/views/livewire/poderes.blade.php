@@ -101,11 +101,12 @@
                 <table class="table table-striped" id="my_table">
                     <thead>
                         <tr>
+                            <th scope="col"># Escritura</th>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Avance del Proyecto</th>
-                            <th scope="col">Detalles del Proyecto</th>
-                            <th scope="col">Fecha de creacion</th>
-                            <th scope="col"></th>
+                            <th scope="col">Abogado</th>
+                            <th scope="col">Acto</th>
+                            <th scope="col">Avance</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                     </thead>
