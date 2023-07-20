@@ -62,5 +62,4 @@
     </div>
     @include('livewire.modals.nuevoMunicipio')
     @include('livewire.modals.borrarMunicipio')
-
 </div>

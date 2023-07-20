@@ -54,7 +54,7 @@ class EscriturasProceso extends Component
     public $subproceso_activo;
     public $subprocesos_info;
 
-    public $cantidad_escrituras = 5;
+    public $cantidad_escrituras = 10;
     public $procesos_data = [];
     public $subprocesos_data = [];
     public $documents_to_upload = [];
