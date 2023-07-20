@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" wire:ignore>
 
             @if (Route::currentRouteName() == "escrituras-proceso")
                 <h3>Escrituras públicas</h3>

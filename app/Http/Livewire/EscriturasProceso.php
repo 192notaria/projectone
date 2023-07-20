@@ -596,7 +596,6 @@ public function removerParte($id){
     public function abrirModalEgresos(){
         $this->costos_a_egresar = [];
 
-
         foreach($this->pagos_checkbox as $key => $concepto){
             if($concepto){
                 $buscarConcepto = Costos::find($key);
@@ -606,6 +605,7 @@ public function removerParte($id){
                 array_push($this->costos_a_egresar, $buscarConcepto);
             }
         }
+
         return $this->dispatchBrowserEvent('abrir-modal-registrar-egresos');
     }
 
