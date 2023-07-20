@@ -20,7 +20,7 @@
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
-                    Nuevo proyecto <i class="fa-solid fa-user-plus"></i>
+                    Nuevo poder <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
         </div>
@@ -101,7 +101,7 @@
                 <table class="table table-striped" id="my_table">
                     <thead>
                         <tr>
-                            <th scope="col"># Escritura</th>
+                            <th scope="col"># Poder</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Abogado</th>
                             <th scope="col">Acto</th>
