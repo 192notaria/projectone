@@ -450,7 +450,6 @@ public function removerParte($id){
         return $this->dispatchBrowserEvent("cerrar-modal-registrar-facturas", "Factura registrada");
     }
 
-
     public function calcularTotalPago(){
         $this->total_pago = 0.0;
         $this->total_impuestos = 0.0;
@@ -850,6 +849,7 @@ public function removerParte($id){
         foreach($this->subprocesos_data as $data){
             array_push($array_tipo, $data->catalogosSubprocesos->id);
         }
+
         $this->catalogo_documentos = SubprocesosCatalogos::orderBy("nombre", "ASC")
             ->where("tipo_id", 6)
             ->whereIn("id", $array_tipo)
@@ -886,7 +886,6 @@ public function removerParte($id){
         Documentos::find($id)->delete();
         return $this->dispatchBrowserEvent('remover-documento-escritura', 'Documento borrado');
     }
-
 //================================================== AGENDAR FIRMA DEL POYECTO ==================================================
 
     public function agendarFirma(){
