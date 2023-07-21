@@ -25,11 +25,6 @@
 @section('content')
     <div class="layout-px-spacing">
         <div class="middle-content container-xxl p-0">
-            <div class="page-meta">
-                <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                    <h2>Ratificaciones</h2>
-                </nav>
-            </div>
             <div class="row layout-top-spacing">
                 <div class="col-lg-12">
                     @livewire("ratificaciones")

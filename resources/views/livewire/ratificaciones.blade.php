@@ -20,7 +20,7 @@
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
-                    Nuevo proyecto <i class="fa-solid fa-user-plus"></i>
+                    Nueva ratificación <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
         </div>
