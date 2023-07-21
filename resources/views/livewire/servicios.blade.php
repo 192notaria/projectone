@@ -18,6 +18,7 @@
     </div>
     <div class="card-body">
         <div class="row">
+
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
