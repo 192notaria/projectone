@@ -121,14 +121,10 @@ class Actas extends Component
                 // ->where('status', 0)
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
-                        $q->where('nombre', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                        $q->where(DB::raw("CONCAT(nombre, ' ', apaterno, ' ', amaterno)"), 'LIKE', '%' . $this->search . '%');
                     })
                     ->orWhereHas('abogado', function($abogado){
-                        $abogado->where('name', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('apaterno', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('amaterno', 'LIKE', '%' . $this->search . '%');
+                        $abogado->where(DB::raw("CONCAT(name, ' ', apaterno, ' ', amaterno)"), 'LIKE', '%' . $this->search . '%');
                     })
                     ->orWhereHas('servicio', function($serv){
                         $serv->where('nombre', 'LIKE', '%' . $this->search . '%');
