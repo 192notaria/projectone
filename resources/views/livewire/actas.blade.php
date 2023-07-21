@@ -1,26 +1,28 @@
 <div class="card">
     <div class="card-header">
-        {{-- <button class="btn btn-danger" wire:click='deleteCollection'>Borrar firestore</button> --}}
-        <div class="d-flex justify-content-start">
+        <div class="d-flex justify-content-between" wire:ignore>
+
+            @if (Route::currentRouteName() == "escrituras-proceso")
+                <h3>Escrituras públicas</h3>
+            @endif
+
+            @if (Route::currentRouteName() == "poderes-proceso")
+                <h3>Poderes</h3>
+            @endif
+
+            @if (Route::currentRouteName() == "ratificaciones-proceso")
+                <h3>Ratificaciones</h3>
+            @endif
+
+            @if (Route::currentRouteName() == "actas-proceso")
+                <h3>Actas</h3>
+            @endif
+
             @can("crear-proyectos")
-                <button wire:click='modalNuevoProyecto' type="button" class="btn btn-outline-primary me-2">
-                    <i class="fa-solid fa-plus"></i>
+                <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
+                    Nuevo proyecto <i class="fa-solid fa-user-plus"></i>
                 </button>
             @endcan
-            <select style="width: 10%;" wire:model='cantidad_escrituras' class="form-select me-2">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-            <input wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Nombre, Apellido, Servicio...">
-            {{-- <select wire:model='tipo_acto_id' class="form-select">
-                <option value="">Todos...</option>
-                @foreach ($tipo_actos as $tipo)
-                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
-                @endforeach
-            </select> --}}
         </div>
     </div>
     <div class="card-body">
@@ -75,16 +77,37 @@
                     cursor: grabbing;
                 }
             </style>
+            <div class="col-lg-12 d-flex justify-content-between">
+                <div class="d-flex justify-content-start">
+                    <select wire:model='cantidad_escrituras' class="form-select mb-3 me-1">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div>
+                    {{-- <input wire:model="search" type="text" class="form-control" placeholder="Buscar..."> --}}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </span>
+                        <input wire:model="search" type="text" class="form-control" placeholder="Busqueda rapida" aria-label="notification" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
 
             <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
-                <table class="table table-striped" id="my_table">
+                <table class="table table-bordered table-hover" id="my_table">
                     <thead>
                         <tr>
+                            <th scope="col"># Acta</th>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Avance del Proyecto</th>
-                            <th scope="col">Detalles del Proyecto</th>
-                            <th scope="col">Fecha de creacion</th>
-                            <th scope="col"></th>
+                            <th scope="col">Abogado</th>
+                            <th scope="col">Acto</th>
+                            <th scope="col">Avance</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
                     </thead>
