@@ -41,7 +41,7 @@
             </style>
 
             <div class="col-lg-12 table-responsive">
-                <table class="table table-striped">
+                <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
