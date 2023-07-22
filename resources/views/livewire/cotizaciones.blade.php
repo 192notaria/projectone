@@ -89,10 +89,14 @@
                                         </button>
                                     @endcan
                                     @can("editar-cotizacion")
-                                        <button wire:loading.attr='disabled' wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button wire:loading.attr='disabled' wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
                                     @endcan
                                     @can("borrar-cotizacion")
-                                        <button wire:loading.attr='disabled' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button wire:loading.attr='disabled' class="btn btn-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     @endcan
                                 </td>
                             </tr>
