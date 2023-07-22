@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex justify-content-start">
-                        <select style="width: 10%;" wire:model='cantidadCotizaciones' class="form-select">
+                        <select wire:model='cantidadCotizaciones' class="form-select">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
