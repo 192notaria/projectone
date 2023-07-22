@@ -7,20 +7,11 @@
             <div>
                 @can("crear-cotizacion")
                     <button wire:click='abrir_modal_crear_cotizacion' class="btn btn-outline-success me-2">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus"></i> Crear cotización
                     </button>
                 @endcan
             </div>
         </div>
-        {{-- <div style="display:flex; justify-content: space-between;">
-            <div class="flex-item" style="width: 100%;">
-                <div style="display:flex; justify-content:end;">
-
-                    <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
-
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div class="card-body">
         <div class="row gy-3">
