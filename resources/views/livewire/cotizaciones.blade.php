@@ -26,14 +26,18 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="d-flex justify-content-between">
-                    <select style="width: 10%;" wire:model='cantidadCotizaciones' class="form-select">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    <input wire:model="search" type="text" class="form-control" placeholder="Buscar: Cliente, Acto...">
+                    <div class="d-flex justify-content-start">
+                        <select style="width: 10%;" wire:model='cantidadCotizaciones' class="form-select">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input wire:model="search" type="text" class="form-control" placeholder="Buscar: Cliente, Acto...">
+                    </div>
                 </div>
             </div>
             <style>
