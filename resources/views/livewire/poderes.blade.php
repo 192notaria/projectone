@@ -83,7 +83,7 @@
             </style>
 
             <div class="col-lg-12 table-responsive drag" style="cursor: grab;">
-                <table class="table table-striped" id="my_table">
+                <table class="table table-hover table-bordered" id="my_table">
                     <thead>
                         <tr>
                             <th scope="col"># Poder</th>
