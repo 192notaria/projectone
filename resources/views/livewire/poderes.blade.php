@@ -24,7 +24,6 @@
                     </select>
                 </div>
                 <div>
-                    {{-- <input wire:model="search" type="text" class="form-control" placeholder="Buscar..."> --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -127,7 +126,6 @@
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
     @include("livewire.escrituras-resoruces.modal-importar-recibo-pago")
-    {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
 
     <script>
         var mx = 0;
