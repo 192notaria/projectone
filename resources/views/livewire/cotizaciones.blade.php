@@ -83,17 +83,16 @@
                                 <td>{{$cotizacion->usuario->name ?? ""}} {{$cotizacion->usuario->apaterno ?? ""}} {{$cotizacion->usuario->amaterno ?? ""}}</td>
                                 <td>{{$cotizacion->created_at}}</td>
                                 <td>
-                                    <span wire:loading><div class="spinner-border text-success align-self-center "></div></span>
                                     @can("ver-historial-cotizaciones")
-                                        <button wire:loading.remove wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
+                                        <button wire:loading.attr='disabled' wire:click='ver_cotizaciones({{$cotizacion->id}})' class="btn btn-success">
                                             <i class="fa-solid fa-bars"></i>
                                         </button>
                                     @endcan
                                     @can("editar-cotizacion")
-                                        <button wire:loading.remove wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button wire:loading.attr='disabled' wire:click='editar_cotizacion({{$cotizacion->id}})' class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                     @endcan
                                     @can("borrar-cotizacion")
-                                        <button wire:loading.remove class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button wire:loading.attr='disabled' class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                     @endcan
                                 </td>
                             </tr>
