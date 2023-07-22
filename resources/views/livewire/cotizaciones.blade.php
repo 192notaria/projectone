@@ -1,14 +1,31 @@
 <div class="card">
     <div class="card-header">
-        <div style="display:flex; justify-content: space-between;">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h3>Cotizaciones</h3>
+            </div>
+            <div>
+                @can("crear-cotizacion")
+                    <button wire:click='abrir_modal_crear_cotizacion' class="btn btn-outline-success me-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                @endcan
+            </div>
+        </div>
+        {{-- <div style="display:flex; justify-content: space-between;">
             <div class="flex-item" style="width: 100%;">
                 <div style="display:flex; justify-content:end;">
-                    @can("crear-cotizacion")
-                        <button wire:click='abrir_modal_crear_cotizacion' class="btn btn-outline-success me-2">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    @endcan
+
                     <input style="width: 90%;" wire:model="search" type="text" class="form-control me-2" placeholder="Buscar: Cliente, Acto...">
+
+                </div>
+            </div>
+        </div> --}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-between">
                     <select style="width: 10%;" wire:model='cantidadCotizaciones' class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -16,12 +33,9 @@
                         <option value="20">20</option>
                         <option value="50">50</option>
                     </select>
+                    <input wire:model="search" type="text" class="form-control" placeholder="Buscar: Cliente, Acto...">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="row">
             <style>
                 .modal{
                     backdrop-filter: blur(5px);
