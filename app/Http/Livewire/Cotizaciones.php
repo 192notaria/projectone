@@ -41,13 +41,17 @@ class Cotizaciones extends Component
     public function render()
     {
         return view('livewire.cotizaciones', [
-            "cotizaciones" => ModelsCotizaciones::orderBy("created_at", "DESC")->paginate($this->cantidadCotizaciones),
+            "cotizaciones" => ModelsCotizaciones::orderBy("created_at", "DESC")
+                ->where(function($query){
+                    $query->whereHas('cliente', function($q){
+                        $q->where(DB::raw("CONCAT(nombre, ' ', apaterno, ' ', amaterno)"), 'LIKE', '%' . $this->search . '%');
+                    });
+                })
+                ->paginate($this->cantidadCotizaciones),
             "actos" => Servicios::orderBy("nombre", "ASC")->get(),
             "conceptos_pago" => Catalogos_conceptos_pago::orderBy("descripcion", "ASC")->get(),
             "clientes" =>  $this->buscar_cliente == '' ? [] : Clientes::orderBy("nombre", "ASC")
-                ->where('nombre', 'LIKE', '%' . $this->buscar_cliente . '%')
-                ->orWhere('apaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
-                ->orWhere('amaterno', 'LIKE', '%' . $this->buscar_cliente . '%')
+                ->where(DB::raw("CONCAT(nombre, ' ', apaterno, ' ', amaterno)"), 'LIKE', '%' . $this->buscar_cliente . '%')
                 ->get(),
             "abogados" => User::whereHas("roles", function($data){
                     $data->where('name', "ABOGADO")->orWhere("name", "ABOGADO ADMINISTRADOR");
