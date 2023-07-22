@@ -2,21 +2,8 @@
     <div class="card-header">
         {{-- <button class="btn btn-danger" wire:click='deleteCollection'>Borrar firestore</button> --}}
         <div class="d-flex justify-content-between" wire:ignore>
-            @if (Route::currentRouteName() == "escrituras-proceso")
-                <h3>Escrituras públicas</h3>
-            @endif
 
-            @if (Route::currentRouteName() == "poderes-proceso")
-                <h3>Poderes</h3>
-            @endif
-
-            @if (Route::currentRouteName() == "ratificaciones-proceso")
-                <h3>Ratificaciones</h3>
-            @endif
-
-            @if (Route::currentRouteName() == "actas-proceso")
-                <h3>Actas</h3>
-            @endif
+            <h3>Ratificaciones</h3>
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">

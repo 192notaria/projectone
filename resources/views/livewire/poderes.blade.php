@@ -2,21 +2,7 @@
     <div class="card-header">
         <div class="d-flex justify-content-between" wire:ignore>
 
-            @if (Route::currentRouteName() == "escrituras-proceso")
-                <h3>Escrituras públicas</h3>
-            @endif
-
-            @if (Route::currentRouteName() == "poderes-proceso")
-                <h3>Poderes</h3>
-            @endif
-
-            @if (Route::currentRouteName() == "ratificaciones-proceso")
-                <h3>Ratificaciones</h3>
-            @endif
-
-            @if (Route::currentRouteName() == "actas-proceso")
-                <h3>Actas</h3>
-            @endif
+            <h3>Poderes</h3>
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
@@ -24,7 +10,7 @@
                 </button>
             @endcan
         </div>
-    </div>
+    </div>2222222
     <div class="card-body">
         <div class="row">
             <div class="col-lg-12 d-flex justify-content-between">
@@ -34,7 +20,7 @@
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
-                        <option value="50">50</option>
+                       22 <option value="50">50</option>
                     </select>
                 </div>
                 <div>
