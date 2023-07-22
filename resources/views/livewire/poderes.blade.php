@@ -10,7 +10,7 @@
                 </button>
             @endcan
         </div>
-    </div>2222222
+    </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-12 d-flex justify-content-between">
