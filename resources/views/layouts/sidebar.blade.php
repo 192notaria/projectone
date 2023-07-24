@@ -75,7 +75,7 @@
 
                     @can("ver-proyectos")
                         <li class="{{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}}">
-                            <a href="{{route("escrituras-proceso")}}"> Escrituras publicas </a>
+                            <a href="{{route("escrituras-proceso")}}"> Escrituras públicas </a>
                         </li>
                     @endcan
 
