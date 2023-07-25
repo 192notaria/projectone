@@ -27,29 +27,6 @@
                     </div>
                 </a>
             </li>
-
-            <li class="menu {{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}} {{Route::currentRouteName() == "admin-clientes" ? "active" : ""}} {{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
-                <a href="#clientesNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        <span>Agenda</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="clientesNav" data-bs-parent="#accordionExample">
-                    <li class="{{Route::currentRouteName() == "admin-clientes" ? "active" : ""}}">
-                        <a href="{{route("admin-clientes")}}"> Clientes </a>
-                    </li>
-                    {{-- <li class="{{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
-                        <a href="{{route("lista-contactos")}}"> Contactos </a>
-                    </li> --}}
-                    <li class="{{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}}">
-                        <a href="{{route("usuarios.guardias")}}"> Guardias </a>
-                    </li>
-                </ul>
-            </li>
             <li class="menu {{Route::currentRouteName() == "ratificaciones-proceso" ? "active" : ""}} {{Route::currentRouteName() == "poderes-proceso" ? "active" : ""}} {{Route::currentRouteName() == "actas-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-proceso" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-apoyo" ? "active" : ""}} {{Route::currentRouteName() == "escrituras-escrituras" ? "active" : ""}}">
                 <a href="#serviciosNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div>
@@ -92,6 +69,30 @@
                     @endcan
                 </ul>
             </li>
+
+            <li class="menu {{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}} {{Route::currentRouteName() == "admin-clientes" ? "active" : ""}} {{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
+                <a href="#clientesNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>Agenda</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="clientesNav" data-bs-parent="#accordionExample">
+                    <li class="{{Route::currentRouteName() == "admin-clientes" ? "active" : ""}}">
+                        <a href="{{route("admin-clientes")}}"> Clientes </a>
+                    </li>
+                    {{-- <li class="{{Route::currentRouteName() == "lista-contactos" ? "active" : ""}}">
+                        <a href="{{route("lista-contactos")}}"> Contactos </a>
+                    </li> --}}
+                    <li class="{{Route::currentRouteName() == "usuarios.guardias" ? "active" : ""}}">
+                        <a href="{{route("usuarios.guardias")}}"> Guardias </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="menu {{Route::currentRouteName() == "escrituras-general" ? "active" : ""}} {{Route::currentRouteName() == "contabilidad.facturas" ? "active" : ""}} {{Route::currentRouteName() == "admin-cotizaciones" ? "active" : ""}}">
                 <a href="#finanzasNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div>
@@ -127,32 +128,6 @@
                 </div>
             </li>
 
-            <li class="menu {{Route::currentRouteName() == "admin-roles" ? "active" : ""}} {{Route::currentRouteName() == "admin-usuarios" ? "active" : ""}} {{Route::currentRouteName() == "user_profile" ? "active" : ""}}">
-                <a href="#usuariosCollapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        <span>Seguridad</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled" id="usuariosCollapse" data-bs-parent="#accordionExample">
-                    @can('ver-usuarios')
-                        <li class="{{Route::currentRouteName() == "admin-usuarios" ? "active" : ""}}">
-                            <a href="/administracion/usuarios"> Usuarios </a>
-                        </li>
-                    @endcan
-                    @can('ver-rol')
-                        <li class="{{Route::currentRouteName() == "admin-roles" ? "active" : ""}}">
-                            <a href="/administracion/roles"> Perfiles </a>
-                        </li>
-                    @endcan
-                    <li class="{{Route::currentRouteName() == "user_profile" ? "active" : ""}}">
-                        <a href="/user/profile">Mi perfil</a>
-                    </li>
-                </ul>
-            </li>
             <li class="menu {{Route::currentRouteName() == "catalogos-juzgados" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-documentos_generales" ? "active" : ""}} {{Route::currentRouteName() == "admin-subprocesos" ? "active" : ""}} {{Route::currentRouteName() == "admin-procesos_servicios" ? "active" : ""}} {{Route::currentRouteName() == "admin-ocupaciones" ? "active" : ""}} {{Route::currentRouteName() == "admin-servicios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-paises" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-estados" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-municipios" ? "active" : ""}} {{Route::currentRouteName() == "catalogos-colonias" ? "active" : ""}}">
                 <a href="#catalogos" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -241,6 +216,32 @@
                     </ul>
                 </li>
             @endif
+            <li class="menu {{Route::currentRouteName() == "admin-roles" ? "active" : ""}} {{Route::currentRouteName() == "admin-usuarios" ? "active" : ""}} {{Route::currentRouteName() == "user_profile" ? "active" : ""}}">
+                <a href="#usuariosCollapse" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Seguridad</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="usuariosCollapse" data-bs-parent="#accordionExample">
+                    @can('ver-usuarios')
+                        <li class="{{Route::currentRouteName() == "admin-usuarios" ? "active" : ""}}">
+                            <a href="/administracion/usuarios"> Usuarios </a>
+                        </li>
+                    @endcan
+                    @can('ver-rol')
+                        <li class="{{Route::currentRouteName() == "admin-roles" ? "active" : ""}}">
+                            <a href="/administracion/roles"> Perfiles </a>
+                        </li>
+                    @endcan
+                    <li class="{{Route::currentRouteName() == "user_profile" ? "active" : ""}}">
+                        <a href="/user/profile">Mi perfil</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </div>
