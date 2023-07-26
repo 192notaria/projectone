@@ -248,7 +248,7 @@ class Clientes extends Component
             $cliente = new ModelClientes;
             $cliente->nombre = mb_strtoupper($this->nombre);
             $cliente->apaterno = mb_strtoupper($this->apaterno);
-            $cliente->amaterno = mb_strtoupper($this->amaterno ?? "");
+            $cliente->amaterno = mb_strtoupper($this->amaterno);
             if($this->municipio_nacimiento_id) $cliente->municipio_nacimiento_id = $this->municipio_nacimiento_id;
             if($this->fecha_nacimiento) $cliente->fecha_nacimiento = $this->fecha_nacimiento;
             $cliente->email = mb_strtolower($this->email ?? "");
