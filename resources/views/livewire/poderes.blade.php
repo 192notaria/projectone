@@ -6,7 +6,7 @@
 
             @can("crear-proyectos")
                 <button wire:click='modalNuevoProyecto' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
-                    Nuevo poder <i class="fa-solid fa-user-plus"></i>
+                    Nuevo poder <i class="fa-solid fa-plus"></i>
                 </button>
             @endcan
         </div>
