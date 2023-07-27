@@ -784,6 +784,7 @@ public function removerParte($id){
     }
 
 //================================================== REGISTROS DE GENERALES ==================================================
+
     public function registrarGeneral($id){
         $buscar = Generales::where("cliente_id", $id)
             ->where("proyecto_id", $this->proyecto_id)
@@ -1337,7 +1338,6 @@ public function removerParte($id){
         $this->abogado_proyecto = $proyecto->usuario_id;
         return $this->vista_general_modal("editar_escritura_volumen");
     }
-
 
     public $acto_juridico_tipo;
     public function guardar_escritura_volumen(){
