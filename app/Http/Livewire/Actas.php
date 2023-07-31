@@ -175,7 +175,8 @@ class Actas extends Component
                 ->orWhere('razon_social', 'LIKE', '%' . $this->buscarClienteParte . '%')
                 ->get()
             : [],
-            "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get()
+            "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get(),
+            "usuarios_anticipos" => User::orderBy("name", "ASC")->get(),
         ]);
     }
 
