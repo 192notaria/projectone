@@ -21,7 +21,7 @@
                                 <div class="media">
                                     <div class="media-body align-self-center">
                                         <h6 class="mb-0">{{$rol->name}}</h6>
-                                        <span>Plataforma: {{$rol->guard_name}}</span>
+                                    <span>Plataforma: {{$rol->guard_name}}</span>
                                     </div>
                                 </div>
                             </td>

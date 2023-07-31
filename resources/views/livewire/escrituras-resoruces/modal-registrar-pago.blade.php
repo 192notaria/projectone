@@ -5,8 +5,8 @@
                 <h5>Registrar anticipo</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 mb-2 mt-2 text-center">
+                <div class="row gx-3 gy-3">
+                    <div class="col-lg-12 text-center">
                         @php
                             $costoTotal = 0;
                             if($proyecto_activo){
@@ -44,22 +44,22 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    <div class="col-lg-12 ">
                         <label for="">Fecha de pago</label>
                         <input type="datetime-local" class="form-control" wire:model='fecha_cobro'>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    <div class="col-lg-12 ">
                         <label for="">Nombre del cliente</label>
                         <input type="text" class="form-control" placeholder="Opcional..." wire:model='nombre_cliente_cobro'>
                     </div>
-                    <div class="col-lg-6 mb-2 mt-2">
+                    <div class="col-lg-6 ">
                         <label for="">Monto</label>
                         <input type="number" class="form-control" placeholder="0.0" wire:model='monto_cobro'>
                         @error('monto-no-valido')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-lg-6 mb-2 mt-2">
+                    <div class="col-lg-6 ">
                         <label for="">Metodo de pago</label>
                         <select class="form-select" wire:model='metodo_pago_id'>
                             <option value="" disabled selected>Seleccionar...</option>
@@ -68,7 +68,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    <div class="col-lg-12 ">
                         <label for="">Cuenta</label>
                         <select class="form-select" wire:model='cuenta_id'>
                             <option value="" selected>Ninguna...</option>
@@ -77,7 +77,18 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-12 mb-2 mt-2">
+                    @can("cambiar-usuario-recibi-anticipos")
+                        <div class="col-lg-12 ">
+                            <label for="">Usuario que recibio anticipo</label>
+                            <select class="form-select" wire:model='usuario_recibo_id'>
+                                <option value="" selected>Ninguna...</option>
+                                @foreach ($usuarios_anticipos as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->name}} {{$usuario->apaterno}} {{$usuario->amaterno}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endcan
+                    <div class="col-lg-12 ">
                         <label for="">Comentarios</label>
                         <textarea wire:model='observaciones_cobro' cols="30" rows="2" class="form-control"></textarea>
                     </div>

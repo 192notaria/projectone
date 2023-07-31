@@ -82,6 +82,7 @@ class EscriturasProceso extends Component
     public $tipo_acto_id = "";
 
     public $escrituras_true = true;
+    public $usuario_recibo_id = '';
 
     public function render()
     {
@@ -174,7 +175,8 @@ class EscriturasProceso extends Component
                 ->orWhere('razon_social', 'LIKE', '%' . $this->buscarClienteParte . '%')
                 ->get()
             : [],
-            "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get()
+            "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get(),
+            "usuarios_anticipos" => User::orderBy("name", "ASC")->get(),
         ]);
     }
 
@@ -482,7 +484,7 @@ public function removerParte($id){
         $nuevo_cobro->cuenta_id = $this->cuenta_id == '' ? null : $this->cuenta_id;
         $nuevo_cobro->proyecto_id = $this->proyecto_activo['id'];
         $nuevo_cobro->observaciones = $this->observaciones_cobro;
-        $nuevo_cobro->usuario_id = Auth::user()->id;
+        $nuevo_cobro->usuario_id = $this->usuario_recibo_id == '' ? Auth::user()->id : $this->usuario_recibo_id;
         $nuevo_cobro->save();
 
         $this->pagos_checkbox = [];
@@ -1701,4 +1703,7 @@ public function removerParte($id){
         $templateprocessor->saveAs($filename . '.docx');
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
+
+
+
 }

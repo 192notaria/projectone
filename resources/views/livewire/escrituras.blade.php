@@ -1,5 +1,4 @@
 <div class="card">
-
     <style>
         .modal{
             backdrop-filter: blur(5px);
@@ -13,7 +12,7 @@
         }
 
         @keyframes fadeOut {
-            0% { opacity: 1; }
+            0% { opacity: 1; }}
             100% { opacity: 0; }
         }
     </style>
