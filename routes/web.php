@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/administracion/escrituras_general', [ProyectosController::class, 'escrituras_general'])->name('escrituras-general');
     Route::get('/administracion/escrituras_pendientes', [ProyectosController::class, 'escrituras_guardadas'])->name('escrituras-pendientes');
 
+    Route::get('/administracion/copias_certificadas', [ProyectosController::class, 'copias_certificadas'])->name('copias-certificadas');
+
     Route::get('/administracion/escrituras_apoyo', [EscriturasApoyo::class, 'index'])->name('escrituras-apoyo');
     Route::get('/administracion/ocupaciones', [OcupacionesController::class, 'index'])->name('admin-ocupaciones');
     Route::get('/administracion/cotizaciones', [ProyectosController::class, 'cotizaciones'])->name('admin-cotizaciones');

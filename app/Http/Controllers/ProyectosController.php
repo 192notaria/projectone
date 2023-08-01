@@ -55,4 +55,8 @@ class ProyectosController extends Controller
     public function escrituras_guardadas(){
         return view("administracion.escrituras-guardadas");
     }
+
+    public function copias_certificadas(){
+        return view("administracion.copias_certificadas");
+    }
 }
