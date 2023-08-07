@@ -43,7 +43,7 @@
                             <a href="{{route("actas-proceso")}}"> Actas </a>
                         </li>
                     @endcan
-                    @can("ver-copias-certificadas")
+                    @can("ver-copias")
                         <li class="{{Route::currentRouteName() == "copias-certificadas" ? "active" : ""}}">
                             <a href="{{route("copias-certificadas")}}"> Copias Certificadas </a>
                         </li>

@@ -68,8 +68,12 @@
                                 </td>
                                 <td class="text-center">
                                     <button wire:click='pagos_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-file-invoice-dollar"></i></button>
-                                    <button wire:click='editar_copia_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button wire:click="borrar_copia_modal({{$copia->id}})" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
+                                    @can("editar-copia")
+                                        <button wire:click='editar_copia_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    @endcan
+                                    @can("borrar-copia")
+                                        <button wire:click="borrar_copia_modal({{$copia->id}})" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

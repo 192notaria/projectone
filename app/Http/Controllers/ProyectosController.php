@@ -14,6 +14,7 @@ class ProyectosController extends Controller
         $this->middleware('permission:crear-proyectos',['only' => ['create', 'store']]);
         $this->middleware('permission:editar-proyectos',['only' => ['edit', 'update']]);
         $this->middleware('permission:borrar-proyectos',['only' => ['destroy']]);
+        $this->middleware('permission:ver-copias', ['only'=>['copias_certificadas']]);
     }
 
     public function index(){
