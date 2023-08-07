@@ -6,7 +6,7 @@
 
             @can("crear-proyectos")
                 <button wire:click='nueva_copia_modal' wire:loading.attr='disabled' type="button" class="btn btn-outline-dark">
-                    Nueva Copia <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-plus"></i> Nueva Copia
                 </button>
             @endcan
 
