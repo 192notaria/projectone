@@ -45,6 +45,11 @@ class CotejosCopias extends Component
         return $this->dispatchBrowserEvent("abrir-modal-nueva-copia");
     }
 
+    public function borrar_copia_modal($id){
+        $this->copia_id = $id;
+        return $this->dispatchBrowserEvent("abrir-modal-eliminar-copia");
+    }
+
     public function editar_copia_modal($id){
         $copia = ModelsCotejosCopias::find($id);
         $this->copia_id = $id;
@@ -114,7 +119,7 @@ class CotejosCopias extends Component
         }
 
         $proyecto = new Proyectos();
-        $proyecto->servicio_id = 31;
+        $proyecto->servicio_id = 34;
         $proyecto->cliente_id = $this->cliente_id ?? null;
         $proyecto->usuario_id = Auth::user()->id;
         $proyecto->status = 0;
@@ -200,5 +205,12 @@ class CotejosCopias extends Component
         $recibo->save();
         $this->clear_inputs();
         return $this->dispatchBrowserEvent("cerrar-modal-recibo-pago");
+    }
+
+    public function borrar_copia(){
+        $copia = ModelsCotejosCopias::find($this->copia_id);
+        Proyectos::find($copia->proyecto_id)->delete();
+        $this->clear_inputs();
+        return $this->dispatchBrowserEvent("cerrar-modal-eliminar-copia");
     }
 }

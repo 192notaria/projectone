@@ -29,18 +29,18 @@
                     </div>
                     <div class="col-lg-12" wire:ignore>
                         <label for="">Cliente</label>
-                        <select id="clientes-select" placeholder="Seleccionar..." autocomplete="off" wire:model='cliente_id'>
+                        <select id="clientes-select" wire:model='cliente_id'>
                             <option value="">Seleccionar...</option>
                             @foreach ($clientes as $cliente)
                                 <option value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apaterno}} {{$cliente->amaterno}}</option>
                             @endforeach
                         </select>
-                        <script>
-                            new TomSelect("#clientes-select", {
-                                create: false,
-                            });
-                        </script>
                     </div>
+                    <script>
+                        new TomSelect("#clientes-select", {
+                            create: false,
+                        });
+                    </script>
                     @if ($path_copias == "")
                         <div class="col-lg-12">
                             <label for="">Copias Escaneadas</label>

@@ -69,7 +69,7 @@
                                 <td class="text-center">
                                     <button wire:click='pagos_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-file-invoice-dollar"></i></button>
                                     <button wire:click='editar_copia_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button wire:click="borrar_copia_modal({{$copia->id}})" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -86,6 +86,7 @@
     <script src="{{url("v3/src/plugins/src/tomSelect/tom-select.base.js")}}"></script>
 
     @include("livewire.copias_resources.nueva-copia")
+    @include("livewire.copias_resources.borrar-copia")
     @include("livewire.copias_resources.pagos")
     @include("livewire.copias_resources.recibo-pago-modal")
 
