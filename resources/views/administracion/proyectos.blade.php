@@ -14,8 +14,8 @@
     <link href="{{url('v3/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="{{url('v3/src/plugins/src/filepond/filepond.min.css')}}">
-    <link rel="stylesheet" href="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}">
+    <link href="{{url('v3/src/plugins/src/filepond/filepond.min.css')}}" rel="stylesheet">
+    <link href="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}" rel="stylesheet">
     <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
