@@ -154,7 +154,7 @@ class CotejosCopias extends Component
         $recibo = new RegistroRecibos();
         $recibo->monto = $copia->costo_copia * $copia->cantidad_copias * $copia->juegos;
         $recibo->descripcion = $this->descripcion;
-        $recibo->factura = $this->factura;
+        $recibo->factura = $this->factura ? 1 : 0;
         $recibo->metodo_pago = $this->metodo_pago;
         $recibo->cliente_id = $copia->cliente_id;
         $recibo->proyecto_id = $copia->proyecto_id;
