@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('links-content')
+
     <link href="{{ url('v3/src/assets/css/light/elements/search.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ url('v3/src/assets/css/dark/elements/search.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ url('v3/src/assets/css/light/forms/switches.css') }}" rel="stylesheet" type="text/css" />
@@ -16,12 +17,10 @@
     <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
-
     <link href="{{url('v3/src/assets/css/dark/components/media_object.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/light/components/media_object.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css" />
-
 
 @endsection
 @section('content')

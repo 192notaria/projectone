@@ -10,9 +10,7 @@
     <link href="{{url('v3/src/assets/css/dark/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/light/components/timeline.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/components/timeline.css')}}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{url('filepond-master/dist/filepond.css')}}" rel="stylesheet" type="text/css" /> --}}
-    {{-- <link href="{{url('v3/src/assets/css/light/scrollspyNav.css')}}" rel="stylesheet" type="text/css" /> --}}
-    {{-- <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" /> --}}
+
     <link href="{{url('v3/src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('v3/src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
 
@@ -45,7 +43,6 @@
 @section('scripts-content')
 <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
 <script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
-{{-- <script src="{{url('v3/src/assets/js/scrollspyNav.js')}}"></script> --}}
 
 <script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
@@ -56,16 +53,5 @@
 <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
 <script src="{{url('v3/src/plugins/src/filepond/custom-filepond.js')}}"></script>
-{{-- <script src="{{ url("filepond-master/dist/filepond.js") }}"></script> --}}
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-            const inputElement = document.querySelector('input[type="file"]');
-            const token = document.querySelector('input[name="_token"]');
-            const pond = FilePond.create(inputElement);
-
-        }, 2000);
-    })
-</script> --}}
 @endsection
 
