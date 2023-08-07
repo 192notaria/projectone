@@ -16,6 +16,9 @@
     <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('/v3/src/plugins/src/tomSelect/tom-select.default.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url('/v3/src/plugins/css/light/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url('/v3/src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('content')

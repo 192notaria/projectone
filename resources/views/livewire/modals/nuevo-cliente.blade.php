@@ -200,7 +200,6 @@
         </div>
     </div>
 </div>
-
 <script>
     window.addEventListener('open-new-cliente-modal', event => {
         $(".new-cliente-modal").modal("show")

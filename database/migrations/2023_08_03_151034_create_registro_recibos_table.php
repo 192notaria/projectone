@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cotejos_copias', function (Blueprint $table) {
+        Schema::create('registro_recibos', function (Blueprint $table) {
             $table->id();
-            $table->integer("costo_copia");
-            $table->integer("cantidad_copias");
-            $table->integer("juegos");
-            $table->string("cliente")->nullable();
-            $table->text("path_copias")->nullable();
-
-            $table->unsignedBigInteger("proyecto_id")->nullable();
+            $table->integer("monto");
+            $table->text("descripcion")->nullable();
+            $table->boolean("factura");
+            $table->string("metodo_pago");
+            $table->text("recibo")->nullable();
             $table->unsignedBigInteger("cliente_id")->nullable();
+            $table->unsignedBigInteger("proyecto_id");
             $table->unsignedBigInteger("usuario_id")->nullable();
 
             $table->foreign('proyecto_id')
@@ -51,6 +50,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotejos_copias');
+        Schema::dropIfExists('registro_recibos');
     }
 };
