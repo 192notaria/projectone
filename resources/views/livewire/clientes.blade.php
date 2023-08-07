@@ -133,9 +133,6 @@
                                             <div class="media-body align-self-center">
                                                 @if ($cliente->tipo_cliente == "Persona Moral")
                                                     <span class="mb-0">{{$cliente->razon_social}}</span>
-                                                    {{-- <span class="badge badge-primary">
-                                                        {{$cliente->admin_unico}}
-                                                    </span> --}}
                                                 @else
                                                     @if ($cliente->validarData($cliente->id))
                                                         <a href="#" wire:click='open_warning_modal'>
@@ -218,7 +215,6 @@
             </div>
 
             {{$clientes->links('pagination-links')}}
-            {{-- @include('livewire.modals.nuevoCliente') --}}
             @include('livewire.clientes-resources.modal-warning')
             @include('livewire.modals-ignore-self.upload-generales-documents')
             @include('livewire.modals.nuevo-cliente')
