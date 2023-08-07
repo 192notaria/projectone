@@ -34,7 +34,13 @@
                     </div>
                     <div class="col-lg-12">
                         <label for="">Recibo de pago firmado</label>
-                        <x-file-pond wire:model='recibo_input'></x-file-pond>
+                        @if (isset($pago_data) && $pago_data->recibo == "")
+                            <x-file-pond wire:model='recibo_input'></x-file-pond>
+                        @endif
+                        @if (isset($pago_data) && $pago_data->recibo != "")
+                            <br>
+                            <a target="_blank" href="/{{$pago_data->recibo}}" class="btn btn-outline-dark">Mostrar recibo importado</a>
+                        @endif
                         @error("recibo_input")
                             <span class="text-danger">{{$message}}</span>
                         @enderror

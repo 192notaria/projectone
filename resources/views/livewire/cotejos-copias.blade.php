@@ -68,7 +68,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button wire:click='pagos_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-file-invoice-dollar"></i></button>
-                                    <button class="btn btn-outline-dark"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button wire:click='editar_copia_modal({{$copia->id}})' class="btn btn-outline-dark"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                                 <td colspan="6" class="text-center">Sin registros</td>
                             </tr>
                         @endforelse
-                    </tbody aá>
+                    </tbody>
                 </table>
             </div>
             {{-- {{$escrituras->links('pagination-links')}} --}}

@@ -41,10 +41,17 @@
                             });
                         </script>
                     </div>
-                    <div class="col-lg-12">
-                        <label for="">Copias Escaneadas</label>
-                        <x-file-pond wire:model='path_copias'></x-file-pond>
-                    </div>
+                    @if ($path_copias == "")
+                        <div class="col-lg-12">
+                            <label for="">Copias Escaneadas</label>
+                            <x-file-pond wire:model='path_copias'></x-file-pond>
+                        </div>
+                    @endif
+                    @if ($path_copias != "")
+                        <div class="col-lg-12">
+                            <a href="/{{$path_copias}}" target="_blank" class="btn btn-outline-dark">Descargar Copia</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="modal-footer">

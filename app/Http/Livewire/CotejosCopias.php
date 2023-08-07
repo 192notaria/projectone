@@ -45,6 +45,17 @@ class CotejosCopias extends Component
         return $this->dispatchBrowserEvent("abrir-modal-nueva-copia");
     }
 
+    public function editar_copia_modal($id){
+        $copia = ModelsCotejosCopias::find($id);
+        $this->copia_id = $id;
+        $this->costo_copias = $copia->costo_copia;
+        $this->cantidad_copias = $copia->cantidad_copias;
+        $this->juegos = $copia->juegos;
+        $this->cliente_id = $copia->cliente_id;
+        $this->path_copias = $copia->path_copias;
+        return $this->dispatchBrowserEvent("abrir-modal-nueva-copia");
+    }
+
     public function pagos_modal($id){
         $copia = ModelsCotejosCopias::find($id);
 
@@ -84,6 +95,24 @@ class CotejosCopias extends Component
             "juegos.required" => "Es necesario la cantidad de juegos",
         ]);
 
+        if($this->copia_id != ""){
+            $copia = ModelsCotejosCopias::find($this->copia_id);
+            $copia->costo_copia = $this->costo_copias;
+            $copia->cantidad_copias = $this->cantidad_copias;
+            $copia->juegos = $this->juegos;
+
+            if($this->path_copias != ""){
+                $path = "/copias_certificadas/" . $copia->id;
+                $storage = $this->path_copias->storeAs(mb_strtolower($path), "copia_" . $copia->id . "_" . time() . "." . $this->path_copias->extension(), 'public');
+                $copia->path_copias = "storage/" . $storage;
+            }
+
+            $copia->save();
+
+            $this->clear_inputs();
+            return $this->dispatchBrowserEvent("cerrar-modal-nueva-copia");
+        }
+
         $proyecto = new Proyectos();
         $proyecto->servicio_id = 31;
         $proyecto->cliente_id = $this->cliente_id ?? null;
@@ -96,8 +125,15 @@ class CotejosCopias extends Component
         $copia->cantidad_copias = $this->cantidad_copias;
         $copia->juegos = $this->juegos;
         $copia->proyecto_id = $proyecto->id;
-        $copia->cliente_id = $this->cliente_id ?? null;;
+        $copia->cliente_id = $this->cliente_id ?? null;
         $copia->usuario_id = Auth::user()->id;
+
+        if($this->path_copias != ""){
+            $path = "/copias_certificadas/" . $copia->id;
+            $storage = $this->path_copias->storeAs(mb_strtolower($path), "copia_" . $copia->id . "_" . time() . "." . $this->path_copias->extension(), 'public');
+            $copia->path_copias = "storage/" . $storage;
+        }
+
         $copia->save();
 
         $this->clear_inputs();
@@ -165,5 +201,4 @@ class CotejosCopias extends Component
         $this->clear_inputs();
         return $this->dispatchBrowserEvent("cerrar-modal-recibo-pago");
     }
-
 }
