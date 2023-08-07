@@ -57,7 +57,6 @@ class CotejosCopias extends Component
         $this->cantidad_copias = $copia->cantidad_copias;
         $this->juegos = $copia->juegos;
         $this->cliente_id = $copia->cliente_id;
-        $this->path_copias = $copia->path_copias;
         return $this->dispatchBrowserEvent("abrir-modal-nueva-copia");
     }
 
