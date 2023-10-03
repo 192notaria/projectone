@@ -174,7 +174,7 @@ class AdministracionUsuariosLiveWire extends Component {
 
     public function borrarRegistro($id, $notificationid){
         User::find($id)->delete();
-        event(new NotificationEvent($notificationid, "Se ha eliminado un usuario"));
+        // event(new NotificationEvent($notificationid, "Se ha eliminado un usuario"));
     }
 
     public function editarRegistro($id){

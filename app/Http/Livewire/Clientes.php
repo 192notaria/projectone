@@ -175,7 +175,7 @@ class Clientes extends Component
         $this->apaterno = $cliente->apaterno;
         $this->amaterno = $cliente->amaterno ?? "";
         $this->fecha_nacimiento = $cliente->fecha_nacimiento ?? "";
-        $this->municipio_nacimiento_id = $cliente->municipio_nacimiento_id ?? "";
+        $this->municipio_nacimiento_id = $cliente->municipio_nacimiento_id ?? null;
         $this->email = $cliente->email ?? "";
         $this->telefono = $cliente->telefono ?? "";
         $this->ocupacion = $cliente->ocupacion ?? "";
