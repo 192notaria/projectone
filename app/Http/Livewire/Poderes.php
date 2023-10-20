@@ -1363,13 +1363,13 @@ public function removerParte($id){
             return $this->addError("numero_escritura_general", "Este número ya esta registrado");
         }
 
-        $buscar_pendiente = Proyectos::where("numero_escritura", $this->numero_escritura_general)
-            ->where("status", 5)
-            ->first();
+        // $buscar_pendiente = Proyectos::where("numero_escritura", $this->numero_escritura_general)
+        //     ->where("status", 5)
+        //     ->first();
 
-        if($buscar_pendiente){
-            return $this->addError("numero_escritura_general", "Este número ya esta registrado");
-        }
+        // if($buscar_pendiente){
+        //     return $this->addError("numero_escritura_general", "Este número ya esta registrado");
+        // }
 
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
         $proyecto->numero_escritura = $this->numero_escritura_general;
