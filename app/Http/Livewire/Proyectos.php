@@ -1580,10 +1580,12 @@ class Proyectos extends Component
     }
 
     public function guardarProyecto(){
-        $this->validate([
-            "numero_de_escritura" => "required|unique:proyectos,numero_escritura," . $this->proyecto_id,
-            "volumen" => "required",
-        ]);
+        if(!Auth::user()->hasRole('ADMINISTRADOR')){
+            $this->validate([
+                "numero_de_escritura" => "required|unique:proyectos,numero_escritura," . $this->proyecto_id,
+                "volumen" => "required",
+            ]);
+        }
 
         $proyecto = ModelsProyectos::find($this->proyecto_id);
         $proyecto->numero_escritura = $this->numero_de_escritura;
