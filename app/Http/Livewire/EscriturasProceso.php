@@ -1337,19 +1337,20 @@ public function removerParte($id){
 
     public $acto_juridico_tipo;
     public function guardar_escritura_volumen(){
-        $this->validate([
-                "numero_escritura_general" => 'required',
-                "volumen_general" => "required",
-                "abogado_proyecto" => "required",
-            ],
-            [
-                "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
-                "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
-                "volumen_general.required" => "Es necesario el volumen para continuar",
-                "abogado_proyecto.required" => "Es necesario seleccionar un abogado para continuar",
-            ]
-        );
-
+        if(!Auth::user()->hasRole('ADMINISTRADOR')){
+            $this->validate([
+                    "numero_escritura_general" => 'required',
+                    "volumen_general" => "required",
+                    "abogado_proyecto" => "required",
+                ],
+                [
+                    "numero_escritura_general.required" => "Es necesario el numero de escritura para continuar",
+                    "numero_escritura_general.unique" => "Este numero de escritura ya esta registrado",
+                    "volumen_general.required" => "Es necesario el volumen para continuar",
+                    "abogado_proyecto.required" => "Es necesario seleccionar un abogado para continuar",
+                ]
+            );
+        }
         $this->acto_juridico_tipo = Servicios::find($this->proyecto_activo['servicio']['id']);
         $buscar_proyecto = Proyectos::whereHas('servicio.tipo_acto', function(Builder $serv){
             $serv->where('id', $this->acto_juridico_tipo['tipo_id']);
