@@ -1370,7 +1370,7 @@ public function removerParte($id){
         }
 
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
-        $proyecto->numero_escritura = $this->numero_escritura_general ?? null;
+        $proyecto->numero_escritura = $this->numero_escritura_general != '' ? $this->numero_escritura_general : null;
         $proyecto->volumen = $this->volumen_general ?? null;
         $proyecto->folio_inicio = $this->folio_inicio_general ?? null;
         $proyecto->folio_fin = $this->folio_fin_general ?? null;
