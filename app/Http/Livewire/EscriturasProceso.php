@@ -1705,6 +1705,28 @@ public function removerParte($id){
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
 
+    function recibo_archivo(){
+        $fecha = date('d-m-Y', strtotime(now()));
+        $n_recibo = 's/n';
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $abogado_cargo = $proyecto->abogado->name . ' ' . $proyecto->abogado->apaterno . ' ' . $proyecto->abogado->amaterno;
+        $abogado_telefono = $proyecto->abogado->telefono;
+        $abogado_correo = $proyecto->abogado->email;
+        $usuario_recibe = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
+        $descripcion_archivo = 'El siguiente expediente proveniente de ' . $abogado_cargo . ', recibido por ' . $usuario_recibe . '. Queda totalmente archivo.';
+        $templateprocessor = new TemplateProcessor('word-template/recibo-archivo.docx');
+        $templateprocessor->setValue('fecha', $fecha);
+        $templateprocessor->setValue('n_recibo', $n_recibo);
+        $templateprocessor->setValue('abogado_cargo', $abogado_cargo);
+        $templateprocessor->setValue('abogado_telefono', $abogado_telefono);
+        $templateprocessor->setValue('abogado_correo', $abogado_correo);
+        $templateprocessor->setValue('descripcion', $descripcion_archivo);
+        $templateprocessor->setValue('usuario', $usuario_recibe);
+        $templateprocessor->setValue('usuario', $abogado_cargo);
+        $filename = "Recibo de Archivo";
+        $templateprocessor->download($filename . '.docx');
 
+        return $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
 
+    }
 }

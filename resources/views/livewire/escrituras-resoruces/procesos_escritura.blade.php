@@ -70,6 +70,11 @@
                             <li class="nav-item" role="presentation">
                                 <button wire:ignore.self class="nav-link" id="plantillas-tab" data-bs-toggle="tab" data-bs-target="#plantillas-tab-pane" type="button" role="tab" aria-controls="plantillas-tab-pane" aria-selected="false">Plantillas</button>
                             </li>
+                        @can('archivar')
+                            <li class="nav-item" role="presentation">
+                                <button wire:ignore.self class="nav-link" id="archivar-tab" data-bs-toggle="tab" data-bs-target="#archivar-tab-pane" type="button" role="tab" aria-controls="archivar-tab-pane" aria-selected="false">Archivar</button>
+                            </li>
+                        @endcan
                     </ul>
                 </div>
             </div>
@@ -319,6 +324,9 @@
                         </div>
                         <div wire:ignore.self class="tab-pane fade" id="plantillas-tab-pane" role="tabpanel" aria-labelledby="plantillas-tab" tabindex="0">
                             @include('livewire.subprocesos-resource.plantillas')
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="archivar-tab-pane" role="tabpanel" aria-labelledby="archivar-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.archivar')
                         </div>
                     </div>
                 </div>

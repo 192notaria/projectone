@@ -43,11 +43,11 @@
                             <a href="{{route("actas-proceso")}}"> Actas </a>
                         </li>
                     @endcan
-                    @can("ver-copias")
+                    {{-- @can("ver-copias")
                         <li class="{{Route::currentRouteName() == "copias-certificadas" ? "active" : ""}}">
                             <a href="{{route("copias-certificadas")}}"> Copias Certificadas </a>
                         </li>
-                    @endcan
+                    @endcan --}}
 
                     @can("ver-escrituras-pendientes")
                         <li class="{{Route::currentRouteName() == "escrituras-pendientes" ? "active" : ""}}">
