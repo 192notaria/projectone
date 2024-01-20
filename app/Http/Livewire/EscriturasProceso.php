@@ -1724,6 +1724,7 @@ public function removerParte($id){
         $templateprocessor->setValue('descripcion', $descripcion_archivo);
         $templateprocessor->setValue('usuario', $usuario_recibe);
         $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('numero', $proyecto->numero_escritura);
         $filename = "Recibo de Archivo";
         $templateprocessor->saveAs($filename . '.docx');
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
