@@ -1715,7 +1715,7 @@ public function removerParte($id){
         $abogado_telefono = $proyecto->abogado->telefono;
         $abogado_correo = $proyecto->abogado->email;
         $usuario_recibe = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
-        $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Guardandose en Archivo.';
+        $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Queda finalizado y archivado.';
         $templateprocessor = new TemplateProcessor('word-template/recibo-archivo.docx');
         $templateprocessor->setValue('fecha', $fecha);
         $templateprocessor->setValue('n_recibo', $n_recibo);
