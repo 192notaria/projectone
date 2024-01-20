@@ -1709,6 +1709,7 @@ public function removerParte($id){
         $fecha = date('d-m-Y', strtotime(now()));
         $n_recibo = 's/n';
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $acto = $proyecto->servicio->nombre;
         $abogado_cargo = $proyecto->abogado->name . ' ' . $proyecto->abogado->apaterno . ' ' . $proyecto->abogado->amaterno;
         $abogado_telefono = $proyecto->abogado->telefono;
         $abogado_correo = $proyecto->abogado->email;
@@ -1722,11 +1723,9 @@ public function removerParte($id){
         $templateprocessor->setValue('abogado_correo', $abogado_correo);
         $templateprocessor->setValue('descripcion', $descripcion_archivo);
         $templateprocessor->setValue('usuario', $usuario_recibe);
-        $templateprocessor->setValue('usuario', $abogado_cargo);
+        $templateprocessor->setValue('acto', $acto);
         $filename = "Recibo de Archivo";
-        $templateprocessor->download($filename . '.docx');
-
-        return $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
-
+        $templateprocessor->saveAs($filename . '.docx');
+        return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
 }
