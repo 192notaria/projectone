@@ -24,6 +24,7 @@ use App\Models\Partes;
 use App\Models\ProcesosServicios;
 use App\Models\Promotores;
 use App\Models\Proyectos;
+use App\Models\RecibosArchivos;
 use App\Models\RecibosPago;
 use App\Models\RegistroFirmas;
 use App\Models\Servicios;
@@ -1730,4 +1731,28 @@ public function removerParte($id){
         $templateprocessor->saveAs($filename . '.docx');
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
+
+    public $reciboArchivo;
+    function abrirModalArchivar(){
+        return $this->dispatchBrowserEvent("abrir-modal-archivar");
+    }
+
+    function cerrarModalArchivar(){
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar");
+    }
+
+    function archivarExpediente(){
+        $recibosArchivos = new RecibosArchivos();
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $path_pdf = "/uploads/recibos_archivo/recibo_escritura_" . str_replace(" ", "_", $proyecto->numero_escritura);
+        $store_pdf = $this->reciboArchivo->storeAs(mb_strtolower($path_pdf), $proyecto->numero_escritura . "_" . time() . "." . $this->reciboArchivo->extension(), 'public');
+        $recibosArchivos->path = $store_pdf;
+        $recibosArchivos->proyecto_id = $proyecto->id;
+        $recibosArchivos->save();
+
+        $this->reciboArchivo = '';
+
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar");
+    }
+
 }

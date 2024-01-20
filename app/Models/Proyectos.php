@@ -177,4 +177,8 @@ class Proyectos extends Model
     public function costos_cotizacion(){
         return $this->hasMany(CotizacionProyecto::class, "proyecto_id");
     }
+
+    public function recibos_archivo(){
+        return $this->hasOne(RecibosArchivos::class, "proyecto_id");
+    }
 }

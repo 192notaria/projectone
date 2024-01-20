@@ -1,11 +1,15 @@
 <tr>
     <td class="text-center">
+        @if (isset($escritura->recibos_archivo->path))
+            <a href="/{{$escritura->recibos_archivo->path}}" target="_blank">
+                <i class="text-success fa-solid fa-box-archive"></i>
+            </a>
+        @endif
         {{$escritura->numero_escritura ?? "S/N"}}
     </td>
     <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div>
             {{-- <div class="avatar me-2">
-
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
