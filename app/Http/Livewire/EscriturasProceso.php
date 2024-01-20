@@ -1709,12 +1709,13 @@ public function removerParte($id){
         $fecha = date('d-m-Y', strtotime(now()));
         $n_recibo = 's/n';
         $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $cliente = $proyecto->cliente->tipo_cliente == 'Persona Fisica' ? $proyecto->cliente->nombre . ' ' . $proyecto->cliente->apaterno . ' ' . $proyecto->cliente->amaterno : $proyecto->cliente->nombre;
         $acto = $proyecto->servicio->nombre;
         $abogado_cargo = $proyecto->abogado->name . ' ' . $proyecto->abogado->apaterno . ' ' . $proyecto->abogado->amaterno;
         $abogado_telefono = $proyecto->abogado->telefono;
         $abogado_correo = $proyecto->abogado->email;
         $usuario_recibe = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
-        $descripcion_archivo = 'El siguiente expediente proveniente de ' . $abogado_cargo . ', recibido por ' . $usuario_recibe . '. Queda totalmente archivo.';
+        $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Guardandose en Archivo.';
         $templateprocessor = new TemplateProcessor('word-template/recibo-archivo.docx');
         $templateprocessor->setValue('fecha', $fecha);
         $templateprocessor->setValue('n_recibo', $n_recibo);
