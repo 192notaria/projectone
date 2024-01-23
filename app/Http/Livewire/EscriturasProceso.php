@@ -13,6 +13,9 @@ use App\Models\Clientes;
 use App\Models\Cobros;
 use App\Models\Comisiones;
 use App\Models\Costos;
+use App\Models\CostosCotizaciones;
+use App\Models\Cotizaciones;
+use App\Models\CotizacionProyecto;
 use App\Models\Cuentas_bancarias;
 use App\Models\Documentos;
 use App\Models\Egresos;
@@ -178,6 +181,7 @@ class EscriturasProceso extends Component
             : [],
             "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get(),
             "usuarios_anticipos" => User::orderBy("name", "ASC")->get(),
+            "cotizaciones" => Cotizaciones::orderBy("id", "ASC")->get(),
         ]);
     }
 
@@ -1753,6 +1757,52 @@ public function removerParte($id){
         $this->reciboArchivo = '';
 
         return $this->dispatchBrowserEvent("cerrar-modal-archivar");
+    }
+
+    public function abrirModalCotizacionesRegistradas(){
+        return $this->dispatchBrowserEvent("abrir-modal-cotizacionesRegistradas");
+    }
+
+    public function cerrarModalCotizacionesRegistradas(){
+        return $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
+    }
+
+    public $cotizacion_id = '';
+    public $cotizacion_data = [];
+    public $cotizacion_data_costos;
+    public $cotizacion_data_version;
+    public $cotizacion_version_id = '';
+
+    public function cargarCotizacion(){
+        $this->cotizacion_data = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->distinct('version')->orderBy("created_at", "ASC")->get();
+        $this->cotizacion_data_version = $this->cotizacion_data->unique("version");
+        // $this->cotizacion_data = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->where("version", $value->version)->get();
+    }
+
+    public function seleccionarVersion(){
+        $this->cotizacion_data_costos = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->where("version", $this->cotizacion_version_id)->get();
+    }
+
+    public function vincular_cotizacion(){
+        foreach ($this->cotizacion_data_costos as $value) {
+            $costo = new CotizacionProyecto();
+            $costo->concepto_id = $value->concepto_id;
+            $costo->subtotal = $value->subtotal;
+            $costo->impuestos = $value->impuesto;
+            $costo->gestoria = $value->gestoria;
+            $costo->observaciones = $value->observaciones;
+            $costo->proyecto_id = $this->proyecto_activo['id'];
+            $costo->save();
+        }
+
+        $this->cotizacion_id = '';
+        $this->cotizacion_data = [];
+        $this->cotizacion_data_costos = '';
+        $this->cotizacion_data_version = '';
+        $this->cotizacion_version_id = '';
+        $this->resetProyect();
+
+        return $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
     }
 
 }

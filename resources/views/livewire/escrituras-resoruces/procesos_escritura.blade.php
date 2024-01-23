@@ -27,6 +27,11 @@
                                 <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
                             </li>
                         @endcan
+                        @can('ver-cotizacion')
+                            <li class="nav-item" role="presentation">
+                                <button wire:ignore.self class="nav-link" id="cotizacion-tab" data-bs-toggle="tab" data-bs-target="#cotizacion-tab-pane" type="button" role="tab" aria-controls="cotizacion-tab-pane" aria-selected="false">Cotización</button>
+                            </li>
+                        @endcan
                         @can('ver-anticipos-proyecto')
                             <li class="nav-item" role="presentation">
                                 <button wire:ignore.self class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Anticipos</button>
@@ -297,6 +302,9 @@
                                     @endif
                                 @endif
                             </div>
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="cotizacion-tab-pane" role="tabpanel" aria-labelledby="cotizacion-tab" tabindex="0">
+                            @include('livewire.subprocesos-resource.cotizaciones')
                         </div>
                         <div wire:ignore.self class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                             @include('livewire.subprocesos-resource.pagos')

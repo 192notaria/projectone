@@ -24,4 +24,8 @@ class Cotizaciones extends Model
     public function usuario(){
         return $this->belongsTo(User::class, "usuario_id");
     }
+
+    public function proyecto(){
+        return $this->belongsTo(Proyectos::class, "proyecto_id");
+    }
 }

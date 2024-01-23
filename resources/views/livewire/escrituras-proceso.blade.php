@@ -129,6 +129,7 @@
     @include("livewire.escrituras-resoruces.modal-agregar-concepto-pago")
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
     @include("livewire.escrituras-resoruces.modal-importar-recibo-pago")
+    @include("livewire.escrituras-resoruces.modal-cotizaciones-registradas")
 
     <script>
         var mx = 0;

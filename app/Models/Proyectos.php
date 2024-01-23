@@ -181,4 +181,5 @@ class Proyectos extends Model
     public function recibos_archivo(){
         return $this->hasOne(RecibosArchivos::class, "proyecto_id");
     }
+
 }
