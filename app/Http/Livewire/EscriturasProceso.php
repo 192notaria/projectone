@@ -1802,7 +1802,28 @@ public function removerParte($id){
         $this->cotizacion_version_id = '';
         $this->resetProyect();
 
-        return $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
+        $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
+        return $this->dispatchBrowserEvent("success-notify", "Cotizacion vinculada");
+    }
+
+    public function abrirModalBorrarCotizacion(){
+        return $this->dispatchBrowserEvent("abrir-modal-borrarCotizacionesRegistradas");
+    }
+
+    public function cerrarModalBorrarCotizacion(){
+        return $this->dispatchBrowserEvent("cerrar-modal-borrarCotizacionesRegistradas");
+    }
+
+    public function borrarCotizacionProyecto(){
+        $proyecto_id = $this->proyecto_activo['id'];
+        CotizacionProyecto::where('proyecto_id', $proyecto_id)->delete();
+        $this->cerrarModalBorrarCotizacion();
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("success-notify", "Cotizacion removida");
+    }
+
+    public function abrirModalArchivarEscFirma(){
+        return $this->dispatchBrowserEvent("abrir-modal-archivar-escritura-firma");
     }
 
 }

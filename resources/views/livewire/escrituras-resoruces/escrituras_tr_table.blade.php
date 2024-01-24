@@ -7,20 +7,25 @@
         @endif
         {{$escritura->numero_escritura ?? "S/N"}}
     </td>
-    <td @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
+    <td
+        @if (isset($escritura->activiadVulnerable->id) && $escritura->activiadVulnerable->activo == 1) class='bg-danger' @endif>
         <div>
             {{-- <div class="avatar me-2">
                 <img alt="avatar" src="{{$escritura->cliente->genero == "Masculino" ? url('v3/src/assets/img/male-avatar.svg') : url('v3/src/assets/img/female-avatar.svg')}}" class="rounded-circle" />
             </div> --}}
             <div class="media-body align-self-center">
                 <p class="mb-0">
-                    @if (isset($escritura->cliente->tipo_cliente) && $escritura->cliente->tipo_cliente == "Persona Moral")
-                        {{$escritura->cliente->razon_social ?? ""}}
-                        {{-- <span class="badge badge-primary">
-                            {{$escritura->cliente->admin_unico ?? ""}}
-                        </span> --}}
+                    @if ($escritura->cliente)
+                        @if (isset($escritura->cliente->tipo_cliente) && $escritura->cliente->tipo_cliente == "Persona Moral")
+                            {{$escritura->cliente->razon_social ?? ""}}
+                            {{-- <span class="badge badge-primary">
+                                {{$escritura->cliente->admin_unico ?? ""}}
+                            </span> --}}
+                        @else
+                            {{$escritura->cliente->nombre ?? ""}} {{$escritura->cliente->apaterno ?? ""}} {{$escritura->cliente->amaterno ?? ""}}
+                        @endif
                     @else
-                        {{$escritura->cliente->nombre ?? ""}} {{$escritura->cliente->apaterno ?? ""}} {{$escritura->cliente->amaterno ?? ""}}
+                        <span class="text-danger font-weight-bold">Sin cliente asignado</span>
                     @endif
                 </p>
             </div>

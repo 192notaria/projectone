@@ -77,7 +77,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="text-danger me-3" data-bs-dismiss="modal">Cancelar</a>
-                <button wire:click='vincular_cotizacion' class="btn btn-outline-success">Vincular Cotización</button>
+                <button @if ($cotizacion_id == '' || $cotizacion_version_id == '') disabled @endif wire:click='vincular_cotizacion' class="btn btn-outline-success">Vincular Cotización</button>
             </div>
         </div>
     </div>

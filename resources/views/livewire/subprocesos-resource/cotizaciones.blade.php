@@ -3,15 +3,15 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5>Cotización</h5>
-                {{-- @if ($proyecto_activo->costos_cotizacion) --}}
+                @if ($proyecto_activo && count($proyecto_activo->costos_cotizacion) != 0)
+                    <button wire:loading.attr="disabled" class="btn btn-outline-dark" wire:click='abrirModalBorrarCotizacion'>
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                @else
                     <button wire:loading.attr="disabled" class="btn btn-outline-dark" wire:click='abrirModalCotizacionesRegistradas'>
                         <i class="fa-solid fa-plus"></i>
                     </button>
-                {{-- @else
-                    <button wire:loading.attr="disabled" class="btn btn-outline-dark" wire:click='abrirModalCotizacionesRegistradas'>
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                @endif --}}
+                @endif
             </div>
             <div class="card-body">
                 <div class="table-responsive">

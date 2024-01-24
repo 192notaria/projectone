@@ -24,7 +24,8 @@
                 </a>
             </div>
             <div class="col-lg-6">
-                <a href="#" wire:click='abrirModalArchivar'>
+                {{-- wire:click='abrirModalArchivar' --}}
+                <a href="#" wire:click='abrirModalArchivarEscFirma'>
                     <div class="card bg-danger">
                         <div class="card-body">
                             <h5 class="card-title">Archivar <i class="fa-solid fa-box-archive"></i></h5>

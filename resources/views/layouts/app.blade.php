@@ -183,6 +183,12 @@
                         actionText: '<i class="fa-solid fa-circle-xmark"></i>'
                     })
                 })
+
+
+                function registrar_firma(firma, usuario_id){
+
+                }
+
             </script>
         </body>
 </html>
