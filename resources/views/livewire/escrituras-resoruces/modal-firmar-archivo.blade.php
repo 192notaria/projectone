@@ -20,6 +20,7 @@
                     </div>
                     <div class="col-lg-12 text-center">
                         <button class="btn btn-primary" id="btnLimpiar">Limpiar</button>
+                        <button class="btn btn-primary" id="btnGuardar">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -47,6 +48,7 @@
     })
 
     const $canvas = document.querySelector("#canvas"),
+        $btnGuardar = document.querySelector("#btnGuardar"),
         $btnLimpiar = document.querySelector("#btnLimpiar");
     const contexto = $canvas.getContext("2d");
     const COLOR_PINCEL = "black";
@@ -74,6 +76,10 @@
 //     // Hacer click en él
 //     enlace.click();
 // };
+    $btnGuardar.onclick = () => {
+        var firma = $canvas.toDataURL();
+        registrar_firma(firma);
+    };
 
 window.obtenerImagen = () => {
     return $canvas.toDataURL();

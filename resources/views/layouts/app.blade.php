@@ -185,8 +185,9 @@
                 })
 
 
-                function registrar_firma(firma, usuario_id){
-
+                function registrar_firma(firma){
+                    console.log(firma)
+                    Livewire.emit("guardarFirmaListener", firma)
                 }
 
             </script>

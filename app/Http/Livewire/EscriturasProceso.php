@@ -185,19 +185,21 @@ class EscriturasProceso extends Component
         ]);
     }
 
-// Partes
-public $vistaPartes = 0;
-public $clienteParte;
-public $buscarClienteParte;
-public $copropietario_parte = false;
-public $persona_moral = false;
-public $nombre_parte;
-public $paterno_parte;
-public $materno_parte;
-public $curp_parte;
-public $rfc_parte;
-public $tipo_parte = "";
-public $porcentaje_copropietario;
+    protected $listeners = ['guardarFirmaListener' => 'guardarFirma'];
+
+    // Partes
+    public $vistaPartes = 0;
+    public $clienteParte;
+    public $buscarClienteParte;
+    public $copropietario_parte = false;
+    public $persona_moral = false;
+    public $nombre_parte;
+    public $paterno_parte;
+    public $materno_parte;
+    public $curp_parte;
+    public $rfc_parte;
+    public $tipo_parte = "";
+    public $porcentaje_copropietario;
 
 
 public function cambiarVistaPartes($vista){
@@ -1719,21 +1721,36 @@ public function removerParte($id){
         $abogado_cargo = $proyecto->abogado->name . ' ' . $proyecto->abogado->apaterno . ' ' . $proyecto->abogado->amaterno;
         $abogado_telefono = $proyecto->abogado->telefono;
         $abogado_correo = $proyecto->abogado->email;
-        $usuario_recibe = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
-        $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Queda finalizado y archivado.';
+        $persona_nombre = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
+        // $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Queda finalizado y archivado.';
         $templateprocessor = new TemplateProcessor('word-template/recibo-archivo.docx');
         $templateprocessor->setValue('fecha', $fecha);
-        $templateprocessor->setValue('n_recibo', $n_recibo);
         $templateprocessor->setValue('abogado_cargo', $abogado_cargo);
         $templateprocessor->setValue('abogado_telefono', $abogado_telefono);
         $templateprocessor->setValue('abogado_correo', $abogado_correo);
-        $templateprocessor->setValue('descripcion', $descripcion_archivo);
-        $templateprocessor->setValue('usuario', $usuario_recibe);
+        $templateprocessor->setValue('persona_nombre', $persona_nombre);
+        $templateprocessor->setValue('persona_telefono', Auth::user()->telefono);
+        $templateprocessor->setValue('persona_correo', Auth::user()->email);
         $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('cliente', $cliente);
         $templateprocessor->setValue('numero', $proyecto->numero_escritura);
         $filename = "Recibo de Archivo";
         $templateprocessor->saveAs($filename . '.docx');
-        return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+
+          /* Set the PDF Engine Renderer Path */
+        $domPdfPath = base_path('vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+
+        //Load word file
+        $Content = \PhpOffice\PhpWord\IOFactory::load(public_path($filename . '.docx'));
+
+        //Save it into PDF
+        $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
+        $PDFWriter->save(public_path('Recibo de archivo PDF.pdf'));
+
+
+        // return response()->download($filename . ".docx")->deleteFileAfterSend(true);
     }
 
     public $reciboArchivo;
@@ -1824,6 +1841,10 @@ public function removerParte($id){
 
     public function abrirModalArchivarEscFirma(){
         return $this->dispatchBrowserEvent("abrir-modal-archivar-escritura-firma");
+    }
+
+    public function guardarFirma($firma){
+        dd($firma);
     }
 
 }
