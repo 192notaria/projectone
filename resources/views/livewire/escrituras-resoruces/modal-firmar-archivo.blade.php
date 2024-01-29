@@ -21,7 +21,7 @@
                         <canvas class="border border-primary" width="350" height="200" id="canvas"></canvas>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button class="btn btn-primary" id="btnLimpiar">Limpiar</button>
+                        <button class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
                     </div>
                 </div>
             </div>
