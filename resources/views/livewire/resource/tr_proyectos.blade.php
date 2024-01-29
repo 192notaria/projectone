@@ -48,7 +48,11 @@
         <p class="mb-0 text-left">
             <span class="fw-bold">Abogado asignado:</span>
             <p>
-                {{$proyecto->abogado->name}} {{$proyecto->abogado->apaterno}} {{$proyecto->abogado->amaterno}}
+                @if (isset($proyecto->abogado->name))
+                    {{$proyecto->abogado->name}} {{$proyecto->abogado->apaterno}} {{$proyecto->abogado->amaterno}}
+                @else
+                    Sin abogado asignado
+                @endif
             </p>
         </p>
         @can('ver_apoyo_proyecto')

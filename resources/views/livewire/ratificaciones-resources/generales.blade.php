@@ -54,9 +54,13 @@
                             <span class="align-self-center">
                                 Abogado:
                                 <span class="badge bg-light-primary">
-                                    {{$proyecto_activo->abogado->name}}
-                                    {{$proyecto_activo->abogado->apaterno}}
-                                    {{$proyecto_activo->abogado->amaterno}}
+                                    @if (isset($proyecto_activo->abogado->name))
+                                        {{$proyecto_activo->abogado->name}}
+                                        {{$proyecto_activo->abogado->apaterno}}
+                                        {{$proyecto_activo->abogado->amaterno}}
+                                    @else
+                                        Sin abogado asignado
+                                    @endif
                                 </span>
                             </span>
                         </div>

@@ -19,7 +19,13 @@
                                     <td>{{$bitacora->created_at}}</td>
                                     <td>{{$bitacora->proceso->nombre}}</td>
                                     <td>{{$bitacora->subproceso->nombre}}</td>
-                                    <td>{{$bitacora->proyecto->abogado->name}} {{$bitacora->proyecto->abogado->apaterno}} {{$bitacora->proyecto->abogado->amaterno}}</td>
+                                    <td>
+                                        @if (isset($bitacora->proyecto->abogado->name))
+                                            {{$bitacora->proyecto->abogado->name}} {{$bitacora->proyecto->abogado->apaterno}} {{$bitacora->proyecto->abogado->amaterno}}
+                                        @else
+                                            Abogado eliminado de usuarios
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

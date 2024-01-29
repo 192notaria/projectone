@@ -32,7 +32,11 @@
         </div>
     </td>
     <td>
-        <span class="text">{{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}</span>
+        @if (isset($escritura->abogado->name))
+            <span class="text">{{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}</span>
+        @else
+            <span class="text text-danger"><i class="fa-solid fa-circle-exclamation"></i> Sin abogado registrado</span>
+        @endif
         {{-- @can('ver-estado-proyecto')
             @if (isset($escritura->getstatus->proceso->nombre))
                 <span class="mb-0 fw-bold">Ultimo avance:</span>

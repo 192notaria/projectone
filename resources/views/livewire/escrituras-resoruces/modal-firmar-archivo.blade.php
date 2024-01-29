@@ -6,27 +6,28 @@
             </div>
             <div class="modal-body">
                 <div class="row gx-3 gy-3">
-                    <div class="col-lg-12">
-                        <label for="">Usuario que recibe</label>
-                        <select class="form-select" id="">
-                            <option value="">Seleccionar...</option>
-                            @foreach ($usuarios_anticipos as $usuario)
-                                <option value="{{$usuario->name}}">{{$usuario->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if ($firma_tipo == 1)
+                        <div class="col-lg-12">
+                            <label for="">Usuario que recibe</label>
+                            <select class="form-select" wire:model="usuario_recibe_id">
+                                <option value="">Seleccionar...</option>
+                                @foreach ($usuarios_anticipos as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->name}} {{$usuario->apaterno}} {{$usuario->amaterno}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="col-lg-12 text-center">
                         <canvas class="border border-primary" width="400" height="200" id="canvas"></canvas>
                     </div>
                     <div class="col-lg-12 text-center">
                         <button class="btn btn-primary" id="btnLimpiar">Limpiar</button>
-                        <button class="btn btn-primary" id="btnGuardar">Guardar</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="text-danger me-3" data-bs-dismiss="modal">Cancelar</a>
-                <button wire:click='' class="btn btn-outline-success">Guardar</button>
+                <button id="btnGuardar" class="btn btn-outline-success">Guardar</button>
             </div>
         </div>
     </div>
@@ -79,6 +80,7 @@
     $btnGuardar.onclick = () => {
         var firma = $canvas.toDataURL();
         registrar_firma(firma);
+        limpiarCanvas();
     };
 
 window.obtenerImagen = () => {

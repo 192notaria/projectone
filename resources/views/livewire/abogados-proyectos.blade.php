@@ -17,11 +17,17 @@
                             <tr>
                                 <td>
                                     <div class="td-content product-name">
-                                        <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{$registro->abogado->user_image}}" alt="product">
-                                        <div class="align-self-center">
-                                            <p class="prd-name">{{$registro->abogado->name}}</p>
-                                            <p class="prd-category text-primary">{{$registro->abogado->apaterno}} {{$registro->abogado->amaterno}}</p>
-                                        </div>
+                                        @if (isset($registro->abogado->user_image))
+                                            <img onerror="this.src='/v3/src/assets/img/avatarprofile.png';" src="{{$registro->abogado->user_image}}" alt="product">
+                                            <div class="align-self-center">
+                                                <p class="prd-name">{{$registro->abogado->name}}</p>
+                                                <p class="prd-category text-primary">{{$registro->abogado->apaterno}} {{$registro->abogado->amaterno}}</p>
+                                            </div>
+                                        @else
+                                            <div class="align-self-center">
+                                                <p class="prd-name">Sin abogado registrado</p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                                 <td><div class="td-content"><span class="pricing">{{$registro->cantidad}}</span></div></td>

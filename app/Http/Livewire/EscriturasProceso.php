@@ -39,6 +39,7 @@ use DateTime;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -1839,12 +1840,57 @@ public function removerParte($id){
         return $this->dispatchBrowserEvent("success-notify", "Cotizacion removida");
     }
 
-    public function abrirModalArchivarEscFirma(){
+    public $firma_tipo;
+    public function abrirModalArchivarEscFirma($firma_tipo){
+        $this->firma_tipo = $firma_tipo;
         return $this->dispatchBrowserEvent("abrir-modal-archivar-escritura-firma");
     }
 
+    public $usuario_archivo_recibe_id = 0;
+    public $usuario_recibe_id = '';
     public function guardarFirma($firma){
-        dd($firma);
+        $image_64 = $firma;
+        // $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64);
+        $image = str_replace(' ', '+', $image);
+
+        $imageName = $this->firma_tipo == 0 ? 'firma_abogado_entrega_' . $this->proyecto_activo['id'] . '.png' : 'firma_abogado_recibe_' . $this->proyecto_activo['id'] . '.png';
+        Storage::disk('firmas_archivos')->put($imageName, base64_decode($image));
+
+        $buscar_archivo = RecibosArchivos::where('proyecto_id', $this->proyecto_activo['id'])->first();
+        if($buscar_archivo){
+            $reibo_archivos = RecibosArchivos::find($buscar_archivo->id);
+            if($this->firma_tipo == 0){
+                $reibo_archivos->usuario_entrega_id = Auth::User()->id;
+            }
+
+            if($this->firma_tipo == 1){
+                $reibo_archivos->usuario_recibe_id = $this->usuario_recibe_id;
+            }
+            $reibo_archivos->save();
+            $this->resetProyect();
+            return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
+        }
+
+        $reibo_archivos = new RecibosArchivos();
+        $reibo_archivos->proyecto_id = $this->proyecto_activo['id'];
+        if($this->firma_tipo == 0){
+            $reibo_archivos->usuario_entrega_id = Auth::User()->id;
+        }
+
+        if($this->firma_tipo == 1){
+            $reibo_archivos->usuario_recibe_id = $this->usuario_recibe_id;
+        }
+
+        $reibo_archivos->save();
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
+// path
+// proyecto_id
+// usuario_entrega_id
+// usuario_recibe_id
+
     }
 
 }
