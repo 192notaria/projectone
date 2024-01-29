@@ -75,11 +75,13 @@
                             <li class="nav-item" role="presentation">
                                 <button wire:ignore.self class="nav-link" id="plantillas-tab" data-bs-toggle="tab" data-bs-target="#plantillas-tab-pane" type="button" role="tab" aria-controls="plantillas-tab-pane" aria-selected="false">Plantillas</button>
                             </li>
-                        @can('archivar')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="archivar-tab" data-bs-toggle="tab" data-bs-target="#archivar-tab-pane" type="button" role="tab" aria-controls="archivar-tab-pane" aria-selected="false">Archivar</button>
-                            </li>
-                        @endcan
+                        @if (isset($proyecto_activo->numero_escritura))
+                            @can('archivar')
+                                <li class="nav-item" role="presentation">
+                                    <button wire:ignore.self class="nav-link" id="archivar-tab" data-bs-toggle="tab" data-bs-target="#archivar-tab-pane" type="button" role="tab" aria-controls="archivar-tab-pane" aria-selected="false">Archivar</button>
+                                </li>
+                            @endcan
+                        @endif
                     </ul>
                 </div>
             </div>
