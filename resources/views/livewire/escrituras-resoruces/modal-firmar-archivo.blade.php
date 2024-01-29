@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="row gx-3 gy-3">
-                    @if ($firma_tipo == 1)
+                    {{-- @if ($firma_tipo == 1)
                         <div class="col-lg-12">
                             <label for="">Usuario que recibe</label>
                             <select class="form-select" wire:model="usuario_recibe_id">
@@ -16,9 +16,9 @@
                                 @endforeach
                             </select>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="col-lg-12 text-center">
-                        <canvas class="border border-primary" width="400" height="200" id="canvas"></canvas>
+                        <canvas class="border border-primary" width="350" height="200" id="canvas"></canvas>
                     </div>
                     <div class="col-lg-12 text-center">
                         <button class="btn btn-primary" id="btnLimpiar">Limpiar</button>

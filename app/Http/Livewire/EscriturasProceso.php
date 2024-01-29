@@ -1866,7 +1866,7 @@ public function removerParte($id){
             }
 
             if($this->firma_tipo == 1){
-                $reibo_archivos->usuario_recibe_id = $this->usuario_recibe_id;
+                $reibo_archivos->usuario_recibe_id = Auth::User()->id;
             }
             $reibo_archivos->save();
             $this->resetProyect();
@@ -1880,7 +1880,7 @@ public function removerParte($id){
         }
 
         if($this->firma_tipo == 1){
-            $reibo_archivos->usuario_recibe_id = $this->usuario_recibe_id;
+            $reibo_archivos->usuario_recibe_id = Auth::User()->id;
         }
 
         $reibo_archivos->save();

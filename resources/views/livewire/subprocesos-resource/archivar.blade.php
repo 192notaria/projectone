@@ -60,7 +60,6 @@
             @endif
         </div>
     @endif
-
 </div>
 
 <div wire:ignore.self class="modal fade modal-archivar"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: none;" aria-hidden="true">
