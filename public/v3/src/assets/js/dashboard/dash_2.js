@@ -1294,7 +1294,7 @@ $(document).ready(function(){
 var chart = new ApexCharts( document.querySelector("#revenueMonthly") , options);
 chart.render();
 
-var url = "http://192.168.1.100/chartsData/area"
+var url = "http://192.168.1.101/chartsData/area"
 // var url = "http://projectone.test/chartsData/area"
 $.getJSON(url, function(response) {
     // console.log(response.data);
@@ -1413,7 +1413,7 @@ var chart2 = new ApexCharts(
 
 chart2.render();
 
-const urldonut = "http://192.168.1.100/chartsData/dounut"
+const urldonut = "http://192.168.1.101/chartsData/dounut"
 // const urldonut = "http://projectone.test/chartsData/dounut"
 $.getJSON(urldonut, function(response) {
     console.log(response.data);
