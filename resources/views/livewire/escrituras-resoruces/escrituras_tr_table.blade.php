@@ -1,9 +1,7 @@
 <tr>
     <td class="text-center">
-        @if (isset($escritura->recibos_archivo->path))
-            <a href="/{{$escritura->recibos_archivo->path}}" target="_blank">
-                <i class="text-success fa-solid fa-box-archive"></i>
-            </a>
+        @if (isset($escritura->recibos_archivo->usuario_entrega_id) && isset($escritura->recibos_archivo->usuario_recibe_id))
+            <i class="text-success fa-solid fa-box-archive"></i>
         @endif
         {{$escritura->numero_escritura ?? "S/N"}}
     </td>
