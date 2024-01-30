@@ -18,7 +18,7 @@
             @if (isset($proyecto_activo->recibos_archivo->usuario_entrega_id))
                 <h1>Entrega</h1>
                 <img src="/storage/firmas_archivos/firma_abogado_entrega_{{$proyecto_activo->recibos_archivo->proyecto_id}}.png" alt="">
-                <p class="text-black">
+                <p class="font-weight-bold">
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->name}}
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->apaterno}}
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->amaterno}}
@@ -41,7 +41,7 @@
             @if (isset($proyecto_activo->recibos_archivo->usuario_recibe_id))
                 <h1>Recibe</h1>
                 <img src="/firmas_archivos/firma_abogado_recibe_{{$proyecto_activo->recibos_archivo->proyecto_id}}.png" alt="">
-                <p class="text-black">
+                <p class="font-weight-bold">
                     {{$proyecto_activo->recibos_archivo->usuario_recibe->name}}
                     {{$proyecto_activo->recibos_archivo->usuario_recibe->apaterno}}
                     {{$proyecto_activo->recibos_archivo->usuario_recibe->amaterno}}
