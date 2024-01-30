@@ -1848,6 +1848,7 @@ public function removerParte($id){
 
     public $usuario_archivo_recibe_id = 0;
     public $usuario_recibe_id = '';
+
     public function guardarFirma($firma){
         $image_64 = $firma;
         // $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
@@ -1859,6 +1860,7 @@ public function removerParte($id){
         Storage::disk('firmas_archivos')->put($imageName, base64_decode($image));
 
         $buscar_archivo = RecibosArchivos::where('proyecto_id', $this->proyecto_activo['id'])->first();
+
         if($buscar_archivo){
             $reibo_archivos = RecibosArchivos::find($buscar_archivo->id);
             if($this->firma_tipo == 0){
@@ -1868,6 +1870,7 @@ public function removerParte($id){
             if($this->firma_tipo == 1){
                 $reibo_archivos->usuario_recibe_id = Auth::User()->id;
             }
+
             $reibo_archivos->save();
             $this->resetProyect();
             return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
@@ -1886,11 +1889,5 @@ public function removerParte($id){
         $reibo_archivos->save();
         $this->resetProyect();
         return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
-// path
-// proyecto_id
-// usuario_entrega_id
-// usuario_recibe_id
-
     }
-
 }

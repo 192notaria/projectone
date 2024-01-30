@@ -17,7 +17,7 @@
         <div class="col-lg-6 text-center">
             @if (isset($proyecto_activo->recibos_archivo->usuario_entrega_id))
                 <h1>Entrega</h1>
-                <img src="/firmas_archivos/firma_abogado_entrega_{{$proyecto_activo->recibos_archivo->proyecto_id}}.png" alt="">
+                <img src="/storage/firmas_archivos/firma_abogado_entrega_{{$proyecto_activo->recibos_archivo->proyecto_id}}.png" alt="">
                 <p class="text-black">
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->name}}
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->apaterno}}
