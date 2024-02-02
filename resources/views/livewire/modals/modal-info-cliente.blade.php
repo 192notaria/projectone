@@ -42,8 +42,7 @@
                                     @forelse ($cliente_activo->documentos as $key => $docs)
                                         <tr>
                                             <td>
-                                                <h5 class="card-title">{{$docs->tipo_doc_data->nombre}}</h5>
-                                                <p class="mb-0">{{$docs->tipo}}</p>
+                                                <h5 class="card-title">{{$docs->tipo_doc_data->nombre ?? $docs->tipo}}</h5>
                                             </td>
                                             <td>
                                                 <a href="{{url($docs->path)}}"  target="_blank" class="btn btn-outline-dark">
