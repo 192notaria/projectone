@@ -16,13 +16,19 @@ return new class extends Migration
         Schema::create('documentos_clientes', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
-            $table->string("tipo");
+            $table->string("tipo")->nullable();
+            $table->unsignedBigInteger("tipo_doc_id")->nullable();
             $table->text("path");
             $table->unsignedBigInteger("cliente_id")->nullable();
 
             $table->foreign('cliente_id')
                 ->references('id')
                 ->on('clientes')
+                ->nullOnDelete();
+
+            $table->foreign('tipo_doc_id')
+                ->references('id')
+                ->on('catalogo_documentos_generales')
                 ->nullOnDelete();
 
             $table->timestamps();

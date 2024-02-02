@@ -12,6 +12,12 @@
     <link href="{{url('/v3/src/plugins/css/light/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
     <link href="{{url('/v3/src/plugins/css/dark/tomSelect/custom-tomSelect.css')}}" rel="stylesheet" type="text/css">
 
+    <link href="{{url('v3/src/plugins/src/filepond/filepond.min.css')}}" rel="stylesheet">
+    <link href="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.css')}}" rel="stylesheet">
+    <link href="{{url('v3/src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('v3/src/assets/css/dark/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('v3/src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('content')
     <div class="layout-px-spacing">
@@ -29,5 +35,16 @@
     <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
     <script src="{{ url("v3/src/assets/js/elements/custom-search.js") }}"></script>
     <script src="{{url("v3/src/plugins/src/tomSelect/tom-select.base.js")}}"></script>
+
+    <script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageCrop.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/custom-filepond.js')}}"></script>
+    <script src="{{url('v3/src/assets/js/custom.js')}}"></script>
 @endsection
 

@@ -33,7 +33,7 @@ class Clientes extends Component
         $fecha_nacimiento,
         $email,
         $telefono,
-        $ocupacion = "",
+        $ocupacion,
         $estado_civil = "",
         $curp,
         $rfc,
@@ -58,6 +58,9 @@ class Clientes extends Component
     public $razon_social;
 
     public $proyectos_escrituras = [];
+
+    public $tipo_doc_id = [];
+
     public function render(){
         return view('livewire.clientes', [
             // "clientes" => ModelClientes::where(function($query){
@@ -77,6 +80,7 @@ class Clientes extends Component
                         ->orWhere("rfc", "LIKE", "%" . $this->search . "%")
                         ->orWhere("email", "LIKE", "%" . $this->search . "%");
                 })
+                // ->orderBy("nombre", "ASC")
                 ->paginate($this->cantidadClientes),
             "municipiosData" => $this->buscarMunicipio == "" ? [] : Municipios::where('nombre', 'LIKE', $this->buscarMunicipio . '%')->get(),
             "ocupaciones" => Ocupaciones::orderBy("nombre", "ASC")->get(),
@@ -156,6 +160,7 @@ class Clientes extends Component
         $this->tipo_cliente = "";
         $this->razon_social = "";
         $this->admin_unico = "";
+        $this->tipo_doc_id = [];
     }
 
     public function selectMunicipio($id){
@@ -186,6 +191,16 @@ class Clientes extends Component
         $this->tipo_cliente = $cliente->tipo_cliente ?? "";
         $this->razon_social = $cliente->razon_social ?? "";
 
+
+        $docs = DB::table('documentos_clientes')->where('documentos_clientes.cliente_id', $id)->get();
+            // ->pluck('documentos_clientes.tipo_doc_id', 'documentos_clientes.tipo_doc_id')
+            // ->all();
+
+        foreach ($docs as $key => $value) {
+            $this->tipo_doc_id[$key] = $value->tipo_doc_id ?? "";
+        }
+
+        // dd($this->tipo_doc_id);
         return $this->dispatchBrowserEvent("open-new-cliente-modal");
     }
 
@@ -197,6 +212,8 @@ class Clientes extends Component
     public function borrarCliente(){
         if($this->id_cliente != ""){
             ModelClientes::find($this->id_cliente)->delete();
+            $this->dispatchBrowserEvent("success-notify", "Cliente eliminado");
+            return $this->closeModalBorrarCliente();
         }
     }
 
@@ -226,8 +243,8 @@ class Clientes extends Component
             $cliente->razon_social = $this->razon_social;
             $cliente->admin_unico = $this->admin_unico;
             $cliente->save();
-            $this->clearInputs();
-            return $this->dispatchBrowserEvent('close-new-cliente-modal');
+            return $this->dispatchBrowserEvent("success-notify", "Cliente editado");
+            // return $this->dispatchBrowserEvent('close-new-cliente-modal');
         }
 
         $buscarCliente = ModelClientes::where('nombre', $this->nombre)
@@ -263,6 +280,8 @@ class Clientes extends Component
             $cliente->admin_unico = $this->admin_unico ?? "";
             $cliente->save();
             $this->clearInputs();
+
+            $this->dispatchBrowserEvent("success-notify", "Cliente registrado");
             return $this->dispatchBrowserEvent('close-new-cliente-modal');
     }
 
@@ -481,6 +500,35 @@ class Clientes extends Component
         $this->vista = $view;
     }
 
+    function remove_doc($id){
+        DocumentosClientes::find($id)->delete();
+        return $this->dispatchBrowserEvent("success-notify", "Documento removido");
+    }
+
+
+    public $warning_tittle;
+    public $warning_message;
+    function open_warning_modal(){
+        $this->warning_tittle = 'Información faltante';
+        $this->warning_message = 'Es necesario ingresar la información faltante del cliente';
+        return $this->dispatchBrowserEvent("abrir-modal-warning");
+    }
+
+    public function cambiar_tipo_doc($document_id, $key){
+        $tipo_doc = DocumentosClientes::find($document_id);
+        $tipo_doc->tipo_doc_id = $this->tipo_doc_id[$key];
+        $tipo_doc->save();
+        $this->tipo_doc_id = [];
+
+        $docs = DB::table('documentos_clientes')->where('documentos_clientes.cliente_id', $tipo_doc->cliente_id)->get();
+        foreach ($docs as $key => $value) {
+            $this->tipo_doc_id[$key] = $value->tipo_doc_id ?? "";
+        }
+
+        return $this->dispatchBrowserEvent("success-notify", "Tipo de documento actualizado");
+    }
+
+
     public function upload_doc(){
         $this->validate([
                 "tipo_doc" => "required",
@@ -509,17 +557,39 @@ class Clientes extends Component
         return $this->dispatchBrowserEvent("success-notify", "Documento importado con exito");
     }
 
-    function remove_doc($id){
-        DocumentosClientes::find($id)->delete();
-        return $this->dispatchBrowserEvent("success-notify", "Documento removido");
+    public $files_data = [];
+    public function importFiles(){
+        $this->validate([
+                'files_data.*' => 'required',
+            ],
+            [
+                "files_data.required" => "Es necesario importar el documento",
+            ]
+        );
+
+        $cliente_activo = ModelClientes::find($this->id_cliente);
+        $path = "/uploads/clientes/" . str_replace(" ", "_", $cliente_activo->nombre) . "_" . str_replace(" ", "_", $cliente_activo->apaterno) . "_" . str_replace(" ", "_", $cliente_activo->amaterno) . "/documentos";
+        foreach ($this->files_data as $photo) {
+            $store = $photo->storeAs(mb_strtolower($path), time() . $photo->getClientOriginalName(), 'public');
+            $doc = new DocumentosClientes;
+            $doc->nombre = $photo->getClientOriginalName();
+            $doc->path = "storage/" . $store;
+            $doc->cliente_id = $this->id_cliente;
+            $doc->save();
+        }
+
+        $this->files_data = [];
+
+        $docs = DB::table('documentos_clientes')->where('documentos_clientes.cliente_id', $this->id_cliente)->get();
+        foreach ($docs as $key => $value) {
+            $this->tipo_doc_id[$key] = $value->tipo_doc_id ?? "";
+        }
+
+        return $this->dispatchBrowserEvent("success-notify", "Documentos importados con exito");
     }
 
-
-    public $warning_tittle;
-    public $warning_message;
-    function open_warning_modal(){
-        $this->warning_tittle = 'Información faltante';
-        $this->warning_message = 'Es necesario ingresar la información faltante del cliente';
-        return $this->dispatchBrowserEvent("abrir-modal-warning");
+    public function open_modal_info_cliente($cliente_id){
+        $this->id_cliente = $cliente_id;
+        return $this->dispatchBrowserEvent("open-modal-info-cliente");
     }
 }

@@ -7,195 +7,274 @@
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
+            <div class="modal-header">
+                <div class="simple-tab">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button wire:ignore.self class="nav-link active" id="informacion-tab" data-bs-toggle="tab" data-bs-target="#informacion-tab-pane" type="button" role="tab" aria-controls="informacion-tab-pane" aria-selected="true">Información</button>
+                        </li>
+                        @if (isset($cliente_activo->id))
+                            <li class="nav-item" role="presentation">
+                                <button wire:ignore.self class="nav-link" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos-tab-pane" type="button" role="tab" aria-controls="documentos-tab-pane" aria-selected="true">Documentos</button>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
             <div class="modal-body">
-                <div class="row gx-3 gy-3">
-                    @error('existeCliente')
-                        <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
-                    @enderror
-                    <div class="col-lg-12">
-                        <label for="">Tipo de cliente</label>
-                        <select class="form-select" wire:model='tipo_cliente'>
-                            <option value="" selected disabled>Seleccionar...</option>
-                            <option value="Persona Fisica">Persona Fisica</option>
-                            <option value="Persona Moral">Persona Moral</option>
-                        </select>
-                    </div>
-                    @if ($tipo_cliente == "Persona Fisica")
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Nombre</label>
-                                <input type="hidden" wire:model="id_cliente" class="form-control">
-                                <input wire:model="nombre" type="text" class="form-control was-validated" placeholder="Juan">
-                                @error('nombre') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Apellido Paterno</label>
-                                <input wire:model="apaterno" type="text" class="form-control" placeholder="Perez">
-                                @error('apaterno') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Apellido Materno</label>
-                                <input wire:model="amaterno" type="text" class="form-control" placeholder="Rodriguez">
-                                @error('amaterno') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Fecha de nacimiento</label>
-                                <input wire:model="fecha_nacimiento" type="date" class="form-control">
-                                @error('fecha_nacimiento') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Estado civil</label>
-                                <select wire:model="estado_civil" class="form-control">
-                                    <option value="" selected disabled>Seleccionar...</option>
-                                    <option value="Soltero">Soltero</option>
-                                    <option value="Casado">Casado</option>
-                                </select>
-                                @error('estado_civil') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Genero</label>
-                                <select wire:model="genero" class="form-control">
-                                    <option value="" selected disabled>Seleccionar...</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
-                                </select>
-                                @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Curp</label>
-                                <input wire:model='curp' type="text" class="form-control" placeholder="CURP">
-                                @error('curp') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Rfc</label>
-                                <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
-                                @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Correo</label>
-                                <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
-                                @error('email') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Télefono</label>
-                                <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
-                                @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group  autocomplete" wire:ignore>
-                                <label for="">Municipio de nacimiento</label>
-                                {{-- <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
-                                <input type="hidden" wire:model='municipio_nacimiento_id'>
-                                @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
-                                <div class="autocomplete-items">
-                                    @foreach ($municipiosData as $municipio)
-                                        <div>
-                                            <a wire:click='selectMunicipio({{$municipio->id}})'>
-                                                <strong>{{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}</strong>
-                                            </a>
+                <div class="simple-tab">
+                    <div class="tab-content" id="myTabContent">
+                        <div wire:ignore.self class="tab-pane fade show active" id="informacion-tab-pane" role="tabpanel" aria-labelledby="informacion-tab" tabindex="0">
+                            <div class="row gx-3 gy-3">
+                                @error('existeCliente')
+                                    <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
+                                @enderror
+                                <div class="col-lg-12">
+                                    <label for="">Tipo de cliente</label>
+                                    <select class="form-select" wire:model='tipo_cliente'>
+                                        <option value="" selected disabled>Seleccionar...</option>
+                                        <option value="Persona Fisica">Persona Fisica</option>
+                                        <option value="Persona Moral">Persona Moral</option>
+                                    </select>
+                                </div>
+                                @if ($tipo_cliente == "Persona Fisica")
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Nombre</label>
+                                            <input type="hidden" wire:model="id_cliente" class="form-control">
+                                            <input wire:model="nombre" type="text" class="form-control was-validated" placeholder="Juan">
+                                            @error('nombre') <span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
-                                    @endforeach
-                                </div> --}}
-                                <select id="municipio_nacimiento" placeholder="Seleccionar..." autocomplete="off" wire:model='municipio_nacimiento_id'>
-                                    <option value="">Seleccionar...</option>
-                                    @foreach ($municipios_data as $municipio)
-                                        <option value="{{$municipio->id}}">
-                                            {{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <script>
-                                    new TomSelect("#municipio_nacimiento",{
-                                        create: false,
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group " wire:ignore>
-                                <label for="">Ocupacion</label>
-                                <select id="ocupaciones-select" placeholder="Seleccionar..." autocomplete="off" wire:model='ocupacion'>
-                                    <option value="" disabled>Seleccionar...</option>
-                                    @foreach ($ocupaciones as $ocupacion)
-                                        <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
-                                    @endforeach
-                                </select>
-                                @error('ocupacion') <span class="text-danger">{{ $message }}</span>@enderror
-                                <script>
-                                    new TomSelect("#ocupaciones-select",{
-                                        create: false,
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                        @error('existeCliente')
-                            <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
-                        @enderror
-                    @endif
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Apellido Paterno</label>
+                                            <input wire:model="apaterno" type="text" class="form-control" placeholder="Perez">
+                                            @error('apaterno') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Apellido Materno</label>
+                                            <input wire:model="amaterno" type="text" class="form-control" placeholder="Rodriguez">
+                                            @error('amaterno') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Fecha de nacimiento</label>
+                                            <input wire:model="fecha_nacimiento" type="date" class="form-control">
+                                            @error('fecha_nacimiento') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Estado civil</label>
+                                            <select wire:model="estado_civil" class="form-select">
+                                                <option value="" selected disabled>Seleccionar...</option>
+                                                <option value="Soltero">Soltero</option>
+                                                <option value="Casado">Casado</option>
+                                            </select>
+                                            @error('estado_civil') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Genero</label>
+                                            <select wire:model="genero" class="form-control">
+                                                <option value="" selected disabled>Seleccionar...</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
+                                            </select>
+                                            @error('genero') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Curp</label>
+                                            <input wire:model='curp' type="text" class="form-control" placeholder="CURP">
+                                            @error('curp') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Rfc</label>
+                                            <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
+                                            @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
 
-                    @if ($tipo_cliente == "Persona Moral")
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Razón social</label>
-                                <input wire:model="razon_social" type="text" class="form-control was-validated" placeholder="Empresa S.A. de C.V.">
-                                @error('razon_social') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Administrador unico / Representante Legal</label>
-                                <input wire:model="admin_unico" type="text" class="form-control was-validated" placeholder="Nombre completo">
-                                @error('admin_unico') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Rfc</label>
-                                <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
-                                @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Correo</label>
-                                <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
-                                @error('email') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group ">
-                                <label for="">Telefono</label>
-                                <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
-                                @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                    @endif
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Correo</label>
+                                            <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
+                                            @error('email') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Télefono</label>
+                                            <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
+                                            @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group  autocomplete" wire:ignore>
+                                            <label for="">Municipio de nacimiento</label>
+                                            {{-- <input type="text" class="form-control" wire:model="buscarMunicipio" placeholder="Morelia, Uruapan, Zamora...">
+                                            <input type="hidden" wire:model='municipio_nacimiento_id'>
+                                            @error('municipio_nacimiento_id') <span class="text-danger">{{ $message }}</span>@enderror
+                                            <div class="autocomplete-items">
+                                                @foreach ($municipiosData as $municipio)
+                                                    <div>
+                                                        <a wire:click='selectMunicipio({{$municipio->id}})'>
+                                                            <strong>{{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}</strong>
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div> --}}
+                                            <select id="municipio_nacimiento" placeholder="Seleccionar..." autocomplete="off" wire:model='municipio_nacimiento_id'>
+                                                <option value="">Seleccionar...</option>
+                                                @foreach ($municipios_data as $municipio)
+                                                    <option value="{{$municipio->id}}">
+                                                        {{$municipio->nombre}}, {{$municipio->getEstado->nombre}}, {{$municipio->getEstado->getPais->nombre}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <script>
+                                                new TomSelect("#municipio_nacimiento",{
+                                                    create: false,
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group " wire:ignore>
+                                            <label for="">Ocupacion</label>
+                                            <select id="ocupaciones-select" placeholder="Seleccionar..." autocomplete="off" wire:model='ocupacion'>
+                                                <option value="" disabled>Seleccionar...</option>
+                                                @foreach ($ocupaciones as $ocupacion)
+                                                    <option value="{{$ocupacion->id}}">{{$ocupacion->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('ocupacion') <span class="text-danger">{{ $message }}</span>@enderror
+                                            <script>
+                                                new TomSelect("#ocupaciones-select",{
+                                                    create: false,
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                    @error('existeCliente')
+                                        <span class="badge badge-light-danger mb-2 me-4">{{$message}}</span>
+                                    @enderror
+                                @endif
 
+                                @if ($tipo_cliente == "Persona Moral")
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Razón social</label>
+                                            <input wire:model="razon_social" type="text" class="form-control was-validated" placeholder="Empresa S.A. de C.V.">
+                                            @error('razon_social') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Administrador unico / Representante Legal</label>
+                                            <input wire:model="admin_unico" type="text" class="form-control was-validated" placeholder="Nombre completo">
+                                            @error('admin_unico') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Rfc</label>
+                                            <input wire:model='rfc' type="text" class="form-control" placeholder="RFC">
+                                            @error('rfc') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Correo</label>
+                                            <input wire:model="email" type="email" class="form-control" placeholder="nombre@email.com">
+                                            @error('email') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label for="">Telefono</label>
+                                            <input wire:model="telefono" type="telefono" class="form-control" placeholder="4431997809">
+                                            @error('telefono') <span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-lg-12 mt-4">
+                                <button wire:loading.attr='disabled' style="width: 100%;" wire:click='save' type="button" class="btn btn-success">Guardar</button>
+                            </div>
+                        </div>
+                        <div wire:ignore.self class="tab-pane fade" id="documentos-tab-pane" role="tabpanel" aria-labelledby="documentos-tab" tabindex="0">
+                            <div class="row gx-3 gy-3">
+                                <div class="col-lg-12 mb-3 text-center">
+                                    <x-file-pond wire:model='files_data' multiple></x-file-pond>
+                                    @error('files_data.*') <span class="error">{{ $message }}</span> @enderror
+                                    <button class="btn btn-outline-dark" wire:click='importFiles'>Importar documentos</button>
+                                </div>
+                                <div class="col-lg-12">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Tipo</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <style>
+                                                .text-overflow{
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                    width: 100px !important;
+                                                }
+                                            </style>
+                                            @if ($cliente_activo)
+                                                @forelse ($cliente_activo->documentos as $key => $docs)
+                                                    <tr>
+                                                        <td class="text-overflow">
+                                                            <a href="{{url($docs->path)}}" target="_blank">
+                                                                {{$docs->nombre}}
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select" wire:model='tipo_doc_id.{{$key}}' id="tipo_doc_id.{{$key}}" value='tipo_doc_id.{{$key}}' wire:change='cambiar_tipo_doc({{$docs->id}},{{$key}})'>
+                                                                <option value="" selected disabled>Seleccionar...</option>
+                                                                @foreach ($catalogo_documentos_generales  as $document)
+                                                                    <option value="{{$document->id}}">{{$document->nombre}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-outline-dark" wire:click='remove_doc({{$docs->id}})'>
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="3" class="text-center">Sin registros...</td>
+                                                    </tr>
+                                                @endforelse
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" wire:click='clearInputs' class="text-primary mr-3" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancelar</a>
-                <button wire:loading.attr='disabled' wire:click='save' type="button" class="btn btn-success">Guardar</button>
+                <a href="#" wire:click='clearInputs' class="text-primary mr-3" data-bs-dismiss="modal"><i class="flaticon-cancel-12"></i> Cerrar</a>
             </div>
         </div>
     </div>

@@ -37,18 +37,17 @@
 @endsection
 
 @section('scripts-content')
-<script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
-<script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageCrop.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
-<script src="{{url('v3/src/plugins/src/filepond/custom-filepond.js')}}"></script>
-<script src="{{url('v3/src/assets/js/custom.js')}}"></script>
-
+    <script src="{{ url("v3/src/plugins/src/highlight/highlight.pack.js") }}"></script>
+    <script src="{{ url('v3/src/assets/js/elements/custom-search.js') }}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/filepond.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImagePreview.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageCrop.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
+    <script src="{{url('v3/src/plugins/src/filepond/custom-filepond.js')}}"></script>
+    <script src="{{url('v3/src/assets/js/custom.js')}}"></script>
 @endsection
 

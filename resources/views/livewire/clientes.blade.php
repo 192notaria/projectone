@@ -181,6 +181,9 @@
                                     <td class="text-center">
                                         <div class="action-btns">
                                             <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button wire:loading.attr='disabled' type="button" class="btn btn-outline-dark" wire:click='open_modal_info_cliente({{$cliente->id}})'>
+                                                    <i class="fa-solid fa-id-card"></i>
+                                                </button>
                                                 @can('editar-clientes')
                                                     <button wire:loading.attr='disabled'
                                                         @if ($cliente->representante_inst)
@@ -194,11 +197,6 @@
                                                 @endcan
                                                 @can('borrar-clientes')
                                                     <button wire:loading.attr='disabled' wire:click='SelectBorrarCliente({{$cliente->id}})' data-bs-toggle="modal" data-bs-target="#deleteCliente" type="button" class="btn btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
-                                                @endcan
-                                                @can('subir-documentos-clientes')
-                                                    <button wire:loading.attr='disabled' type="button" class="btn btn-outline-dark" wire:click='open_upload_docs({{$cliente->id}})'>
-                                                        <i class="fa-solid fa-file"></i>
-                                                    </button>
                                                 @endcan
                                             </div>
                                         </div>
@@ -221,6 +219,7 @@
             @include('livewire.modals.domicilioCliente')
             @include('livewire.modals.borrarCliente')
             @include('livewire.modals-ignore-self.nuevo-proyecto-clientes')
+            @include('livewire.modals.modal-info-cliente')
         </div>
     </div>
 </div>
