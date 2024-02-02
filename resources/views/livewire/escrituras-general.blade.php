@@ -134,9 +134,17 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="fw-bold">Cliente: </span> {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}
+                                    @if (isset($escritura->cliente->nombre))
+                                        <span class="fw-bold">Cliente: </span> {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}
+                                    @else
+                                        <span class="fw-bold">Cliente: </span> <span class="text-danger">Sin cliente registrado</span>
+                                    @endif
                                     <br>
-                                    <span class="fw-bold">Abogado: </span> {{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}
+                                    @if (isset($escritura->abogado->name))
+                                        <span class="fw-bold">Abogado: </span> {{$escritura->abogado->name}} {{$escritura->abogado->apaterno}} {{$escritura->abogado->amaterno}}
+                                    @else
+                                        <span class="fw-bold">Abogado: </span> <span class="text-danger">Sin abogado asignado</span>
+                                    @endif
                                 </td>
                                 {{-- <td>{{$escritura->created_at}}</td> --}}
                                 @can('ver-costo-total')

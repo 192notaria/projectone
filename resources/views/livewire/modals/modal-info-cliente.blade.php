@@ -14,9 +14,13 @@
                             <img src="{{url("assets/img/img-8.jpg")}}" style="max-height: 200px;" class="card-img-top" alt="...">
                             <div class="card-footer">
                                 @if ($cliente_activo)
-                                    <h5 class="card-title mb-0">{{$cliente_activo->nombre}} {{$cliente_activo->apaterno}} {{$cliente_activo->amaterno}}</h5>
-                                    <p class="card-text">Télefono: {{$cliente_activo->telefono}}</p>
-                                    <p class="card-text">Email: {{$cliente_activo->email}}</p>
+                                    @if (isset($cliente_activo->nombre))
+                                        <h5 class="card-title mb-0">{{$cliente_activo->nombre}} {{$cliente_activo->apaterno}} {{$cliente_activo->amaterno}}</h5>
+                                        <p class="card-text">Télefono: {{$cliente_activo->telefono}}</p>
+                                        <p class="card-text">Email: {{$cliente_activo->email}}</p>
+                                    @else
+                                        <h5 class="card-title mb-0">Sin cliente registrado</h5>
+                                    @endif
                                 @endif
                             </div>
                         </a>

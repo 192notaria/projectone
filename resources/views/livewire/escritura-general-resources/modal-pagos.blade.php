@@ -58,7 +58,7 @@
                                     <div class="card-body pt-3">
                                         <h5 class="card-title mb-3">Egresos</h5>
                                         <h1 class="text-white">
-                                            ${{number_format($escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
+                                            ${{number_format($escritura_activa->egresos_registrados($escritura_activa->id) + $escritura_activa->comisiones_registradas($escritura_activa->id), 2)}}
                                         </h1>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         @endif
                                     </h5>
                                         <h1 class="text-white">
-                                            ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id), 2)}}
+                                            ${{number_format($escritura_activa->pagos_recibidos_total($escritura_activa->id) - $escritura_activa->egresos_registrados($escritura_activa->id) - $escritura_activa->comisiones_registradas($escritura_activa->id), 2)}}
                                         </h1>
                                     </div>
                                 </div>
