@@ -230,7 +230,6 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-                                                        {{$tipo_subproceso}}
                                                         {{-- {{$proyecto_activo->id}} - {{$proceso_activo}} - {{$subproceso_activo->id}}
                                                         <br>
                                                         {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id)}} --}}
