@@ -16,34 +16,56 @@
     </div>
     <div class="card-body">
         <div class="row">
-            @if($fechas_registradas)
-                <div class="col-lg-12 mb-3">
-                    Fecha de registro: <span class="btn btn-success">{{$fechas_registradas->fechayhora}}</span>
-                </div>
-            @endif
             @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ))
                 <div class="col-lg-12">
-                    @if(!$fechas_registradas)
-                        <input wire:model='fecha_a_registrar' type="datetime-local" class="form-control">
-                    @endif
+                    <input wire:model='fecha_a_registrar' type="datetime-local" class="form-control">
                     @error('fecha_a_registrar')
                         <span class="badge badge-danger mt-3">{{$message}}</span>
                     @enderror
                 </div>
                 <div class="col-lg-12 mb-2 mt-2">
-                    @if(!$fechas_registradas)
-                        <button wire:click='registrarFecha' class="btn btn-outline-success">Registrar Fecha</button>
-                    @endif
-                    @if($fechas_registradas)
-                        <button class="btn btn-danger" wire:click='eliminarFecha({{$fechas_registradas->id}})'>Eliminar registro</button>
-                    @endif
+                    <button wire:click='registrarFecha' class="btn btn-outline-success">Agregar fecha</button>
+                </div>
+            @endif
+            @if (count($fechas_registradas) > 0)
+                <div class="col-lg-12 mt-2 table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Fecha y hora</th>
+                                @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && count($fechas_registradas) > 0)
+                                    <th></th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($fechas_registradas as $key => $fecha_data)
+                                <tr>
+                                    <td class="text-center">{{$key + 1}}</td>
+                                    <td>{{$fecha_data->fechayhora}}</td>
+                                    @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && count($fechas_registradas) > 0)
+                                        <td>
+                                            <button class="btn btn-outline-dark" wire:click='eliminarFecha({{$fecha_data->id}})'>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </td>
+                                        @endif
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="text-center">Sin registros...</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             @endif
         </div>
     </div>
     <div class="card-footer">
         <div class="col-lg-12 mt-3">
-            @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && $fechas_registradas)
+            @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && count($fechas_registradas) > 0)
                 <button wire:click='guardarAvance' class="btn btn-outline-success">
                     Guardar avance
                 </button>

@@ -193,7 +193,6 @@
                                                     @endif
                                                     ">{{$key + 1}}
                                                 </span> {{$proceso->nombre}} <i style="font-size: 20px;" class="{{$proceso->icon}}"></i>
-
                                             </button>
                                         @endforeach
                                     </div>
@@ -202,6 +201,12 @@
                                             @if (count($subprocesos_data) > 0)
                                                 <div class="row gx-3 gy-3">
                                                     <div class="col-lg-3">
+                                                        {{-- {{$subprocesos_data}} --}}
+                                                        @if ($subprocesos_data[0]['proceso_id'] == 21)
+                                                            <button wire:click='abrir_modal_traslado_dominio({{$subprocesos_data[0]['proceso_id']}})' class="btn btn-outline-success mb-3"><i class="fa-solid fa-plus"></i>
+                                                                Agregar proceso adicional
+                                                            </button>
+                                                        @endif
                                                         @foreach ($subprocesos_data as $key => $sub)
                                                             <div class="mt-container mx-auto">
                                                                 <div class="timeline-alter">
@@ -225,6 +230,7 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
+                                                        {{$tipo_subproceso}}
                                                         {{-- {{$proyecto_activo->id}} - {{$proceso_activo}} - {{$subproceso_activo->id}}
                                                         <br>
                                                         {{$proyecto_activo->omitido($proyecto_activo->id, $proceso_activo, $subproceso_activo->subproceso_id)}} --}}

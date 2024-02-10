@@ -157,11 +157,11 @@ class EscriturasProceso extends Component
             "fechas_registradas" => RegistroFirmas::where("proyecto_id", $this->proyecto_id)
                 ->where("proceso_id", $this->proceso_activo)
                 ->where("subproceso_id", $this->subprocesos_info->id ?? 0)
-                ->first(),
+                ->get(),
             "autorizacion_catastro" => AutorizacionCatastro::where("proyecto_id", $this->proyecto_id)
                 ->where("proceso_id", $this->proceso_activo)
                 ->where("subproceso_id", $this->subprocesos_info->id ?? 0)
-                ->first(),
+                ->get(),
                 "actos" => Servicios::orderBy('nombre', 'ASC')
                 ->whereHas('tipo_acto', function(Builder $serv){
                     $serv->where('id', 'LIKE', '%1%');
@@ -968,6 +968,8 @@ public function removerParte($id){
     public function registrarFecha(){
         $this->validate([
             "fecha_a_registrar" => "required"
+        ],[
+            "fecha_a_registrar.required" => "Es necesario seleccionar la fecha y la hora"
         ]);
 
         $proyecto = Proyectos::find($this->proyecto_id);
@@ -981,6 +983,7 @@ public function removerParte($id){
         $fecha_data->cliente_id = $proyecto->cliente->id;
         $fecha_data->save();
 
+        $this->fecha_a_registrar = '';
         return $this->dispatchBrowserEvent('alert-success', 'Fecha registrada');
     }
 
@@ -1070,6 +1073,15 @@ public function removerParte($id){
     public $clave_catastral;
 
     public function registrar_autorizacion(){
+        $this->validate([
+            "numero_comprobante" => "required",
+            "cuenta_predial" => "required",
+            "clave_catastral" => "required"
+        ],[
+            "numero_comprobante.required" => "Es necesario el comprobante",
+            "cuenta_predial.required" => "Es necesario la cuenta predial",
+            "clave_catastral.required" => "Es necesario la clave catastral"
+        ]);
         $autorizacion = new AutorizacionCatastro;
         $autorizacion->comprobante = $this->numero_comprobante;
         $autorizacion->cuenta_predial = $this->cuenta_predial;
@@ -1078,6 +1090,11 @@ public function removerParte($id){
         $autorizacion->subproceso_id = $this->subprocesos_info->id;
         $autorizacion->proyecto_id = $this->proyecto_id;
         $autorizacion->save();
+
+        $this->numero_comprobante = '';
+        $this->cuenta_predial = '';
+        $this->clave_catastral = '';
+
         return $this->dispatchBrowserEvent("alert-success", "Autorizacion registrada");
     }
 

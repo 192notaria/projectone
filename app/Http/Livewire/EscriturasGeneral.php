@@ -597,4 +597,11 @@ class EscriturasGeneral extends Component
         Facturas::find($id)->delete();
         return $this->dispatchBrowserEvent("success-notify", "Factura eliminada");
     }
+
+    public $proceso_agregar_id;
+    public function abrir_modal_traslado_dominio($proceso_id){
+        $this->proceso_agregar_id = $proceso_id;
+        return $this->dispatchBrowserEvent("abrir-modal-agregar-traslado-dominio");
+    }
+
 }
