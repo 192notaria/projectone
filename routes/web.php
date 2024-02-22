@@ -16,6 +16,7 @@ use App\Http\Controllers\OcupacionesController;
 use App\Http\Controllers\PaisesController;
 use App\Http\Controllers\ProcesosServicios;
 use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\RolController;
 use App\Http\Controllers\ServiciosController;
@@ -93,4 +94,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/contabilidad/pagos', [Contabilidad::class, 'pagos'])->name('contabilidad.pagos');
     Route::get('/contabilidad/facturas', [Contabilidad::class, 'facturas'])->name('contabilidad.facturas');
     Route::get('/contabilidad/declaranot', [Contabilidad::class, 'declaranot'])->name('contabilidad.declaranot');
+
+    Route::post('/reportes', [ReportesController::class, 'reportes_graficas'])->name('reportes');
+    Route::get('/expedientes_archivados', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados');
+    Route::get('/expediente/{proyecto_id}', [ProyectosController::class, 'expediente'])->name('expediente_archivado');
 });

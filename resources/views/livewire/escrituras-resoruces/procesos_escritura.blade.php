@@ -19,17 +19,65 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         @can('ver-avance-proyecto')
                             <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Avance</button>
+                                <button wire:ignore.self class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                                    @if (isset($proyecto_activo->porcentaje) && count($proyecto_activo->porcentaje) > 0)
+                                        @php
+                                            $subprocesoscount = 0;
+                                            foreach ($proyecto_activo->porcentaje as $key => $value) {
+                                                foreach ($value->subprocesosCount as $key => $subproceos) {
+                                                    $subprocesoscount = $subprocesoscount + 1;
+                                                }
+                                            }
+
+                                            $procesos = $proyecto_activo->avanceCount->count()  * 100;
+                                            $porcentaje = round($procesos / $subprocesoscount);
+                                            if($porcentaje > 100) $porcentaje = 100;
+                                        @endphp
+
+                                        @if ($porcentaje < 100)
+                                            General y avance <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                        @else
+                                            General y avance <i class="fa-solid fa-check text-success"></i>
+                                        @endif
+                                    @else
+                                        General y avance <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                    @endif
+                                </button>
                             </li>
                         @endcan
                         @can('ver-general-proyecto')
                             <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">General</button>
+                                <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">
+                                    @if (isset($proyecto_activo->id) &&
+                                        $proyecto_activo->numero_escritura &&
+                                        $proyecto_activo->volumen &&
+                                        $proyecto_activo->folio_inicio &&
+                                        $proyecto_activo->folio_fin &&
+                                        $proyecto_activo->servicio_id &&
+                                        $proyecto_activo->cliente_id &&
+                                        $proyecto_activo->usuario_id
+                                    )
+                                        General  <i class="fa-solid fa-check text-success"></i>
+                                    @else
+                                        General <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                    @endif
+                                </button>
                             </li>
                         @endcan
                         @can('ver-cotizacion')
                             <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="cotizacion-tab" data-bs-toggle="tab" data-bs-target="#cotizacion-tab-pane" type="button" role="tab" aria-controls="cotizacion-tab-pane" aria-selected="false">Cotización</button>
+                                <button wire:ignore.self class="nav-link" id="cotizacion-tab" data-bs-toggle="tab" data-bs-target="#cotizacion-tab-pane" type="button" role="tab" aria-controls="cotizacion-tab-pane" aria-selected="false">
+                                    @if (isset($proyecto_activo->costos_cotizacion) && isset($proyecto_activo->costos_cotizacion[0]->id))
+                                        Cotización <i class="fa-solid fa-check text-success"></i>
+                                    @else
+                                        Cotización <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                    @endif
+                                </button>
+                            </li>
+                        @endcan
+                        @can('ver-partes-proyecto')
+                            <li class="nav-item" role="presentation">
+                                <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
                             </li>
                         @endcan
                         @can('ver-anticipos-proyecto')
@@ -50,11 +98,6 @@
                         @can('ver-bitacora-proyecto')
                             <li class="nav-item" role="presentation">
                                 <button wire:ignore.self class="nav-link" id="bitacora-tab" data-bs-toggle="tab" data-bs-target="#bitacora-tab-pane" type="button" role="tab" aria-controls="bitacora-tab-pane" aria-selected="false">Bitacora</button>
-                            </li>
-                        @endcan
-                        @can('ver-partes-proyecto')
-                            <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
                             </li>
                         @endcan
                         @can('ver-observaciones-proyecto')

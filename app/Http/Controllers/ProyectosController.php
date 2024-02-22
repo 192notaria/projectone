@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyectos;
 use Illuminate\Http\Request;
 
 class ProyectosController extends Controller
@@ -59,5 +60,14 @@ class ProyectosController extends Controller
 
     public function copias_certificadas(){
         return view("administracion.copias_certificadas");
+    }
+
+    public function expeidentes_archivados(){
+        return view("administracion.expeidentes_archivados");
+    }
+
+    public function expediente(Request $request){
+        $proyecto = Proyectos::find($request->proyecto_id);
+        return view("expedientes.archivado")->with('proyecto', $proyecto);
     }
 }

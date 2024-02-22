@@ -19,6 +19,7 @@ use App\Models\CotizacionProyecto;
 use App\Models\Cuentas_bancarias;
 use App\Models\Documentos;
 use App\Models\Egresos;
+use App\Models\ExpedientesArchivados;
 use App\Models\Facturas;
 use App\Models\Firmas;
 use App\Models\Generales;
@@ -1879,31 +1880,38 @@ public function removerParte($id){
         $buscar_archivo = RecibosArchivos::where('proyecto_id', $this->proyecto_activo['id'])->first();
 
         if($buscar_archivo){
-            $reibo_archivos = RecibosArchivos::find($buscar_archivo->id);
+            $recibo_archivos = RecibosArchivos::find($buscar_archivo->id);
             if($this->firma_tipo == 0){
-                $reibo_archivos->usuario_entrega_id = Auth::User()->id;
+                $recibo_archivos->usuario_entrega_id = Auth::User()->id;
             }
 
             if($this->firma_tipo == 1){
-                $reibo_archivos->usuario_recibe_id = Auth::User()->id;
+                $recibo_archivos->usuario_recibe_id = Auth::User()->id;
             }
 
-            $reibo_archivos->save();
+            if($recibo_archivos->usuario_recibe_id && $recibo_archivos->usuario_entrega_id){
+                $expediente_archivado = new ExpedientesArchivados();
+                $expediente_archivado->proyecto_id = $this->proyecto_activo['id'];
+                $expediente_archivado->save();
+            }
+
+            $recibo_archivos->save();
             $this->resetProyect();
             return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
         }
 
-        $reibo_archivos = new RecibosArchivos();
-        $reibo_archivos->proyecto_id = $this->proyecto_activo['id'];
+        $recibo_archivos = new RecibosArchivos();
+        $recibo_archivos->proyecto_id = $this->proyecto_activo['id'];
         if($this->firma_tipo == 0){
-            $reibo_archivos->usuario_entrega_id = Auth::User()->id;
+            $recibo_archivos->usuario_entrega_id = Auth::User()->id;
         }
 
         if($this->firma_tipo == 1){
-            $reibo_archivos->usuario_recibe_id = Auth::User()->id;
+            $recibo_archivos->usuario_recibe_id = Auth::User()->id;
         }
 
-        $reibo_archivos->save();
+
+        $recibo_archivos->save();
         $this->resetProyect();
         return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
     }
