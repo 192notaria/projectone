@@ -31,7 +31,18 @@
             </div> --}}
             <div class="row layout-top-spacing">
                 <div class="col-lg-12">
-                    @livewire("expedientes-archivados")
+                    @if (Route::currentRouteName() == "expedientes_archivados_actas")
+                        @livewire("expedientes-archivados-actas")
+                    @endif
+                    @if (Route::currentRouteName() == "expedientes_archivados_ep")
+                        @livewire("expedientes-archivados")
+                    @endif
+                    @if (Route::currentRouteName() == "expedientes_archivados_poderes")
+                        @livewire("expedientes-archivados-poderes")
+                    @endif
+                    @if (Route::currentRouteName() == "expedientes_archivados_ratificaciones")
+                        @livewire("expedientes-archivados-ratificaciones")
+                    @endif
                 </div>
             </div>
         </div>

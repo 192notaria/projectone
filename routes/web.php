@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\RolController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\SubprocesosController;
-use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UsuariosController;
 
 Route::get('/', function () {
@@ -96,6 +95,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/contabilidad/declaranot', [Contabilidad::class, 'declaranot'])->name('contabilidad.declaranot');
 
     Route::post('/reportes', [ReportesController::class, 'reportes_graficas'])->name('reportes');
-    Route::get('/expedientes_archivados', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados');
     Route::get('/expediente/{proyecto_id}', [ProyectosController::class, 'expediente'])->name('expediente_archivado');
+
+    Route::get('/expedientes_archivados_actas', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados_actas');
+    Route::get('/expedientes_archivados_ep', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados_ep');
+    Route::get('/expedientes_archivados_poderes', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados_poderes');
+    Route::get('/expedientes_archivados_ratificaciones', [ProyectosController::class, 'expeidentes_archivados'])->name('expedientes_archivados_ratificaciones');
 });

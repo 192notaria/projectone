@@ -75,7 +75,12 @@
                 </ul>
             </li>
 
-            <li class="menu {{Route::currentRouteName() == "expedientes_archivados" ? "active" : ""}} {{Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
+            <li class="menu
+                {{Route::currentRouteName() == "expedientes_archivados_actas" ? "active" : ""}}
+                {{Route::currentRouteName() == "expedientes_archivados_ep" ? "active" : ""}}
+                {{Route::currentRouteName() == "expedientes_archivados_poderes" ? "active" : ""}}
+                {{Route::currentRouteName() == "expedientes_archivados_ratificaciones" ? "active" : ""}}
+                {{Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
                 <a href="#expedientesNav" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -88,8 +93,17 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="expedientesNav" data-bs-parent="#accordionExample">
-                    <li class="{{Route::currentRouteName() == "expedientes_archivados" ? "active" : ""}} {{Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
-                        <a href="{{route("expedientes_archivados")}}"> Expedientes </a>
+                    <li class="{{Route::currentRouteName() == "expedientes_archivados_actas" ? "active" : ""}} {{Route::currentRouteName() == "expedientes_archivados_actas" && Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
+                        <a href="{{route("expedientes_archivados_actas")}}"> Actas </a>
+                    </li>
+                    <li class="{{Route::currentRouteName() == "expedientes_archivados_ep" ? "active" : ""}} {{Route::currentRouteName() == "expedientes_archivados_ep" && Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
+                        <a href="{{route("expedientes_archivados_ep")}}"> Escrituras Públicas </a>
+                    </li>
+                    <li class="{{Route::currentRouteName() == "expedientes_archivados_poderes" ? "active" : ""}} {{Route::currentRouteName() == "expedientes_archivados_poderes" && Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
+                        <a href="{{route("expedientes_archivados_poderes")}}"> Poderes </a>
+                    </li>
+                    <li class="{{Route::currentRouteName() == "expedientes_archivados_ratificaciones" ? "active" : ""}} {{Route::currentRouteName() == "expedientes_archivados_ratificaciones" && Route::currentRouteName() == "expediente_archivado" ? "active" : ""}}">
+                        <a href="{{route("expedientes_archivados_ratificaciones")}}"> Ratificaciones </a>
                     </li>
                 </ul>
             </li>
