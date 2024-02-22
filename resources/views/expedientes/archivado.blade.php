@@ -33,13 +33,16 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="doc-container">
                         <div class="row">
+                            <div class="col-xl-12">
+                                <a href="{{ url()->previous() }}" class="btn btn-outline-dark mb-3"><i class="fa-solid fa-arrow-left"></i></a>
+                            </div>
                             <div class="col-xl-9">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row gx-5 gy-5">
                                             <div class="col-lg-12">
                                                 <h5 class="card-title">Observaciones</h5>
-                                                <p>Sin ibservaciones</p>
+                                                <p>{{$proyecto->recibos_archivo->observaciones == '' ? "Sin observaciones..." : $proyecto->recibos_archivo->observaciones}}</p>
                                             </div>
                                             <div class="col-lg-12">
                                                 <h5 class="card-title">Cotización</h5>
@@ -174,7 +177,7 @@
                                                             @forelse ($proyecto->documentos as $document_data)
                                                                 <tr>
                                                                     <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">
-                                                                        <a target="_blank" href="{{url($document_data->storage)}}">
+                                                                        <a class="text-info" target="_blank" href="{{url($document_data->storage)}}">
                                                                             {{$document_data->nombre}}
                                                                         </a>
                                                                     </td>
@@ -198,11 +201,11 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Expediente</h5>
-                                        <p class="mb-0"><span class="font-weight-bold">Escritura:</span> {{$proyecto->numero_escritura}}</p>
-                                        <p class="mb-0"><span class="font-weight-bold">Folios:</span> {{$proyecto->folio_inicio}} - {{$proyecto->folio_fin}}</p>
-                                        <p class="mb-0"><span class="font-weight-bold">Volumen:</span> {{$proyecto->volumen}}</p>
-                                        <p class="mb-0"><span class="font-weight-bold">Cliente:</span> {{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</p>
-                                        <p class="mb-0"><span class="font-weight-bold">Abogado:</span> {{$proyecto->abogado->name}} {{$proyecto->abogado->apaterno}} {{$proyecto->abogado->amaterno}}</p>
+                                        <p class="mb-0"><strong class="font-weight-bold">Escritura:</strong> {{$proyecto->numero_escritura}}</p>
+                                        <p class="mb-0"><strong class="font-weight-bold">Folios:</strong> {{$proyecto->folio_inicio}} - {{$proyecto->folio_fin}}</p>
+                                        <p class="mb-0"><strong class="font-weight-bold">Volumen:</strong> {{$proyecto->volumen}}</p>
+                                        <p class="mb-0"><strong class="font-weight-bold">Cliente:</strong> {{$proyecto->cliente->nombre}} {{$proyecto->cliente->apaterno}} {{$proyecto->cliente->amaterno}}</p>
+                                        <p class="mb-0"><strong class="font-weight-bold">Abogado:</strong> {{$proyecto->abogado->name}} {{$proyecto->abogado->apaterno}} {{$proyecto->abogado->amaterno}}</p>
                                     </div>
                                 </div>
                             </div>

@@ -77,7 +77,13 @@
                         @endcan
                         @can('ver-partes-proyecto')
                             <li class="nav-item" role="presentation">
-                                <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">Partes</button>
+                                <button wire:ignore.self class="nav-link" id="partes-tab" data-bs-toggle="tab" data-bs-target="#partes-tab-pane" type="button" role="tab" aria-controls="partes-tab-pane" aria-selected="false">
+                                    @if (isset($proyecto_activo->servicio->partes) && count($proyecto_activo->servicio->partes) <= count($proyecto_activo->partes))
+                                        Partes <i class="fa-solid fa-check text-success"></i>
+                                    @else
+                                        Partes <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                    @endif
+                                </button>
                             </li>
                         @endcan
                         @can('ver-anticipos-proyecto')
