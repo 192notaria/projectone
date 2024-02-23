@@ -116,7 +116,7 @@ class Actas extends Component
             "escrituras" =>
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%2%');
+                    $serv->where('tipo_id',  2);
                 })
                 // ->where('status', '!=',
                 // ->where('status', 0)

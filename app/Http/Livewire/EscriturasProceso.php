@@ -121,7 +121,7 @@ class EscriturasProceso extends Component
             "escrituras" =>
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 1);
+                    $serv->where('tipo_id', 1);
                 })
                 // ->where('status', '!=', 5)
                 // ->where('status', 0)

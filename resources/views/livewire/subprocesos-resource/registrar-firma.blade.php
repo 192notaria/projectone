@@ -27,7 +27,7 @@
                     <button wire:click='registrarFecha' class="btn btn-outline-success">Agregar fecha</button>
                 </div>
             @endif
-            @if (count($fechas_registradas) > 0)
+            @if (isset($fechas_registradas) && count($fechas_registradas) > 0)
                 <div class="col-lg-12 mt-2 table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -65,7 +65,7 @@
     </div>
     <div class="card-footer">
         <div class="col-lg-12 mt-3">
-            @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && count($fechas_registradas) > 0)
+            @if (!$subproceso_activo->avance( $proyecto_id, $sub->proceso_id ) && isset($fechas_registradas) && count($fechas_registradas) > 0)
                 <button wire:click='guardarAvance' class="btn btn-outline-success">
                     Guardar avance
                 </button>

@@ -14,7 +14,7 @@ class ExpedientesArchivadosPoderes extends Component
         return view('livewire.expedientes-archivados-poderes', [
             "archivados" => ExpedientesArchivados::orderBy("id", "ASC")
             ->whereHas('escritura.servicio.tipo_acto', function(Builder $serv){
-                $serv->where('id', "%3%");
+                $serv->where('tipo_id', 3);
             })
             ->get(),
         ]);

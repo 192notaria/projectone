@@ -10,10 +10,10 @@ class ExpedientesArchivadosRatificaciones extends Component
 {
     public function render()
     {
-        return view('livewire.expedientes-archivados-ratificaciones',[
+        return view('livewire.expedientes-archivados-ratificaciones', [
             "archivados" => ExpedientesArchivados::orderBy("id", "ASC")
             ->whereHas('escritura.servicio.tipo_acto', function(Builder $serv){
-                $serv->where('id', "%4%");
+                $serv->where('tipo_id', 4);
             })
             ->get(),
         ]);

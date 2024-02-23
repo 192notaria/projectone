@@ -114,7 +114,7 @@ class Ratificaciones extends Component
             "escrituras" =>
                 Proyectos::orderBy("numero_escritura", "ASC")
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%4%');
+                    $serv->where('tipo_id', 4);
                 })
                 // ->where('status', '!=',
                 // ->where('status', 0)
