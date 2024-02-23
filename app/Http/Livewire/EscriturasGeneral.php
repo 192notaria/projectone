@@ -68,7 +68,7 @@ class EscriturasGeneral extends Component
             "escrituras" => !$this->ver_egresos_faltantes ? Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("numero_escritura", "!=", null)
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                    $serv->where('tipo_id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
                 ->where(function($query){
                     $query->whereHas('cliente', function($q){
@@ -88,7 +88,7 @@ class EscriturasGeneral extends Component
                 ->paginate($this->cantidadEscrituras) : Proyectos::orderBy("numero_escritura", "ASC")
                 ->where("numero_escritura", "!=", null)
                 ->whereHas('servicio.tipo_acto', function(Builder $serv){
-                    $serv->where('id', 'LIKE', '%'. $this->tipo_acto_id .'%');
+                    $serv->where('tipo_id', 'LIKE', '%'. $this->tipo_acto_id .'%');
                 })
                 ->whereHas('egresos_data', function(Builder $egresos){
                     $egresos->whereNull('path');

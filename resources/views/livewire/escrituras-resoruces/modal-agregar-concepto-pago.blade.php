@@ -11,9 +11,7 @@
                         <select class="form-select" wire:model='concepto_costo_id'>
                             <option value="" selected disabled>Seleccionar...</option>
                                 @foreach ($catalogo_conceptos as $concepto)
-                                    @if ($concepto->descripcion != "Honorarios")
-                                        <option value="{{$concepto->id}}">{{$concepto->descripcion}}</option>
-                                    @endif
+                                    <option value="{{$concepto->id}}">{{$concepto->descripcion}}</option>
                                 @endforeach
                         </select>
                     </div>

@@ -202,7 +202,7 @@
                             @enderror
                         </div>
                     @endif
-                    <div class="col-lg-12 mt-4">
+                    {{-- <div class="col-lg-12 mt-4">
                         <div class="form-group">
                             <label for="">Honorarios</label>
                             <input type="number" class="form-control" placeholder="$0.0" wire:model='acto_honorarios'>
@@ -210,7 +210,7 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12 mb-2 mt-2">
                         <div class="row">
                             @if ($conceptos_pago)

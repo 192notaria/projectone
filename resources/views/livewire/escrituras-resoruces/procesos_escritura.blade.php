@@ -48,18 +48,31 @@
                         @can('ver-general-proyecto')
                             <li class="nav-item" role="presentation">
                                 <button wire:ignore.self class="nav-link" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-tab-pane" type="button" role="tab" aria-controls="general-tab-pane" aria-selected="false">
-                                    @if (isset($proyecto_activo->id) &&
-                                        $proyecto_activo->numero_escritura &&
-                                        $proyecto_activo->volumen &&
-                                        $proyecto_activo->folio_inicio &&
-                                        $proyecto_activo->folio_fin &&
-                                        $proyecto_activo->servicio_id &&
-                                        $proyecto_activo->cliente_id &&
-                                        $proyecto_activo->usuario_id
-                                    )
-                                        General  <i class="fa-solid fa-check text-success"></i>
-                                    @else
-                                        General <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                    @if (isset($proyecto_activo->id))
+                                        @if ($proyecto_activo->servicio->tipo_acto->id != 4)
+                                            @if ($proyecto_activo->numero_escritura &&
+                                                $proyecto_activo->volumen &&
+                                                $proyecto_activo->folio_inicio &&
+                                                $proyecto_activo->folio_fin &&
+                                                $proyecto_activo->servicio_id &&
+                                                $proyecto_activo->cliente_id &&
+                                                $proyecto_activo->usuario_id
+                                            )
+                                                General  <i class="fa-solid fa-check text-success"></i>
+                                            @else
+                                                General <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                            @endif
+                                        @else
+                                            @if ($proyecto_activo->numero_escritura &&
+                                                $proyecto_activo->servicio_id &&
+                                                $proyecto_activo->cliente_id &&
+                                                $proyecto_activo->usuario_id
+                                            )
+                                                General  <i class="fa-solid fa-check text-success"></i>
+                                            @else
+                                                General <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                                            @endif
+                                        @endif
                                     @endif
                                 </button>
                             </li>
