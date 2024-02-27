@@ -23,6 +23,9 @@
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->apaterno}}
                     {{$proyecto_activo->recibos_archivo->usuario_entrega->amaterno}}
                 </p>
+                <p>
+                    {{$proyecto_activo->recibos_archivo->created_at}}
+                </p>
             @else
                 <a href="#" wire:click='abrirModalArchivarEscFirma(0)'>
                     <div class="card bg-success">
@@ -46,17 +49,22 @@
                     {{$proyecto_activo->recibos_archivo->usuario_recibe->apaterno}}
                     {{$proyecto_activo->recibos_archivo->usuario_recibe->amaterno}}
                 </p>
+                <p>
+                    {{$proyecto_activo->recibos_archivo->updated_at}}
+                </p>
             @else
-                <a href="#" wire:click='abrirModalArchivarEscFirma(1)'>
-                    <div class="card bg-danger">
-                        <div class="card-body">
-                            <h5 class="card-title">Firma recepción<i class="fa-solid fa-box-archive"></i></h5>
-                            <p class="mb-0 text-white">
-                                Debe firmar la persona o abogado que recibe este expediente para su archivo
-                            </p>
+                @if (isset($proyecto_activo->recibos_archivo->usuario_entrega_id))
+                    <a href="#" wire:click='abrirModalArchivarEscFirma(1)'>
+                        <div class="card bg-danger">
+                            <div class="card-body">
+                                <h5 class="card-title">Firma recepción<i class="fa-solid fa-box-archive"></i></h5>
+                                <p class="mb-0 text-white">
+                                    Debe firmar la persona o abogado que recibe este expediente para su archivo
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                @endif
             @endif
         </div>
     @endif
