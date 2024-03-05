@@ -47,11 +47,17 @@
                     <div class="timeline-item-description">
                         <span class="align-self-center">
                             Cliente:
-                            <span class="badge bg-light-primary">
-                                {{$proyecto_activo->cliente->nombre}}
-                                {{$proyecto_activo->cliente->apaterno}}
-                                {{$proyecto_activo->cliente->amaterno}}
-                            </span>
+                            @if (isset($proyecto_activo->cliente->nombre))
+                                <span class="badge bg-light-primary">
+                                    {{$proyecto_activo->cliente->nombre}}
+                                    {{$proyecto_activo->cliente->apaterno}}
+                                    {{$proyecto_activo->cliente->amaterno}}
+                                </span>
+                            @else
+                                <span class="badge bg-light-danger">
+                                    Sin cliente asignado
+                                </span>
+                            @endif
                         </span>
                     </div>
                 </li>
@@ -63,15 +69,17 @@
                         <div class="timeline-item-description">
                             <span class="align-self-center">
                                 Abogado:
-                                <span class="badge bg-light-primary">
-                                    @if (isset($proyecto_activo->abogado->name))
+                                @if (isset($proyecto_activo->abogado->name))
+                                    <span class="badge bg-light-primary">
                                         {{$proyecto_activo->abogado->name}}
                                         {{$proyecto_activo->abogado->apaterno}}
                                         {{$proyecto_activo->abogado->amaterno}}
-                                    @else
+                                    </span>
+                                @else
+                                    <span class="badge bg-light-danger">
                                         Sin abogado asignado
-                                    @endif
-                                </span>
+                                    </span>
+                                @endif
                             </span>
                         </div>
                         <div class="comment">

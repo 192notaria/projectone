@@ -99,7 +99,7 @@
                                     Sin observaciones...
                                     {{-- {{$archivado->observaciones}} --}}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <form action="/expediente/{{$archivado->proyecto_id}}">
                                         <button class="btn btn-outline-dark" type="submit">
                                             <i class="fa-solid fa-magnifying-glass"></i>

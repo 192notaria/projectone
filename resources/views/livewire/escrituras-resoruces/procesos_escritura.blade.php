@@ -8,7 +8,13 @@
                         @if (isset($proyecto_activo->cliente) && $proyecto_activo->cliente->tipo_cliente == 'Persona Moral')
                             {{$proyecto_activo->cliente->razon_social ?? ""}} - {{$proyecto_activo->cliente->admin_unico ?? ""}}
                         @else
-                            {{$proyecto_activo->cliente->nombre ?? ""}} {{$proyecto_activo->cliente->apaterno ?? ""}} {{$proyecto_activo->cliente->amaterno ?? ""}}
+                            @if (isset($proyecto_activo->cliente->nombre))
+                                {{$proyecto_activo->cliente->nombre ?? ""}}
+                                {{$proyecto_activo->cliente->apaterno ?? ""}}
+                                {{$proyecto_activo->cliente->amaterno ?? ""}}
+                            @else
+                                Sin cliente asignado
+                            @endif
                         @endif
                     </li>
                     <li>Numero de Escritura: {{$proyecto_activo->numero_escritura ?? "S/N"}}</li>
