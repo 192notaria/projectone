@@ -1910,7 +1910,6 @@ public function removerParte($id){
             $recibo_archivos->usuario_recibe_id = Auth::User()->id;
         }
 
-
         $recibo_archivos->save();
         $this->resetProyect();
         return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");

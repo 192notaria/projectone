@@ -129,6 +129,9 @@
     @include("livewire.subprocesos-resource.modal-agregar-documentos")
     @include("livewire.escrituras-resoruces.modal-importar-recibo-pago")
     {{-- @include("livewire.modals-ignore-self.generar-qr") --}}
+    @include("livewire.escrituras-resoruces.modal-cotizaciones-registradas")
+    @include("livewire.escrituras-resoruces.modal-borrar-cotizacion-proyecto")
+    @include("livewire.escrituras-resoruces.modal-firmar-archivo")
 
     <script>
         var mx = 0;

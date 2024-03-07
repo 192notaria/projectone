@@ -15,9 +15,13 @@ use App\Models\Clientes;
 use App\Models\Cobros;
 use App\Models\Comisiones;
 use App\Models\Costos;
+use App\Models\CostosCotizaciones;
+use App\Models\Cotizaciones;
+use App\Models\CotizacionProyecto;
 use App\Models\Cuentas_bancarias;
 use App\Models\Documentos;
 use App\Models\Egresos;
+use App\Models\ExpedientesArchivados;
 use App\Models\Facturas;
 use App\Models\Firmas;
 use App\Models\Generales;
@@ -26,6 +30,7 @@ use App\Models\Partes;
 use App\Models\ProcesosServicios;
 use App\Models\Promotores;
 use App\Models\Proyectos;
+use App\Models\RecibosArchivos;
 use App\Models\RecibosPago;
 use App\Models\RegistroFirmas;
 use App\Models\Servicios;
@@ -179,6 +184,7 @@ class Ratificaciones extends Component
             : [],
             "tipo_docs" => SubprocesosCatalogos::orderBy("nombre", "ASC")->where("tipo_id", "6")->get(),
             "usuarios_anticipos" => User::orderBy("name", "ASC")->get(),
+            "cotizaciones" => Cotizaciones::orderBy("id", "ASC")->get(),
         ]);
     }
 
@@ -1700,5 +1706,190 @@ public function removerParte($id){
         $filename = "Compraventa plantilla";
         $templateprocessor->saveAs($filename . '.docx');
         return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+    }
+
+
+    function recibo_archivo(){
+        $fecha = date('d-m-Y', strtotime(now()));
+        $n_recibo = 's/n';
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $cliente = $proyecto->cliente->tipo_cliente == 'Persona Fisica' ? $proyecto->cliente->nombre . ' ' . $proyecto->cliente->apaterno . ' ' . $proyecto->cliente->amaterno : $proyecto->cliente->nombre;
+        $acto = $proyecto->servicio->nombre;
+        $abogado_cargo = $proyecto->abogado->name . ' ' . $proyecto->abogado->apaterno . ' ' . $proyecto->abogado->amaterno;
+        $abogado_telefono = $proyecto->abogado->telefono;
+        $abogado_correo = $proyecto->abogado->email;
+        $persona_nombre = Auth::user()->name . ' ' . Auth::user()->apaterno . ' ' . Auth::user()->amaterno;
+        // $descripcion_archivo = 'El siguiente expediente que tiene como acto: ' . $acto . ', con numero: ' . $proyecto->numero_escritura . ', para el cliente: ' . $cliente . ' tiene como abogado a cargo a ' . $abogado_cargo . ' y es recibido por ' . $usuario_recibe . '. Queda finalizado y archivado.';
+        $templateprocessor = new TemplateProcessor('word-template/recibo-archivo.docx');
+        $templateprocessor->setValue('fecha', $fecha);
+        $templateprocessor->setValue('abogado_cargo', $abogado_cargo);
+        $templateprocessor->setValue('abogado_telefono', $abogado_telefono);
+        $templateprocessor->setValue('abogado_correo', $abogado_correo);
+        $templateprocessor->setValue('persona_nombre', $persona_nombre);
+        $templateprocessor->setValue('persona_telefono', Auth::user()->telefono);
+        $templateprocessor->setValue('persona_correo', Auth::user()->email);
+        $templateprocessor->setValue('acto', $acto);
+        $templateprocessor->setValue('cliente', $cliente);
+        $templateprocessor->setValue('numero', $proyecto->numero_escritura);
+        $filename = "Recibo de Archivo";
+        $templateprocessor->saveAs($filename . '.docx');
+
+          /* Set the PDF Engine Renderer Path */
+        $domPdfPath = base_path('vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+
+        //Load word file
+        $Content = \PhpOffice\PhpWord\IOFactory::load(public_path($filename . '.docx'));
+
+        //Save it into PDF
+        $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
+        $PDFWriter->save(public_path('Recibo de archivo PDF.pdf'));
+
+
+        // return response()->download($filename . ".docx")->deleteFileAfterSend(true);
+    }
+
+    public $reciboArchivo;
+    function abrirModalArchivar(){
+        return $this->dispatchBrowserEvent("abrir-modal-archivar");
+    }
+
+    function cerrarModalArchivar(){
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar");
+    }
+
+    function archivarExpediente(){
+        $recibosArchivos = new RecibosArchivos();
+        $proyecto = Proyectos::find($this->proyecto_activo['id']);
+        $path_pdf = "/uploads/recibos_archivo/recibo_escritura_" . str_replace(" ", "_", $proyecto->numero_escritura);
+        $store_pdf = $this->reciboArchivo->storeAs(mb_strtolower($path_pdf), $proyecto->numero_escritura . "_" . time() . "." . $this->reciboArchivo->extension(), 'public');
+        $recibosArchivos->path = $store_pdf;
+        $recibosArchivos->proyecto_id = $proyecto->id;
+        $recibosArchivos->save();
+
+        $this->reciboArchivo = '';
+
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar");
+    }
+
+    public function abrirModalCotizacionesRegistradas(){
+        return $this->dispatchBrowserEvent("abrir-modal-cotizacionesRegistradas");
+    }
+
+    public function cerrarModalCotizacionesRegistradas(){
+        return $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
+    }
+
+    public $cotizacion_id = '';
+    public $cotizacion_data = [];
+    public $cotizacion_data_costos;
+    public $cotizacion_data_version;
+    public $cotizacion_version_id = '';
+
+    public function cargarCotizacion(){
+        $this->cotizacion_data = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->distinct('version')->orderBy("created_at", "ASC")->get();
+        $this->cotizacion_data_version = $this->cotizacion_data->unique("version");
+        // $this->cotizacion_data = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->where("version", $value->version)->get();
+    }
+
+    public function seleccionarVersion(){
+        $this->cotizacion_data_costos = CostosCotizaciones::where("cotizaciones_id", $this->cotizacion_id)->where("version", $this->cotizacion_version_id)->get();
+    }
+
+    public function vincular_cotizacion(){
+        foreach ($this->cotizacion_data_costos as $value) {
+            $costo = new CotizacionProyecto();
+            $costo->concepto_id = $value->concepto_id;
+            $costo->subtotal = $value->subtotal;
+            $costo->impuestos = $value->impuesto;
+            $costo->gestoria = $value->gestoria;
+            $costo->observaciones = $value->observaciones;
+            $costo->proyecto_id = $this->proyecto_activo['id'];
+            $costo->save();
+        }
+
+        $this->cotizacion_id = '';
+        $this->cotizacion_data = [];
+        $this->cotizacion_data_costos = '';
+        $this->cotizacion_data_version = '';
+        $this->cotizacion_version_id = '';
+        $this->resetProyect();
+
+        $this->dispatchBrowserEvent("cerrar-modal-cotizacionesRegistradas");
+        return $this->dispatchBrowserEvent("success-notify", "Cotizacion vinculada");
+    }
+
+    public function abrirModalBorrarCotizacion(){
+        return $this->dispatchBrowserEvent("abrir-modal-borrarCotizacionesRegistradas");
+    }
+
+    public function cerrarModalBorrarCotizacion(){
+        return $this->dispatchBrowserEvent("cerrar-modal-borrarCotizacionesRegistradas");
+    }
+
+    public function borrarCotizacionProyecto(){
+        $proyecto_id = $this->proyecto_activo['id'];
+        CotizacionProyecto::where('proyecto_id', $proyecto_id)->delete();
+        $this->cerrarModalBorrarCotizacion();
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("success-notify", "Cotizacion removida");
+    }
+
+    public $firma_tipo;
+    public function abrirModalArchivarEscFirma($firma_tipo){
+        $this->firma_tipo = $firma_tipo;
+        return $this->dispatchBrowserEvent("abrir-modal-archivar-escritura-firma");
+    }
+
+    public $usuario_archivo_recibe_id = 0;
+    public $usuario_recibe_id = '';
+
+    public function guardarFirma($firma){
+        $image_64 = $firma;
+        // $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64);
+        $image = str_replace(' ', '+', $image);
+
+        $imageName = $this->firma_tipo == 0 ? 'firma_abogado_entrega_' . $this->proyecto_activo['id'] . '.png' : 'firma_abogado_recibe_' . $this->proyecto_activo['id'] . '.png';
+        Storage::disk('firmas_archivos')->put($imageName, base64_decode($image));
+
+        $buscar_archivo = RecibosArchivos::where('proyecto_id', $this->proyecto_activo['id'])->first();
+
+        if($buscar_archivo){
+            $recibo_archivos = RecibosArchivos::find($buscar_archivo->id);
+            if($this->firma_tipo == 0){
+                $recibo_archivos->usuario_entrega_id = Auth::User()->id;
+            }
+
+            if($this->firma_tipo == 1){
+                $recibo_archivos->usuario_recibe_id = Auth::User()->id;
+            }
+
+            if($recibo_archivos->usuario_recibe_id && $recibo_archivos->usuario_entrega_id){
+                $expediente_archivado = new ExpedientesArchivados();
+                $expediente_archivado->proyecto_id = $this->proyecto_activo['id'];
+                $expediente_archivado->save();
+            }
+
+            $recibo_archivos->save();
+            $this->resetProyect();
+            return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
+        }
+
+        $recibo_archivos = new RecibosArchivos();
+        $recibo_archivos->proyecto_id = $this->proyecto_activo['id'];
+        if($this->firma_tipo == 0){
+            $recibo_archivos->usuario_entrega_id = Auth::User()->id;
+        }
+
+        if($this->firma_tipo == 1){
+            $recibo_archivos->usuario_recibe_id = Auth::User()->id;
+        }
+
+        $recibo_archivos->save();
+        $this->resetProyect();
+        return $this->dispatchBrowserEvent("cerrar-modal-archivar-escritura-firma");
     }
 }
