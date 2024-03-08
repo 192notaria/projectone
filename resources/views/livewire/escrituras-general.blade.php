@@ -135,7 +135,13 @@
                                 </td>
                                 <td>
                                     @if (isset($escritura->cliente->nombre))
-                                        <span class="fw-bold">Cliente: </span> {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}
+                                        @if ($escritura->cliente->tipo_cliente == 'Persona Fisica')
+                                            <span class="fw-bold">Cliente: </span> {{$escritura->cliente->nombre}} {{$escritura->cliente->apaterno}} {{$escritura->cliente->amaterno}}
+                                        @elseif ($escritura->cliente->tipo_cliente == 'Persona Moral')
+                                            <span class="fw-bold">Cliente: </span> {{$escritura->cliente->razon_social}}
+                                        @else
+                                            <span class="fw-bold">Cliente: </span> <span class="text-danger">Sin cliente registrado</span>
+                                        @endif
                                     @else
                                         <span class="fw-bold">Cliente: </span> <span class="text-danger">Sin cliente registrado</span>
                                     @endif

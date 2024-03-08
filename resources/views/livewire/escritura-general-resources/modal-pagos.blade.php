@@ -8,7 +8,13 @@
                 <ul>
                     <li>Acto: <span class="fw-bold">{{$escritura_activa->servicio->nombre ?? ""}}</span></li>
                     <li>Numero de escritura: <span class="fw-bold">{{$escritura_activa->numero_escritura ?? "S/N"}}</span></li>
-                    <li>Cliente: <span class="fw-bold">{{$escritura_activa->cliente->nombre ?? "S/N"}} {{$escritura_activa->cliente->apaterno ?? "S/N"}} {{$escritura_activa->cliente->amaterno ?? "S/N"}}</span></li>
+                    @if ($escritura_activa->cliente->tipo_cliente == 'Persona Fisica')
+                        <li>Cliente: <span class="fw-bold">{{$escritura_activa->cliente->nombre ?? "S/N"}} {{$escritura_activa->cliente->apaterno ?? "S/N"}} {{$escritura_activa->cliente->amaterno ?? "S/N"}}</span></li>
+                    @elseif ($escritura_activa->cliente->tipo_cliente == 'Persona Moral')
+                        <li>Cliente: <span class="fw-bold">{{$escritura_activa->cliente->razon_social ?? "S/N"}}
+                    @else
+                        <li>Cliente: <span class="fw-bold">Sin cliente registrado</span></li>
+                    @endif
                     <li>Fecha: <span class="fw-bold">{{$escritura_activa->created_at ?? "S/N"}}</span></li>
                 </ul>
             </div>
